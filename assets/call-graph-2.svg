@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="950" height="380" viewBox="0 0 950 380" xmlns="http://www.w3.org/2000/svg">
+<rect x="0" y="0" width="950" height="380" fill="#06090f"/>
+<!-- Background -->
+<rect width="950" height="380" fill="#06090f"/>
+
+<!-- Title -->
+<text x="475" y="25" text-anchor="middle" fill="#58a6ff" font-family="monospace" font-size="14" font-weight="bold">Per-Frame Rendering Pipeline</text>
+
+<!-- Raster IRQ -->
+<rect x="370" y="50" width="210" height="36" rx="4" fill="#1a3c34" stroke="#2a6c44" stroke-width="2"/>
+<text x="475" y="73" text-anchor="middle" fill="#3fb950" font-family="monospace" font-size="12" font-weight="bold">Raster IRQ $E4xx</text>
+
+<!-- Main Loop -->
+<rect x="370" y="105" width="210" height="32" rx="4" fill="#1a3c34" stroke="#2a6c44" stroke-width="1"/>
+<text x="475" y="125" text-anchor="middle" fill="#3fb950" font-family="monospace" font-size="11">Main Loop $26FA</text>
+
+<!-- Rendering Manager -->
+<rect x="320" y="155" width="310" height="36" rx="4" fill="#3d2b1f" stroke="#6d5b3f" stroke-width="2"/>
+<text x="475" y="178" text-anchor="middle" fill="#d29922" font-family="monospace" font-size="12" font-weight="bold">Rendering Manager $3E17</text>
+
+<!-- Rendering steps -->
+<rect x="30" y="215" width="200" height="28" rx="3" fill="#4a1942" stroke="#6a3962" stroke-width="1"/>
+<text x="130" y="234" text-anchor="middle" fill="#e060c0" font-family="monospace" font-size="10">Clear Screen Buffer</text>
+
+<rect x="250" y="215" width="200" height="28" rx="3" fill="#4a1942" stroke="#6a3962" stroke-width="1"/>
+<text x="350" y="234" text-anchor="middle" fill="#e060c0" font-family="monospace" font-size="10">Draw Star Field $2741</text>
+
+<rect x="470" y="215" width="200" height="28" rx="3" fill="#4a1942" stroke="#6a3962" stroke-width="1"/>
+<text x="570" y="234" text-anchor="middle" fill="#e060c0" font-family="monospace" font-size="10">Draw Planets $2310</text>
+
+<rect x="690" y="215" width="200" height="28" rx="3" fill="#4a1942" stroke="#6a3962" stroke-width="1"/>
+<text x="790" y="234" text-anchor="middle" fill="#e060c0" font-family="monospace" font-size="10">Update Sprites $D018+</text>
+
+<!-- Second row -->
+<rect x="30" y="265" width="200" height="28" rx="3" fill="#4a1942" stroke="#6a3962" stroke-width="1"/>
+<text x="130" y="284" text-anchor="middle" fill="#e060c0" font-family="monospace" font-size="10">Draw UI $330E</text>
+
+<rect x="250" y="265" width="200" height="28" rx="3" fill="#4a1942" stroke="#6a3962" stroke-width="1"/>
+<text x="350" y="284" text-anchor="middle" fill="#e060c0" font-family="monospace" font-size="10">Text Output $4127</text>
+
+<rect x="470" y="265" width="200" height="28" rx="3" fill="#4a1942" stroke="#6a3962" stroke-width="1"/>
+<text x="570" y="284" text-anchor="middle" fill="#e060c0" font-family="monospace" font-size="10">Sound Effects $6444</text>
+
+<rect x="690" y="265" width="200" height="28" rx="3" fill="#4a1942" stroke="#6a3962" stroke-width="1"/>
+<text x="790" y="284" text-anchor="middle" fill="#e060c0" font-family="monospace" font-size="10">Border Color $D011</text>
+
+<!-- Arrows -->
+<line x1="475" y1="86" x2="475" y2="105" stroke="#3fb950" stroke-width="1.5"/>
+<line x1="475" y1="137" x2="475" y2="155" stroke="#3fb950" stroke-width="1.5"/>
+<line x1="475" y1="191" x2="130" y2="215" stroke="#e060c0" stroke-width="1"/>
+<line x1="475" y1="191" x2="350" y2="215" stroke="#e060c0" stroke-width="1"/>
+<line x1="475" y1="191" x2="570" y2="215" stroke="#e060c0" stroke-width="1"/>
+<line x1="475" y1="191" x2="790" y2="215" stroke="#e060c0" stroke-width="1"/>
+<line x1="130" y1="243" x2="130" y2="265" stroke="#e060c0" stroke-width="1"/>
+<line x1="350" y1="243" x2="350" y2="265" stroke="#e060c0" stroke-width="1"/>
+<line x1="570" y1="243" x2="570" y2="265" stroke="#e060c0" stroke-width="1"/>
+<line x1="790" y1="243" x2="790" y2="265" stroke="#e060c0" stroke-width="1"/>
+
+<!-- Legend -->
+<text x="475" y="330" text-anchor="middle" fill="#666" font-family="monospace" font-size="10">Each frame: Raster IRQ fires → Main Loop → Rendering Manager → 8 rendering steps</text>
+<text x="475" y="350" text-anchor="middle" fill="#666" font-family="monospace" font-size="10">$4127 (text output) is the most called routine at 84 calls per frame - dominates rendering time</text>
+<text x="475" y="370" text-anchor="middle" fill="#666" font-family="monospace" font-size="10">Border color changes: blue (normal) → red (combat) → yellow (radiation)</text>
+</svg>
+

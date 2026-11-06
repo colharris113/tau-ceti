@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 500 380" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto">
+<rect x="0" y="0" width="500" height="380" fill="#06090f"/>
+<!-- Building Type A: Main Building (large rectangle) -->
+<text x="60" y="18" text-anchor="middle" fill="#38bdf8" font-size="9" font-family="monospace">Type A - Main Building</text>
+<rect x="25" y="25" width="70" height="50" fill="#111827" stroke="#38bdf8" stroke-width="1.5" rx="2"/>
+<line x1="35" y1="40" x2="85" y2="40" stroke="#38bdf8" stroke-width=".5"/>
+<line x1="35" y1="50" x2="85" y2="50" stroke="#38bdf8" stroke-width=".5"/>
+<line x1="35" y1="60" x2="85" y2="60" stroke="#38bdf8" stroke-width=".5"/>
+<line x1="35" y1="70" x2="85" y2="70" stroke="#38bdf8" stroke-width=".5"/>
+<rect x="55" y="60" width="10" height="15" fill="#38bdf8" opacity=".3"/>
+<text x="60" y="95" text-anchor="middle" fill="#64748b" font-size="6" font-family="monospace">Dockable</text>
+
+<!-- Building Type B: Reactor Station (square with antenna) -->
+<text x="185" y="18" text-anchor="middle" fill="#ef4444" font-size="9" font-family="monospace">Type B - Reactor Station</text>
+<rect x="150" y="25" width="60" height="50" fill="#111827" stroke="#ef4444" stroke-width="1.5" rx="2"/>
+<line x1="180" y1="15" x2="180" y2="25" stroke="#ef4444" stroke-width="1.5"/>
+<circle cx="180" cy="13" r="3" fill="#ef4444" opacity=".6"/>
+<line x1="155" y1="35" x2="205" y2="35" stroke="#ef4444" stroke-width=".5"/>
+<line x1="155" y1="45" x2="205" y2="45" stroke="#ef4444" stroke-width=".5"/>
+<line x1="155" y1="55" x2="205" y2="55" stroke="#ef4444" stroke-width=".5"/>
+<line x1="155" y1="65" x2="205" y2="65" stroke="#ef4444" stroke-width=".5"/>
+<rect x="170" y="60" width="20" height="15" fill="#ef4444" opacity=".3"/>
+<text x="180" y="95" text-anchor="middle" fill="#64748b" font-size="6" font-family="monospace">Contains Rod Parts</text>
+
+<!-- Building Type C: Military Base (large with turrets) -->
+<text x="310" y="18" text-anchor="middle" fill="#ef4444" font-size="9" font-family="monospace">Type C - Military Base</text>
+<rect x="275" y="25" width="70" height="50" fill="#111827" stroke="#ef4444" stroke-width="1.5" rx="2"/>
+<polygon points="275,30 268,22 275,22" fill="#ef4444"/>
+<polygon points="345,30 352,22 345,22" fill="#ef4444"/>
+<line x1="280" y1="40" x2="340" y2="40" stroke="#ef4444" stroke-width=".5"/>
+<line x1="280" y1="50" x2="340" y2="50" stroke="#ef4444" stroke-width=".5"/>
+<line x1="280" y1="60" x2="340" y2="60" stroke="#ef4444" stroke-width=".5"/>
+<text x="310" y="95" text-anchor="middle" fill="#64748b" font-size="6" font-family="monospace">Hostile - Fires Turrets</text>
+
+<!-- Building Type D: Civil Base (medium, friendly) -->
+<text x="435" y="18" text-anchor="middle" fill="#34d399" font-size="9" font-family="monospace">Type D - Civil Base</text>
+<rect x="400" y="25" width="60" height="50" fill="#111827" stroke="#34d399" stroke-width="1.5" rx="2"/>
+<line x1="405" y1="35" x2="455" y2="35" stroke="#34d399" stroke-width=".5"/>
+<line x1="405" y1="45" x2="455" y2="45" stroke="#34d399" stroke-width=".5"/>
+<line x1="405" y1="55" x2="455" y2="55" stroke="#34d399" stroke-width=".5"/>
+<rect x="420" y="60" width="20" height="15" fill="#34d399" opacity=".3"/>
+<text x="430" y="95" text-anchor="middle" fill="#64748b" font-size="6" font-family="monospace">EQUIP Available</text>
+
+<!-- Row 2 -->
+<!-- Type E: Gal-Corp Lander (small, distinctive) -->
+<text x="60" y="128" text-anchor="middle" fill="#f59e0b" font-size="9" font-family="monospace">Type E - Gal-Corp Lander</text>
+<polygon points="60,135 45,170 75,170" fill="#111827" stroke="#f59e0b" stroke-width="1.5"/>
+<line x1="55" y1="155" x2="65" y2="155" stroke="#f59e0b" stroke-width=".5"/>
+<text x="60" y="185" text-anchor="middle" fill="#64748b" font-size="6" font-family="monospace">LAUNCH Command</text>
+
+<!-- Type F: Jump Pad (circle) -->
+<text x="185" y="128" text-anchor="middle" fill="#f59e0b" font-size="9" font-family="monospace">Type F - Jump Pad</text>
+<circle cx="185" cy="155" r="16" fill="none" stroke="#f59e0b" stroke-width="2"/>
+<circle cx="185" cy="155" r="6" fill="#f59e0b" opacity=".3"/>
+<line x1="169" y1="155" x2="201" y2="155" stroke="#f59e0b" stroke-width=".8"/>
+<line x1="185" y1="139" x2="185" y2="171" stroke="#f59e0b" stroke-width=".8"/>
+<text x="185" y="185" text-anchor="middle" fill="#64748b" font-size="6" font-family="monospace">Teleport Key: J</text>
+
+<!-- Type G: Fortress (large, complex) -->
+<text x="310" y="128" text-anchor="middle" fill="#ef4444" font-size="9" font-family="monospace">Type G - Fortress</text>
+<rect x="275" y="135" width="70" height="50" fill="#111827" stroke="#ef4444" stroke-width="2" rx="2"/>
+<polygon points="275,135 265,125 275,135" fill="#ef4444"/>
+<polygon points="345,135 355,125 345,135" fill="#ef4444"/>
+<polygon points="275,185 265,195 275,185" fill="#ef4444"/>
+<polygon points="345,185 355,195 345,185" fill="#ef4444"/>
+<line x1="280" y1="148" x2="340" y2="148" stroke="#ef4444" stroke-width=".5"/>
+<line x1="280" y1="160" x2="340" y2="160" stroke="#ef4444" stroke-width=".5"/>
+<line x1="280" y1="172" x2="340" y2="172" stroke="#ef4444" stroke-width=".5"/>
+<text x="310" y="205" text-anchor="middle" fill="#64748b" font-size="6" font-family="monospace">MK3 + Guardian Crawlers</text>
+
+<!-- Type H: Control Tower (tall, thin) -->
+<text x="435" y="128" text-anchor="middle" fill="#a855f7" font-size="9" font-family="monospace">Type H - Control Tower</text>
+<rect x="428" y="135" width="14" height="50" fill="#111827" stroke="#a855f7" stroke-width="1.5" rx="1"/>
+<line x1="420" y1="140" x2="442" y2="140" stroke="#a855f7" stroke-width=".5"/>
+<line x1="420" y1="150" x2="442" y2="150" stroke="#a855f7" stroke-width=".5"/>
+<line x1="420" y1="160" x2="442" y2="160" stroke="#a855f7" stroke-width=".5"/>
+<circle cx="435" cy="133" r="3" fill="#a855f7" opacity=".6"/>
+<text x="435" y="205" text-anchor="middle" fill="#64748b" font-size="6" font-family="monospace">Navigation Hub</text>
+
+<!-- Storage legend -->
+<rect x="10" y="240" width="480" height="125" fill="none" stroke="#1e293b" stroke-width="1" rx="4"/>
+<text x="250" y="260" text-anchor="middle" fill="#f59e0b" font-size="10" font-family="monospace" font-weight="bold">Building Data Storage</text>
+<text x="30" y="280" fill="#c9d1d9" font-size="7.5" font-family="monospace">Each building record in the D64 contains: type byte (1-8), position (X,Y), flags (hostile/dockable/special), and pointer to graphics data.</text>
+<text x="30" y="297" fill="#c9d1d9" font-size="7.5" font-family="monospace">The game renders buildings by reading the type byte, then fetching the corresponding bitmap from the building graphics table. Hostile buildings (type B, C, G) fire turrets when approached.</text>
+<text x="30" y="314" fill="#c9d1d9" font-size="7.5" font-family="monospace">Dockable types: A (Main), D (Civil), E (Lander), H (Control Tower). Rod parts found in Type B (Reactor) buildings. EQUIP works at Types D and E.</text>
+<text x="30" y="331" fill="#c9d1d9" font-size="7.5" font-family="monospace">The flickering DFP airlock pattern is rendered by alternating between two bitmap frames - open (transparent center) and closed (solid rectangle). This creates the characteristic flicker.</text>
+<text x="30" y="348" fill="#64748b" font-size="6.5" font-family="monospace">Source: Tau Ceti - C64-Wiki.pdf building screenshots + D64 offset $14F00+ data analysis</text>
+<text x="30" y="365" fill="#64748b" font-size="6.5" font-family="monospace">Building graphics are stored as 8x8 character bitmaps using the custom charset at RAM $8412-$85FF.</text>
+</svg>
+

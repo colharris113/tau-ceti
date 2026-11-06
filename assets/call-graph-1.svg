@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="950" height="520" viewBox="0 0 950 520" xmlns="http://www.w3.org/2000/svg">
+<rect x="0" y="0" width="950" height="520" fill="#06090f"/>
+<!-- Background -->
+<rect width="950" height="520" fill="#06090f"/>
+
+<!-- Title -->
+<text x="475" y="25" text-anchor="middle" fill="#58a6ff" font-family="monospace" font-size="14" font-weight="bold">Main Game Loop - Call Graph</text>
+
+<!-- Main Loop Entry -->
+<rect x="350" y="45" width="250" height="36" rx="4" fill="#1a3c34" stroke="#2a6c44" stroke-width="2"/>
+<text x="475" y="68" text-anchor="middle" fill="#3fb950" font-family="monospace" font-size="12" font-weight="bold">MAIN LOOP $26FA</text>
+
+<!-- Loop Controller -->
+<rect x="350" y="100" width="250" height="32" rx="4" fill="#1a3c34" stroke="#2a6c44" stroke-width="1"/>
+<text x="475" y="120" text-anchor="middle" fill="#3fb950" font-family="monospace" font-size="11">Loop Controller $33F9</text>
+
+<!-- State Update -->
+<rect x="350" y="150" width="250" height="32" rx="4" fill="#1a3c34" stroke="#2a6c44" stroke-width="1"/>
+<text x="475" y="170" text-anchor="middle" fill="#3fb950" font-family="monospace" font-size="11">State Update $34EC</text>
+
+<!-- Mission Tracker -->
+<rect x="120" y="200" width="200" height="32" rx="4" fill="#2d4a1b" stroke="#4d6a3b" stroke-width="1"/>
+<text x="220" y="220" text-anchor="middle" fill="#3fb950" font-family="monospace" font-size="10">Mission Tracker $3D41</text>
+
+<!-- State Machine -->
+<rect x="370" y="200" width="210" height="32" rx="4" fill="#2d4a1b" stroke="#4d6a3b" stroke-width="1"/>
+<text x="475" y="220" text-anchor="middle" fill="#3fb950" font-family="monospace" font-size="10">State Machine $3500-$352F</text>
+
+<!-- Event Handler -->
+<rect x="610" y="200" width="200" height="32" rx="4" fill="#2d4a1b" stroke="#4d6a3b" stroke-width="1"/>
+<text x="710" y="220" text-anchor="middle" fill="#3fb950" font-family="monospace" font-size="10">Event Handler $3723</text>
+
+<!-- Rendering Manager -->
+<rect x="300" y="260" width="350" height="36" rx="4" fill="#3d2b1f" stroke="#6d5b3f" stroke-width="2"/>
+<text x="475" y="283" text-anchor="middle" fill="#d29922" font-family="monospace" font-size="12" font-weight="bold">Rendering Manager $3E17 (15 callers)</text>
+
+<!-- Sub-routines -->
+<rect x="40" y="320" width="160" height="28" rx="3" fill="#4a1942" stroke="#6a3962" stroke-width="1"/>
+<text x="120" y="339" text-anchor="middle" fill="#e060c0" font-family="monospace" font-size="9">Star Field $2741</text>
+
+<rect x="220" y="320" width="160" height="28" rx="3" fill="#4a1942" stroke="#6a3962" stroke-width="1"/>
+<text x="300" y="339" text-anchor="middle" fill="#e060c0" font-family="monospace" font-size="9">Planet Render $2310</text>
+
+<rect x="400" y="320" width="160" height="28" rx="3" fill="#4a1942" stroke="#6a3962" stroke-width="1"/>
+<text x="480" y="339" text-anchor="middle" fill="#e060c0" font-family="monospace" font-size="9">Text Output $4127</text>
+
+<rect x="580" y="320" width="160" height="28" rx="3" fill="#4a1942" stroke="#6a3962" stroke-width="1"/>
+<text x="660" y="339" text-anchor="middle" fill="#e060c0" font-family="monospace" font-size="9">Screen Refresh $330E</text>
+
+<rect x="760" y="320" width="160" height="28" rx="3" fill="#4a1942" stroke="#6a3962" stroke-width="1"/>
+<text x="840" y="339" text-anchor="middle" fill="#e060c0" font-family="monospace" font-size="9">Sound Effects $6444</text>
+
+<!-- Combat sub-routine -->
+<rect x="40" y="370" width="160" height="28" rx="3" fill="#5a2d62" stroke="#7a4d82" stroke-width="1"/>
+<text x="120" y="389" text-anchor="middle" fill="#e080d0" font-family="monospace" font-size="9">Combat $2D9F</text>
+
+<rect x="220" y="370" width="160" height="28" rx="3" fill="#5a2d62" stroke="#7a4d82" stroke-width="1"/>
+<text x="300" y="389" text-anchor="middle" fill="#e080d0" font-family="monospace" font-size="9">Reactor $305D</text>
+
+<rect x="400" y="370" width="160" height="28" rx="3" fill="#5a2d62" stroke="#7a4d82" stroke-width="1"/>
+<text x="480" y="389" text-anchor="middle" fill="#e080d0" font-family="monospace" font-size="9">Trade $43EB</text>
+
+<rect x="580" y="370" width="160" height="28" rx="3" fill="#5a2d62" stroke="#7a4d82" stroke-width="1"/>
+<text x="660" y="389" text-anchor="middle" fill="#e080d0" font-family="monospace" font-size="9">Input $2A33</text>
+
+<rect x="760" y="370" width="160" height="28" rx="3" fill="#5a2d62" stroke="#7a4d82" stroke-width="1"/>
+<text x="840" y="389" text-anchor="middle" fill="#e080d0" font-family="monospace" font-size="9">Charset $5105</text>
+
+<!-- Dispatch Table -->
+<rect x="300" y="430" width="350" height="36" rx="4" fill="#1e3a5f" stroke="#3e5a7f" stroke-width="2"/>
+<text x="475" y="453" text-anchor="middle" fill="#58a6ff" font-family="monospace" font-size="11" font-weight="bold">DISPATCH TABLE $1C100 (43 routines)</text>
+
+<!-- Arrows -->
+<!-- Main loop to controller -->
+<line x1="475" y1="81" x2="475" y2="100" stroke="#3fb950" stroke-width="1.5"/>
+<!-- Controller to state update -->
+<line x1="475" y1="132" x2="475" y2="150" stroke="#3fb950" stroke-width="1.5"/>
+<!-- State update to branches -->
+<line x1="475" y1="182" x2="220" y2="200" stroke="#3fb950" stroke-width="1"/>
+<line x1="475" y1="182" x2="475" y2="200" stroke="#3fb950" stroke-width="1"/>
+<line x1="475" y1="182" x2="710" y2="200" stroke="#3fb950" stroke-width="1"/>
+<!-- All to rendering -->
+<line x1="220" y1="232" x2="475" y2="260" stroke="#d29922" stroke-width="1"/>
+<line x1="475" y1="232" x2="475" y2="260" stroke="#d29922" stroke-width="1"/>
+<line x1="710" y1="232" x2="475" y2="260" stroke="#d29922" stroke-width="1"/>
+<!-- Rendering to sub-routines -->
+<line x1="400" y1="296" x2="120" y2="320" stroke="#e060c0" stroke-width="1"/>
+<line x1="440" y1="296" x2="300" y2="320" stroke="#e060c0" stroke-width="1"/>
+<line x1="475" y1="296" x2="480" y2="320" stroke="#e060c0" stroke-width="1"/>
+<line x1="510" y1="296" x2="660" y2="320" stroke="#e060c0" stroke-width="1"/>
+<line x1="550" y1="296" x2="840" y2="320" stroke="#e060c0" stroke-width="1"/>
+
+<!-- Dispatch table connections -->
+<line x1="475" y1="430" x2="475" y2="398" stroke="#58a6ff" stroke-width="1" stroke-dasharray="4,2"/>
+
+<!-- Legend -->
+<rect x="40" y="480" width="870" height="35" fill="none"/>
+<text x="40" y="495" fill="#666" font-family="monospace" font-size="9">Green=Engine | Orange=World Data | Purple=Graphics | Pink=Sub-routines | Blue=Dispatch</text>
+<text x="40" y="510" fill="#666" font-family="monospace" font-size="9">Dashed line = indirect call through dispatch table</text>
+</svg>
+

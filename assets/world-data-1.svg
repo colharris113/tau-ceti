@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="-20 -20 552 552" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto">
+<rect x="-20" y="-20" width="552" height="552" fill="#06090f"/>
+<!-- Grid -->
+<line x1="0" y1="128" x2="512" y2="128" stroke="#111827" stroke-width=".5"/>
+<line x1="0" y1="256" x2="512" y2="256" stroke="#111827" stroke-width=".5"/>
+<line x1="0" y1="384" x2="512" y2="384" stroke="#111827" stroke-width=".5"/>
+<line x1="128" y1="0" x2="128" y2="512" stroke="#111827" stroke-width=".5"/>
+<line x1="256" y1="0" x2="256" y2="512" stroke="#111827" stroke-width=".5"/>
+<line x1="384" y1="0" x2="384" y2="512" stroke="#111827" stroke-width=".5"/>
+<!-- Connections between nearby cities -->
+<line x1="510" y1="504" x2="430" y2="390" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="430" y1="390" x2="244" y2="194" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="244" y1="194" x2="64" y2="34" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="64" y1="34" x2="4" y2="14" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="4" y1="14" x2="32" y2="10" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="32" y1="10" x2="232" y2="12" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="232" y1="12" x2="212" y2="10" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="212" y1="10" x2="252" y2="34" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="252" y1="34" x2="268" y2="44" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="268" y1="44" x2="284" y2="42" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="284" y1="42" x2="228" y2="34" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="228" y1="34" x2="264" y2="232" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="264" y1="232" x2="248" y2="280" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="248" y1="280" x2="284" y2="204" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="284" y1="204" x2="276" y2="228" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="276" y1="228" x2="248" y2="300" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="248" y1="300" x2="288" y2="264" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="288" y1="264" x2="290" y2="260" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="290" y1="260" x2="278" y2="292" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="278" y1="292" x2="42" y2="296" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="42" y1="296" x2="8" y2="292" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="8" y1="292" x2="24" y2="276" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="24" y1="276" x2="10" y2="276" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="10" y1="276" x2="56" y2="240" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="56" y1="240" x2="28" y2="248" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="28" y1="248" x2="36" y2="252" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="36" y1="252" x2="230" y2="34" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="230" y1="34" x2="250" y2="52" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="250" y1="52" x2="230" y2="62" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="230" y1="62" x2="224" y2="72" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="224" y1="72" x2="244" y2="194" stroke="#1e3a5f" stroke-width=".8"/>
+<line x1="244" y1="194" x2="232" y2="232" stroke="#1e3a5f" stroke-width=".8"/>
+<!-- CENTRALIS (capital) -->
+<circle cx="256" cy="256" r="18" fill="#f59e0b" opacity=".25" stroke="#f59e0b" stroke-width="2"/>
+<text x="256" y="288" text-anchor="middle" fill="#f59e0b" font-size="10" font-family="monospace">CENTRALIS</text>
+<!-- REEMA (starting) -->
+<circle cx="256" cy="256" r="10" fill="#34d399" opacity=".25" stroke="#34d399" stroke-width="1.5"/>
+<text x="256" y="240" text-anchor="middle" fill="#34d399" font-size="8" font-family="monospace">REEMA</text>
+<!-- Cities - size ~ Z/12, labels pushed further out -->
+<circle cx="510" cy="504" r="14" fill="#38bdf8" opacity=".55" stroke="#38bdf8" stroke-width="1"/><text x="510" y="526" text-anchor="end" fill="#38bdf8" font-size="7.5" font-family="monospace">HAME</text>
+<circle cx="430" cy="390" r="12" fill="#38bdf8" opacity=".5" stroke="#38bdf8" stroke-width="1"/><text x="430" y="416" text-anchor="end" fill="#38bdf8" font-size="7.5" font-family="monospace">AURIGA</text>
+<circle cx="244" cy="194" r="8" fill="#38bdf8" opacity=".4" stroke="#38bdf8" stroke-width="1"/><text x="244" y="178" text-anchor="middle" fill="#38bdf8" font-size="7.5" font-family="monospace">ENTROLA</text>
+<circle cx="64" cy="34" r="5" fill="#38bdf8" opacity=".3" stroke="#38bdf8" stroke-width="1"/><text x="64" y="12" text-anchor="middle" fill="#38bdf8" font-size="7.5" font-family="monospace">CERITI</text>
+<circle cx="4" cy="14" r="5" fill="#38bdf8" opacity=".3" stroke="#38bdf8" stroke-width="1"/><text x="-10" y="14" text-anchor="end" fill="#38bdf8" font-size="7.5" font-family="monospace">ZOON</text>
+<circle cx="32" cy="10" r="10" fill="#38bdf8" opacity=".4" stroke="#38bdf8" stroke-width="1"/><text x="32" y="-6" text-anchor="middle" fill="#38bdf8" font-size="7.5" font-family="monospace">ROON</text>
+<circle cx="264" cy="232" r="8" fill="#38bdf8" opacity=".4" stroke="#38bdf8" stroke-width="1"/><text x="280" y="232" text-anchor="start" fill="#38bdf8" font-size="7.5" font-family="monospace">QUILBA</text>
+<circle cx="228" cy="34" r="10" fill="#38bdf8" opacity=".4" stroke="#38bdf8" stroke-width="1"/><text x="228" y="12" text-anchor="middle" fill="#38bdf8" font-size="7.5" font-family="monospace">ERMA</text>
+<circle cx="36" cy="252" r="9" fill="#38bdf8" opacity=".4" stroke="#38bdf8" stroke-width="1"/><text x="20" y="252" text-anchor="end" fill="#38bdf8" font-size="7.5" font-family="monospace">CORUK</text>
+<circle cx="248" cy="280" r="6" fill="#38bdf8" opacity=".3" stroke="#38bdf8" stroke-width="1"/><text x="248" y="298" text-anchor="middle" fill="#38bdf8" font-size="7.5" font-family="monospace">RILENY</text>
+<circle cx="232" cy="12" r="12" fill="#38bdf8" opacity=".5" stroke="#38bdf8" stroke-width="1"/><text x="232" y="-6" text-anchor="middle" fill="#38bdf8" font-size="7.5" font-family="monospace">GOBORINDI</text>
+<circle cx="6" cy="280" r="10" fill="#38bdf8" opacity=".4" stroke="#38bdf8" stroke-width="1"/><text x="-10" y="280" text-anchor="end" fill="#38bdf8" font-size="7.5" font-family="monospace">ZILOGI</text>
+<circle cx="284" cy="204" r="7" fill="#38bdf8" opacity=".3" stroke="#38bdf8" stroke-width="1"/><text x="300" y="204" text-anchor="start" fill="#38bdf8" font-size="7.5" font-family="monospace">KULA</text>
+<circle cx="212" cy="10" r="12" fill="#38bdf8" opacity=".5" stroke="#38bdf8" stroke-width="1"/><text x="212" y="-6" text-anchor="middle" fill="#38bdf8" font-size="7.5" font-family="monospace">TSULA</text>
+<circle cx="10" cy="276" r="9" fill="#38bdf8" opacity=".4" stroke="#38bdf8" stroke-width="1"/><text x="-10" y="276" text-anchor="end" fill="#38bdf8" font-size="7.5" font-family="monospace">KRILL</text>
+<circle cx="276" cy="228" r="8" fill="#38bdf8" opacity=".4" stroke="#38bdf8" stroke-width="1"/><text x="292" y="228" text-anchor="start" fill="#38bdf8" font-size="7.5" font-family="monospace">DRANO</text>
+<circle cx="224" cy="72" r="11" fill="#38bdf8" opacity=".4" stroke="#38bdf8" stroke-width="1"/><text x="224" y="54" text-anchor="middle" fill="#38bdf8" font-size="7.5" font-family="monospace">KDAPT</text>
+<circle cx="72" cy="240" r="9" fill="#38bdf8" opacity=".4" stroke="#38bdf8" stroke-width="1"/><text x="88" y="240" text-anchor="start" fill="#38bdf8" font-size="7.5" font-family="monospace">KZINTI</text>
+<circle cx="248" cy="300" r="7" fill="#38bdf8" opacity=".3" stroke="#38bdf8" stroke-width="1"/><text x="248" y="320" text-anchor="middle" fill="#38bdf8" font-size="7.5" font-family="monospace">HEYROL</text>
+<circle cx="268" cy="44" r="12" fill="#38bdf8" opacity=".5" stroke="#38bdf8" stroke-width="1"/><text x="268" y="26" text-anchor="middle" fill="#38bdf8" font-size="7.5" font-family="monospace">SCARTH</text>
+<circle cx="44" cy="248" r="10" fill="#38bdf8" opacity=".4" stroke="#38bdf8" stroke-width="1"/><text x="28" y="248" text-anchor="end" fill="#38bdf8" font-size="7.5" font-family="monospace">JADE</text>
+<circle cx="288" cy="264" r="8" fill="#38bdf8" opacity=".4" stroke="#38bdf8" stroke-width="1"/><text x="304" y="264" text-anchor="start" fill="#38bdf8" font-size="7.5" font-family="monospace">BOTANIA</text>
+<circle cx="250" cy="52" r="11" fill="#38bdf8" opacity=".4" stroke="#38bdf8" stroke-width="1"/><text x="250" y="34" text-anchor="middle" fill="#38bdf8" font-size="7.5" font-family="monospace">MINSTRO</text>
+<circle cx="24" cy="276" r="10" fill="#38bdf8" opacity=".4" stroke="#38bdf8" stroke-width="1"/><text x="8" y="276" text-anchor="end" fill="#38bdf8" font-size="7.5" font-family="monospace">FROME</text>
+<circle cx="290" cy="260" r="5" fill="#38bdf8" opacity=".3" stroke="#38bdf8" stroke-width="1"/><text x="306" y="260" text-anchor="start" fill="#38bdf8" font-size="7.5" font-family="monospace">ILEA</text>
+<circle cx="252" cy="34" r="13" fill="#38bdf8" opacity=".5" stroke="#38bdf8" stroke-width="1"/><text x="252" y="16" text-anchor="middle" fill="#38bdf8" font-size="7.5" font-family="monospace">LEESTRA</text>
+<circle cx="4" cy="292" r="8" fill="#38bdf8" opacity=".4" stroke="#38bdf8" stroke-width="1"/><text x="-10" y="292" text-anchor="end" fill="#38bdf8" font-size="7.5" font-family="monospace">PREEMA</text>
+<circle cx="278" cy="292" r="8" fill="#38bdf8" opacity=".4" stroke="#38bdf8" stroke-width="1"/><text x="294" y="292" text-anchor="start" fill="#38bdf8" font-size="7.5" font-family="monospace">REYES</text>
+<circle cx="284" cy="42" r="11" fill="#38bdf8" opacity=".4" stroke="#38bdf8" stroke-width="1"/><text x="284" y="24" text-anchor="middle" fill="#38bdf8" font-size="7.5" font-family="monospace">NOVIA</text>
+<circle cx="42" cy="296" r="10" fill="#38bdf8" opacity=".4" stroke="#38bdf8" stroke-width="1"/><text x="26" y="296" text-anchor="end" fill="#38bdf8" font-size="7.5" font-family="monospace">RUBIYA</text>
+<!-- Legend -->
+<rect x="-10" y="518" width="10" height="10" fill="#f59e0b" opacity=".3" stroke="#f59e0b" stroke-width="2"/>
+<text x="6" y="527" fill="#f59e0b" font-size="8" font-family="monospace">CENTRALIS (Capital)</text>
+<rect x="150" y="518" width="10" height="10" fill="#34d399" opacity=".3" stroke="#34d399" stroke-width="1.5"/>
+<text x="166" y="527" fill="#34d399" font-size="8" font-family="monospace">REEMA (Start)</text>
+<rect x="260" y="518" width="10" height="10" fill="#38bdf8" opacity=".5" stroke="#38bdf8" stroke-width="1"/>
+<text x="276" y="527" fill="#38bdf8" font-size="8" font-family="monospace">Other Cities</text>
+<text x="450" y="527" text-anchor="end" fill="#64748b" font-size="7" font-family="monospace">Circle size ~ Z value</text>
+<text x="256" y="548" text-anchor="middle" fill="#64748b" font-size="7.5" font-family="monospace">X axis (0=left, 255=right) | Y axis (0=top, 255=bottom)</text>
+</svg>
+
