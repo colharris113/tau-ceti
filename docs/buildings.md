@@ -27,6 +27,16 @@ The PDF identifies 8 building types with distinct visual shapes. The game render
 
 ![diagram](../assets/buildings-1.svg)
 
+## Building Data Storage
+
+Each building record in the D64 holds a type byte (1-8), a position (X, Y), flags for hostile, dockable and special, and a pointer to the graphics data.
+
+The game renders a building by reading the type byte, then fetching the corresponding bitmap from the building graphics table. Hostile buildings (types B, C and G) fire turrets when approached.
+
+Dockable types are A (Main), D (Civil), E (Lander) and H (Control Tower). Rod parts sit in type B (Reactor) buildings, and EQUIP works at types D and E.
+
+Building graphics are stored as 8x8 character bitmaps using the custom charset at RAM $8412-$85FF. The DFP airlock flicker is rendered by alternating two bitmap frames, open with a transparent centre and closed as a solid rectangle.
+
 ## Interior Bitmap Graphics
 
 Interior views are rendered as bitmap graphics stored in the D64. These are pre-drawn images that show the inside of each building type.
