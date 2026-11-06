@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg viewBox="-20 -20 552 552" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto">
+<svg viewBox="-20 -20 552 552" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto" width="900" height="900">
 <rect x="-20" y="-20" width="552" height="552" fill="#06090f"/>
 <!-- Grid -->
 <line x1="0" y1="128" x2="512" y2="128" stroke="#111827" stroke-width=".5"/>
