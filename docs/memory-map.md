@@ -56,7 +56,7 @@ The main game engine occupies this large region. Disassembly reveals these key r
 | $2EF7 | Trading System | Fuel/ore pricing, station transactions |
 | $305D | Reactor Management | Cooling rods, reactor shutdown sequences |
 | $3225 | Mission System | Mission state tracking, success/failure |
-| $34AD | Navigation | Planet selection, jump calculations |
+| $34AD | Navigation | Jump calculations |
 | $3660 | Text Display | Custom charset text rendering |
 | $3810/$3848 | Charset Init | Runtime character set table initialization |
 | $39A2/$39EE | String Processing | Input parsing, command interpretation |
@@ -161,7 +161,7 @@ Disassembly reveals these state variables:
 | $E004 | Hull integrity | Ship health |
 | $E005 | Cargo type | Ore, fuel, supplies |
 | $E006 | Cargo amount | Quantity on board |
-| $E007 | Current planet | Planet index (0-7) |
+| $E007 | Current target | Target index |
 | $E008 | Current station | Station index at docked planet |
 | $E009 | Game state | Menu, flying, docked, combat |
 | $E00A | Mission ID | Current active mission |

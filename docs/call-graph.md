@@ -24,8 +24,8 @@ The dispatch table at RAM $1C100 contains 43 entry-point routines that form a st
 | 3 | $1C19A | 65 bytes | BRANCH | State validation |
 | 4 | $1C1DC | 28 bytes | CLC | Arithmetic preparation |
 | 5 | $1C1F9 | 37 bytes | TAY | Index setup |
-| 6 | $1C21F | 218 bytes | JSR $27EC | Planet selection menu |
-| 7 | $1C2FA | 74 bytes | JSR $27EC | Trade menu |
+| 6 | $1C21F | 218 bytes | JSR $27EC | Menu routine |
+| 7 | $1C2FA | 74 bytes | JSR $27EC | Menu routine |
 | 8 | $1C345 | 175 bytes | BRANCH | Combat state handling |
 | 9 | $1C3F5 | 287 bytes | OP $2B (BMI) | Input handler for combat |
 | 10 | $1C515 | 783 bytes | OP $B9 (LDA abs,Y) | Reactor mission interface (largest routine) |

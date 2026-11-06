@@ -32,7 +32,7 @@ The game uses a state byte at RAM $E009 to track the current mode:
 | State Value | Mode | Handler | Description |
 |---|---|---|---|
 | $00 | Title Screen | $28C4 | "GREETINGS COMMANDER" display, wait for fire button |
-| $01 | Flying | $305D | Space flight between planets, navigation |
+| $01 | Flying | $305D | Surface flight, navigation |
 | $02 | Docked | $3225 | Station interface, trading, reactor management |
 | $03 | Combat | $2DA7 | Robot enemy engagement, missile firing |
 | $04 | Mission Complete | $34AD | "REACTOR SUCCESSFULLY CLOSED DOWN" screen |
@@ -179,33 +179,6 @@ $30A3:   CMP #$08          ; 8 rods = complete shutdown
 $30A5:   BNE $30B0
 $30A7:   JSR $5449         ; "REACTOR SUCCESSFULLY CLOSED DOWN"
 $30AA:   JMP $34AD         ; Mission complete
-```
-
-### World Building / Navigation ($34AD)
-
-The navigation system handles planet selection and travel:
-
-```asm
-$34AD: NAVIGATION SYSTEM
-$34AD:   JSR $3BBC         ; Draw planet selection UI
-$34B0:   LDA $DC00         ; Read joystick
-$34B3:   AND #$01          ; Fire to select planet
-$34B5:   BEQ $34C0         ; No fire, check directional input
-$34B7:   LDA $E007         ; Current planet index
-$34BA:   INC $E007         ; Next planet
-$34BC:   CMP #$08          ; Wrapped around?
-$34BE:   BNE $34C5         ; No - continue
-$34C0:   LDA #$00          ; Reset to first planet
-$34C2:   STA $E007
-
-$34C5: PLANET DATA LOOKUP
-$34C5:   LDA $E007         ; Planet index
-$34C8:   ASL A             ; Multiply by 2 (word offset)
-$34C9:   TAX
-$34CA:   LDA $E800,X       ; Load planet X position
-$34CD:   STA $E000         ; Set ship target X
-$34D0:   LDA $E801,X       ; Load planet Y position
-$34D3:   STA $E001         ; Set ship target Y
 ```
 
 ### Text Display System ($3660)
