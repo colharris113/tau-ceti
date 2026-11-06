@@ -6,7 +6,7 @@ Main loop, state machine and the key routines by address.
 
 The main game code is XOR-encrypted on disk and decrypted at runtime. The decryption routine runs from the loader at T11 S2, then the decrypted code is jumped to from RAM $1B900 (offset $1B900 in the D64). The actual engine code resides in RAM $2000-$7FFF.
 
-### Main Game Loop Entry Point
+## Main Game Loop Entry Point
 
 The raster interrupt handler at $26A0 is the heart of the game. It is called approximately 50 times per second (NTSC) and drives the entire game state machine:
 
@@ -25,7 +25,7 @@ $26B4:   PLA                 ; Restore accumulator
 $26B5:   RTI                 ; Return from interrupt
 ```
 
-### Game State Machine
+## Game State Machine
 
 The game uses a state byte at RAM $E009 to track the current mode:
 
@@ -40,7 +40,7 @@ The game uses a state byte at RAM $E009 to track the current mode:
 | $06 | Game Over | $3810 | Hull destroyed or reactor meltdown |
 | $07 | Credits | $39A2 | "WRITTEN BY JOHN TWIDDY" scroll |
 
-### Rendering Routine ($28C4)
+## Rendering Routine ($28C4)
 
 The rendering routine is called from the main loop when in flying or docked state. It handles:
 
@@ -78,7 +78,7 @@ $2B57:   JSR $4DAB         ; Draw ship at dock
 $2B5A:   JSR $3BBC         ; Draw UI overlay
 ```
 
-### Input Handler ($2A33)
+## Input Handler ($2A33)
 
 The input handler processes joystick and keyboard input:
 
@@ -106,7 +106,7 @@ $2A6F:   CMP #'M'          ; 'M' for mission?
 $2A71:   BEQ $3B94         ; Jump to mission display
 ```
 
-### Combat Logic ($2DA7)
+## Combat Logic ($2DA7)
 
 The combat routine handles robot enemy engagement:
 
@@ -136,7 +136,7 @@ $2DEC:   ADC #$05          ; +5 points per kill
 $2DEE:   STA $E00E
 ```
 
-### Reactor Management ($305D)
+## Reactor Management ($305D)
 
 The reactor management system is the core gameplay mechanic:
 
@@ -181,7 +181,7 @@ $30A7:   JSR $5449         ; "REACTOR SUCCESSFULLY CLOSED DOWN"
 $30AA:   JMP $34AD         ; Mission complete
 ```
 
-### Text Display System ($3660)
+## Text Display System ($3660)
 
 The text display uses the custom charset to print strings:
 
@@ -212,7 +212,7 @@ $367F:   INY                 ; Advance string pointer
 $3680:   JMP $366B         ; Print next character
 ```
 
-### Raster Interrupt Setup
+## Raster Interrupt Setup
 
 The game sets up a raster interrupt at line $E8 (232) to trigger the main game loop:
 

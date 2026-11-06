@@ -6,7 +6,7 @@ The full 64KB map: what lives where, and which VIC-II and SID registers the game
 
 Tau Ceti uses approximately $E00-$FFFF of the C64's 64KB address space, leaving $000-$DFF unused or used only transiently by KERNAL calls. The game was clearly designed for a cartridge-style memory layout rather than a standard disk load.
 
-### Complete Memory Map
+## Complete Memory Map
 
 | Range | Region |
 |---|---|
@@ -20,9 +20,9 @@ Tau Ceti uses approximately $E00-$FFFF of the C64's 64KB address space, leaving 
 
 ![The 64KB address space, block by block](../assets/memory-map-viz-1.svg)
 
-### Region Breakdown
+## Region Breakdown
 
-#### $0800-$0FFF: Loader / KERNAL Workspace
+### $0800-$0FFF: Loader / KERNAL Workspace
 
 The loader PRG is loaded at $0801 (standard C64 PRG start). This region contains:
 
@@ -30,7 +30,7 @@ The loader PRG is loaded at $0801 (standard C64 PRG start). This region contains
 - KERNAL workspace and I/O buffers
 - Stack space ($0100-$01FF also used)
 
-#### $1000-$1FFF: Decoded Data Area
+### $1000-$1FFF: Decoded Data Area
 
 The XOR-decoded game data resides here, including:
 
@@ -41,7 +41,7 @@ The XOR-decoded game data resides here, including:
 
 The decoded area starts at offset $1CD40 in the D64 file (RAM $1D540). Key strings found here include "GREETINGS COMMANDER" at $1CDE0 and "PRESS FIRE TO PLAY" at $1F2A0.
 
-#### $2000-$5FFF: Game Engine Code
+### $2000-$5FFF: Game Engine Code
 
 The main game engine occupies this large region. Disassembly reveals these key routines:
 
@@ -79,7 +79,7 @@ The main game engine occupies this large region. Disassembly reveals these key r
 | $5320/$5345/$5349/$5372/$5441/$5449 | Combat Messages | Firing, hit, damage reports |
 | $5571/$5585 | Reactor Messages | Cooling rod status, shutdown alerts |
 
-#### $6000-$7FFF: Drawing Tables
+### $6000-$7FFF: Drawing Tables
 
 This region contains lookup tables used by the rendering engine:
 
@@ -88,7 +88,7 @@ This region contains lookup tables used by the rendering engine:
 - Color palette tables
 - Projection matrix constants
 
-#### $8000-$BFFF: Graphics Data
+### $8000-$BFFF: Graphics Data
 
 All game graphics are stored here:
 
@@ -99,7 +99,7 @@ All game graphics are stored here:
 | $A000-$AFFF | Planet/star bitmap tiles |
 | $B000-$BFFF | Station building sprites, UI icons |
 
-#### $C000-$DFFF: Screen Buffer + Charset RAM
+### $C000-$DFFF: Screen Buffer + Charset RAM
 
 | Range | Content |
 |---|---|
@@ -108,7 +108,7 @@ All game graphics are stored here:
 | $D000-$D7FF | Extended screen buffer (double buffering) |
 | $D800-$DFFF | Charset lookup table ($8412-$85FF in game RAM, mapped here) |
 
-#### $E000-$FFFF: VIC-II Registers + Game State
+### $E000-$FFFF: VIC-II Registers + Game State
 
 | Range | Content |
 |---|---|
@@ -117,7 +117,7 @@ All game graphics are stored here:
 | $F000-$F7FF | Mission state, scoring, game flags |
 | $F800-$FFFF | SID sound registers, raster interrupt vectors |
 
-### VIC-II Register Access
+## VIC-II Register Access
 
 The game actively accesses these VIC-II registers:
 
@@ -132,7 +132,7 @@ The game actively accesses these VIC-II registers:
 | $D025 | $D025 | Hblank sprite expand / hardware scroll |
 | $D030-$D031 | $D030-$D031 | Border/background color |
 
-### SID Register Access
+## SID Register Access
 
 The SID ($C011-$C01F) is accessed for sound:
 
@@ -148,7 +148,7 @@ The SID ($C011-$C01F) is accessed for sound:
 | $C01E | Modulation, SID model select |
 | $C01F | Voice mix, external input, output select |
 
-### Key Game State Variables (RAM $E000+)
+## Key Game State Variables (RAM $E000+)
 
 Disassembly reveals these state variables:
 

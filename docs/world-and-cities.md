@@ -198,12 +198,6 @@ Each city contains multiple buildings arranged around a central docking platform
 > [!NOTE]
 > **Building data structure:** Each building is stored as a record in the city's building table at $14F00+. The first byte is the building count, followed by type flags. Buildings are arranged around a central docking platform with jump pads at cardinal directions. Hostile buildings (reactors, turrets) are marked with red borders; dockable buildings use blue/green.
 
-## Building Shapes - Visual Reference
-
-The PDF identifies 8 building types with distinct visual shapes. The game renders each type as a unique bitmap pattern on the glider viewer screen. Here is how they appear:
-
-![diagram](../assets/world-data-3.svg)
-
 ## Hostility System - Code Analysis
 
 Cities become hostile through two mechanisms. The game tracks hostility at the city level, not individual building level.

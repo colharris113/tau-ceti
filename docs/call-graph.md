@@ -4,15 +4,19 @@ Call graphs for the main loop, rendering, input, combat and the raster handler.
 
 ---
 
-### Main Game Loop Call Graph
+## Main Game Loop Call Graph
 
 ![diagram](../assets/call-graph-1.svg)
 
-### Rendering Pipeline
+Colour key: green engine, orange world data, purple graphics, pink subroutines, blue dispatch.
+
+## Rendering Pipeline
 
 ![diagram](../assets/call-graph-2.svg)
 
-### Dispatch Table State Machine
+Each frame runs raster IRQ, then the main loop, then the rendering manager, then eight rendering steps. $4127 (text output) is the most called routine at 84 calls per frame, so it dominates rendering time. Border colour follows game state: blue normal, red combat, yellow radiation.
+
+## Dispatch Table State Machine
 
 The dispatch table at RAM $1C100 contains 43 entry-point routines that form a state machine. Each routine handles a specific game state or menu option:
 
@@ -34,15 +38,19 @@ The dispatch table at RAM $1C100 contains 43 entry-point routines that form a st
 | 37 | $1CEEF | 8 bytes | JSR $330E | Screen update call |
 | 38+ | $1CEF8+ | Variable | Mixed | Remaining state handlers |
 
-### Input Handling Flow
+## Input Handling Flow
 
 ![diagram](../assets/call-graph-3.svg)
 
-### Combat System Flow
+Input goes to the handler, through the bad language check, to the parser, then the state route picks the action.
+
+## Combat System Flow
 
 ![diagram](../assets/call-graph-4.svg)
 
-### Raster Interrupt Handler
+Robot state sits in $0374-$037F (12 bytes); the city's risk level sets how often robots appear.
+
+## Raster Interrupt Handler
 
 The raster interrupt handler at file offset $1D338 (RAM $1DB38) fires at a specific VIC-II scan line and calls the main game loop:
 
@@ -64,7 +72,7 @@ $1DB45:   RTI                 ; Return from interrupt
 
 The raster line is set via STA $D012, and the IRQ is enabled via STA $D015. This provides consistent frame timing regardless of the C64's CPU speed variations.
 
-### Charset Initialization Code
+## Charset Initialization Code
 
 The charset initialization at game offset $381C (RAM $401D) builds the lookup table:
 

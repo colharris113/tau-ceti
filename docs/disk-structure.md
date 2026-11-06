@@ -6,7 +6,7 @@ D64 layout, directory format, sector chains and the encryption layers.
 
 The Tau Ceti D64 image is a 32-track, non-standard Commodore 64 disk image. Unlike standard 35-track D64 images, this uses all 32 tracks of the 1541 disk drive's usable surface area (tracks 0-31), providing approximately 174,848 bytes of storage.
 
-### Header Analysis
+## Header Analysis
 
 The D64 header is non-standard: the first 128 bytes are all zeros, so the original disk name and ID are not preserved in this image. Standard D64 headers contain:
 
@@ -17,7 +17,7 @@ The D64 header is non-standard: the first 128 bytes are all zeros, so the origin
 
 In Tau Ceti's case, all these bytes are zero. The directory must be found by scanning for known sector chain patterns.
 
-### Directory Structure
+## Directory Structure
 
 The directory entries use a custom 32-byte format rather than the standard 32-byte PETSCII directory entry. The key differences:
 
@@ -28,7 +28,7 @@ The directory entries use a custom 32-byte format rather than the standard 32-by
 | 4-5 | Starting track/sector | Track/sector pair |
 | 6+ | Filename (16 bytes PETSCII) | Filename starts at byte 6 |
 
-### Sector Chain Tracing
+## Sector Chain Tracing
 
 File contents are reconstructed by following sector chains. Each file's data begins at its starting track/sector, and subsequent sectors are linked via [track][sector] pairs stored within the data itself.
 
@@ -41,7 +41,7 @@ File contents are reconstructed by following sector chains. Each file's data beg
 | Graphics Block B | T16 S0-S4 | ~5 sectors | Screen bitmap + tile data |
 | World Data | Scattered T8-T10 | Variable | Planet maps, station layouts |
 
-### Loader Analysis (T11 S2)
+## Loader Analysis (T11 S2)
 
 The main loader at Track 11 Sector 2 performs the following sequence:
 
@@ -51,7 +51,7 @@ The main loader at Track 11 Sector 2 performs the following sequence:
 4. Initializes custom charset by calling JSR $5105
 5. Jumps to game entry point at RAM $26A0
 
-### Encryption Scheme
+## Encryption Scheme
 
 The game data uses XOR encryption with multiple key bytes:
 
@@ -61,7 +61,7 @@ The game data uses XOR encryption with multiple key bytes:
 | T11 S15 (graphics) | $FF | VIC-II bitmap data |
 | World data blocks | Multi-byte ($06,$FF,$3C) | Planet/station definitions |
 
-### Disk Layout Map
+## Disk Layout Map
 
 ```text
 Track  0: [unused - boot sector area]
@@ -77,7 +77,7 @@ Track 18: Directory entries (custom format)
 Tracks 19-31: [extended track area - may contain additional data]
 ```
 
-### File Reconstruction
+## File Reconstruction
 
 To reconstruct any file from the D64:
 
