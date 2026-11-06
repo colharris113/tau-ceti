@@ -30,7 +30,7 @@ The dispatch table at RAM $1C100 contains 43 entry-point routines that form a st
 | 9 | $1C3F5 | 287 bytes | OP $2B (BMI) | Input handler for combat |
 | 10 | $1C515 | 783 bytes | OP $B9 (LDA abs,Y) | Reactor mission interface (largest routine) |
 | 11-16 | $1C825-$1CAE9 | Variable | Mixed | Various state handlers |
-| 17 | $1C97E | 225 bytes | OP $BD (LDA abs,X) | Planet data access |
+| 17 | $1C97E | 225 bytes | OP $BD (LDA abs,X) | World data access |
 | 37 | $1CEEF | 8 bytes | JSR $330E | Screen update call |
 | 38+ | $1CEF8+ | Variable | Mixed | Remaining state handlers |
 

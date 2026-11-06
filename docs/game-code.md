@@ -65,7 +65,7 @@ $290D:   CMP #$E8          ; At "PRESS FIRE TO PLAY" line?
 
 $2A00: SPACE RENDERING
 $2A00:   JSR $43EB         ; Draw star field background
-$2A03:   JSR $45C3         ; Draw planet (if visible)
+$2A03:   JSR $45C3         ; Draw sun
 $2A06:   JSR $4DA4         ; Draw player ship sprite
 $2A09:   LDA $E003         ; Check fuel level
 $2A0C:   CMP #$10          ; Low fuel warning?
