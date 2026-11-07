@@ -8,21 +8,26 @@ A complete analysis of the 16 "Spins" per day system, time tracking, and the tra
 
 ## The 16 Spins System
 
-Each day on Tau Ceti consists of 16 "Spins", with each spin lasting approximately 5 Earth minutes (1/12 of an hour). This means a full day is about 80 Earth minutes (1 hour 20 minutes).
-
-> [!NOTE]
-> **From the manual:** "Each spin lasts approximately 5 Earth minutes. The planet completes 16 spins per day." This gives a total day length of about 80 minutes.
-
-### Time Tracking
+Each day on Tau Ceti consists of 16 "Spins". How long a spin lasts is the one part of the cycle the
+sources disagree about. The C64 manual, as transcribed in the old version of this chapter, gives about
+5 Earth minutes per spin and therefore a day of 80 minutes. The Spectrum inlay, which is the other
+publisher's description of the same planet, says the opposite - that the day is "very short, about one
+Earth hour", that the Cetans call the period a SPIN, and that sixteen of them make a Cetan DAY. Either
+the two manuals are describing different clocks or one of them is wrong; nothing in the disassembly so
+far settles it, and the code's own time variable has not been located.
 
 | Parameter | Value |
 |---|---|
 | Spins per day | 16 |
-| Duration per spin | ~5 Earth minutes (in-game) |
-| Total day length | ~80 Earth minutes |
+| Duration per spin | ~5 Earth minutes (C64 manual) or ~1 Earth hour (Spectrum inlay) |
 | Day phase | Spins 0-7 (sunrise to sunset) |
 | Night phase | Spins 8-15 (sunset to sunrise) |
-| Time variable | $11 in zero-page memory (0-15) |
+| Time variable | not located - the old table's `$11` is wrong |
+
+> [!NOTE]
+> The old version of this chapter named `$11` in the zero page as the clock. Nothing in the game
+> increments or stores to `$11`, and its only significant reader, at $3A44, tests bit 0 as an input
+> line, so it is not a counter. The spin counter is somewhere else and I have not found it.
 
 ## Sun Position System
 
