@@ -9,6 +9,8 @@
 Tau Ceti is a 1987 space simulation for the Commodore 64, written by John Twiddy with the original
 concept by Pete Cooke. You command a skimmer on the planet Tau Ceti (III), collecting cooling rod
 parts from reactors across 32 cities and assembling them into bars for the main reactor at Centralis.
+The errand is a corporate one: Gal-corp's chairwoman asks you to leave unarmed buildings standing,
+because the company intends to settle the world once you have finished with it.
 
 This analysis works from the disk image itself: the files are reconstructed sector by sector, the
 code is disassembled, and the results are checked against memory dumps taken from VICE while the game
@@ -37,6 +39,9 @@ habit it did not always have, and the notes at the bottom of the chapters record
 - **Sand hoppers** - the creatures at the jump pads are type $24: 47 records across 17 cities, always
   in a little group within a few units of a pad, and they hop in place. See
   [Sand Hoppers](docs/creatures.md).
+- **Buildings** - a type number, not a shape: $00-$24, thirty in use, described by the tables at
+  $C39A, $C3BF and $C409. The painter gives every one of them the same two-byte mark, so the twelve
+  silhouettes on the Spectrum inlay describe a different machine.
 - **Sound** - two SID voices at $D400-$D418, effects only, no music.
 
 ## Disk Structure Overview
@@ -100,13 +105,13 @@ sector formula and the chain layout.
 | [Call Graph](docs/call-graph.md) | How the frame routine, the raster stages and the message path call each other. |
 | [Rendering Pipeline](docs/rendering.md) | The bitmap, the four raster bands, the canvas and the blitters. |
 | [World and Cities](docs/world-and-cities.md) | The 32 cities, the name table, jump pads, reactors and cooling rods. |
-| [Buildings and Interiors](docs/buildings.md) | Building types, interiors, airlocks, shadows and docking. |
+| [Buildings and Interiors](docs/buildings.md) | The numbered type table, its class bits, interiors, airlocks and docking. |
 | [Game State](docs/game-state.md) | Where the flight variables live and what the flight model does with them. |
 | [Board Computer](docs/board-computer.md) | The text console, the message queue and the equipment panel. |
 | [Map System](docs/map-system.md) | The MAP command and what is, and is not, known about the planet data. |
 | [Day/Night Cycle](docs/day-night.md) | The 16-spin clock, sun position and visibility. |
 | [Infrared Blur](docs/infrared.md) | The infrared scanner and its blur. |
-| [Moveable Elements](docs/movables.md) | The object table, the painter and the blitters - and why there are no sprites. |
+| [Moveable Elements](docs/movables.md) | The object table, the painter, the blitters and the ground units. |
 | [Sand Hoppers](docs/creatures.md) | The creatures at the jump pads: type $24, where the city data puts them, the hop and the collision. |
 | [Sound System](docs/sound.md) | SID usage and the effects. |
 | [Character Set and Text System](docs/charset.md) | The glyph encoding, the blitter at $3E17 and the message interpreter. |

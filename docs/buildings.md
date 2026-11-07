@@ -1,134 +1,97 @@
 # Buildings and Interiors
 
-Building types, interior graphics, energy-screened airlocks, shadows and docking.
+What a building is in this game: a numbered record, three tables that describe it, an airlock, and a
+view inside.
 
 ---
 
-A complete analysis of building types, interior bitmap graphics, shadow rendering, and the docking system.
+Cities are assembled from a small vocabulary of structures, and the game's word for one is a number.
+Byte 0 of a sixteen-byte record at $0E00 is a type index, and the builder at $280B copies it straight
+out of the city's own object list at $9400. There are thirty-seven of those numbers, $00 to $24,
+thirty of which appear in the shipped data: 1,005 records across the 32 cities, so the ground of a
+city is largely this one table rearranged. The hoppers at $24 and the pad pair at $0F and $10 are
+accounted for elsewhere; what follows is the rest of the vocabulary.
 
-## Building Types
+## Three tables, not one
 
-Each city contains multiple buildings. The manual identifies these types:
+Each type is described by three parallel tables, all indexed by the type byte:
 
-| Type | Description | Interior Graphics |
+| Address | Contents | Read by |
 |---|---|---|
-| Reactor Station | Contains cooling rod parts | Bitmap of reactor interior with control panels |
-| Military Base | Hostile building with defences | Bitmap of base interior with weapon systems |
-| Civil Base | Allied building for resupply | Bitmap of supply interior with EQUIP terminal |
-| Gal-Corp Lander | Your starting base | Bitmap of landing bay with LAUNCH console |
-| Jump Pad | Teleporter between cities | Pad surface; the sand hoppers are records in the street beside it, see [Sand Hoppers](creatures.md) |
-| Fortress | Heavily defended structure | Bitmap of fortress interior with MK3 robots |
-| Turret | Defensive gun emplacement | Bitmap of turret control room |
-| Control Tower | Navigation hub | Bitmap of tower interior with radar screens |
+| $C39A | class byte | the missile marker at $4855, the kill path at $4977, the update loop at $4462, the painter at $4079 |
+| $C3BF | parameter byte, copied into record byte 7 | the builder, at $2833 |
+| $C409 | behaviour class in the low nibble, two flags in the top bits | the ground-unit dispatcher at $81F5 |
 
-## Building Shapes - Visual Reference
+The class byte does the work, because four parts of the game ask it four different questions:
 
-The PDF identifies 8 building types with distinct visual shapes. The game renders each type as a unique bitmap pattern on the glider viewer screen. Here is how they appear:
+| Bit | Meaning | Evidence |
+|---|---|---|
+| $0C | this type is a missile | $4855 marks the record hostile and $44CE fires it |
+| $40 | this type scores when destroyed | $4977 adds one to the counter at $03A5-$03A6 |
+| $20 | this type has a ground handler | $4645 hands the record to the routine at $80C3 |
+| $80 | never draw this type | $4079 gives the painter a fill of zero |
 
-![diagram](../assets/buildings-1.svg)
+The scoring bit deserves its own line, because it is the only place in the game where destruction is
+counted. When a record dies, $4957 takes its remaining strength out of byte 7; when that runs out it
+marks the record $40 and, if the type's class byte has bit 6 set, adds one to a sixteen-bit counter at
+$03A5. That counter is printed by the routine at $5AD4. Eleven of the thirty types carry the bit, so
+the city has a price list whether or not the player ever sees one.
 
-## Building Data Storage
+## What the twelve drawings describe
 
-Each building record in the D64 holds a type byte (1-8), a position (X, Y), flags for hostile, dockable and special, and a pointer to the graphics data.
+The Spectrum inlay draws twelve silhouettes - tall cone, low cone, dome, dome with a mast, stepped
+block, angular tower with a crossbar, half-sphere, sphere, three finned hulls, and a mast on a stepped
+platform - each filled with its own dot or hatch pattern. It is an attractive way to present a
+building set, and none of it is in the Commodore version.
 
-The game renders a building by reading the type byte, then fetching the corresponding bitmap from the building graphics table. Hostile buildings (types B, C and G) fire turrets when approached.
+Here the painter at $3F93 reduces every record in the table to the same mark. It takes the record's X
+position and depth, projects them into the canvas at $0400, and writes the same two bytes for a reactor
+as for a hunter: a fill of $AA for the stipple, $FF when record byte 3 has bit 3 set, and zero when the
+type's class byte has bit 7 set. There is no per-type shape in the drawing code, no outline table and
+no silhouette bank. The earlier version of this chapter claimed the game renders each type "as a unique
+bitmap pattern", and it does not: on the C64 a reactor and a supply dome are distinguished by where
+they stand, by how far away they are, and by what they do when you arrive.
 
-Dockable types are A (Main), D (Civil), E (Lander) and H (Control Tower). Rod parts sit in type B (Reactor) buildings, and EQUIP works at types D and E.
+That changes how the publisher's names read. MAIN CENTRAL REACTOR, REACTOR SUBSTATION, SUPPLY CENTRE
+(CIVILIAN), SUPPLY CENTRE (MILITARY), FORTRESS, CONTROL TOWER, DOME, SPHERE and JUMP PAD COMPLEX are
+the publisher's names for a different machine's artwork. Five numbers in this one can be tied to a
+name with evidence behind it: $0A is a missile, $0F and $10 are the two records that make a jump pad,
+$1A is the proximity mine ([Moveable Elements](movables.md)), and $24 is the sand hopper
+([Sand Hoppers](creatures.md)). Everything else is a number. The old table in this chapter -
+"Main, Reactor, Military, Civil, Gal-Corp Lander, Jump Pad, Fortress, Control Tower, Turret" - mixed
+manual names with guesses, and the turret is not in the manual either.
 
-Building graphics are 8x8 patterns drawn into the bitmap by the glyph blitter at $3E17, from the pattern banks at $8E00 and $8F00 (see [Character Set and Text System](charset.md)). The DFP airlock flicker is rendered by alternating two bitmap frames, open with a transparent centre and closed as a solid rectangle.
+## Interiors
 
-## Interior Bitmap Graphics
+Interiors use the same machinery as the rest of the screen: glyph patterns through the blitter at
+$3E17, into the same 320x200 bitmap. The equipment panel is the one interior that has been
+disassembled ([Board Computer](board-computer.md)), and it is a small form of two adjustable numbers
+and a toggle rather than a picture. The old version of this chapter described interiors as ~200-byte
+pre-drawn bitmaps scattered across tracks, with labelled rows such as "DRINKS MACHINE"; that layout was
+not read from the disk and should not be relied on.
 
-Interior views are rendered as bitmap graphics stored in the D64. These are pre-drawn images that show the inside of each building type.
+What matters in play is the same for all of them: you dock, you get whatever the building offers, and
+the offerings are fuel, repair and rearming.
 
-### Bitmap Storage
+## DFP airlocks
 
-```text
-Interior Bitmaps:
-  Location: Scattered across tracks in the D64
-  Format: 8x8 character bitmap data (custom charset)
-  Each interior is ~200 bytes of bitmap data
-  Stored as a sequence of character codes that map to the custom charset
-```
+Every building's airlock is a DFP energy screen, and it flickers. That much the publisher and the
+screen agree on: the inlay tells you to recognise the characteristic flickering pattern, wait for the
+aperture to open fully and fly in slowly.
 
-### Example: Civilian Supply Interior
+The guide used to give the flicker as a timer crossing a threshold - open for about two seconds,
+closed for about one - and used to call docking a test of speed, aperture and alignment. Neither
+should be taken as established. What the code does say about arriving is in
+[Game State](game-state.md): landing is speed zero and height zero at $3BEB, and the flight state at
+$0396 holds 0 for launched, 1 for landed and 2 upwards for docked. The routine that decides which
+building you docked with, and whether the aperture was open when you did it, has not been located.
 
-The civilian supply building interior shows a drinks machine and computer station. This is rendered using the custom charset characters arranged in a grid pattern:
+## Shadows
 
-```text
-Civilian Supply Interior Layout:
-  Row 0: "DRINKS MACHINE" label
-  Row 1-3: Drinks machine bitmap (8x8 chars)
-  Row 4: "EQUIP TERMINAL" label
-  Row 5-7: Computer station bitmap (8x8 chars)
-
-Each character is drawn as an 8-byte pattern by the blitter at $3E17
-```
-
-### Example: First Screen (Gal-Corp Lander)
-
-The very first screen you see after boot shows a computer station with the board computer cursor. This is a bitmap graphic that sets the scene for the game:
-
-```text
-First Screen Layout:
-  Top: "GREETINGS COMMANDER" message
-  Middle: Computer station bitmap
-  Bottom: Board computer prompt with flashing cursor
-```
-
-## DFP Energy Screened Airlocks
-
-All buildings have DFP energy screened airlocks that open and close in a flickering pattern. This is a visual cue for docking timing.
-
-### Airlock Flickering Algorithm
-
-```text
-Airlock Animation:
-  Every frame, check the airlock timer
-  If timer > threshold: airlock is OPEN (bright)
-  If timer < threshold: airlock is CLOSED (dark)
-  Timer increments each frame and wraps around
-
-The flickering pattern is:
-  OPEN for ~2 seconds
-  CLOSED for ~1 second
-  Repeat
-```
-
-> [!NOTE]
-> **From the manual:** "All buildings have DFP energy screened airlocks which open and close in a flickering pattern. You must wait for the airlock to open and fly SLOWLY into the building." This means you need to time your approach carefully.
-
-## Shadow Rendering
-
-Buildings cast shadows based on the sun position (time of day). The shadow algorithm calculates the shadow direction and length for each building.
-
-### Shadow Calculation
-
-```text
-Shadow Algorithm:
-  1. Get sun angle from current spin (time of day)
-  2. For each building:
-     a. Calculate shadow direction = sun_angle + 180
-     b. Calculate shadow length = building_height / tan(sun_elevation)
-     c. Draw shadow polygon extending from building base
-     d. Shadow colour = dark version of building colour
-```
-
-## Docking System
-
-The docking system requires precise timing and speed control:
-
-| Requirement | Detail |
-|---|---|
-| Speed | Must be slow (use // key to reduce) |
-| Airlock Timing | Wait for the flickering pattern to open |
-| Direction | Fly into the airlock opening (not sideways) |
-| Command | L key initiates landing sequence |
-| Success condition | Speed < threshold AND airlock OPEN AND aligned |
-
-## Summary
-
-Tau Ceti's building system combines bitmap interior graphics with animated airlocks and shadow rendering. The docking mechanics add a timing element that requires player skill, while the interior views provide visual context for each building type.
+The earlier version of this chapter gave a shadow algorithm - sun angle, a tangent for length, a dark
+version of the building colour. There is no tangent in this game and no shadow code in the painter.
+The painter does not even read the record's height byte; the collision test at $2B60 and the radar blip
+at $2EC9 are the two routines that do. Treat the shadows in the view as unexplained.
 
 ---
 
