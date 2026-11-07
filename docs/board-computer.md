@@ -63,13 +63,49 @@ displays them; the routine that takes the money, or that turns them into missile
 I have not traced it. The `INSTALL FLARES`, `INSTALL MISSILES` and `INSTALL AMM` strings at
 $5FD1-$5FFF belong to this panel.
 
+## The flight key table
+
+The KEYS command is one of the few the old chapter was sure did not exist, and it does. The flight
+controls are a sixteen-byte table at **$0100**, filled from the seventeen bytes at **$3D30** by the
+copy loop at $575B, and re-read by the routines that drive the ship.
+
+Two things keep that table honest. The loop at $53D0 asks for a key, rejects anything already in the
+table (`CMP $0100,Y` at $5405), and then writes the new scan code to the live entry *and* to the
+backup copy at $03EF - so `KEYS` really does redefine what the manual calls the single-key commands.
+And the attract mode keeps a clean copy: $63F9 loads the defaults over the live table, $6405 restores
+the player's backup when the demo ends. A demo flight therefore uses the shipped keys no matter what
+the player has bound.
+
+Seven of the sixteen entries are read anywhere in the game:
+
+| Slot | Default key | Action | Read at |
+|---|---|---|---|
+| 0 | `;` | increase thrust | $3980 |
+| 1 | `/` | decrease thrust | $399A |
+| 2 | `Z` | turn one way | $39B8 |
+| 3 | `X` | turn the other | $39D6 |
+| 4 | `:` | increase height | $3A19 |
+| 5 | `.` | decrease height | $3A2B |
+| 6 | SPACE | fire, and every "press fire to continue" | $46F9, $7EFE |
+
+The other nine hold `I F M A L R V S J` - which are the inlay's letters for infra-red, flare, missiles,
+AMM, land, status and jump, plus two I cannot name - but no code in $2000-$88FF reads slots 7 to 15: a
+search of every absolute reference to $0100-$010F returns only the seven above. Whatever fires a missile
+or switches on infra-red is picked up somewhere else. The console's own scanner at $4A94 is one such
+place: it walks the keyboard matrix, returns the first key it finds as a code in $C5 and queues it at
+$0277, quite independent of the redefinable table.
+
+So the publisher's claim is true but narrow on this machine. `KEYS` rebinds the six continuous controls
+and the fire key; the panel of single-key commands sits outside the table it rewrites.
+
 ## What is not established
 
 Three things the old version of this chapter described in detail, and which I have not verified:
 
 - **The command list.** Commands such as MAP, LOOK, RODS, REACTOR and KEYS do appear in the manual,
   and RODS/REACTOR appear in the game's text, but there is no dispatch table at $1B900 and no
-  per-command handler offsets. The table in the old chapter was invented wholesale.
+  per-command handler offsets. The table in the old chapter was invented wholesale. KEYS is the
+  exception: its table is above, even if the parser that reaches it has not been found.
 - **The PAD text editor.** No storage layout at $F000-$F7FF has been found; that page is not used
   as a note buffer as far as I can see.
 - **Save and load.** No save-game format has been identified. The "magic number" and the field list
