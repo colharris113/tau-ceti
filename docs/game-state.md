@@ -1,143 +1,95 @@
 # Game State
 
-Zero-page variables, ship physics, combat mechanics and mission progress.
+Where the game keeps its variables, and what the flight model actually does with them.
 
 ---
 
-A complete analysis of the game's state management, ship physics, combat mechanics, and mission progress tracking.
+The flight state does not live in the zero page. Almost everything that matters to the ship - its
+height, its speed, its fuel, its ammunition - sits in page 3, at absolute addresses in the
+$0330-$03FF range, and the zero page is used for pointers and scratch. That is the first correction
+this chapter has to make: the old version printed a tidy zero-page table from $00 to $1A, and none
+of those variables exist where it said they did.
 
-## Zero-Page State Variables
+## The variables that matter
 
-The game maintains its state in zero-page memory ($00-$FF) for fast access. Key variables include:
-
-| Address | Name | Purpose |
+| Address | Meaning | Evidence |
 |---|---|---|
-| $00-$01 | Frame counter | Counts frames since game start |
-| $02 | Current city index | Which city you're in (0-31) |
-| $03 | View direction | 0=forward, 1=right, 2=back, 3=left |
-| $04 | Ship heading | Current direction (0-255 = 360 degrees) |
-| $05 | Ship speed | Current velocity |
-| $06 | Ship altitude | Flying height above ground |
-| $07 | Missile count | Remaining missiles (max 8) |
-| $08 | AMM count | Anti-missile missiles (max 8) |
-| $09 | Flare count | Flares (max 8) |
-| $0A | Fuel level | Current fuel supply |
-| $0B | Shield status | Shield strength |
-| $0C | Laser temperature | Laser heat level |
-| $0D | Cooling rods collected | Parts count (0-40) |
-| $0E | Cooling bars assembled | Bars count (0-20) |
-| $0F | Cooling bars inserted | Bars in reactor (0-20) |
-| $10 | Day/night flag | 0=day, 1=night |
-| $11 | Current spin | Spin count (0-15) |
-| $12 | Infrared flag | 0=off, 1=on |
-| $13 | Game mode | 0=flying, 1=ground, 2=map |
-| $14 | Score | Current score total |
-| $15-$16 | Ship position X | 3D X coordinate |
-| $17-$18 | Ship position Y | 3D Y coordinate |
-| $19-$1A | Ship position Z | Depth/distance |
+| $0344 | height | raised and lowered with two keys at $3A14-$3A3D, capped at $BF |
+| $0346 | fuel | refuelling loop at $5E4D fills it to $BF then prints `SKIMMER REFUELED` |
+| $0347 | a gauge that decays | decremented once every other frame at $34EC |
+| $0352 | turn | adjusted between $E1 and $1F, so it is a signed heading offset |
+| $0353 | speed | raised and lowered by the throttle keys at $3968, capped at $BF |
+| $0355/$0357/$0358 | flares / AMM / missiles | see [Flares, Missiles and AMM](weapons.md) |
+| $0356 | flare timer | counts down once per sixteen frames at $25EA |
+| $0365-$0367 | weapon cooldowns | cleared by the start-up wipe at $56D8 |
+| $0377 | a gauge that fills to $BF | filled by the loop at $5E7C |
+| $0394 | demo flag | non-zero puts the game in attract mode |
+| $0396 | flight state | 0 launched, 1 landed, 2+ docked |
+| $039D | display mode | ORed into the raster dispatch index |
+| $034A-$0351 | joystick shadow bytes | written by the input code, read by the flight model |
 
-## Ship Physics
+Two of the five gauges on the panel are still unidentified. $0346 is fuel and $0344 is height, and
+$0353 clearly behaves like speed, but $0347 and $0377 are only known by their behaviour - one
+decays slowly, the other fills to the top and then clears a set of timers. They are probably
+shields, hull or laser temperature, and the honest answer is that I have not proven which.
 
-The skimmer has realistic physics with acceleration, deceleration, and turning mechanics:
+## The flight model
 
-| Parameter | Value | Description |
+The controls are simple and the model is smaller than it looks.
+
+**Throttle.** $3968 checks the up control against a joystick bit and a key map entry. If either is
+active, the speed at $0353 is incremented, to a ceiling of $BF. The down control decrements it,
+floored at zero. There is no acceleration curve to the input itself: press up, speed rises.
+
+**Turning.** $0352 is adjusted in the same routine, between limits of $E1 and $1F. The asymmetry is
+deliberate - $E1 is -31 and $1F is +31, so the value is a signed turn rate that saturates at about
+thirty either way.
+
+**Landing.** At $3BEB the code checks two things: speed is zero, and height is zero. When both are
+true it writes 1 to $0396, which is the value the status line reads as LANDED. That is the whole
+landing test - no attitude, no vertical speed, just "stopped and on the ground".
+
+**Height and speed interact.** At $381A, if height is zero and speed is not, the code takes two off
+the speed and starts a short timer. The skimmer is being dragged down by contact: height has to come
+first, and a moving ship on the deck loses speed until it stops.
+
+**Fuel** is not burned by flying. It is filled by a loop at $5E4D that increments $0346 until it
+reaches $BF and then prints `SKIMMER REFUELED` - which is a station routine, not a flight one.
+
+## The gauges
+
+The five bar gauges in the instrument panel are all drawn by one routine, $3769, called five times
+with a different value and a different destination:
+
+| Bar | Bitmap offset | Variable |
 |---|---|---|
-| Max speed | $FF | Maximum forward velocity |
-| Acceleration | $04 | Speed increase per frame (Z key) |
-| Deceleration | $02 | Speed decrease per frame (; key) |
-| Turn rate | $08 | Heading change per frame (X/Z keys) |
-| Rise rate | $03 | Altitude increase (: key) |
-| Sink rate | $02 | Altitude decrease (. key) |
-| Inertia | $01 | Gradual speed reduction when no input |
+| 1 | $F8A0 | $0344 |
+| 2 | $F9E0 | $0377 |
+| 3 | $FB20 | $0346 (+3 before scaling) |
+| 4 | $FC60 | $0347 |
+| 5 | $FDA0 | $0353 (+3 before scaling) |
 
-### Physics Update Loop
+Each value is shifted right twice, capped at $2D, and then turned into a bar width: widths 0-8 come
+from a ramp table at $379F (`00 80 C0 E0 F0 F8 FC FE FF`) and anything wider is a solid byte of
+$FF. The routine writes four bytes per row for six rows, stepping nine bytes per row, which is why
+the bars are short four-byte-wide strips in the bitmap rather than long lines.
 
-```text
-PER FRAME:
-  ; Handle input
-  IF Z key pressed AND speed < max_speed:
-    speed += acceleration
-  IF ; key pressed AND speed > 0:
-    speed -= deceleration
-  IF X key pressed:
-    heading -= turn_rate
-  IF / key pressed:
-    heading += turn_rate
-  IF : key pressed:
-    altitude += rise_rate
-  IF . key pressed:
-    altitude -= sink_rate
+The two bars with +3 added before scaling are the two that floor at zero in gameplay - fuel and
+speed - so the offset is there to keep their minimum visible.
 
-  ; Apply inertia
-  IF no speed input:
-    speed -= inertia
+## Mission progress
 
-  ; Update position
-  position_x += sin(heading) * speed
-  position_y += cos(heading) * speed
-```
+The mission counters are not in the block I have identified. The manual's rules - 40 rod parts,
+20 bars, 8 per reactor - are described in [World and Cities](world-and-cities.md) and come from the
+manual rather than from disassembly. There is no score variable in the state block either: an
+earlier version of this chapter listed a score, five scoring events and a points table, and I have
+not found any of it in the code.
 
-## Combat Mechanics
-
-Combat involves lasers, heat-controlled missiles, anti-missile missiles (AMMs), and flares:
-
-| Weapon | Key | Damage | Range | Special |
-|---|---|---|---|---|
-| Laser | SPACE/C/E | Low | Line of sight | Heats up, needs cooldown |
-| Missile | M | High | Long | Heat-seeking, limited ammo |
-| AMM | A | Medium | Short | Counter-measure vs missiles |
-| Flare | F | None | Short | Distracts heat-seeking missiles |
-
-### Missile AI
-
-Hostile robots fire missiles at your skimmer. The missile AI works as follows:
-
-1. Robot detects your skimmer within range (radar lock)
-2. Robot fires missile with initial heading toward your position
-3. Missile tracks your position each frame (heat-seeking)
-4. Missile adjusts its heading to intercept your trajectory
-5. If you fire a flare, the missile may be distracted and lose lock
-6. If you fire an AMM, it intercepts the hostile missile
-
-## Mission Progress Tracking
-
-The mission progress is tracked through three counters:
-
-| Counter | Range | Purpose |
-|---|---|---|
-| Cooling rods collected | 0-40 | Parts found in reactors |
-| Cooling bars assembled | 0-20 | Parts paired into bars (RODS command) |
-| Cooling bars inserted | 0-20 | Bars placed in Centralis reactor |
-
-> [!NOTE]
-> **Win condition:** All 20 cooling bars must be inserted into the main reactor in Centralis. When the counter reaches 20, the mission is complete and the "REACTOR SUCCESSFULLY CLOSED DOWN" message appears.
-
-## Score System
-
-The SCORE command rates your progress. Points are awarded for:
-
-| Achievement | Points |
-|---|---|
-| Each cooling rod collected | +10 |
-| Each cooling bar assembled | +50 |
-| Each cooling bar inserted | +100 |
-| Enemy destroyed | +25 |
-| City visited | +15 |
-| Time bonus | Varies |
-
-## Game Modes
-
-The game has three main modes controlled by the game mode variable:
-
-| Mode | Value | Description |
-|---|---|---|
-| Flying | 0 | Above-ground flight, 3D landscape rendering |
-| Ground | 1 | Docked at building, board computer commands available |
-| Map | 2 | Planet map display, zoom/pan controls |
-
-## Summary
-
-Tau Ceti's game state management uses a compact zero-page layout with ~$20 bytes of state variables covering ship physics, combat, mission progress, and game mode. The physics model is simple but effective, with acceleration-based movement and realistic turning mechanics.
+> [!WARNING]
+> Two things in the old version of this chapter were wrong rather than merely unfound. The state is
+> not in the zero page, and there is no physics model with per-frame acceleration and an inertia
+> term - the throttle is a clamped increment, and the only "inertia" in the flight code is the
+> speed loss when the skimmer is on the ground.
 
 ---
 

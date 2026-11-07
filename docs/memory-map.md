@@ -4,172 +4,174 @@ The full 64KB map: what lives where, and which VIC-II and SID registers the game
 
 ---
 
-Tau Ceti uses approximately $E00-$FFFF of the C64's 64KB address space, leaving $000-$DFF unused or used only transiently by KERNAL calls. The game was clearly designed for a cartridge-style memory layout rather than a standard disk load.
+Tau Ceti fills the machine. The game code sits at $2000 and runs to $88FF, the data files occupy
+$8900-$CCFF and $D000-$DFFF, and the screen hardware points into the top of memory: bitmap at
+$E000, video matrix at $CC00, colour RAM at $D800. The loader in the bottom quarter is overwritten
+almost as soon as the game starts.
 
 ## Complete Memory Map
 
-| Range | Region |
+| Range | Contents |
 |---|---|
-| $0800 | Loader |
-| $1000 | Decoded |
-| $2000-5FFF | Engine Code |
-| $6000-7FFF | Draw Tables |
-| $8000-BFFF | Graphics |
-| $C000-DFFF | Screen+Charset |
-| $E000-FFFF | VIC-II+State |
+| $0000-$00FF | zero page: pointers, counters, the raster stage byte |
+| $0100-$01FF | stack; $0100-$0110 hold the live key map |
+| $0200-$03FF | game variables (page 3 holds the flight state, gauges and ammo) |
+| $0400-$0BFF | flight-view canvas and its working area |
+| $0C00-$0CFF | loader, then the two message-queue ring buffers |
+| $0D00-$0DFF | small table read by the object code at $3915 |
+| $0E00-$10FF | 48 object records, 16 bytes each |
+| $2000-$88FF | game code |
+| $8900-$8FFF | city data, including the name table at $8D04 |
+| $9000-$92FF | glyph banks used by the message log |
+| $9300-$93FF | demo script: hold counts |
+| $BD00-$BDFF | demo script: joystick actions |
+| $C39A-$C3FF | object type table and per-type data |
+| $CC00-$CFFF | video matrix (1000 bytes used) |
+| $D000-$DFFF | replacement I/O routines (loaded from `I/O 4K`) |
+| $D800-$DBFF | colour RAM (1000 bytes used) |
+| $E000-$FF3F | the bitmap |
+| $FFFE-$FFFF | hardware IRQ vector, holding $3903 |
 
 ![The 64KB address space, block by block](../assets/memory-map-viz-1.svg)
 
 ## Region Breakdown
 
-### $0800-$0FFF: Loader / KERNAL Workspace
+### $0000-$00FF: Zero Page
 
-The loader PRG is loaded at $0801 (standard C64 PRG start). This region contains:
+The zero page holds the working state the code touches most often:
 
-- Loader code (decryptor, KERNAL call wrappers)
-- KERNAL workspace and I/O buffers
-- Stack space ($0100-$01FF also used)
-
-### $1000-$1FFF: Decoded Data Area
-
-The XOR-decoded game data resides here, including:
-
-| Range | Content |
+| Address | Use |
 |---|---|
-| $1000-$19FF | Decrypted game code (JSR targets) |
-| $1A00-$1FFF | Game strings, message tables, credits |
+| $01 | CPU port; the loader switches RAM in and out with it |
+| $11 | a frame counter, incremented once per frame at $25D3 |
+| $26-$27 | scratch for the 8-bit multiply in the object code |
+| $61-$62 | general pointer, used by the record scanner and the sound code |
+| $67-$69 | counters and saved indices inside drawing routines |
+| $6F | the current raster stage, 0-3 |
+| $C6 | KERNAL keyboard buffer length, cleared each frame at $4DA9 |
+| $DA-$DB | projected position used by the drawing code |
 
-The decoded area starts at offset $1CD40 in the D64 file (RAM $1D540). Key strings found here include "GREETINGS COMMANDER" at $1CDE0 and "PRESS FIRE TO PLAY" at $1F2A0.
+### $0100-$0110: The Key Map
 
-### $2000-$5FFF: Game Engine Code
+Ten bytes of key codes, read one at a time by the key-test routine at $3D18. A game start restores
+them from a saved copy at $03EF with the routine at $6403, which is how the demo hands control back
+without inheriting a remapped keyboard.
 
-The main game engine occupies this large region. Disassembly reveals these key routines:
+### $0200-$03FF: Game Variables
 
-| Address | Routine | Description |
-|---|---|---|
-| $26A0 | Main Loop | Raster interrupt handler, game state machine |
-| $28C4 | Renderer | VIC-II screen update, sprite positioning |
-| $2A33 | Input Handler | Joystick/keyboard input processing |
-| $2B51 | World Builder | Planet/station rendering, object placement |
-| $2D47/$2D52 | Drawing Tables | 3D projection math, polygon drawing |
-| $2DA7 | Combat Logic | Missile firing, collision detection |
-| $2EF7 | Trading System | Fuel/ore pricing, station transactions |
-| $305D | Reactor Management | Cooling rods, reactor shutdown sequences |
-| $3225 | Mission System | Mission state tracking, success/failure |
-| $34AD | Navigation | Jump calculations |
-| $3660 | Text Display | Custom charset text rendering |
-| $3810/$3848 | Charset Init | Runtime character set table initialization |
-| $39A2/$39EE | String Processing | Input parsing, command interpretation |
-| $3B0A/$3A4B | UI Display | Status bar, HUD elements |
-| $3B5E/$3B94/$3BBC | Screen Effects | Color cycling, screen panning |
-| $3E17 | Sound Manager | SID register writes, music control |
-| $3F29/$3F90/$3FAB | Audio Effects | Explosions, engine sounds, beeps |
-| $4037/$4054 | Math Routines | Fixed-point arithmetic, trig tables |
-| $40E4 | Random Number | RNG for combat and events |
-| $4127/$4149 | Data Loading | World data access, planet lookups |
-| $4241 | Ship State | Fuel, hull integrity, cargo tracking |
-| $4348/$43EB | Object Rendering | 3D object drawing, perspective projection |
-| $451F/$4547/$4560/$4584/$45AD | Polygon Drawing | Filled polygon rasterization |
-| $4620/$4645 | Collision Detection | Sphere/box intersection tests |
-| $4745 | Camera Control | View angle, zoom level |
-| $4D73/$4DAB/$4DA4/$4DBD | Text Output | Custom charset string printing |
-| $4E3D/$4E41/$4E45/$4E49/$4E4F | Input Parsing | Command parsing, number entry |
-| $4F62/$4F7F | Menu System | Dialog boxes, option selection |
-| $5241/$5245 | Mission Messages | Status messages, notifications |
-| $5320/$5345/$5349/$5372/$5441/$5449 | Combat Messages | Firing, hit, damage reports |
-| $5571/$5585 | Reactor Messages | Cooling rod status, shutdown alerts |
+Almost everything the game tracks lives here, at absolute addresses rather than in the zero page:
 
-### $6000-$7FFF: Drawing Tables
-
-This region contains lookup tables used by the rendering engine:
-
-- Sine/cosine lookup tables for 3D rotation ($6xxx)
-- Polygon vertex tables ($7xxx)
-- Color palette tables
-- Projection matrix constants
-
-### $8000-$BFFF: Graphics Data
-
-All game graphics are stored here:
-
-| Range | Content |
+| Address | Variable |
 |---|---|
-| $8000-$8FFF | VIC-II character set (custom charset) |
-| $9000-$9FFF | Sprite data (player ship, enemies, stations) |
-| $A000-$AFFF | Planet/star bitmap tiles |
-| $B000-$BFFF | Station building sprites, UI icons |
+| $0334 | sight/flag byte toggled at $3B20 |
+| $033B-$033F | sight position, computed each frame by the projection helpers |
+| $0344 | height |
+| $0346 | fuel |
+| $0347 | a slowly decaying gauge |
+| $034A-$0351 | joystick shadow bytes: the eight input bits the flight model reads |
+| $0352 | turn rate |
+| $0353 | speed |
+| $0355 | flares |
+| $0356 | flare timer |
+| $0357 | AMM |
+| $0358 | missiles |
+| $0359 | AMM flash flag |
+| $0365-$0367 | weapon cooldown timers: flare, missile, AMM |
+| $0377 | a gauge that fills to $BF |
+| $0379 | general-purpose timer |
+| $0383/$0384 | message queue write and read pointers |
+| $0394 | demo flag: non-zero means attract mode |
+| $0396 | flight state: 0 launched, 1 landed, 2+ docked |
+| $039D | display mode, ORed into the raster dispatch index |
+| $03C4/$03C5 | effect/sound selectors |
+| $03EF-$03FF | saved key map |
 
-### $C000-$DFFF: Screen Buffer + Charset RAM
+### $0400-$0BFF: The Flight View
 
-| Range | Content |
-|---|---|
-| $C000-$C7FF | Screen bitmap (160x200, 4-color) |
-| $C800-$CFFF | Color RAM (background/border colors per character) |
-| $D000-$D7FF | Extended screen buffer (double buffering) |
-| $D800-$DFFF | Charset lookup table ($8412-$85FF in game RAM, mapped here) |
+The flight view is drawn in a small canvas at $0400, eight rows of 64 bytes, two bits per pixel.
+The operator at $3F93 walks the object records and paints into it; the blitter at $3F29 then copies
+it out to the bitmap in eight bands at $E870, $E9B0, $EAF0, $EC30, $ED70, $EEB0, $EFF0 and $F130.
+A second blitter at $223E reads a wider area, $0400-$0BFF, and writes strips into $E148, $E288 and
+onward, separating even and odd destination bytes.
 
-### $E000-$FFFF: VIC-II Registers + Game State
+### $0C00-$0CFF: Loader, Then Message Queue
 
-| Range | Content |
-|---|---|
-| $E000-$E7FF | Game state variables (ship position, fuel, cargo) |
-| $E800-$EFFF | World data (planet positions, station layouts) |
-| $F000-$F7FF | Mission state, scoring, game flags |
-| $F800-$FFFF | SID sound registers, raster interrupt vectors |
+When the disk boots, this is JEFF. Once the game is running, it is two ring buffers: $4127 appends
+two-byte entries at $0C00 and $413B appends four-byte entries at $0C80. The loader does not survive
+the first message the game prints.
+
+### $0E00-$10FF: The Object Table
+
+Forty-eight records of sixteen bytes. Byte 0 is a type index into the table at $C39A, byte 3 holds
+flags ($40 drawn, $08 variant), bytes 10-11 are a 16-bit X position and bytes 12-13 the depth.
+
+The table is built at run time by $280B from per-city object lists, pointed to by the city number
+at $0354, which is why the bytes on the original disk do not match the table in a running game.
+
+### $2000-$88FF: Game Code
+
+The main body of the program, loaded from `2000-8900`. Entry is at $2000 with `LDX #$FE / TXS` and
+five `JSR`s into the start-up routines; the frame loop begins at $4D80 and the hardware IRQ handler
+at $3903.
+
+### $8900-$92FF: City Data and Glyphs
+
+The city name table is at $8D04, thirty-two names separated by $C0. Above it, $9000-$92FF holds
+three banks of glyphs used by the message log: bank 0 is digits and punctuation, bank 1 is A-Z with
+a blank first, and bank 2 is not identified.
+
+### $CC00-$CFFF: Video Matrix
+
+The VIC-II is pointed here by $D018 = $38 (`$3D` while the loader owns the screen), giving 1000
+bytes of matrix for a 40x25 screen in multicolour bitmap mode.
+
+### $D000-$DFFF: Replacement I/O
+
+`I/O 4K` is loaded at $4000 and copied down here under the I/O bank. This is the game's own screen
+and input code, running where the KERNAL's I/O normally lives.
+
+### $E000-$FF3F: Bitmap
+
+8000 bytes, one 320x200 multicolour bitmap, displayed from VIC-II bank 3. The last 192 bytes of the
+bank are not part of the picture: $FFFE holds the IRQ vector, which is $3903.
 
 ## VIC-II Register Access
 
-The game actively accesses these VIC-II registers:
+The game uses a normal multicolour bitmap screen and raster splits. The registers it actually
+writes:
 
 | Register | Address | Purpose |
 |---|---|---|
-| $D011 | $D011 | Screen mode (custom 160x200 extended) |
-| $D016 | $D016 | Raster interrupt enable ($02 bit) |
-| $D018 | $D018 | Raster register (line number for interrupt) |
-| $D019 | $D019 | Sprite enable registers |
-| $D01A-$D01F | $D01A-$D01F | Sprite position, shape, color registers |
-| $D020-$D027 | $D020-$D027 | Sprite multi-color mode |
-| $D025 | $D025 | Hblank sprite expand / hardware scroll |
-| $D030-$D031 | $D030-$D031 | Border/background color |
+| $D011 | $D011 | screen control: bitmap mode, display enable, vertical scroll |
+| $D012 | $D012 | raster compare - which line the next split fires on |
+| $D016 | $D016 | horizontal scroll and multicolour enable |
+| $D018 | $D018 | video matrix and bitmap base pointers |
+| $D019 | $D019 | interrupt status, acknowledged every frame |
+| $D01A | $D01A | interrupt enable |
+| $D020/$D021 | $D020/$D021 | border and background |
+| $DD00 | $DD00 | VIC bank select; bits 0-1 = %00 selects bank 3, $C000-$FFFF |
+
+There are no sprites. Everything on screen is drawn into the bitmap.
 
 ## SID Register Access
 
-The SID ($C011-$C01F) is accessed for sound:
+Sound is small and direct. Two voices, no music player, no filter sweep:
 
-| Register Range | Purpose |
-|---|---|
-| $C011-$C013 | Voice 1: frequency, volume, waveform |
-| $C014-$C016 | Voice 2: frequency, volume, waveform |
-| $C017-$C019 | Voice 3: frequency, volume, waveform |
-| $C01A | Filter: cutoff, resonance, filter mode |
-| $C01B | Attack/decay, sustain/release (voice 1) |
-| $C01C | Attack/decay, sustain/release (voice 2) |
-| $C01D | Attack/decay, sustain/release (voice 3) |
-| $C01E | Modulation, SID model select |
-| $C01F | Voice mix, external input, output select |
-
-## Key Game State Variables (RAM $E000+)
-
-Disassembly reveals these state variables:
-
-| RAM Address | Variable | Description |
+| Register | Address | Purpose |
 |---|---|---|
-| $E000 | Ship X position | Current 3D coordinates |
-| $E001 | Ship Y position | Vertical position |
-| $E002 | Ship Z position | Depth coordinate |
-| $E003 | Fuel level | 0-255 (percentage) |
-| $E004 | Hull integrity | Ship health |
-| $E005 | Cargo type | Ore, fuel, supplies |
-| $E006 | Cargo amount | Quantity on board |
-| $E007 | Current target | Target index |
-| $E008 | Current station | Station index at docked planet |
-| $E009 | Game state | Menu, flying, docked, combat |
-| $E00A | Mission ID | Current active mission |
-| $E00B | Cooling rods | Number inserted in reactor |
-| $E00C | Reactor temperature | Heat level (danger threshold) |
-| $E00D | Missile count | Remaining missiles |
-| $E00E | Score | Game score total |
-| $E00F | Efficiency | Mission efficiency rating |
+| $D400-$D406 | voice 1 | frequency, pulse width, control, attack/decay - written as a block through `STA $D400,Y` from a parameter table |
+| $D40E/$D40F | voice 2 frequency | effect pitch |
+| $D412/$D413 | voice 2 pulse width | timbre |
+| $D414 | voice 2 control | waveform, gate, attack/decay |
+| $D418 | volume and filter mode | master output |
+
+Voice 1 is set up as a block from a table (the indexed stores run from $D400 to $D406); voice 2 is
+poked register by register. Each effect is a short hand-written routine that sets a frequency,
+opens a gate and closes it again.
+
+> [!NOTE]
+> The old version of this chapter listed the SID at $C000-$C01F. The SID is at $D400-$D41C; $C000
+> is ordinary RAM in this game.
 
 ---
 

@@ -9,8 +9,10 @@ A complete design for transforming Tau Ceti from a single-objective maze game in
 ## The Backstory (Already in the Code)
 
 > [!NOTE]
-> The game already contains the narrative seed. At offset $204D8, the decoded data reads:
-> TAU CETI 3))) IS NOW NEUTRALISED AND WILL SOON BE RECOLONISED
+> The design below is speculative. An earlier draft of this page quoted a line of text at file
+> offset $204D8 - `TAU CETI 3))) IS NOW NEUTRALISED AND WILL SOON BE RECOLONISED` - as if it were in
+> the game. It is not: that offset holds ordinary code, and the line was invented to give the design
+> a hook. Treat the whole chapter as a proposal, not a description of the original.
 > This is the **re-colonisation mission**. You are not just collecting reactor parts - you are the vanguard of a planetary reclamation effort. The three brackets ())) represent the three phases of the operation, or possibly the three original colonisation waves that were destroyed.
 
 The full picture from message strings:
@@ -179,7 +181,8 @@ The cooling rods are the **final key**. You collect them after conquering most o
 
 ## New Commands (Board Computer Extensions)
 
-Extend the dispatch table at $1B900 with these new commands:
+Add these commands to the board computer (the parser has not been located, so this is a design
+proposal rather than a patch):
 
 | Command | Function |
 |---|---|

@@ -1,82 +1,46 @@
 # Map System
 
-The MAP command, city map generation and the planet map data structure.
+The MAP command, and the honest state of what is known about the planet data.
 
 ---
 
-A complete analysis of how the city map and planet map are generated, stored, and rendered.
+This is the shortest chapter in the guide, because the map is the subsystem I have been able to
+establish least about. Rather than describe a data structure that may not exist, it records what is
+verified, what follows from it, and what is still open.
 
-## The MAP Command
+## What is verified
 
-Entering MAP on the board computer switches the display to a zoomable map of Tau Ceti showing all 32 cities and their jump pad connections.
+- The 32 city names are a contiguous table at $8D02 in the `8900-CC00` file, encoded as index + $20
+  and separated by $C0. See [World and Cities](world-and-cities.md).
+- The current city number lives at $0354, and $280B uses it to locate a per-city object list and
+  build the 48 object records at $0E00.
+- Every string the game prints, including any the map would print, goes through the queue at $4127.
 
-## City Map Generation
+## What is not verified
 
-The city map is generated from the coordinate data stored at file offset $14BE4. Each city's coordinates are scaled to fit the screen display area.
+- **A table of 32 city positions.** Earlier versions of this chapter put it at file offset $14BE4 as
+  32 four-byte X/Y/Z/W records. The bytes at the equivalent place in memory are a decaying curve
+  (`FE FC F4 E8 D7 C3 AC 93 ...`), which is a scaling table, not a set of coordinates. No such table
+  has been found elsewhere.
+- **The MAP command's rendering code.** I have not identified the routine that draws the planet
+  view, so I cannot say what it reads.
+- **Jump-pad pairings.** The manual says the pads are non-programmable "Super Traveller" pads at the
+  N/S/E/W edges of a city; nothing in the data I have located encodes the pairing.
 
-### Map Rendering Process
+## Where to look next
 
-1. Read city coordinates from the table at $14BE4
-2. Apply zoom/pan offsets to each coordinate
-3. Scale coordinates to fit the screen area
-4. Draw city names using the custom charset
-5. Draw jump pad connections between cities
-6. Highlight the current city with a different colour
+If the city positions exist as data, the most likely places are:
 
-### Zoom/Pan Controls
+1. **The per-city object list** that $280B reads. That list has to know where each building is, and
+   the city's own origin is probably in its header.
+2. **The `8900-CC00` file** beyond the name table. It also holds the glyph banks and the demo
+   script, so it is a mixed data file rather than a clean map.
+3. **The scale factor curve** mentioned above. A table of diminishing values next to the city names
+   is exactly what a projection routine would want, which suggests the map maths is nearby even if
+   the coordinates are not.
 
-| Action | Key | Effect |
-|---|---|---|
-| Zoom in | + | Increase magnification |
-| Zoom out | - | Decrease magnification |
-| Pan up | Up arrow | Move map view north |
-| Pan down | Down arrow | Move map view south |
-| Pan left | Left arrow | Move map view west |
-| Pan right | Right arrow | Move map view east |
-
-## Planet Map (Board Computer MAP)
-
-The planet map shows all 32 cities connected by jump pad lines. The layout is a top-down view of the planet surface with cities positioned according to their coordinates.
-
-### Planet Map Data Structure
-
-```text
-Planet Map Structure:
-  City positions: $14BE4-$14D00 (128 bytes)
-  Jump pad connections: $14D00-$14E00 (256 bytes)
-  Map display buffer: RAM $F800-$FBFF (1024 bytes)
-  Zoom level: Zero-page variable
-  Pan offset: Two zero-page variables (X, Y)
-```
-
-## Walkthrough: Generating a City Map
-
-Let's walk through the process of generating a map for Centralis:
-
-1. **Read coordinates:** LDA city_index, LDX #$14BE4, read X/Y/Z/W bytes
-2. **Apply zoom:** Multiply coordinates by zoom factor from lookup table
-3. **Apply pan:** Subtract pan offset from each coordinate
-4. **Scale to screen:** Convert world coordinates to screen pixels
-5. **Draw buildings:** For each building in the city, draw its outline
-6. **Draw labels:** Write city name using custom charset
-7. **Draw jump pads:** Draw lines from city edges to connected cities
-
-## Jump Pad Network Visualization
-
-The jump pad connections form a network graph that connects all 32 cities. The MAP command displays this as lines between city positions.
-
-```text
-Jump Pad Network:
-  Each city has 4 jump pads (N/S/E/W)
-  Each pad connects to exactly one other pad in another city
-  Total connections: ~64 (32 cities x 2 unique connections each)
-
-The network is fully connected - you can reach any city from any other city through a series of jumps.
-```
-
-## Summary
-
-The map system uses pre-stored city coordinates and a simple scaling algorithm to generate the planet map. Zoom and pan controls allow exploration of the full network, with jump pad connections drawn as lines between cities.
+The pragmatic way to answer the question is to break on the routine that runs when MAP is typed, and
+watch which addresses it reads. I have not done that.
 
 ---
 

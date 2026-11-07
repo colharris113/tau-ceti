@@ -35,7 +35,7 @@ The game renders a building by reading the type byte, then fetching the correspo
 
 Dockable types are A (Main), D (Civil), E (Lander) and H (Control Tower). Rod parts sit in type B (Reactor) buildings, and EQUIP works at types D and E.
 
-Building graphics are stored as 8x8 character bitmaps using the custom charset at RAM $8412-$85FF. The DFP airlock flicker is rendered by alternating two bitmap frames, open with a transparent centre and closed as a solid rectangle.
+Building graphics are 8x8 patterns drawn into the bitmap by the glyph blitter at $3E17, from the pattern banks at $8E00 and $8F00 (see [Character Set and Text System](charset.md)). The DFP airlock flicker is rendered by alternating two bitmap frames, open with a transparent centre and closed as a solid rectangle.
 
 ## Interior Bitmap Graphics
 
@@ -62,7 +62,7 @@ Civilian Supply Interior Layout:
   Row 4: "EQUIP TERMINAL" label
   Row 5-7: Computer station bitmap (8x8 chars)
 
-Each character is drawn from the custom charset at RAM $8412-$85FF
+Each character is drawn as an 8-byte pattern by the blitter at $3E17
 ```
 
 ### Example: First Screen (Gal-Corp Lander)

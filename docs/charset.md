@@ -1,206 +1,125 @@
 # Character Set and Text System
 
-The runtime charset, its encoding scheme, the string tables and text rendering.
+How text is stored, and how it reaches the screen when there is no character mode.
 
 ---
 
-Tau Ceti uses a custom character set that is NOT standard C64 PET ASCII. The charset is initialized at runtime by code at game offset $381C (RAM address $401D), which calls into the decoded data area via JSR $5105. The resulting lookup table occupies RAM addresses $8412-$85FF (512 bytes).
+Tau Ceti has no character set in the usual sense. The screen is a bitmap, so there is nothing for
+the VIC-II to fetch glyphs from: every letter on screen has been copied into the bitmap by the
+game. What looks like a custom charset is a set of 8x8 patterns in RAM, a blitter that copies them
+into the picture, and a simple encoding that turns string bytes into pattern numbers.
 
-### Charset Initialization
+## The encoding
 
-The charset initialization code at offset $381C builds a custom lookup table that maps encoded input characters to their display equivalents. This is done at game startup, before any text is displayed:
+Every string in the game - the status line, the message log, the city names - uses the same
+encoding. A letter is stored as its index in the alphabet plus $20, with A as 1:
 
-```asm
-$381C: CHARSET INITIALIZATION
-$381C:   LDA #$12          ; Start of charset table ($8412)
-$381E:   STA $0003         ; Low byte of table pointer
-$3821:   LDA #$84
-$3823:   STA $0002         ; High byte of table pointer
-$3826:   LDA #$00          ; Counter = 0
-$3828:   STA $0001
-
-$382A: BUILD LOOKUP TABLE
-$382A:   LDA $0001         ; Load counter
-$382C:   CMP #$40          ; 64 entries (0-63)
-$382E:   BCS $3840         ; Done when counter >= 64
-$3830:   LDA charset_source,X ; Read source byte
-$3833:   EOR #$FF          ; Apply XOR transformation
-$3835:   STA ($0003),Y     ; Store in lookup table
-$3837:   INC $0001         ; Increment counter
-$3839:   INX
-$383A:   JMP $382A         ; Next entry
-```
-
-### Charset Encoding Scheme
-
-The game uses a custom encoding for text strings stored in the decoded data area. Each character byte is transformed through the lookup table before being written to the screen buffer. The encoding scheme maps standard ASCII-like values to the custom charset:
-
-| Encoded Byte | Display Character | Notes |
-|---|---|---|
-| $00 | (null terminator) | End of string marker |
-| $20-$39 | A-Z (uppercase) | Letters encoded as $20+$n |
-| $40-$49 | a-z (lowercase) | Lowercase letters |
-| $50-$59 | 0-9 (digits) | Digits for scores, coordinates |
-| $60-$67 | Symbols !@#$%&' | Punctuation and operators |
-| $68 | Space | Word separator |
-| $69 | . | Period/full stop |
-| $6A | , | Comma |
-| $6B | : | Colon |
-| $6C | - | Hyphen/dash |
-| $6D | / | Forward slash |
-| $6E | ( | Left parenthesis |
-| $6F | ) | Right parenthesis |
-| $70-$77 | Game icons | Reactor, missile, fuel gauge symbols |
-| $78-$7F | Extended symbols | Arrow keys, bar graphs |
-
-### Charset Lookup Table (RAM $8412-$85FF)
-
-The 512-byte lookup table maps input values to display characters. Each entry is a single byte that represents the character's position in the VIC-II character set memory ($8000-$87FF):
-
-| Input | Lookup Value | VIC-II Char Address | Displays As |
+| Byte | Character | Byte | Character |
 |---|---|---|---|
-| 0 | $00 | $8000 | Blank (space) |
-| 1 | $41 | $8041 | A |
-| 2 | $42 | $8042 | B |
-| 3 | $43 | $8043 | C |
-| ... | ... | ... | ... |
-| 10 | $4A | $804A | J |
-| 15 | $4F | $804F | O |
-| 26 | $5A | $805A | Z |
-| 32 | $60 | $8060 | Space symbol |
-| 48 | $70 | $8070 | Reactor icon |
-| 49 | $71 | $8071 | Missile icon |
-| 50 | $72 | $8072 | Fuel gauge icon |
+| $21 | A | $2C | L |
+| $22 | B | $2D | M |
+| $23 | C | $2E | N |
+| $24 | D | $2F | O |
+| $25 | E | $30 | P |
+| $26 | F | $31 | Q |
+| $27 | G | $32 | R |
+| $28 | H | $33 | S |
+| $29 | I | $34 | T |
+| $2A | J | $35 | U |
+| $2B | K | $36 | V |
+| | | $37-$3A | W X Y Z |
 
-### Text Rendering Pipeline
+Two conventions sit on top of that:
 
-When the game needs to display text, it follows this pipeline:
+- **$C0 separates items in a list.** The city names at $8D02 are one long run of letters with $C0
+  between them, terminated by $FF.
+- **$80 ends a line and $FF ends a message.** The message interpreter stops a line at $80 and the
+  whole list at $FF, so a single message can be several lines long.
 
-1. **String pointer loaded** - The address of the encoded string is loaded into a zero-page pointer ($3F00-$3F01)
-2. **Character fetch** - Each byte is read from the string via indirect indexed addressing: LDA ($3F00),Y
-3. **Null check** - If the byte is $00, the string ends (BEQ branch)
-4. **Lookup table access** - The encoded byte is used as an index into the charset lookup table at $8412
-5. **VIC-II character write** - The lookup value is written to the screen buffer at $C000+Y
-6. **Advance** - Y is incremented for both string pointer and screen position
+Bit 6 of a byte is used as a flag rather than part of the letter. In the message `PRESS 3 TO TRY
+ANOTHER MISSION` the R is stored as $52 rather than $32, and the decoder ignores the top bit; the
+same byte appears with and without it in neighbouring strings.
 
-### String Storage Format
-
-Strings are stored in the decoded data area (RAM $1A00-$1FFF) as null-terminated sequences of encoded bytes. The encoding uses a simple scheme where each character byte is XORed with a per-string key to prevent casual inspection:
-
-```asm
-; Example: "GREETINGS COMMANDER" stored at $1CDE0
-$1CDE0: ; Encoded bytes (XOR key = $41)
-$1CDE0:   $21,$32,$33,$34,$35,$36,$37,$38  ; G,R,E,E,T,I,N,G,S
-$1CE48:   $68                                  ; Space
-$1CE49:   $23,$34,$35,$36,$37,$38,$39,$40,$41  ; C,O,M,M,A,N,D,E,R
-$1CE52:   $00                                  ; Null terminator
-
-; Decoding at runtime:
-$366B:   LDA ($3F00),Y       ; Read encoded byte
-$366E:   EOR #$41            ; XOR with string key
-$3670:   LSR A               ; Shift to get charset index
-$3671:   LSR A
-$3672:   LSR A
-$3673:   AND #$0F            ; Mask to 4 bits
-$3675:   TAX
-$3676:   LDA $8412,X         ; Lookup in charset table
-$3679:   STA $C000,Y         ; Write to screen buffer
-```
-
-### Key Game Strings (with encoding)
-
-Here are the decoded game strings with their offsets and encoded forms:
-
-| Offset | Decoded Text | String Key | Length |
-|---|---|---|---|
-| $1CDE0 | GREETINGS COMMANDER | $41 | 19 bytes |
-| $1F2A0 | PRESS FIRE TO PLAY | $41 | 18 bytes |
-| $1D70B | ILLEGAL SINCE IT WAS PROVED TO CAUSE STERILITY AND BRAIN DAMAGE OVER X YEARS | $42 | 76 bytes |
-| $1EB4F | ROBOT MISSILE FIRED | $41 | 19 bytes |
-| $1ED06 | MISSION FAILED | $41 | 14 bytes |
-| $1F02D | ALL SYSTEMS REPAIRED | $41 | 20 bytes |
-| $1F9EC | SINKER REFUELED | $41 | 15 bytes |
-| $20D91 | REACTOR SUCCESSFULLY CLOSED DOWN | $41 | 32 bytes |
-| $1F21D | JOHN TWIDDY | $41 | 11 bytes |
-| $1F241 | PETE COOKE | $41 | 10 bytes |
-| $1F6F2 | SINKER DESTROYED | $41 | 16 bytes |
-| $1FA85 | NOT AVAILABLE HERE | $41 | 18 bytes |
-| $1FA99 | SINKER ISN'T DOCKED | $41 | 20 bytes |
-| $1FD54 | PARTS DO NOT MATCH | $41 | 18 bytes |
-| $1FDB5 | COOLING ROD SOLVED | $41 | 18 bytes |
-| $20CEB | ENTERING A HIGHLY RADIOACTIVE AREA | $42 | 34 bytes |
-| $20D1C | FATAL RADIOACTIVE DOSE RECEIVED | $42 | 31 bytes |
-| $21831 | WHICH CITY | $41 | 10 bytes |
-| $21A27 | WORLD POPULATION | $41 | 16 bytes |
-| $21A3C | TRADE | $41 | 5 bytes |
-| $21A46 | DEFENCES | $41 | 8 bytes |
-| $21A7C | VERY HIGH | $41 | 9 bytes |
-| $21A86 | MEDIUM | $41 | 6 bytes |
-| $21AA4 | EAST | $41 | 4 bytes |
-| $21AB5 | HEAVY IND | $41 | 9 bytes |
-| $21ACB | MINING | $41 | 6 bytes |
-| $21AD2 | HYDROPONICS | $41 | 11 bytes |
-
-### VIC-II Character Set Memory ($8000-$87FF)
-
-The VIC-II character set occupies the first 2KB of RAM. Tau Ceti uses a custom character set stored at $8000-$87FF that includes:
-
-| Range | Content |
-|---|---|
-| $8000-$803F | Standard PETSCII characters (A-Z, 0-9, symbols) |
-| $8040-$807F | Game-specific icons (reactor, missile, fuel, ship) |
-| $8080-$80BF | Extended symbols (arrows, bar graphs, gauges) |
-| $80C0-$80FF | Sprite shape data (8x8 pixel patterns) |
-| $8100-$87FF | Unused / available for custom glyphs |
-
----
-
-## Encoding reference
-
-### Charset mapping
-
-Input bytes map to display characters by direct substitution:
-
-| Input | Char | Input | Char | Input | Char |
-|---|---|---|---|---|---|
-| `$21` | A | `$2C` | L | `$37` | W |
-| `$22` | B | `$2D` | M | `$38` | X |
-| `$23` | C | `$2E` | N | `$39` | Y |
-| `$24` | D | `$2F` | O | `$3A` | Z |
-| `$25` | E | `$30` | P | `$C0` | (space) |
-| `$26` | F | `$31` | Q |  |  |
-| `$27` | G | `$32` | R |  |  |
-| `$28` | H | `$33` | S |  |  |
-| `$29` | I | `$34` | T |  |  |
-| `$2A` | J | `$35` | U |  |  |
-| `$2B` | K | `$36` | V |  |  |
-
-### Worked example: CENTRALIS
+## Worked example: CENTRALIS
 
 ```text
-CENTRALIS in charset:
-  C = $23
-  E = $25
-  N = $2E
-  T = $34
-  R = $32
-  A = $21
-  L = $2C
-  I = $29
-  S = $33
+C = $23   E = $25   N = $2E   T = $34   R = $32
+A = $21   L = $2C   I = $29   S = $33
 
-Encoded: $23 $25 $2E $34 $32 $21 $2C $29 $33
+CENTRALIS  ->  $23 $25 $2E $34 $32 $21 $2C $29 $33
 ```
 
-### Special characters
+That sequence is at $8D02, the start of the city name table, and decoding it gives the first of the
+32 names.
 
-| Icon | Purpose |
+## The glyph blitter at $3E17
+
+One routine draws every character in the game. It takes three arguments: the glyph number in A, the
+screen column in X and the character row in Y. It then:
+
+1. adds $C34A[X] to the row offset $C318[Y] to get the low byte of the destination;
+2. adds $C372[X] to $C331[Y] and then $E0 to get the high byte - the $E0 is the top of the bitmap,
+   so the cell lands inside $E000-$FF3F;
+3. multiplies the glyph number by 8 to get a byte offset, and copies eight bytes from a font to the
+   bitmap.
+
+The font is chosen by the carry out of that multiply: glyphs 0-31 come from $8E00, glyphs 32-63
+from $8F00. Two banks of 32 patterns each, 512 bytes in total, is the whole character set for
+on-screen text.
+
+Because the destination is a bitmap and not a screen matrix, the blitter writes *pixels*. The
+glyphs sit in a band of the display whose mode is set by one of the raster stages, which is why
+small text can be sharp while the playfield around it is multicolour.
+
+## The message log's own fonts
+
+The scrolling message log does not use the same font. Its interpreter at $41F7 reads glyph numbers
+from a display list and multiplies each by 8 to index one of three banks:
+
+| Bank | Address | Contents |
+|---|---|---|
+| 0 | $9000 | digits and punctuation |
+| 1 | $9100 | A-Z, blank first |
+| 2 | $9200 | not identified |
+
+The byte's value also selects the bank, so the same number means different things depending on
+where it lands - the display list encodes which bank it wants, not just which pattern.
+
+## The display list
+
+The log is driven by a pointer at $1C. Bytes below $80 are glyph numbers; $80 ends the current
+line and triggers the scroll at $40E4; anything above $80 ends the list.
+
+The scroll is a straight copy of eight rows, 80 bytes at a time: $F908 to $F7C8, $F958 to $F818,
+$FA48 to $F908, $FA98 to $F958, $FB88 to $FA48, $FBD8 to $FA98, $FCC8 to $FB88 and $FD18 to
+$FBD8. The log is a fixed-size buffer that is shuffled upwards, not a text window with a cursor.
+
+## Messages worth knowing
+
+The strings in this game are short and mostly functional. A sample, with the address each is
+queued from:
+
+| Address | Text |
 |---|---|
-| Reactor symbol | Used in reactor status displays |
-| Missile symbol | Used in supply display |
-| Fuel gauge | Used in flying info window |
-| Shield icon | Used in status field |
-| Arrow symbols | Used in ADF displays |
+| $4931 | `DEMO` / `LAUNCHED` / `LANDED` / `DOCKED` (status line) |
+| $3C3D | `FLARE ACTIVATED` |
+| $3C4E | `NO FLARES LEFT` |
+| $3C5E | `NO MISSILES LEFT` |
+| $3C95 | `AMM DETONATED` |
+| $3CA4 | `NO AMMS AVAILABLE` |
+| $5E6A | `SKIMMER REFUELED` |
+| $6001 | `NOT AVAILABLE HERE` |
+| $6015 | `SKIMMER ISN'T DOCKED` |
+| $6503 | `PRESS 3 TO TRY ANOTHER MISSION` |
+| $6528 | `DEMO MODE INITIATED` |
+| $653E | `PRESS 3 TO EXIT` |
+
+> [!NOTE]
+> The old version of this chapter described a 512-byte lookup table at $8412-$85FF and a list of
+> decoded strings at file offsets like $1CDE0. Neither exists: $8412 holds ordinary game data, the
+> strings are scattered through the code at the addresses above, and there is no lookup table
+> because there is no character mode to feed. The encoding table further up, though, was right, and
+> it is the one part of the old chapter that survives intact.
 
 ---
 

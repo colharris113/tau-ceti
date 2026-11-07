@@ -1,101 +1,93 @@
-# Call Graph and Rendering Pipeline
+# Call Graph
 
-Call graphs for the main loop, rendering, input, combat and the raster handler.
+How the frame routine, the raster stages and the message path call each other.
 
 ---
 
-## Main Game Loop Call Graph
+Tau Ceti's call graph is shallow. There are two entry points that matter - the frame routine and the
+raster interrupt - and both call a flat list of workers rather than a deep tree of functions. This
+chapter is the map of that flat structure.
 
-![diagram](../assets/call-graph-1.svg)
+## Per frame: $4D80
 
-Colour key: green engine, orange world data, purple graphics, pink subroutines, blue dispatch.
-
-## Rendering Pipeline
-
-![diagram](../assets/call-graph-2.svg)
-
-Each frame runs raster IRQ, then the main loop, then the rendering manager, then eight rendering steps. $4127 (text output) is the most called routine at 84 calls per frame, so it dominates rendering time. Border colour follows game state: blue normal, red combat, yellow radiation.
-
-## Dispatch Table State Machine
-
-The dispatch table at RAM $1C100 contains 43 entry-point routines that form a state machine. Each routine handles a specific game state or menu option:
-
-| Routine # | RAM Address | Size | First Action | Purpose |
-|---|---|---|---|---|
-| 0 | $1C100 | 92 bytes | ASL $12,X / PLA / CMP #$50 | State routing (checks state >= $50) |
-| 1 | $1C15D | 45 bytes | EOR #$01 | State toggle / flag check |
-| 2 | $1C18B | 14 bytes | BRANCH | Conditional jump based on state |
-| 3 | $1C19A | 65 bytes | BRANCH | State validation |
-| 4 | $1C1DC | 28 bytes | CLC | Arithmetic preparation |
-| 5 | $1C1F9 | 37 bytes | TAY | Index setup |
-| 6 | $1C21F | 218 bytes | JSR $27EC | Menu routine |
-| 7 | $1C2FA | 74 bytes | JSR $27EC | Menu routine |
-| 8 | $1C345 | 175 bytes | BRANCH | Combat state handling |
-| 9 | $1C3F5 | 287 bytes | OP $2B (BMI) | Input handler for combat |
-| 10 | $1C515 | 783 bytes | OP $B9 (LDA abs,Y) | Reactor mission interface (largest routine) |
-| 11-16 | $1C825-$1CAE9 | Variable | Mixed | Various state handlers |
-| 17 | $1C97E | 225 bytes | OP $BD (LDA abs,X) | World data access |
-| 37 | $1CEEF | 8 bytes | JSR $330E | Screen update call |
-| 38+ | $1CEF8+ | Variable | Mixed | Remaining state handlers |
-
-## Input Handling Flow
-
-![diagram](../assets/call-graph-3.svg)
-
-Input goes to the handler, through the bad language check, to the parser, then the state route picks the action.
-
-## Combat System Flow
-
-![diagram](../assets/call-graph-4.svg)
-
-Robot state sits in $0374-$037F (12 bytes); the city's risk level sets how often robots appear.
-
-## Raster Interrupt Handler
-
-The raster interrupt handler at file offset $1D338 (RAM $1DB38) fires at a specific VIC-II scan line and calls the main game loop:
-
-```asm
-$1DB38: Raster IRQ Handler
-$1DB38:   PHA                 ; Save accumulator
-$1DB39:   TXA                 ; Save X register
-$1DB3A:   PHA
-$1DB3B:   TYA                 ; Save Y register
-$1DB3C:   PHA
-$1DB3D:   JSR $26FA           ; Call main game loop
-$1DB40:   PLA                 ; Restore Y
-$1DB41:   TAY
-$1DB42:   PLA                 ; Restore X
-$1DB43:   TAX
-$1DB44:   PLA                 ; Restore A
-$1DB45:   RTI                 ; Return from interrupt
+```text
+$4D80  frame
+ ├─ $3436   prepare the view
+ ├─ $3723   draw the five gauge bars
+ ├─ $37F5   gauges, second stage
+ ├─ $4906   status line (DEMO/LAUNCHED/LANDED/DOCKED)
+ ├─ $615F   context message
+ ├─ $7689   bar animation            (skipped when $0396 = 1, i.e. landed)
+ ├─ $6185   animation, second half
+ ├─ $76BA   instrument update
+ ├─ $73C4   overlay update
+ ├─ $6444   wait for the message queues to drain
+ └─ $46F3   tail call into the next frame
 ```
 
-The raster line is set via STA $D012, and the IRQ is enabled via STA $D015. This provides consistent frame timing regardless of the C64's CPU speed variations.
+## Per frame: the raster handler at $3903
 
-## Charset Initialization Code
+The hardware IRQ vector at $FFFE points here. It runs four times a frame, once per stage, and
+dispatches through the 16-entry table at $498A:
 
-The charset initialization at game offset $381C (RAM $401D) builds the lookup table:
+```text
+$3903  irq
+ ├─ save A/X/Y, switch RAM in at $01
+ ├─ acknowledge $D019
+ ├─ set $D016/$D012/$D011 from the stage tables
+ ├─ stage = (stage + 1) AND 3
+ └─ jmp through $498A[(stage | $039D) * 2]     (target stored as address-1)
 
-```asm
-$401D: CHARSET INITIALIZATION
-$401D:   LDA #$12          ; Start of lookup table ($8412)
-$401F:   STA $0003         ; Low byte of table pointer
-$4022:   LDA #$84
-$4024:   STA $0002         ; High byte of table pointer
-$4027:   LDA #$00          ; Counter = 0
-$4029:   STA $0001
-
-$402B: BUILD LOOKUP TABLE
-$402B:   LDA $0001         ; Load counter
-$402D:   CMP #$40          ; 64 entries (0-63)
-$402F:   BCS $4041         ; Done when counter >= 64
-$4031:   LDA charset_source,X ; Read source byte
-$4034:   EOR #$FF          ; Apply XOR transformation
-$4036:   STA ($0003),Y     ; Store in lookup table
-$4038:   INC $0001         ; Increment counter
-$403A:   INX
-$403B:   JMP $402B         ; Next entry
+stage 0  $49BA ── wait for line $40, then $223E (canvas blit)
+stage 1  $49D9 ── $D015=0, $26FA (input), $33F9, $334C, $34EC, $3D41, $35F6
+stage 2  $49FD ── $33B7, $3803 (weapons), $25D3 (frame counter, flare timer)
+stage 3  $4A0C ── $D015=0, $4690, $3968 (flight controls), $3436, jmp $86F8
 ```
+
+The other three display modes substitute different handlers for stages 1-3, but stage 0 is the same
+routine in all four.
+
+## The message path
+
+```text
+$4127  queue a string address      -> ring buffer at $0C00, pointer $0384
+$413B  queue a four-byte entry     -> ring buffer at $0C80, pointer $0391
+$41F7  interpret the display list  -> glyph blitter, line ends at $80
+$40E4  scroll the log              -> eight 80-byte row copies
+$3E17  blit one glyph              -> 8 bytes into the bitmap
+$6444  frame waits for $0383 = $0384
+```
+
+That is the whole text system: a producer ($4127), a ring buffer, a consumer ($41F7) and a
+synchronisation point ($6444).
+
+## The weapons path
+
+```text
+fire                 -> $3B13 block, one timer per weapon
+missile              -> $4878 fills a free record at $0E00 with type $0A
+AMM                  -> $4838 rewrites records whose type class has the $0C bits
+flare                -> $0356 timer, read by the view painter
+```
+
+## The object path
+
+```text
+$280B  build the 48 records at $0E00 from the city's list ($0354)
+$3F93  paint the records into the canvas at $0400
+$3F29  blit the canvas to eight bitmap bands
+$223E  blit strips from $0400-$0BFF into $E148 and onward
+```
+
+## What was here before
+
+This chapter used to show four SVG diagrams and a 43-entry "dispatch table" at $1C100, with routine
+sizes, first instructions and purposes. That table does not exist: $1C100 is inside the game's code
+but it is not a table of entry points, and the sizes and descriptions were fabricated. The diagrams
+were drawn from it, so they have been removed rather than redrawn.
+
+The genuine dispatch table in this program is the 16-entry raster table at $498A, and it is
+described in [Game Code](game-code.md).
 
 ---
 

@@ -1,162 +1,101 @@
 # Rendering Pipeline
 
-The custom VIC-II mode, the twelve-screen UI and the sprite and raster tricks.
+One bitmap, four raster bands, and a small canvas doing the hard work.
 
 ---
 
-A deep technical analysis of how Tau Ceti renders its quasi-3D cityscapes, the 12-screen UI system, and the VIC-II hardware tricks that make it all work.
+Tau Ceti draws everything into a single 320x200 multicolour bitmap. There is no character mode, no
+sprite hardware in use, and no separate screen for the instruments: gauges, text, radar and the view
+of the city are all pixels in the same 8000-byte picture. What makes that workable is the raster
+split, which changes the VIC-II's mode partway down the screen and gives the display different
+properties in different bands.
 
-## The Custom Screen Mode
+## The screen
 
-Tau Ceti uses a custom VIC-II screen mode that extends beyond the standard C64 text or bitmap modes. The game manipulates the VIC-II's color and border registers to create a pseudo-3D effect with 25 colours on a 160x200 grid.
+| Setting | Value | Meaning |
+|---|---|---|
+| VIC bank | 3 | $DD00 low bits %00, so the VIC sees $C000-$FFFF |
+| Bitmap | $E000-$FF3F | 8000 bytes, 320x200 |
+| Video matrix | $CC00 | 1000 bytes, one per 8x8 cell |
+| Colour RAM | $D800 | 1000 bytes |
+| $D018 | $38 | matrix at $CC00, character base at $D800 (unused in bitmap mode) |
+| $D016 | $18 / $08 | multicolour on in the top band, off below |
+
+The mode is multicolour bitmap: two bits per pixel, four colours per 8x8 cell, with the cell's
+colour byte at $CC00 supplying three of them. That is 16 colours with four on screen per cell at
+once - not "25 colours", and not a 160x200 mode. The bitmap is 320x200 with double-width pixels in
+the multicolour bands.
+
+## The four bands
+
+The raster handler at $3903 runs four times per frame and changes the display each time. The values
+per stage are in three tables at $395C, $3960 and $3964:
+
+| Stage | Fires at line | $D016 | $D011 |
+|---|---|---|---|
+| 0 | - | $18 (multicolour) | $38 |
+| 1 | 202 | $08 (hires) | $38 |
+| 2 | 248 | $08 | $B0 |
+| 3 | 20 | $08 | $30 |
+
+The visible result is a multicolour picture area with hires bands above and below - the top band for
+the status line and instruments, the bottom for the panel. Switching multicolour off for those
+bands is what makes the small text legible: in multicolour a glyph pixel is two pixels wide, and in
+hires it is one.
+
+Because $D018 never changes, all four bands share the same bitmap and matrix. The only thing that
+changes is how the VIC interprets the bits.
+
+## The view: canvas, painter, blitter
+
+The city view is not drawn straight into the bitmap. It is drawn into a small canvas and copied
+out.
+
+The canvas at $0400 is eight rows of 64 bytes, two bits per pixel - about the size of one band. The
+routine at $40AC clears it to $55. The painter at $3F93 walks the forty-eight object records at
+$0E00 and plots each one into the canvas according to its type, position and depth.
+
+Then the blitters move it. $3F29 copies the canvas into eight bands of the bitmap at $E870, $E9B0,
+$EAF0, $EC30, $ED70, $EEB0, $EFF0 and $F130. A second blitter at $223E takes a wider source range,
+$0400-$0BFF, and writes strips to $E148, $E288, $E3C8 and onward, splitting even and odd destination
+bytes - a different mapping for a different part of the display.
+
+This is where the perspective lives. The painter and the blitters do the scaling; the object records
+carry a 16-bit X position and a depth, and the projection helpers at $26CC and $26D4 turn those into
+screen offsets. There is no 768-byte perspective table and no $14D00: an earlier version of this
+chapter invented both.
+
+## The instruments
+
+Everything in the panel is drawn by ordinary code writing into the bitmap:
+
+- **Five bar gauges**, drawn by $3769 from the variables listed in [Game State](game-state.md) -
+  four bytes per row, six rows per bar, a ramp table for partial widths.
+- **The status line**, written by $4906 at row 3 from column $1E: DEMO, LAUNCHED, LANDED or DOCKED.
+- **The ammo readouts**, three single glyphs at column $23 from $3500/$3514/$350A.
+- **The message log**, filled by the interpreter at $41F7 and scrolled by the copies at $40E4.
+- **Text in general**, through the glyph blitter at $3E17, which copies 8-byte patterns into the
+  bitmap at a computed cell address.
+
+## What the screen shows
+
+The layout below is the manual's description, checked against the screen but not against the code
+that draws each region - treat it as a map of the display, not as a list of routines:
+
+| Region | Contents |
+|---|---|
+| top band | status line, view direction, clock |
+| main view | the city, drawn from the object records |
+| instruments | compass, the two direction finders, radar |
+| gauges | height, one unidentified gauge, fuel, one unidentified gauge, speed |
+| supply box | MIS, AMM, FLAR |
+| message log | queued text messages |
 
 > [!NOTE]
-> **Key insight:** The screen mode is set up during initialization by writing directly to VIC-II registers. The game uses hardware scrolling for smooth panning across the city landscape.
-
-### VIC-II Registers Accessed
-
-| Register | Address | Purpose |
-|---|---|---|
-| $D011 | BORDER COLOR | Controls border colour (used for sky/terrain differentiation) |
-| $D016 | SPRITE ENABLE | Enables/disables sprites for UI elements |
-| $D018-$D019 | SPRITE X/Y EXPAND | Scale sprites for distance effects |
-| $D01A | SPRITE MULTICOLOR | Multicolor mode for richer graphics |
-| $D020 | SPRITE PRIORITY | Sprite vs background priority |
-| $D012 | RASTER | Raster interrupt line position |
-| $D015 | IRQ ENABLE | Enable raster interrupts for frame sync |
-| $D025-$D026 | H/V SCROLL | Hardware scrolling for smooth panning |
-
-## The 12 UI Components - Detailed Breakdown
-
-The main flight screen is divided into 12 distinct regions. Here's how each is rendered:
-
-### 1. Main Viewer (Quasi-3D Landscape)
-
-This is the largest region, occupying the upper-left portion of the screen. It renders a perspective view of the city/landscape with buildings and objects that grow progressively larger as you approach them - the classic "quasi-3D" technique.
-
-The rendering pipeline works as follows:
-
-1. Calculate perspective scale factor based on distance (Z coordinate)
-2. Apply the perspective lookup table at $14D00 to convert depth to screen coordinates
-3. Draw building outlines using line algorithms that account for perspective
-4. Fill building interiors with solid colours from the palette
-5. Apply shadow calculations based on sun position (time of day)
-6. Overlay moving elements (robots, missiles) using VIC-II sprites
-
-### 2. Infrared Indicator
-
-A small icon in the centre of the screen that shows whether infrared mode is active. This is a static sprite that toggles visibility based on the IR flag in zero-page memory.
-
-### 3. Target Tracking (White Square)
-
-When a hostile target is locked, a white square appears in the centre. This is rendered by writing directly to the screen bitmap at a fixed position, with the colour byte set to white ($01).
-
-### 4. Radar Sensor
-
-A circular radar display that shows nearby targets. The radar is drawn using a circle algorithm that plots points around a centre coordinate. Targets appear as bright dots on the radar when they're within range.
-
-### 5. Compass
-
-A compass needle in the board instruments area that points toward the city centre. The needle direction is calculated from the difference between your current heading and the city centre bearing. When you're at the city centre, the needle swings quickly (unstable).
-
-### 6. Status Field (Green)
-
-The upper-right green field shows real-time information: clock, view direction, city name, and ship status. This is rendered using the custom charset at RAM $8412-$85FF, with each character drawn as an 8x8 bitmap from the charset lookup table.
-
-### 7. Radar Screen
-
-The left-side radar shows buildings, hostile robots, and proximity mines. It switches between close and distant scan modes (key "S"). The radar uses a separate bitmap area in RAM for its display.
-
-### 8. View Direction Indicator
-
-Shows the current viewing angle: forward, right, backward, or left. This is a small icon that changes based on the view direction variable in zero-page memory.
-
-### 9. ADF (Lower)
-
-The lower ADF (Automatic Direction Finder) always points toward the closest jump pad. The bearing is calculated from your current position to the nearest jump pad's coordinates.
-
-### 10. ADF (Upper)
-
-The upper ADF always points to the centre of the current city. Similar to the compass but specifically targets the city centre rather than a general heading.
-
-### 11. Supply Display (Red Field)
-
-Below the radar screen, the red field shows missile count, anti-missile missile count, and flare count. These are rendered as small bar graphs or numeric displays using the custom charset.
-
-### 12. Flying Info Window (Yellow)
-
-Next to the supply display, the yellow window shows flying height, shield status, fuel supply, laser temperature, and speed. Each value is updated every frame based on the ship's state variables.
-
-## Quasi-3D Rendering Algorithm
-
-Tau Ceti uses a "quasi-3D" technique where objects get progressively bigger as you approach them. This is achieved through perspective projection:
-
-```text
-Quasi-3D Perspective Formula:
-  screen_x = (object_x - camera_x) * scale_factor + centre_x
-  screen_y = (object_y - camera_y) * scale_factor + centre_y
-  screen_size = object_base_size / distance
-
-Where:
-  scale_factor = perspective_table[depth_index]
-  distance = sqrt((x-x0)^2 + (y-y0)^2 + (z-z0)^2)
-```
-
-The perspective lookup table at file offset $14D00 contains pre-calculated scale factors for different depths. This avoids expensive division operations on the 6502 processor.
-
-### Perspective Lookup Table
-
-The table at $14D00 is 768 bytes long and contains values that map depth to screen scale. The values decrease exponentially as depth increases, creating the illusion of perspective:
-
-```text
-Depth Index    Scale Factor    Screen Size
-0 (nearest)    $FF             100%
-1              $E0             88%
-2              $C0             75%
-...            ...             ...
-16 (farthest)  $08             5%
-```
-
-## Raster Interrupt System
-
-The game uses VIC-II raster interrupts to synchronize the main game loop with the display refresh. The raster interrupt fires at a specific scanline each frame, triggering the main update routine.
-
-```asm
-Raster Interrupt Setup:
-  LDA #$xx        ; Raster line number
-  STA $D012       ; Set raster compare
-  LDA #%00100000  ; Enable raster IRQ
-  STA $D01A       ; VIC-II IRQ enable
-  CLI             ; Enable interrupts
-```
-
-## Sprite System
-
-Tau Ceti uses VIC-II sprites for UI elements and moving objects. Each sprite is defined by its X/Y position, colour, size (double-width/double-height), and multicolor mode settings.
-
-| Spr# | Purpose | Position |
-|---|---|---|
-| 0 | Infrared indicator | Centre screen |
-| 1 | Target tracking square | Centre instruments |
-| 2-3 | Moving robots | Landscape area |
-| 4-5 | Missiles | Landscape area |
-| 6-7 | Turret lasers | Landscape area |
-
-## Shadow Rendering
-
-Buildings cast shadows based on the sun position (time of day). The shadow algorithm works as follows:
-
-1. Calculate sun angle from the current spin (time of day)
-2. For each building, calculate the shadow direction and length
-3. Draw the shadow as a dark polygon extending from the building base
-4. The shadow length is proportional to the building height and inversely proportional to the sun elevation
-
-> [!NOTE]
-> **From the manual:** "The sun's position changes as the planet spins, affecting how buildings cast shadows. This is an important visual cue for determining time of day." The shadow system adds depth and realism to the quasi-3D cityscapes.
-
-## Summary
-
-Tau Ceti's rendering pipeline combines custom VIC-II screen modes, sprite-based UI elements, perspective lookup tables, and raster interrupts to create a convincing quasi-3D experience on the limited hardware. The 12-screen UI system provides comprehensive situational awareness while maintaining performance through careful use of hardware features.
+> This chapter previously described a "12-screen UI", 25 colours, hardware scrolling through
+> $D025-$D026 and a sprite system with eight numbered sprites. None of that is in the machine: the
+> register table was wrong (it had $D011 as border colour and $D018 as a raster register), there are
+> no sprites, and there is no hardware scroll - the view is redrawn.
 
 ---
 

@@ -1,94 +1,97 @@
 # Disk Structure
 
-D64 layout, directory format, sector chains and the encryption layers.
+A standard 35-track D64: eight files, a normal directory, and nothing hidden.
 
 ---
 
-The Tau Ceti D64 image is a 32-track, non-standard Commodore 64 disk image. Unlike standard 35-track D64 images, this uses all 32 tracks of the 1541 disk drive's usable surface area (tracks 0-31), providing approximately 174,848 bytes of storage.
+The disk image is 174,848 bytes, the size of a single-sided 35-track C64 disk. It has a normal
+Commodore DOS directory at track 18 sector 1, eight files with ordinary names, and no encryption,
+no packing and no protection. What made earlier readings of this image look exotic was arithmetic:
+a D64 is not a rectangular grid of sectors, and if you index it as one, everything you read back is
+garbage.
 
-## Header Analysis
+## The sector formula
 
-The D64 header is non-standard: the first 128 bytes are all zeros, so the original disk name and ID are not preserved in this image. Standard D64 headers contain:
-
-- Bytes 0-32: Disk ID and name
-- Bytes 33-34: Track 0, Sector 0 pointer
-- Bytes 35-36: Track 18, Sector 0 pointer (directory start)
-- Bytes 37-127: Unused padding
-
-In Tau Ceti's case, all these bytes are zero. The directory must be found by scanning for known sector chain patterns.
-
-## Directory Structure
-
-The directory entries use a custom 32-byte format rather than the standard 32-byte PETSCII directory entry. The key differences:
-
-| Offset | Standard D64 | Tau Ceti Format |
-|---|---|---|
-| 0-1 | Next track/sector pointer | Padding / flags |
-| 2-3 | File length (low/high) | Sector count / metadata |
-| 4-5 | Starting track/sector | Track/sector pair |
-| 6+ | Filename (16 bytes PETSCII) | Filename starts at byte 6 |
-
-## Sector Chain Tracing
-
-File contents are reconstructed by following sector chains. Each file's data begins at its starting track/sector, and subsequent sectors are linked via [track][sector] pairs stored within the data itself.
-
-| File | Start Location | Chain Length | Content Type |
-|---|---|---|---|
-| TAUCETI (PRG) | T11 S2 | ~8 sectors | Main loader + decryption routine |
-| Encoded Data 1 | T12 S9 | ~16 sectors | XOR encrypted game engine |
-| Encoded Data 2 | T11 S15 | ~12 sectors | XOR encrypted graphics/world data |
-| Graphics Block A | T15 S0-S3 | ~4 sectors | VIC-II character set + sprite data |
-| Graphics Block B | T16 S0-S4 | ~5 sectors | Screen bitmap + tile data |
-| World Data | Scattered T8-T10 | Variable | Planet maps, station layouts |
-
-## Loader Analysis (T11 S2)
-
-The main loader at Track 11 Sector 2 performs the following sequence:
-
-1. Loads data to RAM address $0801 using KERNAL LOAD ($FF90)
-2. Performs XOR decryption on encoded data blocks
-3. Sets up raster interrupt via VIC-II $D01A register
-4. Initializes custom charset by calling JSR $5105
-5. Jumps to game entry point at RAM $26A0
-
-## Encryption Scheme
-
-The game data uses XOR encryption with multiple key bytes:
-
-| Data Region | XOR Key | Decrypted Content |
-|---|---|---|
-| T12 S9 (game code) | $06 | 6502 assembly routines ($2xxx-$7xxx) |
-| T11 S15 (graphics) | $FF | VIC-II bitmap data |
-| World data blocks | Multi-byte ($06,$FF,$3C) | Planet/station definitions |
-
-## Disk Layout Map
+A C64 disk is divided into zones, and each zone holds a different number of sectors per track.
+Converting a track/sector pair to a byte offset therefore takes three cases:
 
 ```text
-Track  0: [unused - boot sector area]
-Track  8: World data (planet definitions)
-Track  9: World data (station layouts)
-Track 10: World data (object definitions)
-Track 11: S2=Loader, S15=Encrypted graphics
-Track 12: S9=Encrypted game code
-Tracks 13-14: [unused or system data]
-Tracks 15-16: Graphics (character set, bitmaps)
-Track 17: [unused]
-Track 18: Directory entries (custom format)
-Tracks 19-31: [extended track area - may contain additional data]
+t <= 17        index = 21 * (t - 1) + s
+18 <= t <= 24  index = 357 + 19 * (t - 18) + s
+t >= 25        index = 490 + 18 * (t - 25) + s
+
+byte offset = index * 256
 ```
 
-## File Reconstruction
+Tracks 1-17 have 21 sectors, 18-24 have 19, and 25-35 have 18. A reader that uses
+`(track * 40 + sector) * 256`, or that assumes every track has the same number of sectors, lands in
+the wrong place for most of the disk - and the bytes it finds there look encrypted, because they
+belong to a different file.
 
-To reconstruct any file from the D64:
+There is no encryption layer in this image. Every file is plain data and code; the loader reads
+each one with the KERNAL LOAD routine and jumps into it.
 
-1. Find the starting [track][sector] pair in the directory
-2. Read 256 bytes from that sector position (track * 256 + sector * 256 + base_offset)
-3. Check first 2 bytes for next-sector pointer
-4. If non-zero, follow the chain until a null pair is encountered
-5. XOR decrypt each sector with the appropriate key
+## The directory
 
-> [!WARNING]
-> The D64 image used for this analysis has a zeroed header, so its original track allocation and file names are not preserved.
+The directory is where DOS puts it, at track 18 sector 1, using the standard 32-byte entry format:
+
+| Offset in entry | Contents |
+|---|---|
+| 0 | file type ($82 = PRG) |
+| 1-2 | first track and sector |
+| 3-18 | filename, padded with $A0 |
+| 28-29 | size in blocks |
+
+The listing, as read from the disk:
+
+| File | Location | Blocks | Loads at | Role |
+|---|---|---|---|---|
+| `TAU CETI` | 17/0 | 1 | $0302 | boot stub |
+| `JEFF` | 11/4 | 2 | $0C00 | loader |
+| `PIC B TAUCETI+` | 13/0 | 40 | $4000 | title picture |
+| `0E00-2000` | 17/1 | 19 | $0E00 | object records and tables |
+| `8900-CC00` | 17/20 | 68 | $8900 | glyphs, names, demo script |
+| `I/O 4K` | 19/0 | 17 | $D000 | replacement I/O |
+| `CC00-D000` | 19/9 | 5 | $CC00 | screen tables |
+| `E000-FFFF` | 20/0 | 33 | $E000 | main bitmap |
+| `2000-8900` | 21/6 | 106 | $2000 | the game |
+
+The filenames are the load ranges, which is why they read like memory addresses. `I/O 4K` is the
+exception that proves the rule: it is loaded at $4000 and copied down to $D000 by the loader,
+because you cannot LOAD into $D000 with the I/O bank switched in.
+
+## Sector chains
+
+The files are ordinary chained files - each sector begins with the track and sector of the next
+one - but they are not contiguous. The chain jumps around within a track: the game file starts at
+track 21 sector 6 and its second sector is track 21 sector 16, then track 22 sector 6, then 22/16,
+and so on in an interleaved pattern.
+
+That interleaving is the second reason naive readers go wrong. Even with the correct sector
+formula, concatenating consecutive sectors produces a plausible-looking but wrong stream: the first
+sector of the game file reads correctly, and from the second sector onward every byte is shifted.
+Following the chain instead yields code that is byte-identical to a VICE dump taken at the point
+the loader hands over to the game.
+
+## First-sector headers
+
+Every file that the loader installs begins with four bytes before its payload: two bytes that look
+like a track/sector pair, then the load address, low byte first. JEFF starts `0B 0E 00 0C`, which
+is track 11, sector 14, load address $0C00; the game file starts `15 10 00 20`, load address $2000.
+The KERNAL LOAD call the loader uses takes its address from that header on the first sector, which
+is why the payload proper starts at offset 4.
+
+The boot stub is the exception: `TAU CETI` carries the usual two-byte PRG address and nothing else.
+
+## What is not on the disk
+
+Three things earlier versions of this chapter claimed, and which are not true of this image:
+
+- **It is not a 32-track disk.** It is 35 tracks and 174,848 bytes, the standard size.
+- **The header is not zeroed.** Track 18 sector 0 holds a normal BAM and the directory sector has a
+  normal link; the filenames above are read straight out of it.
+- **There is no XOR layer.** The bytes on disk are the bytes in memory. The files that appeared to
+  be encrypted were the result of reading the wrong sectors.
 
 ---
 

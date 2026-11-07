@@ -15,16 +15,19 @@ Tau Ceti uses the MOS 6581 SID chip for sound effects. Unlike many games of its 
 
 ### SID Registers Accessed
 
+The SID is at **$D400-$D41C**, not at $C000 as an earlier version of this chapter claimed.
+
 | Register | Address | Purpose |
 |---|---|---|
-| $C000-$C002 | Voice 1 (Frequency) | Laser fire sound |
-| $C003 | Voice 1 (Control) | Attack/decay/sustain/release |
-| $C004-$C006 | Voice 2 (Frequency) | Missile launch sound |
-| $C007 | Voice 2 (Control) | Attack/decay/sustain/release |
-| $C008-$C00A | Voice 3 (Frequency) | Collision/explosion sound |
-| $C00B | Voice 3 (Control) | Attack/decay/sustain/release |
-| $C011 | Filter control | Low-pass filter for atmosphere |
-| $C01F | Output control | Mix voices to output |
+| $D400-$D406 | voice 1 | frequency, pulse width, control and envelope - written as a block from a parameter table |
+| $D40E/$D40F | voice 2 frequency | effect pitch |
+| $D412/$D413 | voice 2 pulse width | timbre |
+| $D414 | voice 2 control | waveform, gate, attack/decay |
+| $D418 | volume and filter mode | master output |
+
+Only two voices are used, and not every register within them: the code writes voice 1 as a table
+copy and pokes voice 2 in isolation. Nothing writes the filter cutoff registers, so the "low-pass
+filter for atmosphere" in the old table was not real.
 
 ## Sound Effects Breakdown
 

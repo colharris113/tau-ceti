@@ -1,151 +1,83 @@
 # Board Computer
 
-The command parser, the PAD text editor and the save/load system.
+The text console, the messages it prints, and the equipment panel.
 
 ---
 
-A complete analysis of the board computer command parser, text editor (PAD), notepad storage, and game save/load system.
+The board computer is the interface you use when you are not flying. Its visible behaviour is well
+documented in the manual; its *code* is the part of the game I have explored least, so this chapter
+is deliberately shorter than the one it replaces. What follows is what the disassembly supports, and
+the rest is marked as unexamined rather than guessed at.
 
-## The Board Computer Interface
+## Messages are queued, not printed
 
-The board computer is the primary interface between the player and the game. It appears as a text console at the bottom of the screen when docked at a building, with a flashing cursor for input.
+The most useful thing to understand about the console is that nothing draws itself. When the game
+wants to say something, it calls $4127 with a pointer to a string, and the routine appends the two
+address bytes to a ring buffer at $0C00. A second queue at $0C80, filled by $413B, takes four-byte
+entries.
 
-### Command Parser Architecture
+The raster side drains those queues: the interpreter at $41F7 walks the entries, prints them with
+the glyph blitter and scrolls the log with the row copies at $40E4. The frame routine at $4D80 waits
+for the queues to empty before it ends the frame - the wait at $6444 compares the read and write
+pointers at $0383 and $0384 and spins until they match.
 
-The command parser works by comparing the typed input against a list of known commands stored in the decoded data area. The comparison is case-insensitive (all input is converted to uppercase using the charset).
+That design has one visible consequence: messages appear in the order they were queued, and a burst
+of them can hold the frame up. It is why the message log is the last thing to settle when several
+events fire at once.
 
-```text
-Command Parsing Algorithm:
-  1. Read each character from keyboard
-  2. Convert to uppercase via charset lookup
-  3. Store in input buffer
-  4. On ENTER: compare buffer against known commands
-  5. If match found: jump to command handler
-  6. If no match: display "UNKNOWN COMMAND" message
-```
+## Known messages
 
-## Available Commands
-
-| Command | Action | Handler Offset |
-|---|---|---|
-| HELP | Show all available commands | $1B900 + 0x05 |
-| LAUNCH | Leave base and enter flying mode | $1B900 + 0x02 |
-| MAP | Show zoomable map of Tau Ceti | $1B900 + 0x04 |
-| LOOK | Switch to inside view of a building | $1B900 + 0x06 |
-| WAIT | Wait 1/12 of a planet spin (5 min) | $1B900 + 0x07 |
-| STATUS | Damage and progress report | $1B900 + 0x08 |
-| EQUIP | Repair, refuel, restock weapons | $1B900 + 0x09 |
-| PAD | Open text editor for notes | $1B900 + 0x0A |
-| NEW PAD | Open new page in text editor | $1B900 + 0x0B |
-| LOAD | Load saved game (disk or tape) | $1B900 + 0x0C |
-| SAVE | Save current game | $1B900 + 0x0D |
-| QUIT | End the game | $1B900 + 0x0E |
-| SIGHTS ON/OFF | Toggle target display | $1B900 + 0x0F |
-| RODS | Assemble cooling rod parts into bars | $1B900 + 0x10 |
-| REACTOR | Access main reactor in Centralis | $1B900 + 0x11 |
-| KEYS | Show and reassign key bindings | $1B900 + 0x12 |
-| SCORE | Rate your progress so far | $1B900 + 0x13 |
-| PAUSE | Freeze the game | $1B900 + 0x14 |
-
-## The PAD Text Editor
-
-The PAD command opens a text editor for writing notes and memos. This is one of the more sophisticated features of the game.
-
-### PAD Editor Features
-
-| Feature | Description |
+| Address | Text |
 |---|---|
-| New page | NEW PAD creates a fresh page |
-| Text input | Type text using the keyboard |
-| Cursor | Flashing cursor shows current position |
-| Page navigation | Scroll through pages with up/down keys |
-| Storage | Notes are stored in RAM $F000-$F7FF |
-| Max pages | Up to 8 pages of notes |
-| Page size | 64 bytes per page (8 lines x 8 chars) |
+| $6503 | `PRESS 3 TO TRY ANOTHER MISSION` |
+| $6528 | `DEMO MODE INITIATED` |
+| $653E | `PRESS 3 TO EXIT` |
+| $6555 | `     DEMO MODE` |
+| $6001 | `NOT AVAILABLE HERE` |
+| $6015 | `SKIMMER ISN'T DOCKED` |
+| $5E6A | `SKIMMER REFUELED` |
+| $3C4E | `NO FLARES LEFT` |
+| $3C5E | `NO MISSILES LEFT` |
+| $3CA4 | `NO AMMS AVAILABLE` |
 
-### PAD Memory Layout
+The strings sit inline in the code, in the glyph encoding described in
+[Character Set and Text System](charset.md).
 
-```text
-RAM $F000-$F7FF: Notepad storage
-  $F000-$F03F: Page 1 (64 bytes)
-  $F040-$F07F: Page 2 (64 bytes)
-  ...
-  $F7C0-$F7FF: Page 8 (64 bytes)
+## The equipment panel
 
-Each page contains:
-  Bytes 0-7: Line 1 (8 characters)
-  Bytes 8-15: Line 2 (8 characters)
-  ...
-  Bytes 56-63: Line 8 (8 characters)
-```
+The one command interior I have disassembled is the equipment/install panel at $5DAA. It is a small
+form with two adjustable quantities and a toggle:
 
-## Game Save/Load System
+| Variable | Range | Adjusted by |
+|---|---|---|
+| $03AB | 14 to 118 | the left/right controls, at $5DBC and $5DD5 |
+| $03AC | 12 to 120 | the up/down controls, at $5DEE and $5E07 |
+| $03AE | 0 or $FF | a separate key at $5E11, toggled each press |
 
-The SAVE and LOAD commands use the KERNAL's disk I/O routines to save and restore game state.
+The panel is drawn by $5D82, which computes a destination in the video matrix at $CC29 and stamps
+sixteen bytes - a two-cell-wide block - which is how the panel's fields are painted without using
+the glyph blitter.
 
-### Save Game Format
+The two numbers are almost certainly quantities of equipment, but the code at $5DAA only adjusts and
+displays them; the routine that takes the money, or that turns them into missiles, is elsewhere and
+I have not traced it. The `INSTALL FLARES`, `INSTALL MISSILES` and `INSTALL AMM` strings at
+$5FD1-$5FFF belong to this panel.
 
-```text
-Save Game Structure:
-  $0801-$0802: Magic number ($TAU$)
-  $0803-$0804: Player name (8 bytes)
-  $080B: Current city index
-  $080C: View direction
-  $080D: Ship heading
-  $080E: Ship speed
-  $080F: Ship altitude
-  $0810: Missile count
-  $0811: AMM count
-  $0812: Flare count
-  $0813: Fuel level
-  $0814: Shield status
-  $0815: Laser temperature
-  $0816: Cooling rods collected
-  $0817: Cooling bars assembled
-  $0818: Cooling bars inserted
-  $0819: Day/night flag
-  $081A: Current spin
-  $081B: Infrared flag
-  $081C: Game mode
-  $081D-$0820: Score (word)
-  $0821-$0824: Ship position (3 words)
-  $0825-$087F: Notepad data (64 pages)
-```
+## What is not established
 
-## Command Processing Flow
+Three things the old version of this chapter described in detail, and which I have not verified:
 
-```text
-Command Processing:
-  1. Player types command at board computer prompt
-  2. Input buffer fills with characters
-  3. On ENTER, compare against known commands
-  4. If match: set dispatch index and jump to handler
-  5. Handler executes command logic
-  6. Return to main game loop
-```
+- **The command list.** Commands such as MAP, LOOK, RODS, REACTOR and KEYS do appear in the manual,
+  and RODS/REACTOR appear in the game's text, but there is no dispatch table at $1B900 and no
+  per-command handler offsets. The table in the old chapter was invented wholesale.
+- **The PAD text editor.** No storage layout at $F000-$F7FF has been found; that page is not used
+  as a note buffer as far as I can see.
+- **Save and load.** No save-game format has been identified. The "magic number" and the field list
+  in the old chapter were fabricated.
 
-## The Dispatch Table
-
-The dispatch table at file offset $1B900 contains 43 entries that map command indices to their handlers. Each entry is a 5-byte routine that sets up the call and jumps to the appropriate handler.
-
-```text
-Dispatch Table Structure:
-  Entry 0: LAUNCH handler
-  Entry 1: MAP handler
-  Entry 2: LOOK handler
-  Entry 3: WAIT handler
-  Entry 4: STATUS handler
-  Entry 5: EQUIP handler
-  Entry 6: PAD handler
-  Entry 7: SAVE/LOAD handler
-  Entry 8: RODS handler
-  Entry 9: REACTOR handler
-  ... (and so on for all commands)
-```
-
-## Summary
-
-The board computer is the central interface for ground-mode gameplay, providing a text-based command system with a built-in notepad editor. The command parser uses a dispatch table for efficient routing, and the save/load system preserves all game state to disk.
+If you want to work on this area, the message queue is the right entry point: every command that
+prints something goes through $4127, so tracing calls to it from the keyboard handler would find the
+parser quickly.
 
 ---
 

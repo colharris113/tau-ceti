@@ -37,7 +37,7 @@ A technical analysis of what could be added or changed, based on the actual code
 
 ### 1.3 Animated Building Shapes (Easy)
 
-**What:** The 8 building types (A-H) are rendered as static bitmap patterns. The game already has the code to read building shape data from $14F00+.
+**What:** The 8 building types (A-H) are rendered as static bitmap patterns. The game already knows how to draw its building types from the object records at $0E00, whose type byte indexes the table at $C39A.
 
 **How:** Modify the rendering routine at $1E2D5 to shift the bitmap pattern by one column every N frames, creating a scrolling/rippling effect. The existing sprite 5 flashing mechanism can be repurposed for this.
 
@@ -47,7 +47,7 @@ A technical analysis of what could be added or changed, based on the actual code
 
 ### 2.1 Additional Commands (Easy)
 
-**What:** The command parser at $1B900 uses a dispatch table with CMP #$xx comparisons. Currently it handles: P (presumably "plot"), a special character, space, backtick, and $.
+**What:** The board computer parses commands somewhere in the $5xxx-$6xxx range (its messages are queued from there), but the parser itself has not been disassembled.
 
 **How:** Add new CMP entries to the dispatch table. Each command needs: CMP #$xx, then BEQ/BNE branching to the handler routine in low RAM ($2xxx-$7xxx).
 
@@ -65,7 +65,7 @@ A technical analysis of what could be added or changed, based on the actual code
 
 **What:** The game has 32 cities with full coordinate data, but the only interaction is finding cooling rods and dodging robots. There's no city-to-city variation beyond coordinates.
 
-**How:** Each city already has 4 bytes of coordinate data at offset $14BE4+. The building definitions at $14F00+ could be extended with additional bytes for city-specific properties (hostility level, robot density, rod locations).
+**How:** Each city already has a per-city object list, located through the city number at $0354. The object records could be extended with additional bytes for city-specific properties (hostility level, robot density, rod locations).
 
 **Idea:** Some cities could have hidden shortcuts between buildings, others could have civilian robots that don't attack. The coordinate system already supports this - just add a "city flags" byte to each entry.
 
@@ -101,9 +101,9 @@ A technical analysis of what could be added or changed, based on the actual code
 
 **What:** Cities are hand-designed with fixed building layouts. A randomizer would create unique city layouts each playthrough.
 
-**How:** The building data at $14F00+ defines 8 types with bitmap patterns. A procedural generator could rearrange these, add new building combinations, and place robots/rods in different configurations.
+**How:** The type table at $C39A defines the building classes and the painter at $3F93 draws them. A procedural generator could rearrange these, add new building combinations, and place robots/rods in different configurations.
 
-**Space needed:** ~500 bytes for a PRNG + layout generator. The existing coordinate system at $14BE4+ would need to be extended with new layout tables.
+**Space needed:** ~500 bytes for a PRNG + layout generator. The existing per-city object lists would need to be extended with new layout tables.
 
 ### 4.2 Multi-City Map Display (Hard)
 
@@ -131,7 +131,7 @@ A technical analysis of what could be added or changed, based on the actual code
 
 **What:** The player must track rod collection mentally. A persistent on-screen counter would help.
 
-**How:** Use the existing charset at $8412-$85FF to draw digits in a corner of the screen. The game already renders text - just add a counter display routine that writes to screen RAM.
+**How:** Use the existing glyph blitter at $3E17 to draw digits in a corner of the screen. The game already renders text - just add a counter display routine that blits into the bitmap.
 
 ### 5.4 Hostility Status Indicator (Easy)
 

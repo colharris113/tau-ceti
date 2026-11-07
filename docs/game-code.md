@@ -1,234 +1,127 @@
 # Game Code
 
-Main loop, state machine and the key routines by address.
+Entry, frame loop, the four-stage raster interrupt, and the message system.
 
 ---
 
-The main game code is XOR-encrypted on disk and decrypted at runtime. The decryption routine runs from the loader at T11 S2, then the decrypted code is jumped to from RAM $1B900 (offset $1B900 in the D64). The actual engine code resides in RAM $2000-$7FFF.
+Tau Ceti's code is not one loop. It is a main routine that runs frame by frame, plus a raster
+interrupt that fires four times per frame and does a different job each time. Understanding which
+of the two owns which task explains most of the game's structure.
 
-## Main Game Loop Entry Point
+## Entry
 
-The raster interrupt handler at $26A0 is the heart of the game. It is called approximately 50 times per second (NTSC) and drives the entire game state machine:
+The loader finishes with `JMP $2000`, and the first instructions there are:
 
 ```asm
-$26A0: MAIN GAME LOOP (Raster Interrupt Handler)
-$26A0:   PHA                 ; Save accumulator
-$26A1:   PHP                 ; Save processor flags
-$26A2:   LDA $D012         ; Read VIC-II frame counter
-$26A5:   CMP $E010         ; Compare with saved frame count
-$26A8:   BEQ $26B5         ; Skip if same frame (throttle)
-$26AA:   STA $E010         ; Update frame counter
-$26AD:   LDA $E009         ; Load game state byte
-$26B0:   JMP ($3F00,X)     ; Jump to state-specific handler
-$26B3:   PLP                 ; Restore flags
-$26B4:   PLA                 ; Restore accumulator
-$26B5:   RTI                 ; Return from interrupt
+$2000  A2 FE     LDX #$FE
+$2002  9A        TXS           ; reset the stack
+$2003  20 FE 56  JSR $56FE     ; hardware and screen setup
+$2006  20 64 56  JSR $5664
+$2009  20 66 57  JSR $5766     ; reset the flight variables
+$200C  20 D8 56  JSR $56D8     ; clear timers, key map, joystick shadows
+$200F  20 50 62  JSR $6250
 ```
 
-## Game State Machine
+Then the main loop starts and never returns to the loader.
 
-The game uses a state byte at RAM $E009 to track the current mode:
+## The frame routine at $4D80
 
-| State Value | Mode | Handler | Description |
+Once a frame, the main code runs a fixed sequence of calls. The order is the design:
+
+| Call | What it does |
+|---|---|
+| $3436 | prepares the view |
+| $3723 | draws the five gauge bars |
+| $37F5 | draws the gauges' second stage |
+| $4906 | writes the status line (DEMO / LAUNCHED / LANDED / DOCKED) |
+| $615F | context message for the current state |
+| $7689 | bar animation, skipped when landed |
+| $6185 | second half of that animation |
+| $76BA | instrument update |
+| $73C4 | software sprite/overlay update |
+| $6444 | waits for the frame's work to finish |
+| $46F3 | tail call into the next frame |
+
+Two details are worth noting because they show how the machine is being paced. $6444 is a
+busy-wait: it compares two bytes at $0383 and $0384 - the message queue's read and write pointers -
+and returns only when they match, which means every queued message has been printed. And $4DA9
+clears the KERNAL keyboard buffer length at $C6 before the tail call, so a key press cannot leak
+into the next frame twice.
+
+## The raster interrupt at $3903
+
+The hardware vector at $FFFE points at $3903, not at the KERNAL's $0314. On entry the handler saves
+A, X, Y and the CPU port byte, switches RAM back in at $01, acknowledges the VIC's interrupt by
+writing $D019 back to itself, and then does the interesting part:
+
+- reads the stage number from $6F (0-3);
+- writes a new $D016, $D012 and $D011 from three four-byte tables at $395C, $3960 and $3964;
+- rotates the stage number for next time;
+- re-enables interrupts and dispatches into a 16-entry table at $498A.
+
+The tables are the screen split. Each stage sets the mode, the line the *next* stage fires on, and
+the control register, so the screen is divided into four bands with different VIC settings:
+
+| Stage | $D016 | Next line ($D012) | $D011 |
 |---|---|---|---|
-| $00 | Title Screen | $28C4 | "GREETINGS COMMANDER" display, wait for fire button |
-| $01 | Flying | $305D | Surface flight, navigation |
-| $02 | Docked | $3225 | Station interface, trading, reactor management |
-| $03 | Combat | $2DA7 | Robot enemy engagement, missile firing |
-| $04 | Mission Complete | $34AD | "REACTOR SUCCESSFULLY CLOSED DOWN" screen |
-| $05 | Mission Failed | $3660 | "MISSION FAILED" display, restart options |
-| $06 | Game Over | $3810 | Hull destroyed or reactor meltdown |
-| $07 | Credits | $39A2 | "WRITTEN BY JOHN TWIDDY" scroll |
+| 0 | $18 (multicolour) | $CA (202) | $38 |
+| 1 | $08 (hires) | $F8 (248) | $38 |
+| 2 | $08 (hires) | $14 (20) | $B0 |
+| 3 | $08 (hires) | $30 (48) | $30 |
 
-## Rendering Routine ($28C4)
+The effect is a multicolour playfield band with hires bands above and below it - the standard C64
+way to get sharp small text over a soft-coloured picture.
 
-The rendering routine is called from the main loop when in flying or docked state. It handles:
+### The dispatch table
 
-```asm
-$28C4: RENDERING ROUTINE
-$28C4:   LDA $E009         ; Check game state
-$28C7:   BEQ $2900         ; If title screen, draw title
-$28C9:   CMP #$01          ; If flying...
-$28CB:   BEQ $2A00         ; Jump to space rendering
-$28CD:   CMP #$02          ; If docked...
-$28CF:   BEQ $2B51         ; Jump to station rendering
-$28D1:   CMP #$03          ; If combat...
-$28D3:   BEQ $2C00         ; Jump to combat rendering
+The table at $498A holds sixteen addresses, laid out as four display modes times four stages. The
+mode comes from $039D, which the game changes as the screen changes (0, 4, 8 and 12 are the values
+seen); the index is `(stage | mode) * 2`.
 
-$2900: TITLE SCREEN RENDERING
-$2900:   LDA #$00          ; Set background color
-$2902:   STA $D020         ; Write to screen
-$2904:   JSR $3660         ; Print "GREETINGS COMMANDER"
-$2907:   JSR $3810         ; Draw title graphics
-$290A:   LDA $D011         ; Check raster line
-$290D:   CMP #$E8          ; At "PRESS FIRE TO PLAY" line?
+The entries are stored as target-minus-one, because the trampoline at $3953 does not jump. It
+pushes the target address onto the stack and executes `RTS`, which pops it and continues one byte
+later - so the table has to point one short of the real handler.
 
-$2A00: SPACE RENDERING
-$2A00:   JSR $43EB         ; Draw star field background
-$2A03:   JSR $45C3         ; Draw sun
-$2A06:   JSR $4DA4         ; Draw player ship sprite
-$2A09:   LDA $E003         ; Check fuel level
-$2A0C:   CMP #$10          ; Low fuel warning?
-$2A0E:   BCC $2A80         ; If yes, draw warning
+What the handlers do, in the mode-0 layout:
 
-$2B51: STATION RENDERING
-$2B51:   JSR $43EB         ; Draw background
-$2B54:   JSR $4A4B         ; Draw station building
-$2B57:   JSR $4DAB         ; Draw ship at dock
-$2B5A:   JSR $3BBC         ; Draw UI overlay
-```
+| Stage | Handler | Work |
+|---|---|---|
+| 0 | $49BA | waits for line $40, then blits the flight canvas to the bitmap with $223E |
+| 1 | $49D9 | disables sprites, reads input with $26FA, updates the instruments |
+| 2 | $49FD | runs the slow timers: $3803 (weapons), $25D3 (frame counter, flare timer) |
+| 3 | $4A0C | reads the flight controls with $3968 and $3436, then falls into $86F8 |
 
-## Input Handler ($2A33)
+Most handlers begin with `STA $D015` of zero. There are no sprites in this game; the register is
+cleared every frame to be certain of it.
 
-The input handler processes joystick and keyboard input:
+### Why the split matters
 
-```asm
-$2A33: INPUT HANDLER
-$2A33:   LDA $DC00         ; Read joystick port 1
-$2A36:   AND #$01          ; Fire button?
-$2A38:   BEQ $2A50         ; No fire, check other input
-$2A3A:   JMP $34AD         ; Fire button pressed - action handler
+Because the interrupt owns input, the weapons and the playfield blit, the main routine at $4D80 can
+spend its whole frame budget on drawing gauges and text. The two halves communicate through flags:
+$0348 gates the blit, $0395 pauses the update, $039D selects the display mode and so chooses a
+whole different set of stage handlers.
 
-$2A50: KEYBOARD INPUT
-$2A50:   JSR $FFCB         ; KERNAL GETIN (get keyboard char)
-$2A53:   BNE $2A60         ; Key pressed?
-$2A55:   RTS                 ; No key, return
+## The message system
 
-$2A60: COMMAND PARSING
-$2A60:   PHA                 ; Save character
-$2A61:   JSR $39A2         ; Parse command input
-$2A64:   PLA                 ; Restore character
-$2A65:   CMP #'F'          ; 'F' for fuel?
-$2A67:   BEQ $3B0A         ; Jump to fuel transaction
-$2A6A:   CMP #'R'          ; 'R' for reactor?
-$2A6C:   BEQ $3B5E         ; Jump to reactor management
-$2A6F:   CMP #'M'          ; 'M' for mission?
-$2A71:   BEQ $3B94         ; Jump to mission display
-```
+Text is not printed directly. Messages are queued and printed by the raster side.
 
-## Combat Logic ($2DA7)
+- $4127 queues a two-byte entry - low and high byte of a string address - into a ring buffer at
+  $0C00, using a write pointer at $0384.
+- $413B queues a four-byte entry at $0C80 for the second kind of message.
+- $41F7 is the interpreter: it walks the queued list with a pointer at $1C, treats bytes below $80
+  as glyph indices (multiply by 8, carry selects bank $9000/$9100/$9200, copy 8 bytes to $FCC8,Y),
+  $80 as end-of-line, and anything above $80 as end-of-list.
 
-The combat routine handles robot enemy engagement:
+When a line ends, $40E4 scrolls the log up by copying whole rows: $F908 to $F7C8, $F958 to $F818,
+$FA48 to $F908, $FA98 to $F958, $FB88 to $FA48, $FBD8 to $FA98, $FCC8 to $FB88 and $FD18 to
+$FBD8. That is a straight memory move of eight 80-byte rows - the log is a fixed-size display
+buffer, not a text window with scrolling hardware.
 
-```asm
-$2DA7: COMBAT ROUTINE
-$2DA7:   LDA $E00D         ; Check missile count
-$2DA9:   BEQ $2DC0         ; No missiles - "ROBOT MISSILE FIRED" fails
-$2DAB:   DEC $E00D         ; Decrement missile count
-$2DAE:   JSR $45C3         ; Calculate missile trajectory
-$2DB1:   JSR $4620         ; Check collision with robot
-$2DB4:   BNE $2DC5         ; Hit! Process damage
-$2DB6:   JSR $3FAB         ; Miss sound effect
-$2DB9:   JMP $2DE0         ; Continue combat loop
-
-$2DC5: HIT PROCESSED
-$2DC5:   JSR $4DAB         ; Print "ROBOT MISSILE FIRED"
-$2DC8:   LDA $E004         ; Reduce enemy hull
-$2DCB:   DEC $E004
-$2DCC:   BEQ $2DE5         ; Enemy destroyed!
-$2DCE:   JSR $4E3D         ; "ROBOT - ACTIVATED"
-
-$2DE5: ENEMY DESTROYED
-$2DE5:   JSR $4F62         ; "SINKER DESTROYED" message
-$2DE8:   LDA $E00E         ; Add to score
-$2DEB:   CLC
-$2DEC:   ADC #$05          ; +5 points per kill
-$2DEE:   STA $E00E
-```
-
-## Reactor Management ($305D)
-
-The reactor management system is the core gameplay mechanic:
-
-```asm
-$305D: REACTOR MANAGEMENT
-$305D:   LDA $E00C         ; Read reactor temperature
-$3060:   CMP #$80          ; Temperature threshold
-$3062:   BCC $3070         ; Safe - continue operations
-$3064:   CMP #$C0          ; Danger threshold
-$3066:   BCC $3080         ; Warning level
-$3068:   JSR $5241         ; "REACTOR OVERHEAT" message
-$306B:   JMP $3660         ; Jump to mission failure
-
-$3070: NORMAL REACTOR OPERATIONS
-$3070:   LDA $E00B         ; Check cooling rods inserted
-$3073:   CMP #$04          ; Need 4 rods for stability
-$3075:   BCS $3080         ; Enough rods - OK
-$3077:   INC $E00C         ; Temperature rising (not enough rods)
-
-$3080: COOLING ROD CONTROL
-$3080:   JSR $3B5E         ; Display rod status UI
-$3083:   LDA $DC00         ; Check joystick for rod control
-$3086:   AND #$10          ; Up button?
-$3088:   BEQ $3090         ; No - check down
-$308A:   LDA $E00B         ; Insert rod
-$308D:   INC $E00B
-$308E:   JMP $30A0
-
-$3090: REMOVE COOLING ROD
-$3090:   LDA $DC00
-$3093:   AND #$20          ; Down button?
-$3095:   BEQ $30A0
-$3097:   LDA $E00B
-$309A:   DEC $E00B
-$309B:   BPL $30A0         ; Don't go below zero
-
-$30A0: REACTOR SUCCESS CHECK
-$30A0:   LDA $E00B         ; All rods inserted?
-$30A3:   CMP #$08          ; 8 rods = complete shutdown
-$30A5:   BNE $30B0
-$30A7:   JSR $5449         ; "REACTOR SUCCESSFULLY CLOSED DOWN"
-$30AA:   JMP $34AD         ; Mission complete
-```
-
-## Text Display System ($3660)
-
-The text display uses the custom charset to print strings:
-
-```asm
-$3660: TEXT DISPLAY ROUTINE
-$3660:   PHA                 ; Save string pointer low byte
-$3661:   PLA
-$3662:   TAX
-$3663:   LDA $3F02         ; Load string pointer high byte
-$3666:   PHA
-$3667:   LDA $3F03
-$366A:   PHA
-
-$366B: CHARACTER PRINT LOOP
-$366B:   LDA ($3F00),Y       ; Get next character (encoded)
-$366E:   BEQ $3690         ; Null terminator = end of string
-$3670:   PHA                 ; Save character
-$3671:   LSR A             ; Shift to get charset index
-$3672:   LSR A
-$3673:   LSR A
-$3674:   AND #$0F          ; Mask to 4 bits
-$3676:   TAX
-$3677:   LDA $8412,X       ; Look up in charset table
-$367A:   STA $C000,Y       ; Write to screen buffer
-$367D:   INY                 ; Next screen position
-$367E:   PLA                 ; Restore character
-$367F:   INY                 ; Advance string pointer
-$3680:   JMP $366B         ; Print next character
-```
-
-## Raster Interrupt Setup
-
-The game sets up a raster interrupt at line $E8 (232) to trigger the main game loop:
-
-```asm
-; Raster interrupt setup (from loader)
-$0D207:   LDA #$E8          ; Raster line 232
-$0D209:   STA $D01A         ; Set VIC-II raster register
-$0D20C:   LDA #$02          ; Enable raster interrupt
-$0D20E:   STA $D016         ; Set VIC-II interrupt enable
-$0D211:   LDA #$7F          ; Clear pending interrupts
-$0D213:   STA $DC0D
-$0D216:   LDA $26A0/$00     ; Raster IRQ vector low byte
-$0D219:   STA $0314         ; Store in IRQ vector
-$0D21C:   LDA $26A0/$01     ; Raster IRQ vector high byte
-$0D21F:   STA $0315
-```
+> [!NOTE]
+> This chapter replaces an earlier version that described a game-state machine at $E009 and a set
+> of rendering routines at $28C4-$2B5A. Those addresses are not code in this image: the state is
+> held in $0394 and $0396, and the frame work is the sequence of calls above. The old listings
+> were reconstructions rather than disassembly.
 
 ---
 
