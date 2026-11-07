@@ -62,19 +62,52 @@ screen redrawn without the display showing the work in progress.
 | AMM | not an object; it rewrites records in place (see [weapons](weapons.md)) |
 | Flares | not an object; a timer that changes how the view is painted |
 | Sand hoppers | records of type $24, grouped at the jump pads (see [Sand Hoppers](creatures.md)) |
+| Ground units | records whose class byte has bit 5 set, handed to $80C3 - hoppers and walkers both |
+| Proximity mines | records of type $1A, special-cased by name at $8204 |
 | Buildings, robots, turrets | records, distinguished only by their type index |
 
 The type table at $C39A is the switchboard for all of it. Some entries are types the painter treats
 as structures, some as vehicles, and the $0C mask used by the AMM routine marks the ones that count
 as missiles.
 
+## The ground units
+
+The armed robots are the one family that can be put in order, because the second per-type table at
+$C409 carries a handler class in its low nibble and two flags above it. Bit 6 marks the types that arm
+the alarm: once one of them has been in sight long enough - the counter in record byte 9 runs to $18 at
+$8285 - the game prints `ROBOT ALL ACTIVATED` and $4838 marks every missile-class record hostile.
+
+Classes 0 to 4 are the walkers, dispatched through $8106 and $81F5. Each steps its own X position and
+depth toward the ship by the amount in $C43E, and stops once it is further away than the engagement
+range in $C42E:
+
+| Type | Class | Parameter ($C3BF) | Engages within ($C42E) | Step ($C43E) |
+|---|---|---|---|---|
+| $15 | 0 | $1C | 8 | $0E |
+| $14 | 1 | $18 | 9 | $0B |
+| $03 | 2 | $20 | $0B | $0E |
+| $06 | 3 | $28 | $0D | $11 |
+| $09 | 4 | $34 | $10 | $14 |
+
+Type $15 is the odd one: it shares the hopper's hop before it walks, which is why
+[Sand Hoppers](creatures.md) meets it there. The other four are one machine in four strengths, and if
+the publisher's "marks I, II and III" are in this table at all, they are $03, $06 and $09 - three types
+whose parameter, range and step all climb together, and the last of which is the only walker carrying
+the alarm flag. That is the best fit the data offers and it is still an inference: nothing in the
+program prints a mark number, so the manual's marks cannot be attached to types with certainty.
+
+The proximity mine is easier. Type $1A is tested by name at $8204, ahead of the general dispatch: if
+you are between four and six units from it, $821D prints `MINE DETONATED`, puts $30 damage through
+$3E65 and removes the record. So the inlay's line about radar detecting proximity mines is describing
+something the code really has, and it is a number after all.
+
 > [!NOTE]
-> Beyond the missile type $0A, the hopper type $24 and the class bits themselves, I have not mapped
-> individual type indices to individual kinds of building or robot. An earlier version of this
-> chapter listed MK1, MK2 and MK3 robots, sand hoppers, guardian crawlers and proximity mines with AI
-> behaviours and sprite numbers - all of it invented. The hoppers now have evidence behind them and a
-> chapter of their own; the robot marks, crawlers and mines are still names from the manual with
-> nothing in the code to attach them to.
+> Beyond the missile type $0A, the hopper type $24, the mine at $1A, the five walkers above and the
+> class bits themselves, I have not mapped individual type indices to individual kinds of building. An
+> earlier version of this chapter listed MK1, MK2 and MK3 robots, sand hoppers, guardian crawlers and
+> proximity mines with AI behaviours and sprite numbers - all of it invented. The hoppers, the mine and
+> the walker ladder now have evidence behind them; the fortress, the turret and the crawler are still
+> names from the manual with nothing in the code to attach them to.
 
 ---
 
