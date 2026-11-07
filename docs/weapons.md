@@ -36,11 +36,10 @@ The routine at $4878 walks the object table at $0E00 - forty-eight records of si
 the same table that holds buildings, robots and every other drawing object - looking for a free
 slot: a record whose first byte has the top bits clear. When it finds one it writes:
 
-- the type byte, $0A;
-- the current screen position of the sight, taken from $033C and $033F with the companion values
-  at $033B and $033E;
-- a direction byte of $40;
-- the ship's height, $0344, plus $40.
+- the type byte, $0A, at offset 0;
+- the sight coordinates: $033C and $033F in bytes 1-2, $033B and $033E in bytes 4-5;
+- the flags byte, $40, at offset 3 - the bit the drawing code treats as "live";
+- the ship's height, $0344, plus $40, at offset 6.
 
 Then it decrements $0358, plays the launch effect by setting $03C4, and refreshes the MIS readout.
 
