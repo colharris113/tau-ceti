@@ -27,9 +27,13 @@ habit it did not always have, and the notes at the bottom of the chapters record
 - **The frame** - the routine at $4D80 runs once per frame; the raster interrupt at $3903 runs four
   times and owns input, the playfield blit and the clocks. The interrupt vector is $FFFE, not $0314.
 - **The world** - 48 object records of 16 bytes at $0E00, rebuilt for each city by $280B. Buildings,
-  robots and missiles are all entries in that table; there are no sprites anywhere in the game.
+  robots and missiles are all entries in that table; the world has no sprites, though the border
+  banner does.
 - **The demo** - a real attract mode, flown by a recorded joystick script, showing `DEMO` in the
   status line. See [The Demo](docs/demo-mode.md).
+- **The bottom border** - a scrolling banner, and it is not a border trick: eight double-width
+  sprites carry three characters each, pointed at $CA00-$CBC0, reading the story at $C000. See
+  [The Border Banner](docs/border-banner.md).
 - **Sound** - two SID voices at $D400-$D418, effects only, no music.
 
 ## Disk Structure Overview
@@ -60,7 +64,9 @@ sector formula and the chain layout.
 | $2000-$88FF | game code |
 | $8900-$92FF | city data and glyph banks |
 | $9300 / $BD00 | demo script tables |
-| $CC00-$CFFF | video matrix |
+| $C000-$C291 | border ticker text, four bytes per three characters |
+| $CA00-$CBFF | border ticker sprite blocks |
+| $CC00-$CFFF | video matrix, with the sprite pointers at $CFF8 |
 | $D000-$DFFF | replacement I/O routines |
 | $E000-$FF3F | bitmap |
 | $FFFE | IRQ vector, holding $3903 |
@@ -86,6 +92,7 @@ sector formula and the chain layout.
 | [The Loading Screen](docs/loading-screen.md) | Boot stub, JEFF, the seven files, the picture at $4000 and the SPACE prompt. |
 | [Game Code](docs/game-code.md) | Entry, the frame routine, the four-stage raster interrupt and the message system. |
 | [The Demo](docs/demo-mode.md) | The attract mode: trigger, the recorded joystick script, and how it ends. |
+| [The Border Banner](docs/border-banner.md) | The scrolling line in the bottom border: eight sprites, the text at $C000 and how it wraps. |
 | [Flares, Missiles and AMM](docs/weapons.md) | The three counters in the supply box and the three different mechanisms behind them. |
 | [Call Graph](docs/call-graph.md) | How the frame routine, the raster stages and the message path call each other. |
 | [Rendering Pipeline](docs/rendering.md) | The bitmap, the four raster bands, the canvas and the blitters. |

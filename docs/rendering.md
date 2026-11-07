@@ -5,10 +5,10 @@ One bitmap, four raster bands, and a small canvas doing the hard work.
 ---
 
 Tau Ceti draws everything into a single 320x200 multicolour bitmap. There is no character mode, no
-sprite hardware in use, and no separate screen for the instruments: gauges, text, radar and the view
-of the city are all pixels in the same 8000-byte picture. What makes that workable is the raster
-split, which changes the VIC-II's mode partway down the screen and gives the display different
-properties in different bands.
+sprite hardware in use for the world, and no separate screen for the instruments: gauges, text, radar
+and the view of the city are all pixels in the same 8000-byte picture. What makes that workable is
+the raster split, which changes the VIC-II's mode partway down the screen and gives the display
+different properties in different bands.
 
 ## The screen
 
@@ -94,8 +94,9 @@ that draws each region - treat it as a map of the display, not as a list of rout
 > [!NOTE]
 > This chapter previously described a "12-screen UI", 25 colours, hardware scrolling through
 > $D025-$D026 and a sprite system with eight numbered sprites. None of that is in the machine: the
-> register table was wrong (it had $D011 as border colour and $D018 as a raster register), there are
-> no sprites, and there is no hardware scroll - the view is redrawn.
+> register table was wrong (it had $D011 as border colour and $D018 as a raster register), there is
+> no hardware scroll, and the view is redrawn. The one place the machine does use sprites is the
+> bottom border - see [The Border Banner](border-banner.md).
 
 ---
 

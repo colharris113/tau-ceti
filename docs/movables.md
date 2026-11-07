@@ -1,14 +1,17 @@
 # Moveable Elements
 
-There are no sprites. Everything you see moving is a record and a painter.
+There are no sprites in the world. Everything you see moving is a record and a painter.
 
 ---
 
 Tau Ceti draws its whole world, including everything that moves, into a bitmap. The VIC-II sprite
-registers are not used - the raster handlers write zero to $D015 at the top of almost every stage,
-which is as explicit as the code can be about it. So the question "how are the moving objects
-rendered" has a different answer than the one this chapter used to give: they are entries in a
-table, and the table is painted every frame.
+registers are not used for the objects - the raster handlers write zero to $D015 at the top of
+almost every stage, which is as explicit as the code can be about it. So the question "how are the
+moving objects rendered" has a different answer than the one this chapter used to give: they are
+entries in a table, and the table is painted every frame.
+
+There is one exception, and it is not in the world: the scrolling line in the bottom border is eight
+hardware sprites. [The Border Banner](border-banner.md) covers it.
 
 ## The object table
 

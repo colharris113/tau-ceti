@@ -44,6 +44,10 @@ restart path with $0394 set to $80.
 So the demo is the game's answer to an idle player: not a separate program, but the ordinary game
 started again with a flag set.
 
+It also inherits everything the ordinary start sets up - including the scrolling line in the bottom
+border, which is eight sprites set running at $358E and never switched off. See
+[The Border Banner](border-banner.md).
+
 ## What it flies
 
 This is the interesting part, and it is much simpler than an autopilot would be.

@@ -122,6 +122,13 @@ When the loop finishes, JEFF restores $01 to $FF and jumps to $2000: the first i
 game, `LDX #$FE / TXS`, which resets the stack and begins the start-up sequence that ends in the
 frame loop.
 
+## The line in the border
+
+One thing on the loading screen is not the loader's doing. Once the game's own code starts running,
+a line of text begins to scroll in the bottom border, and it is still there when the credits screen
+appears. It is not drawn by JEFF - the loader contains no sprite code at all - and it is not a
+border trick either. [The Border Banner](border-banner.md) explains what it is.
+
 ## One last detail
 
 JEFF's own memory does not go to waste. The message queue that the game uses for its on-screen

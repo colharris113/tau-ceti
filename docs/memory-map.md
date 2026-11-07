@@ -148,10 +148,14 @@ writes:
 | $D018 | $D018 | video matrix and bitmap base pointers |
 | $D019 | $D019 | interrupt status, acknowledged every frame |
 | $D01A | $D01A | interrupt enable |
+| $D01B-$D01D | $D01B-$D01D | sprite priority, multicolour and size, used only for the border banner |
 | $D020/$D021 | $D020/$D021 | border and background |
+| $D027-$D02E | $D027-$D02E | sprite colours, one per banner character group |
 | $DD00 | $DD00 | VIC bank select; bits 0-1 = %00 selects bank 3, $C000-$FFFF |
 
-There are no sprites. Everything on screen is drawn into the bitmap.
+Nothing in the bitmap is a sprite. The eight sprites at $D000-$D01D belong to the scrolling line in
+the bottom border, which is enabled for the bottom band of the frame and switched off again above
+it; see [The Border Banner](border-banner.md).
 
 ## SID Register Access
 

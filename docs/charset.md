@@ -78,12 +78,14 @@ from a display list and multiplies each by 8 to index one of three banks:
 
 | Bank | Address | Contents |
 |---|---|---|
-| 0 | $9000 | digits and punctuation |
+| 0 | $9000 | digits, punctuation, blank space |
 | 1 | $9100 | A-Z, blank first |
-| 2 | $9200 | not identified |
+| 2 | $9200 | a-z |
 
 The byte's value also selects the bank, so the same number means different things depending on
-where it lands - the display list encodes which bank it wants, not just which pattern.
+where it lands - the display list encodes which bank it wants, not just which pattern. The border
+banner uses the same three banks, which is how it manages mixed-case prose; see
+[The Border Banner](border-banner.md).
 
 ## The display list
 

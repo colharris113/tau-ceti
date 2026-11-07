@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="452" viewBox="0 0 900 452" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <clipPath id="band"><rect x="40" y="250" width="768" height="46"/></clipPath>
+</defs>
+<rect width="900" height="452" fill="#06090f"/>
+
+<text x="450" y="26" text-anchor="middle" fill="#58a6ff" font-family="monospace" font-size="15" font-weight="bold">The Border Banner - eight sprites, three characters each</text>
+
+<rect x="40" y="46" width="768" height="204" fill="#0b0e14" stroke="#21262d"/>
+<rect x="104" y="54" width="640" height="196" fill="#0d1117" stroke="#30363d"/>
+<text x="424" y="150" text-anchor="middle" fill="#484f58" font-family="monospace" font-size="12">320x200 bitmap at $E000-$FF3F</text>
+
+<rect x="40" y="250" width="768" height="46" fill="#0a0d12" stroke="#30363d"/>
+<text x="424" y="243" text-anchor="middle" fill="#8b949e" font-family="monospace" font-size="10">bottom border - no bitmap data here, only sprites</text>
+
+<g clip-path="url(#band)" font-family="monospace" font-size="10">
+  <rect x="88" y="254" width="96" height="38" fill="#132a1a" stroke="#2a6c44"/>
+  <text x="136" y="278" text-anchor="middle" fill="#3fb950">spr 0</text>
+  <rect x="184" y="254" width="96" height="38" fill="#132a1a" stroke="#2a6c44"/>
+  <text x="232" y="278" text-anchor="middle" fill="#3fb950">spr 1</text>
+  <rect x="280" y="254" width="96" height="38" fill="#132a1a" stroke="#2a6c44"/>
+  <text x="328" y="278" text-anchor="middle" fill="#3fb950">spr 2</text>
+  <rect x="376" y="254" width="96" height="38" fill="#132a1a" stroke="#2a6c44"/>
+  <text x="424" y="278" text-anchor="middle" fill="#3fb950">spr 3</text>
+  <rect x="472" y="254" width="96" height="38" fill="#132a1a" stroke="#2a6c44"/>
+  <text x="520" y="278" text-anchor="middle" fill="#3fb950">spr 4</text>
+  <rect x="568" y="254" width="96" height="38" fill="#132a1a" stroke="#2a6c44"/>
+  <text x="616" y="278" text-anchor="middle" fill="#3fb950">spr 5</text>
+  <rect x="664" y="254" width="96" height="38" fill="#132a1a" stroke="#2a6c44"/>
+  <text x="712" y="278" text-anchor="middle" fill="#3fb950">spr 6</text>
+  <rect x="760" y="254" width="96" height="38" fill="#132a1a" stroke="#2a6c44"/>
+  <text x="806" y="278" text-anchor="middle" fill="#3fb950">spr 7</text>
+</g>
+
+<line x1="88" y1="312" x2="184" y2="312" stroke="#8ab4f8"/>
+<line x1="88" y1="307" x2="88" y2="317" stroke="#8ab4f8"/>
+<line x1="184" y1="307" x2="184" y2="317" stroke="#8ab4f8"/>
+<text x="88" y="332" fill="#8ab4f8" font-family="monospace" font-size="10">48 px = 3 characters</text>
+<text x="856" y="332" text-anchor="end" fill="#484f58" font-family="monospace" font-size="10">X starts at 24 and steps 48 - double width and double height - 24 characters visible</text>
+
+<g font-family="monospace">
+  <rect x="40" y="360" width="180" height="56" rx="4" fill="#1a2a3a" stroke="#2a5a8f"/>
+  <text x="130" y="382" text-anchor="middle" fill="#8ab4f8" font-size="11">text $C000</text>
+  <text x="130" y="400" text-anchor="middle" fill="#6a8ab8" font-size="9">1 colour byte + 3 chars</text>
+
+  <rect x="270" y="360" width="180" height="56" rx="4" fill="#1a2a3a" stroke="#2a5a8f"/>
+  <text x="360" y="382" text-anchor="middle" fill="#8ab4f8" font-size="11">font $9000-$93FF</text>
+  <text x="360" y="400" text-anchor="middle" fill="#6a8ab8" font-size="9">8 bytes per glyph</text>
+
+  <rect x="500" y="360" width="180" height="56" rx="4" fill="#1a2a3a" stroke="#2a5a8f"/>
+  <text x="590" y="382" text-anchor="middle" fill="#8ab4f8" font-size="11">blocks $CA00-$CBC0</text>
+  <text x="590" y="400" text-anchor="middle" fill="#6a8ab8" font-size="9">8 rows of 3 bytes</text>
+
+  <rect x="730" y="360" width="130" height="56" rx="4" fill="#2a1a2a" stroke="#6c2a6c"/>
+  <text x="795" y="382" text-anchor="middle" fill="#d2a8ff" font-size="11">$CFF8</text>
+  <text x="795" y="400" text-anchor="middle" fill="#a88ab8" font-size="9">pointers $28-$2F</text>
+</g>
+
+<g stroke="#3fb950" fill="none">
+  <line x1="220" y1="388" x2="268" y2="388"/>
+  <path d="M262 384 L270 388 L262 392" fill="#3fb950" stroke="none"/>
+  <line x1="450" y1="388" x2="498" y2="388"/>
+  <path d="M492 384 L500 388 L492 392" fill="#3fb950" stroke="none"/>
+  <line x1="680" y1="388" x2="728" y2="388"/>
+  <path d="M722 384 L730 388 L722 392" fill="#3fb950" stroke="none"/>
+</g>
+
+<text x="450" y="440" text-anchor="middle" fill="#484f58" font-family="monospace" font-size="9">scrolled 2 px per frame by $35F6; a sprite that leaves the left edge is moved to x = $68 and refilled</text>
+</svg>
