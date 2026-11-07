@@ -16,7 +16,7 @@ Each city contains multiple buildings. The manual identifies these types:
 | Military Base | Hostile building with defences | Bitmap of base interior with weapon systems |
 | Civil Base | Allied building for resupply | Bitmap of supply interior with EQUIP terminal |
 | Gal-Corp Lander | Your starting base | Bitmap of landing bay with LAUNCH console |
-| Jump Pad | Teleporter between cities | Bitmap of pad surface with sand hoppers |
+| Jump Pad | Teleporter between cities | Pad surface; the sand hoppers are records in the street beside it, see [Sand Hoppers](creatures.md) |
 | Fortress | Heavily defended structure | Bitmap of fortress interior with MK3 robots |
 | Turret | Defensive gun emplacement | Bitmap of turret control room |
 | Control Tower | Navigation hub | Bitmap of tower interior with radar screens |

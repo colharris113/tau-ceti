@@ -61,6 +61,7 @@ screen redrawn without the display showing the work in progress.
 | Hostile missiles | records of a type whose $C39A entry has the $0C class bits set |
 | AMM | not an object; it rewrites records in place (see [weapons](weapons.md)) |
 | Flares | not an object; a timer that changes how the view is painted |
+| Sand hoppers | records of type $24, grouped at the jump pads (see [Sand Hoppers](creatures.md)) |
 | Buildings, robots, turrets | records, distinguished only by their type index |
 
 The type table at $C39A is the switchboard for all of it. Some entries are types the painter treats
@@ -68,11 +69,12 @@ as structures, some as vehicles, and the $0C mask used by the AMM routine marks 
 as missiles.
 
 > [!NOTE]
-> Beyond the missile type $0A and the class bits themselves, I have not mapped individual type
-> indices to individual kinds of building or robot. An earlier version of this chapter listed MK1,
-> MK2 and MK3 robots, sand hoppers, guardian crawlers and proximity mines with AI behaviours and
-> sprite numbers - all of it invented. The names may well be right, since they come from the manual,
-> but nothing in this chapter's old table was read from the code.
+> Beyond the missile type $0A, the hopper type $24 and the class bits themselves, I have not mapped
+> individual type indices to individual kinds of building or robot. An earlier version of this
+> chapter listed MK1, MK2 and MK3 robots, sand hoppers, guardian crawlers and proximity mines with AI
+> behaviours and sprite numbers - all of it invented. The hoppers now have evidence behind them and a
+> chapter of their own; the robot marks, crawlers and mines are still names from the manual with
+> nothing in the code to attach them to.
 
 ---
 

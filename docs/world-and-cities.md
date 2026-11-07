@@ -82,6 +82,12 @@ points at the nearest pad, and the upper one at the centre of the current city.
 That much is manual text, not disassembly, and it is the level of detail I can stand behind. The
 pairing map between cities is not documented anywhere I have found, in the code or in the data.
 
+Where the pads are, though, is in the data, and so is what is standing next to them. Each city has
+four bytes at $8900 + city × 4 saying which of the four directions has a pad, and the pad coordinates
+come from four fixed groups at $C4BE - the four edge midpoints. The small creatures the manual calls
+sand hoppers are ordinary objects in the city list, placed within a few units of those midpoints.
+[Sand Hoppers](creatures.md) has the counts and the code.
+
 ## Buildings
 
 Cities are made of buildings, and the buildings are the game. The manual's list is the best guide to

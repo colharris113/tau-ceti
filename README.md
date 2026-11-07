@@ -34,6 +34,9 @@ habit it did not always have, and the notes at the bottom of the chapters record
 - **The bottom border** - a scrolling banner, and it is not a border trick: eight double-width
   sprites carry three characters each, pointed at $CA00-$CBC0, reading the story at $C000. See
   [The Border Banner](docs/border-banner.md).
+- **Sand hoppers** - the creatures at the jump pads are type $24: 47 records across 17 cities, always
+  in a little group within a few units of a pad, and they hop in place. See
+  [Sand Hoppers](docs/creatures.md).
 - **Sound** - two SID voices at $D400-$D418, effects only, no music.
 
 ## Disk Structure Overview
@@ -104,6 +107,7 @@ sector formula and the chain layout.
 | [Day/Night Cycle](docs/day-night.md) | The 16-spin clock, sun position and visibility. |
 | [Infrared Blur](docs/infrared.md) | The infrared scanner and its blur. |
 | [Moveable Elements](docs/movables.md) | The object table, the painter and the blitters - and why there are no sprites. |
+| [Sand Hoppers](docs/creatures.md) | The creatures at the jump pads: type $24, where the city data puts them, the hop and the collision. |
 | [Sound System](docs/sound.md) | SID usage and the effects. |
 | [Character Set and Text System](docs/charset.md) | The glyph encoding, the blitter at $3E17 and the message interpreter. |
 | [Easter Eggs](docs/easter-eggs.md) | Hidden messages, and which rumours the code supports. |
