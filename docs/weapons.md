@@ -32,9 +32,9 @@ $56D8 wipes.
 
 Firing a missile is the only one of the three that creates something.
 
-The routine at $4878 walks the object table at $0E00 - forty-eight records of sixteen bytes each,
-the same table that holds buildings, robots and every other drawing object - looking for a free
-slot: a record whose first byte has the top bits clear. When it finds one it writes:
+The routine at $4878 walks the page at $1000 - the last sixteen of the forty-eight records, sixteen
+bytes each, the same table that holds buildings, robots and every other drawing object - looking
+for a free slot, which is a record whose first byte has bit 7 set. When it finds one it writes:
 
 - the type byte, $0A, at offset 0;
 - the sight coordinates: $033C and $033F in bytes 1-2, $033B and $033E in bytes 4-5;
