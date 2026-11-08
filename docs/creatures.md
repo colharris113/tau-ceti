@@ -128,12 +128,15 @@ They are not sprites and they are not glyphs. The world has no sprite hardware a
 sprites in the game are the bottom-border banner and the row of instrument sprites that $3436 sets up
 each frame - and the glyph blitter at $3E17 exists to put text in the bitmap. Objects get painted.
 
-The painter at $3F93 walks the record table, skips anything not flagged as drawn in byte 3, converts
-each record's X and depth into a canvas offset, and writes two bits per pixel into the canvas at
-$0400. Two blitters then move that canvas into the bitmap: $3F29 for eight bands, $223E for the
-wider strips. Both run every frame.
+The scanner is the painter that reduces everything to a mark. `$3F93` walks the record table, takes
+the ones with `(byte 0 & $C0) == 0` and `(byte 3 & $40) == 0` - the records the world view did *not*
+put on screen - converts each record's X and depth into a canvas offset, and writes two bits per pixel
+into the canvas at `$0400`. `$3F2D` then transposes that canvas into eight bitmap bands, and `$223E`
+blits the wider view alongside it. What you see of a hopper in the main view is the other renderer,
+`$29B6`, and its gate is in [Moveable Elements](movables.md); what you get on the scanner is this
+stubby mark, and that is why the two look nothing like each other.
 
-What a record contributes to that canvas is decided by its class byte, in three cases:
+What a record contributes to that mark is decided by its class byte, in three cases:
 
 | Class bit 7 | Byte 3 bit 3 | Fill |
 |---|---|---|

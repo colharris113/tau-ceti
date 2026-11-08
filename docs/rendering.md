@@ -48,22 +48,23 @@ changes is how the VIC interprets the bits.
 
 ## The view: canvas, painter, blitter
 
-The city view is not drawn straight into the bitmap. It is drawn into a small canvas and copied
-out.
+The city view is not drawn straight into the bitmap. It is drawn into a canvas and copied out.
 
-The canvas at $0400 is eight rows of 64 bytes, two bits per pixel - about the size of one band. The
-routine at $40AC clears it to $55. The painter at $3F93 walks the forty-eight object records at
-$0E00 and plots each one into the canvas according to its type, position and depth.
+The canvas at $0400 is 2KB: sixteen rows of 128 bytes, two bits per pixel. The routine at $40AC
+clears it to $55. The renderer at $29B6 walks the forty-eight object records at $0E00, projects the
+ones that pass its gate, and paints them into the canvas in depth order; the gate - the two `$10`
+window tests, the 16-row test and the half-width cull - is in [Moveable Elements](movables.md).
 
-Then the blitters move it. $3F29 copies the canvas into eight bands of the bitmap at $E870, $E9B0,
-$EAF0, $EC30, $ED70, $EEB0, $EFF0 and $F130. A second blitter at $223E takes a wider source range,
-$0400-$0BFF, and writes strips to $E148, $E288, $E3C8 and onward, splitting even and odd destination
-bytes - a different mapping for a different part of the display.
+Then the blitters move it. $223E takes all 2,048 bytes and writes strips to $E148, $E288, $E3C8 and
+onward, splitting even and odd destination bytes into the eight bytes of each cell. A second blitter
+at $3F2D takes the first 512 bytes of the same canvas into eight bands at $E870, $E9B0, $EAF0, $EC30,
+$ED70, $EEB0, $EFF0 and $F130, and it transposes them on the way - that is the scanner window, not the
+main view.
 
-This is where the perspective lives. The painter and the blitters do the scaling; the object records
+This is where the perspective lives. The renderer and the blitters do the scaling; the object records
 carry a 16-bit X position and a depth, and the projection helpers at $26CC and $26D4 turn those into
-screen offsets. There is no 768-byte perspective table and no $14D00: an earlier version of this
-chapter invented both.
+screen offsets through the tables at $8C00 and $8C81. There is no 768-byte perspective table and no
+$14D00: an earlier version of this chapter invented both.
 
 ## The instruments
 

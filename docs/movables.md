@@ -33,25 +33,86 @@ list that is located using the city number at $0354. That is why the bytes on th
 not match the records in a running game: the disk holds the source lists, and the table at $0E00 is
 assembled from them when you arrive in a city.
 
-## The canvas and the painter
+## The canvas and the two blitters
 
-Drawing happens in two steps, through a small off-screen canvas.
+Drawing happens in two steps, through an off-screen canvas.
 
-**The canvas** is at $0400: eight rows of 64 bytes, two bits per pixel, cleared to $55 by the
-routine at $40AC. Small, and not a screen - it is a working buffer for one band of the view.
+**The canvas** is 16 rows of 128 bytes at `$0400-$0BFF`, two bits per pixel, cleared to `$55` by
+`$40AC` before anything is painted. The scanner window uses only the first 512 bytes of it; the main
+view uses all 2,048.
 
-**The painter** at $3F93 walks all forty-eight records and plots them into that canvas. It is the
-routine that reads the type index, the flags, the X position and the depth, and decides what each
-record looks like at its distance.
+**The renderer** at `$29B6` walks all forty-eight records and paints the ones that pass a gate into
+that canvas. It reads the type index, the flags and the two 16-bit positions, and decides what each
+record looks like at its distance. It is the routine that draws the world, and it is proven:
+run from a captured state it reproduces the captured arena **2,048 bytes of 2,048**, and the span
+writer it ends in is the only thing in the game that puts a record's pixels down.
 
-**The blitters** move the canvas into the bitmap. One at $3F29 copies the canvas into eight bands at
-$E870, $E9B0, $EAF0, $EC30, $ED70, $EEB0, $EFF0 and $F130. A second at $223E reads a wider area,
-$0400-$0BFF, and writes strips into $E148, $E288, $E3C8 and onwards, separating even and odd
-destination bytes as it goes. The first is called from the raster stage 0 handler; the second is
-gated by the flag at $0348 and waits for raster line $40 before it runs.
+**The blitters** move the canvas into the bitmap. One at `$3F2D` copies 512 bytes into eight bands at
+`$E870`, `$E9B0`, `$EAF0`, `$EC30`, `$ED70`, `$EEB0`, `$EFF0` and `$F130` - the scanner window, and it
+does it as a byte transpose, so the destination index is `8*(X&7) + (X>>3)`. The other at `$223E`
+reads the full 2,048 bytes and writes strips into `$E148`, `$E288`, `$E3C8` and onwards, interleaving
+even and odd source bytes into the eight bytes of each destination cell. Both are exact: driven from
+a known arena they reproduce the bitmap with **0 of 8,000 bytes differing**.
 
 That split - paint the canvas, then blit it during a raster stage - is how the game gets a whole
-screen redrawn without the display showing the work in progress.
+screen redrawn without showing the work in progress.
+
+## The gate: why planting a record changes nothing
+
+The renderer draws only a fraction of the 48 records on any given frame, and the tests that decide it
+are worth writing down, because they are the difference between "the object is in the world" and "the
+object is on the screen". In order:
+
+```text
+$2A4D  clear bit 6 of record[3]                  "drawn this frame"
+$2A55  record[0] bit 7 set -> skip               a free slot draws nothing
+$2A7C  depth   = (record[1]:record[4]) - ($033C:$033B)     16-bit
+$2AA2  |depth| high byte >= $10 -> skip
+$2AAA  lateral = (record[2]:record[5]) - ($033F:$033E)     16-bit
+$2AD0  |lateral| high byte >= $10 -> skip
+$2B60  project: scale from the depth, screen X from record[10]/[11]
+$2BB3  projected row >= $10 -> skip              the arena is 16 rows
+$2BBE  record[13] = row, record[12] = column
+$2BC8  record[3] |= $40                          "on screen this frame"
+$2BD3  row bit 7 set or column >= $80 -> the NEAR path $2CC0
+       else                              the FAR path $2BD6
+```
+
+The window test is on the **high byte** of a 16-bit difference, so it is a window of `+/-$1000` world
+units and the low byte only reaches it through the sign. Twelve of the 27 live records in a captured
+frame are inside the window, and fewer than that survive the row and half-width culls.
+
+Then there are two paths, and only one of them draws immediately:
+
+- **the near path**, `$2CC0`, taken when the projected row has bit 7 set or the column is `$80` or
+  more: `$2CC6` takes a half width from the reciprocal tables at `$8A00`/`$8B00` - no divide - and
+  jumps straight to the queue append. A record at depth 0 gets half width `$7F` and is culled as
+  off-screen before it is ever queued.
+- **the far path**, `$2BD6` on: type `$10` is the landing pad and is special-cased, everything else
+  goes through the footprint test at `$2BF9`, then `$2E60` culls sideways and `$305D` writes spans.
+
+Both end in the same place. `$2D5F` appends a four-byte entry to the queue at `$0D00` - pointer low,
+pointer high, the record's column and row - and `$2D9F` repeatedly finds the entry with the largest
+column:row key, zeroes it and draws it. **The queue is drawn back to front**, which is what makes the
+near path work: near objects are not drawn by a different routine, they are queued and drawn later by
+the same span writer, in depth order.
+
+One more filter sits in the append, and it is easy to miss: `$2D76` tests the parity of the projected
+X value and **drops the entry if it is odd**. In a measured frame ten records reach `$2D5F` and only
+eight are queued; the two that vanish are not culled, they are filtered. The dropped pair depends on
+the projection, so it is not a fixed set of records.
+
+## The scanner draws the complement
+
+`$3F93` is not a second world renderer. It walks the same 48 records and paints the ones with
+`record[0] & $C0 == 0` **and `record[3] & $40 == 0`** - exactly the records the world view did not mark
+as on screen this frame. The scanner shows what is not in front of you.
+
+That makes bit 6 of `record[3]` a byte with three meanings at three moments, and they have to be kept
+apart: `$2BC8` sets it for records the world view projected, `$4622` reads it to decide whether a robot
+thinks, and `$3F93` uses it to skip those records on the scanner. It is cleared at the top of the
+renderer and rebuilt every frame, so it is not state - it is a note to the rest of the frame.
+
 
 ## What the moving things are
 
