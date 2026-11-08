@@ -31,18 +31,29 @@ habit it did not always have, and the notes at the bottom of the chapters record
 - **The world** - 48 object records of 16 bytes at $0E00, rebuilt for each city by $280B. Buildings,
   robots and missiles are all entries in that table; the world has no sprites, though the border
   banner does.
-- **The demo** - a real attract mode, flown by a recorded joystick script, showing `DEMO` in the
-  status line. See [The Demo](docs/demo-mode.md).
-- **The bottom border** - a scrolling banner, and it is not a border trick: eight double-width
-  sprites carry three characters each, pointed at $CA00-$CBC0, reading the story at $C000. See
-  [The Border Banner](docs/border-banner.md).
+- **The rods** - 40 halves dealt as 20 complementary pairs by $7319 and never stored on the disk, and
+  no pair fits as dealt: bit 7 is clear on both halves, so FLIP is mandatory, and 0 of 200 fresh deals
+  can be finished with ROTATE and FLIP alone. ROLL reverses the ten-bit profile and is an involution,
+  and with it 200 of 200 deals are solvable. See [The Rod Puzzle](docs/rod-puzzle.md).
+- **The attract mode** - a recorded input script, not an autopilot: 256 key-event bytes at $BD00 with
+  delays at $9300, one frame per delay unit, 205 seconds of somebody playing. See
+  [The Attract Sequence](docs/demo-mode.md).
+- **The border marquee** - eight double-width sprites carrying three characters each, pointed at
+  $CA00-$CBC0, reading the story at $C000, scrolled by the routine at $35F6. That routine is the one
+  that looks like a music player and is not. See [The Border Banner](docs/border-banner.md).
+- **Save files** - a raw $0400-$0C80 image written through the KERNAL, 2,179 bytes with the load
+  address, and a filename of up to 13 characters at $0200. See [Board Computer](docs/board-computer.md).
 - **Sand hoppers** - the creatures at the jump pads are type $24: 47 records across 17 cities, always
   in a little group within a few units of a pad, and they hop in place. See
   [Sand Hoppers](docs/creatures.md).
 - **Buildings** - a type number, not a shape: $00-$24, thirty in use, described by the tables at
   $C39A, $C3BF and $C409. The painter gives every one of them the same two-byte mark, so the twelve
   silhouettes on the Spectrum inlay describe a different machine.
-- **Sound** - two SID voices at $D400-$D418, effects only, no music.
+- **Sound** - three SID voices at $D400-$D418: two effect slots playing twelve-byte records from
+  $8812, and an engine voice driven by the speed byte. Effects only, no music.
+- **Text** - one font in three pages at $9000-$92FF, and one encoding: $21-$3A are capitals and
+  $41-$5A are lower case, numerically equal to ASCII capitals, which is why the strings look like a
+  mixture of two encodings.
 
 ## Disk Structure Overview
 
@@ -65,18 +76,23 @@ sector formula and the chain layout.
 
 | Range | Contents |
 |---|---|
-| $0000-$03FF | zero page, stack, and the game's variables in page 3 |
-| $0400-$0BFF | flight-view canvas and blitters' source |
+| $0000-$03FF | zero page, stack page variables, and the game's variables in page 3 |
+| $0100-$010F | the sixteen rebindable key codes; $0111-$012E the sound state |
+| $02B0-$02FF | the forty rod halves, two bytes each |
+| $0400-$0BFF | flight-view canvas: 16 rows of 128 bytes, and the star map's scratch |
 | $0C00-$0CFF | loader, later the message queues |
+| $0D00-$0DFF | the render queue, four bytes per entry |
 | $0E00-$10FF | 48 object records |
 | $2000-$88FF | game code |
-| $8900-$92FF | city data and glyph banks |
-| $9300 / $BD00 | demo script tables |
+| $8812-$88D1 | the sixteen sound-effect records |
+| $8900-$92FF | city data, city coordinates at $89A0/$89C0, names at $8D02, and the glyph banks |
+| $9300 / $BD00 | the attract script's delays and key events |
+| $BC50-$BC7E | the rod tray |
 | $C000-$C291 | border ticker text, four bytes per three characters |
 | $CA00-$CBFF | border ticker sprite blocks |
 | $CC00-$CFFF | video matrix, with the sprite pointers at $CFF8 |
 | $D000-$DFFF | replacement I/O routines |
-| $E000-$FF3F | bitmap |
+| $E000-$FF3F | bitmap, with the character canvas in $E000-$EFFF |
 | $FFFE | IRQ vector, holding $3903 |
 
 ## Messages
@@ -89,7 +105,10 @@ sector formula and the chain layout.
 | $3C95 | `AMM DETONATED` |
 | $5E6A | `SKIMMER REFUELED` |
 | $6503 | `PRESS 3 TO TRY ANOTHER MISSION` |
-| $6528 | `DEMO MODE INITIATED` |
+| $6529 | `DEMO MODE Initiated` |
+| $653F | `Press SPACE to exit.` |
+| $6EB1 | `Parts do not match.` |
+| $7D04 | `CONGRATULATIONS / TAU CETI III IS NOW NEUTRALISED ...` |
 
 ## Chapters
 
@@ -99,12 +118,13 @@ sector formula and the chain layout.
 | [Memory Map](docs/memory-map.md) | The 64KB map, the variables in page 3, and the VIC-II and SID registers used. |
 | [The Loading Screen](docs/loading-screen.md) | Boot stub, JEFF, the seven files, the picture at $4000 and the SPACE prompt. |
 | [Game Code](docs/game-code.md) | Entry, the frame routine, the four-stage raster interrupt and the message system. |
-| [The Demo](docs/demo-mode.md) | The attract mode: trigger, the recorded joystick script, and how it ends. |
+| [The Attract Sequence](docs/demo-mode.md) | Title, credits, the 1000-frame wait, the recorded script and how it ends. |
 | [The Border Banner](docs/border-banner.md) | The scrolling line in the bottom border: eight sprites, the text at $C000 and how it wraps. |
 | [Flares, Missiles and AMM](docs/weapons.md) | The three counters in the supply box and the three different mechanisms behind them. |
 | [Call Graph](docs/call-graph.md) | How the frame routine, the raster stages and the message path call each other. |
 | [Rendering Pipeline](docs/rendering.md) | The bitmap, the four raster bands, the canvas and the blitters. |
-| [World and Cities](docs/world-and-cities.md) | The 32 cities, the name table, jump pads, reactors and cooling rods. |
+| [World and Cities](docs/world-and-cities.md) | The 32 cities, the name table, jump pads, and the mission chain end to end. |
+| [The Rod Puzzle](docs/rod-puzzle.md) | Forty halves, three buttons, and why no deal fits until you find ROLL. |
 | [Buildings and Interiors](docs/buildings.md) | The numbered type table, its class bits, interiors, airlocks and docking. |
 | [Game State](docs/game-state.md) | Where the flight variables live and what the flight model does with them. |
 | [Board Computer](docs/board-computer.md) | The text console, the message queue and the equipment panel. |
@@ -131,6 +151,10 @@ sector formula and the chain layout.
 - The image was rebuilt with the piecewise sector formula and the sector chains, and the result was
   checked against VICE: the bytes at $2000-$88FF are identical to a memory dump taken at the point
   the loader jumps into the game.
+- The later chapters were checked a second way: against a working recreation of the game, written from
+  the disassembly and driven through the same routines. Where a chapter prints a number like "2,048
+  bytes of 2,048" or "0 of 8,000 bytes differing", that is a comparison between the reconstruction and
+  either a captured frame or the machine's own output from an emulator, not an impression.
 - Each chapter carries the same rule: a claim without an address, a dump or a trace behind it is
   either labelled as coming from the manual or left out.
 - Tau Ceti is copyright Firebird Software. This repository documents the game; it does not distribute
