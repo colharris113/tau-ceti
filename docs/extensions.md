@@ -13,7 +13,7 @@ A technical analysis of what could be added or changed, based on the actual code
 | Screen RAM | In use (Mode 4 TED) | $0400-$07FF + $1800-$1BFF |
 | Color RAM | In use | $DC00-$DFFF (partial) |
 | VIC-II Sprites | Sprites 0-5 used | Sprites 6-13 free |
-| SID Channels | Channel 3 partially used | Channels 1-2 free |
+| SID Channels | All three in use (two effects, one engine) | Nothing free at the voice level |
 | Disk I/O | KERNAL LOAD/CHAIN used | All KERNAL calls available |
 | Free RAM blocks | Scattered | Largest: 3,745 bytes at $1695F |
 
@@ -81,9 +81,14 @@ A technical analysis of what could be added or changed, based on the actual code
 
 ### 3.1 Multi-Channel Music (Medium)
 
-**What:** The SID chip has 3 voices. Currently only channel 3 ($D418) is used, and even that sparingly (1 write each to $D412-$D414). Channels 1 and 2 are completely unused.
+**What:** The SID chip has 3 voices and the game uses all three: voice 0 and voice 1 play the twelve-byte
+effect records at $8812 through $8759, and voice 2 is the engine, driven from the speed byte at $0353.
+There is no music player anywhere in the image - the routine at $35F6 that looks like one is the border
+banner's text engine (see [Sound System](sound.md)).
 
-**How:** Write to SID registers $D400-$D41F. Channel 1: $D400-$D407, Channel 2: $D408-$D40F. The game already calls KERNAL routines, so SID access is straightforward.
+**How:** Freeing a voice for music means taking one away from the effects, which is why the original did
+not. A music player would have to share: run the engine and one effect voice, and let the second effect
+voice drop out under the tune. The pitch registers are the same ones $8812 already writes.
 
 **Idea:** Add a background music loop using channels 1-2 (bass + melody) with channel 3 for sound effects. A simple arpeggiated bass line on channel 1 would fill the cities with atmosphere without overwhelming gameplay audio.
 

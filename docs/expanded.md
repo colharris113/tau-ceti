@@ -225,7 +225,10 @@ The game already tracks some of this at zero page. Here's the expanded layout:
 
 ## The Save System (Already Exists)
 
-The game already has SAVE ($FF0D) and LOAD ($FF20) calls at multiple locations. The existing save routine saves the current game state to disk. For the expanded version, we extend it to save:
+The game already has the KERNAL SAVE ($FFD8) and LOAD ($FFD5) calls, reached through the handlers at
+$6C55 and $69BA. The existing routine writes a raw $0400-$0C80 image - 2,179 bytes with the load
+address, no field structure at all - so "extending" it means either replacing the image with a
+versioned format or appending a second file. For the expanded version, the second file would hold:
 
 - All new economy variables (credits, resources, cargo)
 - City ownership data (which cities are controlled, at what tier)
