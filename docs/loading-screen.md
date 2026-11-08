@@ -120,7 +120,9 @@ this repository has these instructions NOPed out, so the emulator runs the loade
 
 When the loop finishes, JEFF restores $01 to $FF and jumps to $2000: the first instruction of the
 game, `LDX #$FE / TXS`, which resets the stack and begins the start-up sequence that ends in the
-frame loop.
+frame loop. What it does first is the credits screen: a message, an unpacked picture, and a thousand
+frames of waiting before it hands over to the attract mode. [The Attract Sequence](demo-mode.md) has
+that path.
 
 ## The line in the border
 

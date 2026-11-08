@@ -20,10 +20,12 @@ $4D80  frame
  ├─ $7689   bar animation            (skipped when $0396 = 1, i.e. landed)
  ├─ $6185   animation, second half
  ├─ $76BA   instrument update
- ├─ $73C4   overlay update
+ ├─ $73C4   the rod drop: docked at a reactor, scatter that city's halves
  ├─ $6444   wait for the message queues to drain
  └─ $46F3   tail call into the next frame
 ```
+
+The routine is at $4D73 in running memory; $4D80 is thirteen bytes into it.
 
 ## Per frame: the raster handler at $3903
 
@@ -74,9 +76,20 @@ flare                -> $0356 timer, read by the view painter
 
 ```text
 $280B  build the 48 records at $0E00 from the city's list ($0354)
-$3F93  paint the records into the canvas at $0400
-$3F29  blit the canvas to eight bitmap bands
-$223E  blit strips from $0400-$0BFF into $E148 and onward
+$29B6  the renderer: gate, project, queue at $0D00, draw back to front
+$305D  the span writer - the only routine that puts a record's pixels down
+$3F93  the scanner painter: the records the world view did NOT mark on screen
+$3F2D  transpose the scanner canvas into eight bitmap bands
+$223E  blit the 2KB view canvas into $E148 and onward
+```
+
+and the attract path, which replaces input rather than drawing:
+
+```text
+$26FA  reads $0394: bit 7 clear -> scan the matrix, set -> JMP $6392
+$6392  the script driver: delays at $9300, key events at $BD00
+          writes $034A-$0351, the same shadow the joystick writes
+$03B1  the index; $03BB the delay counter; $03BA "recording ended"
 ```
 
 ## What was here before

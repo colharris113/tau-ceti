@@ -38,9 +38,13 @@ Once a frame, the main code runs a fixed sequence of calls. The order is the des
 | $7689 | bar animation, skipped when landed |
 | $6185 | second half of that animation |
 | $76BA | instrument update |
-| $73C4 | software sprite/overlay update |
+| $73C4 | the rod drop: if you are docked at a reactor, scatter that city's halves |
 | $6444 | waits for the frame's work to finish |
 | $46F3 | tail call into the next frame |
+
+The routine runs at **$4D73** in memory; $4D80, which this chapter used to print, is thirteen bytes
+into it, and the disk image's bytes at that address are part of a message table rather than this
+routine. Read the code from a RAM dump in this region, not from the file.
 
 Two details are worth noting because they show how the machine is being paced. $6444 is a
 busy-wait: it compares two bytes at $0383 and $0384 - the message queue's read and write pointers -
@@ -100,6 +104,31 @@ Because the interrupt owns input, the weapons and the playfield blit, the main r
 spend its whole frame budget on drawing gauges and text. The two halves communicate through flags:
 $0348 gates the blit, $0395 pauses the update, $039D selects the display mode and so chooses a
 whole different set of stage handlers.
+
+## The stage machine
+
+There is no separate "game mode" structure. The whole of Tau Ceti's outer state is one byte, `$0394`,
+and the code tests its top bit:
+
+| `$0394` | state | who sets it |
+|---|---|---|
+| `$00` | playing | `$6495` (credits skipped), `$207A` (leaving attract) |
+| `$80` | attract | `$64CF` (credits timed out) |
+| `$FF` | a key was pressed in attract | `$63A5` |
+
+and two more bytes finish the job: `$0396` for flight state (0 launched, 1 landed, `$80` docked) and
+`$03BA` for "the demo recording has ended". The boot is a walk through the same bytes:
+
+```text
+$2000  start-up, credits screen
+$648D  1000-frame wait, SPACE or RUN/STOP breaks out
+$64BB  timeout: key table restored, messages pushed, $0394 = $80
+$64D8  reset the script counters, rebuild the city, JMP $4D7D
+$207A  a key in attract: $0394 = 0, key table restored, new game
+```
+
+So the credits, the attract mode and the game itself are three states of one flag rather than three
+programs, and the hand-over from attract to play is a write of `$00` followed by the new-game tail.
 
 ## The message system
 

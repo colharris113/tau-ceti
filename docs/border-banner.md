@@ -108,6 +108,16 @@ four-byte entries at $0C80 can carry its own scroll step - the routine takes it 
 bits of the entry's flag byte - which is why the ticker is not perfectly regular if the game has
 something to say.
 
+One thing is worth saying about $35F6 before leaving it, because the routine reads, in a listing, like
+a piece of music software. It has a tempo byte, eight per-channel countdown timers at `$FF66-$FF75`
+with flags at `$FF76`, a stream with a "continue" form and an urgent flag, and an inner loop that
+renders three eight-byte glyphs into a 64-byte block per channel at `$CA00 + channel*64`.
+What it is doing is the banner: the "channels" are the eight sprites, the "notes" are characters, and
+the block it composes is the 48-pixel strip of three letters. Nothing else in the game writes to
+`$CA00`, which is why the routine is easy to mistake for dead code - the VIC reads those blocks
+through the sprite pointers at `$CFF8`, not the CPU. [Sound System](sound.md) has the other half of
+that argument.
+
 ## When it runs
 
 The ticker is not part of the loader. JEFF, the 508-byte loader at $0C00, contains no sprite code at
@@ -133,21 +143,37 @@ not drawn at all. The border becomes an ordinary empty border for as long as tho
 
 Three chapters in this guide say there are no sprites in Tau Ceti. That was true of the world and
 false of the screen: nothing that moves in the city is a sprite, but the border banner is eight of
-them, and there is a second set of eight shadow registers at $FF40-$FF65 that some other handler
-loads, whose purpose I did not establish. [Moveable Elements](movables.md) and
-[Rendering Pipeline](rendering.md) now say so.
+them, and there is a second set of eight shadow registers at $FF40-$FF65 that the same two
+routines load. [Moveable Elements](movables.md) and [Rendering Pipeline](rendering.md) now say so.
+
+That second block is the flight view's own sprites - the crosshair and the sight marker - which is why
+the block at $FF40 is loaded by $3375 every frame and not only for the banner. Measured from a
+captured frame, the marker is a single hires sprite, single size, slot 3, at frame (406,125) in
+colour 6: a 12x10 bracket, 32 pixels, and its 64-byte block reads back from the picture with no
+ambiguous bits.
 
 [Character Set and Text System](charset.md) described the font's third bank at $9200 as "not
 identified". It is the lower-case alphabet: $9208 is `a`, $9228 is `e`, $9260 is `l`.
 
-> [!NOTE]
-> **What I could not establish.** The sprite shadow block has two regular fields per sprite and I
-> could not reconcile the set-up routine's 48-pixel spacing with the copy routine that reads the
-> block eight bytes at a time; one of the two is doing something I have not decoded. The Y
-> coordinate that places the strip in the border is in the same block and I did not trace where it
-> is written. None of this changes the mechanism - the sprites are enabled at line 248 with the
-> pointer table at $CFF8 and the graphics at $CA00 - but the register-level detail of the block is
-> incomplete.
+## What the port settled, and what it could not
+
+Rendering the banner from its own blocks and comparing against a real frame settles the picture
+exactly: eight hires sprites, double width and double height, 48 pixels apart, and drawing them
+reproduces **all 1,412 lit border pixels and no others**. The characters read back as
+`ste`, `m h`, `ad `, `tak`, `en `, `ove`, `r. ` - the tail of `...system had taken over.` - with 23 of
+the 24 glyph cells matching a font glyph exactly, the last being half off the screen.
+
+Two things remain open and are worth naming:
+
+- **The two coordinate conventions do not reconcile.** The set-up routine writes shadow values that
+  put sprite *i* at `24 + 48i` in its own frame; the picture needs `98 + 48i` in frame rows, and the
+  Y coordinate that places the strip at row 260 is in the block but was not traced to its writer. The
+  mechanism is not in doubt - sprites enabled at line 248, pointers at `$CFF8`, graphics at `$CA00` -
+  but the register-level detail of the block is incomplete, and the port's geometry is fitted to the
+  picture rather than read from the machine.
+- **The per-stage `$D015` schedule is inferred, not logged.** Store watchpoints on the VIC registers
+  do not fire on the emulator build used here, so the port reproduces the schedule the *picture*
+  requires (rows 0-259 with the marker, 260-311 with the banner) rather than one observed in a trace.
 
 ---
 
