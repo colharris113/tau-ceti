@@ -187,9 +187,11 @@ centred, and 31 zoom-out passes of the star chart from `$1F` down to 0.
 
 **The dose clock is the only way the mission fails on its own.** `$03BE` is incremented once per slow
 tick while you are in the reactor room - the `$11 & $7F == 0` tick, so once per 128 frames - and
-nothing else in the image writes it. At 28, 34 and 39 it schedules a sound. At **61** it pushes
-`$7B5E` and jumps to `$6473`, the shared mission-failed sequence, which is also what QUIT uses.
-Standing in the reactor thinking about it for two and a half minutes ends the game.
+nothing else in the image writes it. At `$28`, `$34` and `$39` it queues a warning into the border
+banner, each one faster than the last. At **61** it pushes `$7B5E` and jumps to `$6473`, the shared
+mission-failed sequence, which is also what QUIT uses. Standing in the reactor thinking about it for
+two and a half minutes ends the game, and the counter is only cleared when a new mission starts.
+That room, its gauge and its three warnings have their own chapter: [The Radiation Clock](radiation.md).
 
 ## The puzzle in the tray
 

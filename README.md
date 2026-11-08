@@ -108,6 +108,8 @@ sector formula and the chain layout.
 | $6529 | `DEMO MODE Initiated` |
 | $653F | `Press SPACE to exit.` |
 | $6EB1 | `Parts do not match.` |
+| $7A0E | `WARNING: YOU ARE / ENTERING A HIGHLY / RADIOACTIVE AREA.` |
+| $7B5E | `FATAL RADIOACTIVE / DOSE RECEIVED. / MISSION FAILED.` |
 | $7D04 | `CONGRATULATIONS / TAU CETI III IS NOW NEUTRALISED ...` |
 
 ## Chapters
@@ -125,6 +127,7 @@ sector formula and the chain layout.
 | [Rendering Pipeline](docs/rendering.md) | The bitmap, the four raster bands, the canvas and the blitters. |
 | [World and Cities](docs/world-and-cities.md) | The 32 cities, the name table, jump pads, and the mission chain end to end. |
 | [The Rod Puzzle](docs/rod-puzzle.md) | Forty halves, three buttons, and why no deal fits until you find ROLL. |
+| [The Radiation Clock](docs/radiation.md) | The dose counter at $03BE, the gauge it draws, the three border warnings and the death in the reactor room. |
 | [Buildings and Interiors](docs/buildings.md) | The numbered type table, its class bits, interiors, airlocks and docking. |
 | [Game State](docs/game-state.md) | Where the flight variables live and what the flight model does with them. |
 | [Board Computer](docs/board-computer.md) | The text console, the message queue and the equipment panel. |
