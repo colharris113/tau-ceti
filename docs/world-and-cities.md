@@ -48,18 +48,36 @@ In table order, which is the order the game indexes them:
 > are ENTROLA (not Entroia), ERMA (not Erna) and HEYROL (not Keyrol); KDAPT and KZINTI keep their K
 > prefixes.
 
-## City positions: what is not established
+## City positions: the map's own table
 
-The obvious next question is where each city sits on the planet, and this is where the trail goes
-cold. There is no table of 32 four-byte coordinate records following the names: the bytes that
-follow the name list are a monotonically decaying curve -
+The obvious next question is where each city sits on the planet, and the answer is a table that has
+been in front of me since the first pass: **$89A0 holds 32 bytes of X and $89C0 holds 32 of Y**, one
+per city in name-table order, just above the names.
+
+Two routines use them, and neither is a guess:
+
+- `$8422` is nine bytes long and seats the star map's cursor from them. Called with `X = 0` it gives
+  `$03C0/$03C1 = $80/$80`, the centre of the map and the position of Centralis; called with `X = 1` it
+  gives `$8C/$94`, which is REEMA, the city a new game starts in. [Map System](map-system.md) has the
+  rest of that screen.
+- `$848F` builds the 64 four-byte star records at `$0D00` from four tables - `$89A0` and `$89C0` for
+  the first 32, `$89E0` and `$8DE0` for the second - and projects them through the zoom scale at
+  `$86BB`.
+
+So the planet's coordinate system is a `$80`-based grid, the cities have integer positions on it, and
+the "not established" of earlier versions of this chapter was a matter of looking next to the names
+rather than three hundred bytes above them.
+
+The table that follows the name list is still what it looked like - a monotonically decaying curve:
 
 ```text
 FE FC F4 E8 D7 C3 AC 93 7A 61 49 33 20 11 07 02 ...
 ```
 
-- which is the signature of a projection or scaling table, not a list of positions. Whatever holds
-  the city coordinates, it is not a simple array next to the names, and I have not located it.
+- but it is a projection scale, not a list of positions, and it is not the map's. What is still not
+established is something different: the **ground origin** of a city in the flight view. That is not a
+coordinate pair in a table; it is the per-city object list, and `$280B` builds the 48 records from it
+without ever needing a separate origin.
 
 What the code does show is how the *content* of a city is found. The current city number lives at
 $0354. The routine at $280B uses it to derive a pointer - with a high byte near $94 - into a list of
@@ -70,7 +88,9 @@ list is the most likely place for them.
 > [!WARNING]
 > Earlier versions of this chapter printed a table of X/Y/Z/W coordinates for all 32 cities. Those
 > numbers were not read from the disk; the address they were attributed to holds the curve above.
-> The table has been removed rather than corrected, because there is nothing to correct it to.
+> That table was removed rather than corrected, and it should stay removed: the real coordinate table
+> is not a 128-byte block of four-byte records, it is two plain 32-byte arrays at `$89A0` and `$89C0`,
+> and any table with four numbers per city is describing something else.
 
 ## Jump pads
 
@@ -110,24 +130,78 @@ In the code, a building is one of the 48 records at $0E00: byte 0 is a type inde
 $C39A, byte 3 carries flags ($40 drawn, $08 variant), bytes 10-11 are the X position and bytes 12-13
 the depth. The records are rebuilt from the city's list each time you change city.
 
-## Cooling rods
+## The mission chain
 
-The mission, as the manual states it: collect 40 cooling rod parts from reactors across the cities,
-assemble them into 20 bars, and insert the bars into the main reactor at Centralis.
+The manual's description of the mission is accurate but flat: collect 40 cooling rod parts from
+reactors across the cities, assemble them into 20 bars, insert the bars into the main reactor at
+Centralis. The code adds the conditions, the counters and the way it can kill you.
 
-| Step | Action |
-|---|---|
-| 1 | fly to a reactor station and dock |
-| 2 | use LOOK to go inside |
-| 3 | find and collect the rod parts |
-| 4 | use RODS to assemble parts into bars |
-| 5 | fly to Centralis |
-| 6 | use REACTOR to insert the bars |
-| 7 | repeat until the reactor is shut down |
+```text
+land on a type $1C or $1D building     $2C45   $0396 = $80, $03A4 = the type
+  the console loop, once per frame    $4DA1
+    $73C4  that city's rods appear     only if the type is $1C/$1D and the city is unvisited
+RODS    $6D0E  pair the halves         $03A8 counts solved pairs, to $14
+REACTOR $770B  insert the bars         $03A9 counts inserted bars, to $14
+              $03BE counts the dose   61 ticks -> $7B5E, mission failed
+walk out of the reactor               $7973   $03A9 = $14 -> the win
+```
 
-The commands are real - RODS and REACTOR appear in the game's text - but the counting rules (40
-parts, 20 bars, 8 per reactor) come from the manual rather than from anything I have disassembled,
-and should be treated as description rather than reverse engineering.
+Four counters and one flag carry all of it:
+
+| Variable | Meaning | Range |
+|---|---|---|
+| `$03A7` | rod halves on the surface, world total | 0 to `$28` (40) |
+| `$03A8` | halves solved into bars | 0 to `$14` (20) |
+| `$03A9` | bars inserted | 0 to `$14` (20) |
+| `$03BE` | radiation dose | 0 to `$3D` (61) |
+| `$7440 + city` | halves that city drops | 0-3, bit 7 set once visited |
+| `$BC50-$BC7E` | the tray, one byte per cell | a rod index, or `$FF` |
+| `$03DB-$03EE` | the reactor's 20 slots | 0 empty, `$FF` filled |
+
+`$7440` is the per-city distribution, and it is worth printing because the numbers are not uniform:
+`03 00 01 02 01 02 01 00 01 01 01 02 02 01 01 02 01 02 01 01 01 01 01 00 02 01 02 01 01 02 01 01`.
+City 0 drops three, three cities drop none, nineteen drop one and nine drop two, and the total is
+exactly the world cap of 40.
+
+**The rods appear when you land.** `$73C4` runs from the console loop, once per frame, while you are
+docked. It tests `$03A4` for the two reactor types, looks up the city's count, and **sets bit 7 of the
+flag before it places anything**. That ordering is not a detail: a city whose rods cannot be placed -
+because the world total is already at 40 - is still marked stripped, and can never drop them later.
+The message in that case says "0 ROD SECTION S FOUND", which is the game telling the truth.
+
+The count in that message is not a formatted number. `$742A` is a byte inside the sentence, written by
+the routine that just counted what it placed. [Character Set and Text System](charset.md) has the same
+trick in the reactor's own message.
+
+**The reactor room is only at Centralis.** `$770B` refuses unless `$03A4` = `$1C` - the Central
+reactor - and says so in as many words. A substation (`$1D`) will give you rods and will not take them
+back. The type byte is the same one the landing path wrote, which is how the game knows which building
+you are standing in without a separate flag.
+
+**Insertion is two actions.** The screen arms with one menu box and confirms on the cell, and the arm
+refuses when `$03A9` has caught up with `$03A8`: you cannot insert more bars than you have assembled.
+Filling the twentieth slot pushes "ALL COOLING RODS INSERTED / REACTOR SUCCESSFULLY CLOSED DOWN", which
+is not the win. **The win is `$7973`, in the leave path**: it runs when you walk out of the reactor,
+tests `$03A9` against `$14`, and only then prints `$7D04` and starts the ending - the map cursor
+centred, and 31 zoom-out passes of the star chart from `$1F` down to 0.
+
+**The dose clock is the only way the mission fails on its own.** `$03BE` is incremented once per slow
+tick while you are in the reactor room - the `$11 & $7F == 0` tick, so once per 128 frames - and
+nothing else in the image writes it. At 28, 34 and 39 it schedules a sound. At **61** it pushes
+`$7B5E` and jumps to `$6473`, the shared mission-failed sequence, which is also what QUIT uses.
+Standing in the reactor thinking about it for two and a half minutes ends the game.
+
+## The puzzle in the tray
+
+The halves are not interchangeable, and the RODS screen is a real puzzle with a rule that the game
+never states: the profiles are complementary pairs, the hand bits must differ, and the classes must
+agree through a table that folds eight classes into four. The deal you are given rolls about half of
+the second halves, so nothing fits as it lies and one of the three buttons is mandatory.
+
+That is worth its own chapter, and it has one: [The Rod Puzzle](rod-puzzle.md). What matters here is
+the shape of the chain - a city gives you halves, the tray turns halves into bars, the reactor turns
+bars into progress, and the two counters at `$03A8` and `$03A9` are the only record of either.
+
 
 ---
 

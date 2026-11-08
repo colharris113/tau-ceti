@@ -54,10 +54,27 @@ they stand, by how far away they are, and by what they do when you arrive.
 
 That changes how the publisher's names read. MAIN CENTRAL REACTOR, REACTOR SUBSTATION, SUPPLY CENTRE
 (CIVILIAN), SUPPLY CENTRE (MILITARY), FORTRESS, CONTROL TOWER, DOME, SPHERE and JUMP PAD COMPLEX are
-the publisher's names for a different machine's artwork. Five numbers in this one can be tied to a
-name with evidence behind it: $0A is a missile, $0F and $10 are the two records that make a jump pad,
-$1A is the proximity mine ([Moveable Elements](movables.md)), and $24 is the sand hopper
-([Sand Hoppers](creatures.md)). Everything else is a number. The old table in this chapter -
+the publisher's names for a different machine's artwork. Eight numbers in this one can be tied to a
+name with evidence behind it:
+
+| Type | What it is | Evidence |
+|---|---|---|
+| `$0A` | a missile | the class byte's `$0C` bits and the fire path at `$4878` |
+| `$0F` | the marker on a pad's approach side | built by `$280B` from the second half of each `$C4BE` slot |
+| `$10` | the jump pad itself | special-cased by name in the renderer at `$2BE0` |
+| `$1A` | the proximity mine | tested by name at `$8204` |
+| `$1B` | a landable building | the footprint test at `$2C45` lands a record of this type |
+| `$1C` | the Central reactor | REACTOR refuses unless `$03A4` = `$1C` |
+| `$1D` | a reactor substation | `$73C4` drops rods for `$1C` and `$1D`, and `$770B` rejects `$1D` |
+| `$24` | the sand hopper | [Sand Hoppers](creatures.md) |
+
+The three new ones are the most useful, because they are the only types the mission asks about. The
+landing path at `$2C45` copies the type it landed on into `$03A4`, and everything downstream tests that
+one byte: the rod drop asks whether it is a reactor, and the reactor room asks whether it is *the*
+reactor. So a substation hands out cooling rods and will not take them back, and the difference between
+the two is a single number in a per-type table.
+
+Everything else is a number. The old table in this chapter -
 "Main, Reactor, Military, Civil, Gal-Corp Lander, Jump Pad, Fortress, Control Tower, Turret" - mixed
 manual names with guesses, and the turret is not in the manual either.
 
