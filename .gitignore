@@ -1,0 +1,10 @@
+.venv/
+site/
+__pycache__/
+*.pyc
+.cache/
+.DS_Store
+Thumbs.db
+
+# Local scratch: screenshots, probe scripts, Chrome profiles.
+work/

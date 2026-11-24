@@ -1,0 +1,53 @@
+<svg class="tc-fig" viewBox="0 0 780 392" role="img" aria-labelledby="fig-fuel-t fig-fuel-d" xmlns="http://www.w3.org/2000/svg">
+<title id="fig-fuel-t">Fuel burn and endurance against speed</title>
+<desc id="fig-fuel-d">Two panels sharing the speed axis: the burn per second for an intact and a ruptured tank, and the resulting endurance in minutes.</desc>
+<text x="40.0" y="30.0" class="fig-title" text-anchor="start">Fuel: how speed and a ruptured tank change the burn</text>
+<text x="40.0" y="50.0" class="fig-muted" text-anchor="start">One burn a second, at the 50-frame tick. On the ground the burn is zero.</text>
+<line x1="480.0" y1="68.0" x2="508.0" y2="68.0" class="fig-ochre"/>
+<text x="514.0" y="72.0" class="fig-label" text-anchor="start">tank intact</text>
+<line x1="620.0" y1="68.0" x2="648.0" y2="68.0" class="fig-blue"/>
+<text x="654.0" y="72.0" class="fig-label" text-anchor="start">tank ruptured</text>
+<text x="74.0" y="88.0" class="fig-title" text-anchor="start">Burn per second</text>
+<line x1="74.0" y1="296.0" x2="350.0" y2="296.0" class="fig-grid"/>
+<text x="64.0" y="299.0" class="fig-tick" text-anchor="end">0</text>
+<line x1="74.0" y1="232.0" x2="350.0" y2="232.0" class="fig-grid"/>
+<text x="64.0" y="235.0" class="fig-tick" text-anchor="end">50</text>
+<line x1="74.0" y1="168.0" x2="350.0" y2="168.0" class="fig-grid"/>
+<text x="64.0" y="171.0" class="fig-tick" text-anchor="end">100</text>
+<line x1="74.0" y1="104.0" x2="350.0" y2="104.0" class="fig-grid"/>
+<text x="64.0" y="107.0" class="fig-tick" text-anchor="end">150</text>
+<text x="74.0" y="314.0" class="fig-tick" text-anchor="middle">0</text>
+<text x="166.5" y="314.0" class="fig-tick" text-anchor="middle">64</text>
+<text x="259.0" y="314.0" class="fig-tick" text-anchor="middle">128</text>
+<text x="350.0" y="314.0" class="fig-tick" text-anchor="middle">191</text>
+<line x1="74.0" y1="296.0" x2="350.0" y2="296.0" class="fig-axis"/>
+<line x1="74.0" y1="104.0" x2="74.0" y2="296.0" class="fig-axis"/>
+<line x1="74.0" y1="275.5" x2="350.0" y2="246.1" class="fig-ochre"/>
+<line x1="74.0" y1="152.6" x2="350.0" y2="123.2" class="fig-blue"/>
+<text x="346.0" y="262.1" class="fig-label" text-anchor="end">39 a second</text>
+<text x="346.0" y="115.2" class="fig-label" text-anchor="end">135 a second</text>
+<text x="212.0" y="336.0" class="fig-label" text-anchor="middle">speed ($00-$BF)</text>
+<text x="446.0" y="88.0" class="fig-title" text-anchor="start">Minutes of fuel left</text>
+<line x1="446.0" y1="296.0" x2="722.0" y2="296.0" class="fig-grid"/>
+<text x="436.0" y="299.0" class="fig-tick" text-anchor="end">0</text>
+<line x1="446.0" y1="248.0" x2="722.0" y2="248.0" class="fig-grid"/>
+<text x="436.0" y="251.0" class="fig-tick" text-anchor="end">15</text>
+<line x1="446.0" y1="200.0" x2="722.0" y2="200.0" class="fig-grid"/>
+<text x="436.0" y="203.0" class="fig-tick" text-anchor="end">30</text>
+<line x1="446.0" y1="152.0" x2="722.0" y2="152.0" class="fig-grid"/>
+<text x="436.0" y="155.0" class="fig-tick" text-anchor="end">45</text>
+<line x1="446.0" y1="104.0" x2="722.0" y2="104.0" class="fig-grid"/>
+<text x="436.0" y="107.0" class="fig-tick" text-anchor="end">60</text>
+<text x="446.0" y="314.0" class="fig-tick" text-anchor="middle">0</text>
+<text x="538.5" y="314.0" class="fig-tick" text-anchor="middle">64</text>
+<text x="631.0" y="314.0" class="fig-tick" text-anchor="middle">128</text>
+<text x="722.0" y="314.0" class="fig-tick" text-anchor="middle">191</text>
+<line x1="446.0" y1="296.0" x2="722.0" y2="296.0" class="fig-axis"/>
+<line x1="446.0" y1="104.0" x2="446.0" y2="296.0" class="fig-axis"/>
+<line x1="446.0" y1="132.2" x2="722.0" y2="228.8" class="fig-ochre"/>
+<line x1="446.0" y1="272.6" x2="722.0" y2="276.6" class="fig-blue"/>
+<text x="718.0" y="244.8" class="fig-label" text-anchor="end">21 min</text>
+<text x="718.0" y="268.6" class="fig-label" text-anchor="end">6.1 min</text>
+<text x="584.0" y="336.0" class="fig-label" text-anchor="middle">speed ($00-$BF)</text>
+<text x="40.0" y="356.0" class="fig-muted" text-anchor="start">The burn is (speed &gt;&gt; 3) + 16, plus 96 if $039E says the tank is ruptured. One subtraction a second from a 16-bit tank of $BFFF = 49,151 units.</text>
+</svg>

@@ -1,0 +1,254 @@
+/* Tau Ceti guide — ochre-on-charcoal, after the planet's dusty sky. */
+
+:root {
+  --tc-ochre: #c8933f;
+  --tc-ochre-soft: #e0b56b;
+  --tc-ink: #1d1a16;
+}
+
+[data-md-color-scheme="default"] {
+  --md-typeset-a-color: #8a5a12;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-typeset-a-color: var(--tc-ochre-soft);
+}
+
+/* Headings get a little breathing room; the pages are long. */
+.md-typeset h2 {
+  margin-top: 2.2em;
+  padding-top: 0.4em;
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.md-typeset h1 {
+  letter-spacing: -0.01em;
+}
+
+/* A short standfirst under the page title. */
+.md-typeset .lede {
+  font-size: 1.05rem;
+  color: var(--md-default-fg-color--light);
+  margin-bottom: 1.6em;
+}
+
+/* Routine listings: monospace, address column tinted, tight lines. */
+.md-typeset pre.rt-listing {
+  font-size: 0.72rem;
+  line-height: 1.45;
+  background: var(--md-code-bg-color);
+  padding: 0.9em 1em;
+  border-left: 3px solid var(--tc-ochre);
+  overflow-x: auto;
+}
+
+.md-typeset pre.rt-listing .rt-addr {
+  color: var(--md-default-fg-color--light);
+}
+
+.md-typeset pre.rt-listing .rt-bytes {
+  color: var(--md-default-fg-color--lighter);
+}
+
+.md-typeset pre.rt-listing .rt-op {
+  color: var(--md-code-hl-keyword-color, #7c4dff);
+}
+
+.md-typeset pre.rt-listing .rt-arg {
+  color: var(--md-code-hl-string-color, #0a7d3f);
+}
+
+.md-typeset pre.rt-listing .rt-cmt {
+  color: var(--md-default-fg-color--light);
+  font-style: italic;
+}
+
+/* Inline address chips. */
+.md-typeset code.addr {
+  background: var(--md-default-fg-color--lightest);
+  color: inherit;
+  border-radius: 0.2rem;
+  padding: 0.05rem 0.3rem;
+  font-size: 0.82em;
+}
+
+/* Figures and their captions. */
+.md-typeset figure {
+  margin: 1.8em 0;
+  text-align: center;
+}
+
+.md-typeset figure img {
+  max-width: 100%;
+  height: auto;
+}
+
+.md-typeset figcaption {
+  font-size: 0.72rem;
+  color: var(--md-default-fg-color--light);
+  margin-top: 0.7em;
+  text-align: left;
+  max-width: 44rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Comparison tables in the deep dives. */
+.md-typeset table:not([class]) {
+  font-size: 0.74rem;
+}
+
+.md-typeset table:not([class]) th {
+  background: var(--md-default-fg-color--lightest);
+}
+
+/* Called-by / calls link lists on routine pages. */
+.rt-xrefs {
+  font-size: 0.78rem;
+}
+
+.rt-xrefs ul {
+  margin-top: 0.2em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Generated figures.  The SVGs are inlined by pymdownx.snippets, so  */
+/* they inherit the page's theme variables and follow the site toggle. */
+/* ------------------------------------------------------------------ */
+
+.tc-fig {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+.tc-fig text {
+  font-family: var(--md-text-font-family, system-ui, -apple-system, "Segoe UI", sans-serif);
+  fill: var(--md-default-fg-color);
+  font-size: 11px;
+}
+
+.tc-fig .fig-title {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.tc-fig .fig-label {
+  font-size: 11px;
+}
+
+.tc-fig .fig-tick {
+  font-size: 10px;
+  fill: var(--md-default-fg-color--light);
+}
+
+.tc-fig .fig-muted {
+  fill: var(--md-default-fg-color--light);
+}
+
+.tc-fig .fig-grid {
+  stroke: var(--md-default-fg-color--lightest);
+  stroke-width: 1;
+}
+
+.tc-fig .fig-axis {
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 1;
+}
+
+.tc-fig .fig-hair {
+  stroke: var(--md-default-fg-color--lightest);
+  stroke-width: 1;
+}
+
+/* Series colours: the ochre/blue pair, validated for both themes. */
+.tc-fig .fig-ochre {
+  stroke: #8a5a12;
+  stroke-width: 2;
+  fill: none;
+}
+
+.tc-fig .fig-blue {
+  stroke: #2a78d6;
+  stroke-width: 2;
+  fill: none;
+}
+
+.tc-fig .fig-ochre-fill {
+  fill: #8a5a12;
+}
+
+.tc-fig .fig-blue-fill {
+  fill: #2a78d6;
+}
+
+.tc-fig .fig-band {
+  fill: #8a5a12;
+  fill-opacity: 0.16;
+  stroke: none;
+}
+
+.tc-fig .fig-cell {
+  fill: var(--md-default-fg-color--lightest);
+  stroke: var(--md-code-bg-color);
+  stroke-width: 1;
+}
+
+.tc-fig .fig-cell-type {
+  fill: #8a5a12;
+  fill-opacity: 0.55;
+  stroke: var(--md-code-bg-color);
+  stroke-width: 1;
+}
+
+.tc-fig .fig-glyph {
+  fill: currentColor;
+}
+
+[data-md-color-scheme="slate"] .tc-fig .fig-ochre {
+  stroke: #b8832f;
+}
+
+[data-md-color-scheme="slate"] .tc-fig .fig-blue {
+  stroke: #3987e5;
+}
+
+[data-md-color-scheme="slate"] .tc-fig .fig-ochre-fill {
+  fill: #b8832f;
+}
+
+[data-md-color-scheme="slate"] .tc-fig .fig-blue-fill {
+  fill: #3987e5;
+}
+
+[data-md-color-scheme="slate"] .tc-fig .fig-band {
+  fill: #b8832f;
+  fill-opacity: 0.22;
+}
+
+[data-md-color-scheme="slate"] .tc-fig .fig-cell-type {
+  fill: #b8832f;
+  fill-opacity: 0.55;
+}
+
+/* ------------------------------------------------------------------ */
+/* Routine index tables: the name column needs room and the summary   */
+/* column should do the wrapping, so set the widths explicitly.       */
+/* ------------------------------------------------------------------ */
+
+.md-typeset .routine-index table {
+  font-size: 0.72rem;
+}
+
+.md-typeset .routine-index table td:first-child,
+.md-typeset .routine-index table th:first-child {
+  width: 26%;
+}
+
+.md-typeset .routine-index table td:nth-child(2),
+.md-typeset .routine-index table th:nth-child(2) {
+  width: 12%;
+  white-space: nowrap;
+}

@@ -1,0 +1,882 @@
+<svg class="tc-fig" viewBox="0 0 780 626" role="img" aria-labelledby="fig-record-table-t fig-record-table-d" xmlns="http://www.w3.org/2000/svg">
+<title id="fig-record-table-t">The record table: 48 records of 16 bytes</title>
+<desc id="fig-record-table-d">A schematic of the 768-byte record table at $0E00, with one record expanded to label all sixteen bytes.</desc>
+<text x="40.0" y="32.0" class="fig-title" text-anchor="start">The record table: 48 records of 16 bytes</text>
+<text x="40.0" y="52.0" class="fig-muted" text-anchor="start">768 bytes at $0E00-$10FF. Byte 0 sorts every record; the rest is state.</text>
+<rect x="40.0" y="78.0" width="14.0" height="14.0" rx="2" class="fig-cell-type"/>
+<text x="60.0" y="89.0" class="fig-label" text-anchor="start">$00-$3F  live, low six bits index the type tables</text>
+<rect x="390.0" y="78.0" width="14.0" height="14.0" rx="2" class="fig-cell"/>
+<text x="410.0" y="89.0" class="fig-muted" text-anchor="start">(shown plain so the grid stays readable)</text>
+<text x="70.0" y="120.0" class="fig-tick" text-anchor="start">$0E00</text>
+<rect x="70.0" y="128.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="70.0" y="128.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="78.0" y1="128.0" x2="78.0" y2="143.0" class="fig-hair"/>
+<line x1="86.0" y1="128.0" x2="86.0" y2="143.0" class="fig-hair"/>
+<line x1="94.0" y1="128.0" x2="94.0" y2="143.0" class="fig-hair"/>
+<line x1="102.0" y1="128.0" x2="102.0" y2="143.0" class="fig-hair"/>
+<line x1="110.0" y1="128.0" x2="110.0" y2="143.0" class="fig-hair"/>
+<line x1="118.0" y1="128.0" x2="118.0" y2="143.0" class="fig-hair"/>
+<line x1="126.0" y1="128.0" x2="126.0" y2="143.0" class="fig-hair"/>
+<line x1="134.0" y1="128.0" x2="134.0" y2="143.0" class="fig-hair"/>
+<line x1="142.0" y1="128.0" x2="142.0" y2="143.0" class="fig-hair"/>
+<line x1="150.0" y1="128.0" x2="150.0" y2="143.0" class="fig-hair"/>
+<line x1="158.0" y1="128.0" x2="158.0" y2="143.0" class="fig-hair"/>
+<line x1="166.0" y1="128.0" x2="166.0" y2="143.0" class="fig-hair"/>
+<line x1="174.0" y1="128.0" x2="174.0" y2="143.0" class="fig-hair"/>
+<line x1="182.0" y1="128.0" x2="182.0" y2="143.0" class="fig-hair"/>
+<line x1="190.0" y1="128.0" x2="190.0" y2="143.0" class="fig-hair"/>
+<rect x="70.0" y="151.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="70.0" y="151.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="78.0" y1="151.0" x2="78.0" y2="166.0" class="fig-hair"/>
+<line x1="86.0" y1="151.0" x2="86.0" y2="166.0" class="fig-hair"/>
+<line x1="94.0" y1="151.0" x2="94.0" y2="166.0" class="fig-hair"/>
+<line x1="102.0" y1="151.0" x2="102.0" y2="166.0" class="fig-hair"/>
+<line x1="110.0" y1="151.0" x2="110.0" y2="166.0" class="fig-hair"/>
+<line x1="118.0" y1="151.0" x2="118.0" y2="166.0" class="fig-hair"/>
+<line x1="126.0" y1="151.0" x2="126.0" y2="166.0" class="fig-hair"/>
+<line x1="134.0" y1="151.0" x2="134.0" y2="166.0" class="fig-hair"/>
+<line x1="142.0" y1="151.0" x2="142.0" y2="166.0" class="fig-hair"/>
+<line x1="150.0" y1="151.0" x2="150.0" y2="166.0" class="fig-hair"/>
+<line x1="158.0" y1="151.0" x2="158.0" y2="166.0" class="fig-hair"/>
+<line x1="166.0" y1="151.0" x2="166.0" y2="166.0" class="fig-hair"/>
+<line x1="174.0" y1="151.0" x2="174.0" y2="166.0" class="fig-hair"/>
+<line x1="182.0" y1="151.0" x2="182.0" y2="166.0" class="fig-hair"/>
+<line x1="190.0" y1="151.0" x2="190.0" y2="166.0" class="fig-hair"/>
+<rect x="70.0" y="174.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="70.0" y="174.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="78.0" y1="174.0" x2="78.0" y2="189.0" class="fig-hair"/>
+<line x1="86.0" y1="174.0" x2="86.0" y2="189.0" class="fig-hair"/>
+<line x1="94.0" y1="174.0" x2="94.0" y2="189.0" class="fig-hair"/>
+<line x1="102.0" y1="174.0" x2="102.0" y2="189.0" class="fig-hair"/>
+<line x1="110.0" y1="174.0" x2="110.0" y2="189.0" class="fig-hair"/>
+<line x1="118.0" y1="174.0" x2="118.0" y2="189.0" class="fig-hair"/>
+<line x1="126.0" y1="174.0" x2="126.0" y2="189.0" class="fig-hair"/>
+<line x1="134.0" y1="174.0" x2="134.0" y2="189.0" class="fig-hair"/>
+<line x1="142.0" y1="174.0" x2="142.0" y2="189.0" class="fig-hair"/>
+<line x1="150.0" y1="174.0" x2="150.0" y2="189.0" class="fig-hair"/>
+<line x1="158.0" y1="174.0" x2="158.0" y2="189.0" class="fig-hair"/>
+<line x1="166.0" y1="174.0" x2="166.0" y2="189.0" class="fig-hair"/>
+<line x1="174.0" y1="174.0" x2="174.0" y2="189.0" class="fig-hair"/>
+<line x1="182.0" y1="174.0" x2="182.0" y2="189.0" class="fig-hair"/>
+<line x1="190.0" y1="174.0" x2="190.0" y2="189.0" class="fig-hair"/>
+<rect x="70.0" y="197.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="70.0" y="197.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="78.0" y1="197.0" x2="78.0" y2="212.0" class="fig-hair"/>
+<line x1="86.0" y1="197.0" x2="86.0" y2="212.0" class="fig-hair"/>
+<line x1="94.0" y1="197.0" x2="94.0" y2="212.0" class="fig-hair"/>
+<line x1="102.0" y1="197.0" x2="102.0" y2="212.0" class="fig-hair"/>
+<line x1="110.0" y1="197.0" x2="110.0" y2="212.0" class="fig-hair"/>
+<line x1="118.0" y1="197.0" x2="118.0" y2="212.0" class="fig-hair"/>
+<line x1="126.0" y1="197.0" x2="126.0" y2="212.0" class="fig-hair"/>
+<line x1="134.0" y1="197.0" x2="134.0" y2="212.0" class="fig-hair"/>
+<line x1="142.0" y1="197.0" x2="142.0" y2="212.0" class="fig-hair"/>
+<line x1="150.0" y1="197.0" x2="150.0" y2="212.0" class="fig-hair"/>
+<line x1="158.0" y1="197.0" x2="158.0" y2="212.0" class="fig-hair"/>
+<line x1="166.0" y1="197.0" x2="166.0" y2="212.0" class="fig-hair"/>
+<line x1="174.0" y1="197.0" x2="174.0" y2="212.0" class="fig-hair"/>
+<line x1="182.0" y1="197.0" x2="182.0" y2="212.0" class="fig-hair"/>
+<line x1="190.0" y1="197.0" x2="190.0" y2="212.0" class="fig-hair"/>
+<rect x="70.0" y="220.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="70.0" y="220.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="78.0" y1="220.0" x2="78.0" y2="235.0" class="fig-hair"/>
+<line x1="86.0" y1="220.0" x2="86.0" y2="235.0" class="fig-hair"/>
+<line x1="94.0" y1="220.0" x2="94.0" y2="235.0" class="fig-hair"/>
+<line x1="102.0" y1="220.0" x2="102.0" y2="235.0" class="fig-hair"/>
+<line x1="110.0" y1="220.0" x2="110.0" y2="235.0" class="fig-hair"/>
+<line x1="118.0" y1="220.0" x2="118.0" y2="235.0" class="fig-hair"/>
+<line x1="126.0" y1="220.0" x2="126.0" y2="235.0" class="fig-hair"/>
+<line x1="134.0" y1="220.0" x2="134.0" y2="235.0" class="fig-hair"/>
+<line x1="142.0" y1="220.0" x2="142.0" y2="235.0" class="fig-hair"/>
+<line x1="150.0" y1="220.0" x2="150.0" y2="235.0" class="fig-hair"/>
+<line x1="158.0" y1="220.0" x2="158.0" y2="235.0" class="fig-hair"/>
+<line x1="166.0" y1="220.0" x2="166.0" y2="235.0" class="fig-hair"/>
+<line x1="174.0" y1="220.0" x2="174.0" y2="235.0" class="fig-hair"/>
+<line x1="182.0" y1="220.0" x2="182.0" y2="235.0" class="fig-hair"/>
+<line x1="190.0" y1="220.0" x2="190.0" y2="235.0" class="fig-hair"/>
+<rect x="70.0" y="243.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="70.0" y="243.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="78.0" y1="243.0" x2="78.0" y2="258.0" class="fig-hair"/>
+<line x1="86.0" y1="243.0" x2="86.0" y2="258.0" class="fig-hair"/>
+<line x1="94.0" y1="243.0" x2="94.0" y2="258.0" class="fig-hair"/>
+<line x1="102.0" y1="243.0" x2="102.0" y2="258.0" class="fig-hair"/>
+<line x1="110.0" y1="243.0" x2="110.0" y2="258.0" class="fig-hair"/>
+<line x1="118.0" y1="243.0" x2="118.0" y2="258.0" class="fig-hair"/>
+<line x1="126.0" y1="243.0" x2="126.0" y2="258.0" class="fig-hair"/>
+<line x1="134.0" y1="243.0" x2="134.0" y2="258.0" class="fig-hair"/>
+<line x1="142.0" y1="243.0" x2="142.0" y2="258.0" class="fig-hair"/>
+<line x1="150.0" y1="243.0" x2="150.0" y2="258.0" class="fig-hair"/>
+<line x1="158.0" y1="243.0" x2="158.0" y2="258.0" class="fig-hair"/>
+<line x1="166.0" y1="243.0" x2="166.0" y2="258.0" class="fig-hair"/>
+<line x1="174.0" y1="243.0" x2="174.0" y2="258.0" class="fig-hair"/>
+<line x1="182.0" y1="243.0" x2="182.0" y2="258.0" class="fig-hair"/>
+<line x1="190.0" y1="243.0" x2="190.0" y2="258.0" class="fig-hair"/>
+<rect x="70.0" y="266.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="70.0" y="266.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="78.0" y1="266.0" x2="78.0" y2="281.0" class="fig-hair"/>
+<line x1="86.0" y1="266.0" x2="86.0" y2="281.0" class="fig-hair"/>
+<line x1="94.0" y1="266.0" x2="94.0" y2="281.0" class="fig-hair"/>
+<line x1="102.0" y1="266.0" x2="102.0" y2="281.0" class="fig-hair"/>
+<line x1="110.0" y1="266.0" x2="110.0" y2="281.0" class="fig-hair"/>
+<line x1="118.0" y1="266.0" x2="118.0" y2="281.0" class="fig-hair"/>
+<line x1="126.0" y1="266.0" x2="126.0" y2="281.0" class="fig-hair"/>
+<line x1="134.0" y1="266.0" x2="134.0" y2="281.0" class="fig-hair"/>
+<line x1="142.0" y1="266.0" x2="142.0" y2="281.0" class="fig-hair"/>
+<line x1="150.0" y1="266.0" x2="150.0" y2="281.0" class="fig-hair"/>
+<line x1="158.0" y1="266.0" x2="158.0" y2="281.0" class="fig-hair"/>
+<line x1="166.0" y1="266.0" x2="166.0" y2="281.0" class="fig-hair"/>
+<line x1="174.0" y1="266.0" x2="174.0" y2="281.0" class="fig-hair"/>
+<line x1="182.0" y1="266.0" x2="182.0" y2="281.0" class="fig-hair"/>
+<line x1="190.0" y1="266.0" x2="190.0" y2="281.0" class="fig-hair"/>
+<rect x="70.0" y="289.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="70.0" y="289.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="78.0" y1="289.0" x2="78.0" y2="304.0" class="fig-hair"/>
+<line x1="86.0" y1="289.0" x2="86.0" y2="304.0" class="fig-hair"/>
+<line x1="94.0" y1="289.0" x2="94.0" y2="304.0" class="fig-hair"/>
+<line x1="102.0" y1="289.0" x2="102.0" y2="304.0" class="fig-hair"/>
+<line x1="110.0" y1="289.0" x2="110.0" y2="304.0" class="fig-hair"/>
+<line x1="118.0" y1="289.0" x2="118.0" y2="304.0" class="fig-hair"/>
+<line x1="126.0" y1="289.0" x2="126.0" y2="304.0" class="fig-hair"/>
+<line x1="134.0" y1="289.0" x2="134.0" y2="304.0" class="fig-hair"/>
+<line x1="142.0" y1="289.0" x2="142.0" y2="304.0" class="fig-hair"/>
+<line x1="150.0" y1="289.0" x2="150.0" y2="304.0" class="fig-hair"/>
+<line x1="158.0" y1="289.0" x2="158.0" y2="304.0" class="fig-hair"/>
+<line x1="166.0" y1="289.0" x2="166.0" y2="304.0" class="fig-hair"/>
+<line x1="174.0" y1="289.0" x2="174.0" y2="304.0" class="fig-hair"/>
+<line x1="182.0" y1="289.0" x2="182.0" y2="304.0" class="fig-hair"/>
+<line x1="190.0" y1="289.0" x2="190.0" y2="304.0" class="fig-hair"/>
+<rect x="70.0" y="312.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="70.0" y="312.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="78.0" y1="312.0" x2="78.0" y2="327.0" class="fig-hair"/>
+<line x1="86.0" y1="312.0" x2="86.0" y2="327.0" class="fig-hair"/>
+<line x1="94.0" y1="312.0" x2="94.0" y2="327.0" class="fig-hair"/>
+<line x1="102.0" y1="312.0" x2="102.0" y2="327.0" class="fig-hair"/>
+<line x1="110.0" y1="312.0" x2="110.0" y2="327.0" class="fig-hair"/>
+<line x1="118.0" y1="312.0" x2="118.0" y2="327.0" class="fig-hair"/>
+<line x1="126.0" y1="312.0" x2="126.0" y2="327.0" class="fig-hair"/>
+<line x1="134.0" y1="312.0" x2="134.0" y2="327.0" class="fig-hair"/>
+<line x1="142.0" y1="312.0" x2="142.0" y2="327.0" class="fig-hair"/>
+<line x1="150.0" y1="312.0" x2="150.0" y2="327.0" class="fig-hair"/>
+<line x1="158.0" y1="312.0" x2="158.0" y2="327.0" class="fig-hair"/>
+<line x1="166.0" y1="312.0" x2="166.0" y2="327.0" class="fig-hair"/>
+<line x1="174.0" y1="312.0" x2="174.0" y2="327.0" class="fig-hair"/>
+<line x1="182.0" y1="312.0" x2="182.0" y2="327.0" class="fig-hair"/>
+<line x1="190.0" y1="312.0" x2="190.0" y2="327.0" class="fig-hair"/>
+<rect x="70.0" y="335.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="70.0" y="335.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="78.0" y1="335.0" x2="78.0" y2="350.0" class="fig-hair"/>
+<line x1="86.0" y1="335.0" x2="86.0" y2="350.0" class="fig-hair"/>
+<line x1="94.0" y1="335.0" x2="94.0" y2="350.0" class="fig-hair"/>
+<line x1="102.0" y1="335.0" x2="102.0" y2="350.0" class="fig-hair"/>
+<line x1="110.0" y1="335.0" x2="110.0" y2="350.0" class="fig-hair"/>
+<line x1="118.0" y1="335.0" x2="118.0" y2="350.0" class="fig-hair"/>
+<line x1="126.0" y1="335.0" x2="126.0" y2="350.0" class="fig-hair"/>
+<line x1="134.0" y1="335.0" x2="134.0" y2="350.0" class="fig-hair"/>
+<line x1="142.0" y1="335.0" x2="142.0" y2="350.0" class="fig-hair"/>
+<line x1="150.0" y1="335.0" x2="150.0" y2="350.0" class="fig-hair"/>
+<line x1="158.0" y1="335.0" x2="158.0" y2="350.0" class="fig-hair"/>
+<line x1="166.0" y1="335.0" x2="166.0" y2="350.0" class="fig-hair"/>
+<line x1="174.0" y1="335.0" x2="174.0" y2="350.0" class="fig-hair"/>
+<line x1="182.0" y1="335.0" x2="182.0" y2="350.0" class="fig-hair"/>
+<line x1="190.0" y1="335.0" x2="190.0" y2="350.0" class="fig-hair"/>
+<rect x="70.0" y="358.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="70.0" y="358.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="78.0" y1="358.0" x2="78.0" y2="373.0" class="fig-hair"/>
+<line x1="86.0" y1="358.0" x2="86.0" y2="373.0" class="fig-hair"/>
+<line x1="94.0" y1="358.0" x2="94.0" y2="373.0" class="fig-hair"/>
+<line x1="102.0" y1="358.0" x2="102.0" y2="373.0" class="fig-hair"/>
+<line x1="110.0" y1="358.0" x2="110.0" y2="373.0" class="fig-hair"/>
+<line x1="118.0" y1="358.0" x2="118.0" y2="373.0" class="fig-hair"/>
+<line x1="126.0" y1="358.0" x2="126.0" y2="373.0" class="fig-hair"/>
+<line x1="134.0" y1="358.0" x2="134.0" y2="373.0" class="fig-hair"/>
+<line x1="142.0" y1="358.0" x2="142.0" y2="373.0" class="fig-hair"/>
+<line x1="150.0" y1="358.0" x2="150.0" y2="373.0" class="fig-hair"/>
+<line x1="158.0" y1="358.0" x2="158.0" y2="373.0" class="fig-hair"/>
+<line x1="166.0" y1="358.0" x2="166.0" y2="373.0" class="fig-hair"/>
+<line x1="174.0" y1="358.0" x2="174.0" y2="373.0" class="fig-hair"/>
+<line x1="182.0" y1="358.0" x2="182.0" y2="373.0" class="fig-hair"/>
+<line x1="190.0" y1="358.0" x2="190.0" y2="373.0" class="fig-hair"/>
+<rect x="70.0" y="381.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="70.0" y="381.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="78.0" y1="381.0" x2="78.0" y2="396.0" class="fig-hair"/>
+<line x1="86.0" y1="381.0" x2="86.0" y2="396.0" class="fig-hair"/>
+<line x1="94.0" y1="381.0" x2="94.0" y2="396.0" class="fig-hair"/>
+<line x1="102.0" y1="381.0" x2="102.0" y2="396.0" class="fig-hair"/>
+<line x1="110.0" y1="381.0" x2="110.0" y2="396.0" class="fig-hair"/>
+<line x1="118.0" y1="381.0" x2="118.0" y2="396.0" class="fig-hair"/>
+<line x1="126.0" y1="381.0" x2="126.0" y2="396.0" class="fig-hair"/>
+<line x1="134.0" y1="381.0" x2="134.0" y2="396.0" class="fig-hair"/>
+<line x1="142.0" y1="381.0" x2="142.0" y2="396.0" class="fig-hair"/>
+<line x1="150.0" y1="381.0" x2="150.0" y2="396.0" class="fig-hair"/>
+<line x1="158.0" y1="381.0" x2="158.0" y2="396.0" class="fig-hair"/>
+<line x1="166.0" y1="381.0" x2="166.0" y2="396.0" class="fig-hair"/>
+<line x1="174.0" y1="381.0" x2="174.0" y2="396.0" class="fig-hair"/>
+<line x1="182.0" y1="381.0" x2="182.0" y2="396.0" class="fig-hair"/>
+<line x1="190.0" y1="381.0" x2="190.0" y2="396.0" class="fig-hair"/>
+<text x="228.0" y="120.0" class="fig-tick" text-anchor="start">$0EC0</text>
+<rect x="228.0" y="128.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="228.0" y="128.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="236.0" y1="128.0" x2="236.0" y2="143.0" class="fig-hair"/>
+<line x1="244.0" y1="128.0" x2="244.0" y2="143.0" class="fig-hair"/>
+<line x1="252.0" y1="128.0" x2="252.0" y2="143.0" class="fig-hair"/>
+<line x1="260.0" y1="128.0" x2="260.0" y2="143.0" class="fig-hair"/>
+<line x1="268.0" y1="128.0" x2="268.0" y2="143.0" class="fig-hair"/>
+<line x1="276.0" y1="128.0" x2="276.0" y2="143.0" class="fig-hair"/>
+<line x1="284.0" y1="128.0" x2="284.0" y2="143.0" class="fig-hair"/>
+<line x1="292.0" y1="128.0" x2="292.0" y2="143.0" class="fig-hair"/>
+<line x1="300.0" y1="128.0" x2="300.0" y2="143.0" class="fig-hair"/>
+<line x1="308.0" y1="128.0" x2="308.0" y2="143.0" class="fig-hair"/>
+<line x1="316.0" y1="128.0" x2="316.0" y2="143.0" class="fig-hair"/>
+<line x1="324.0" y1="128.0" x2="324.0" y2="143.0" class="fig-hair"/>
+<line x1="332.0" y1="128.0" x2="332.0" y2="143.0" class="fig-hair"/>
+<line x1="340.0" y1="128.0" x2="340.0" y2="143.0" class="fig-hair"/>
+<line x1="348.0" y1="128.0" x2="348.0" y2="143.0" class="fig-hair"/>
+<rect x="228.0" y="151.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="228.0" y="151.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="236.0" y1="151.0" x2="236.0" y2="166.0" class="fig-hair"/>
+<line x1="244.0" y1="151.0" x2="244.0" y2="166.0" class="fig-hair"/>
+<line x1="252.0" y1="151.0" x2="252.0" y2="166.0" class="fig-hair"/>
+<line x1="260.0" y1="151.0" x2="260.0" y2="166.0" class="fig-hair"/>
+<line x1="268.0" y1="151.0" x2="268.0" y2="166.0" class="fig-hair"/>
+<line x1="276.0" y1="151.0" x2="276.0" y2="166.0" class="fig-hair"/>
+<line x1="284.0" y1="151.0" x2="284.0" y2="166.0" class="fig-hair"/>
+<line x1="292.0" y1="151.0" x2="292.0" y2="166.0" class="fig-hair"/>
+<line x1="300.0" y1="151.0" x2="300.0" y2="166.0" class="fig-hair"/>
+<line x1="308.0" y1="151.0" x2="308.0" y2="166.0" class="fig-hair"/>
+<line x1="316.0" y1="151.0" x2="316.0" y2="166.0" class="fig-hair"/>
+<line x1="324.0" y1="151.0" x2="324.0" y2="166.0" class="fig-hair"/>
+<line x1="332.0" y1="151.0" x2="332.0" y2="166.0" class="fig-hair"/>
+<line x1="340.0" y1="151.0" x2="340.0" y2="166.0" class="fig-hair"/>
+<line x1="348.0" y1="151.0" x2="348.0" y2="166.0" class="fig-hair"/>
+<rect x="228.0" y="174.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="228.0" y="174.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="236.0" y1="174.0" x2="236.0" y2="189.0" class="fig-hair"/>
+<line x1="244.0" y1="174.0" x2="244.0" y2="189.0" class="fig-hair"/>
+<line x1="252.0" y1="174.0" x2="252.0" y2="189.0" class="fig-hair"/>
+<line x1="260.0" y1="174.0" x2="260.0" y2="189.0" class="fig-hair"/>
+<line x1="268.0" y1="174.0" x2="268.0" y2="189.0" class="fig-hair"/>
+<line x1="276.0" y1="174.0" x2="276.0" y2="189.0" class="fig-hair"/>
+<line x1="284.0" y1="174.0" x2="284.0" y2="189.0" class="fig-hair"/>
+<line x1="292.0" y1="174.0" x2="292.0" y2="189.0" class="fig-hair"/>
+<line x1="300.0" y1="174.0" x2="300.0" y2="189.0" class="fig-hair"/>
+<line x1="308.0" y1="174.0" x2="308.0" y2="189.0" class="fig-hair"/>
+<line x1="316.0" y1="174.0" x2="316.0" y2="189.0" class="fig-hair"/>
+<line x1="324.0" y1="174.0" x2="324.0" y2="189.0" class="fig-hair"/>
+<line x1="332.0" y1="174.0" x2="332.0" y2="189.0" class="fig-hair"/>
+<line x1="340.0" y1="174.0" x2="340.0" y2="189.0" class="fig-hair"/>
+<line x1="348.0" y1="174.0" x2="348.0" y2="189.0" class="fig-hair"/>
+<rect x="228.0" y="197.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="228.0" y="197.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="236.0" y1="197.0" x2="236.0" y2="212.0" class="fig-hair"/>
+<line x1="244.0" y1="197.0" x2="244.0" y2="212.0" class="fig-hair"/>
+<line x1="252.0" y1="197.0" x2="252.0" y2="212.0" class="fig-hair"/>
+<line x1="260.0" y1="197.0" x2="260.0" y2="212.0" class="fig-hair"/>
+<line x1="268.0" y1="197.0" x2="268.0" y2="212.0" class="fig-hair"/>
+<line x1="276.0" y1="197.0" x2="276.0" y2="212.0" class="fig-hair"/>
+<line x1="284.0" y1="197.0" x2="284.0" y2="212.0" class="fig-hair"/>
+<line x1="292.0" y1="197.0" x2="292.0" y2="212.0" class="fig-hair"/>
+<line x1="300.0" y1="197.0" x2="300.0" y2="212.0" class="fig-hair"/>
+<line x1="308.0" y1="197.0" x2="308.0" y2="212.0" class="fig-hair"/>
+<line x1="316.0" y1="197.0" x2="316.0" y2="212.0" class="fig-hair"/>
+<line x1="324.0" y1="197.0" x2="324.0" y2="212.0" class="fig-hair"/>
+<line x1="332.0" y1="197.0" x2="332.0" y2="212.0" class="fig-hair"/>
+<line x1="340.0" y1="197.0" x2="340.0" y2="212.0" class="fig-hair"/>
+<line x1="348.0" y1="197.0" x2="348.0" y2="212.0" class="fig-hair"/>
+<rect x="228.0" y="220.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="228.0" y="220.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="236.0" y1="220.0" x2="236.0" y2="235.0" class="fig-hair"/>
+<line x1="244.0" y1="220.0" x2="244.0" y2="235.0" class="fig-hair"/>
+<line x1="252.0" y1="220.0" x2="252.0" y2="235.0" class="fig-hair"/>
+<line x1="260.0" y1="220.0" x2="260.0" y2="235.0" class="fig-hair"/>
+<line x1="268.0" y1="220.0" x2="268.0" y2="235.0" class="fig-hair"/>
+<line x1="276.0" y1="220.0" x2="276.0" y2="235.0" class="fig-hair"/>
+<line x1="284.0" y1="220.0" x2="284.0" y2="235.0" class="fig-hair"/>
+<line x1="292.0" y1="220.0" x2="292.0" y2="235.0" class="fig-hair"/>
+<line x1="300.0" y1="220.0" x2="300.0" y2="235.0" class="fig-hair"/>
+<line x1="308.0" y1="220.0" x2="308.0" y2="235.0" class="fig-hair"/>
+<line x1="316.0" y1="220.0" x2="316.0" y2="235.0" class="fig-hair"/>
+<line x1="324.0" y1="220.0" x2="324.0" y2="235.0" class="fig-hair"/>
+<line x1="332.0" y1="220.0" x2="332.0" y2="235.0" class="fig-hair"/>
+<line x1="340.0" y1="220.0" x2="340.0" y2="235.0" class="fig-hair"/>
+<line x1="348.0" y1="220.0" x2="348.0" y2="235.0" class="fig-hair"/>
+<rect x="228.0" y="243.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="228.0" y="243.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="236.0" y1="243.0" x2="236.0" y2="258.0" class="fig-hair"/>
+<line x1="244.0" y1="243.0" x2="244.0" y2="258.0" class="fig-hair"/>
+<line x1="252.0" y1="243.0" x2="252.0" y2="258.0" class="fig-hair"/>
+<line x1="260.0" y1="243.0" x2="260.0" y2="258.0" class="fig-hair"/>
+<line x1="268.0" y1="243.0" x2="268.0" y2="258.0" class="fig-hair"/>
+<line x1="276.0" y1="243.0" x2="276.0" y2="258.0" class="fig-hair"/>
+<line x1="284.0" y1="243.0" x2="284.0" y2="258.0" class="fig-hair"/>
+<line x1="292.0" y1="243.0" x2="292.0" y2="258.0" class="fig-hair"/>
+<line x1="300.0" y1="243.0" x2="300.0" y2="258.0" class="fig-hair"/>
+<line x1="308.0" y1="243.0" x2="308.0" y2="258.0" class="fig-hair"/>
+<line x1="316.0" y1="243.0" x2="316.0" y2="258.0" class="fig-hair"/>
+<line x1="324.0" y1="243.0" x2="324.0" y2="258.0" class="fig-hair"/>
+<line x1="332.0" y1="243.0" x2="332.0" y2="258.0" class="fig-hair"/>
+<line x1="340.0" y1="243.0" x2="340.0" y2="258.0" class="fig-hair"/>
+<line x1="348.0" y1="243.0" x2="348.0" y2="258.0" class="fig-hair"/>
+<rect x="228.0" y="266.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="228.0" y="266.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="236.0" y1="266.0" x2="236.0" y2="281.0" class="fig-hair"/>
+<line x1="244.0" y1="266.0" x2="244.0" y2="281.0" class="fig-hair"/>
+<line x1="252.0" y1="266.0" x2="252.0" y2="281.0" class="fig-hair"/>
+<line x1="260.0" y1="266.0" x2="260.0" y2="281.0" class="fig-hair"/>
+<line x1="268.0" y1="266.0" x2="268.0" y2="281.0" class="fig-hair"/>
+<line x1="276.0" y1="266.0" x2="276.0" y2="281.0" class="fig-hair"/>
+<line x1="284.0" y1="266.0" x2="284.0" y2="281.0" class="fig-hair"/>
+<line x1="292.0" y1="266.0" x2="292.0" y2="281.0" class="fig-hair"/>
+<line x1="300.0" y1="266.0" x2="300.0" y2="281.0" class="fig-hair"/>
+<line x1="308.0" y1="266.0" x2="308.0" y2="281.0" class="fig-hair"/>
+<line x1="316.0" y1="266.0" x2="316.0" y2="281.0" class="fig-hair"/>
+<line x1="324.0" y1="266.0" x2="324.0" y2="281.0" class="fig-hair"/>
+<line x1="332.0" y1="266.0" x2="332.0" y2="281.0" class="fig-hair"/>
+<line x1="340.0" y1="266.0" x2="340.0" y2="281.0" class="fig-hair"/>
+<line x1="348.0" y1="266.0" x2="348.0" y2="281.0" class="fig-hair"/>
+<rect x="228.0" y="289.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="228.0" y="289.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="236.0" y1="289.0" x2="236.0" y2="304.0" class="fig-hair"/>
+<line x1="244.0" y1="289.0" x2="244.0" y2="304.0" class="fig-hair"/>
+<line x1="252.0" y1="289.0" x2="252.0" y2="304.0" class="fig-hair"/>
+<line x1="260.0" y1="289.0" x2="260.0" y2="304.0" class="fig-hair"/>
+<line x1="268.0" y1="289.0" x2="268.0" y2="304.0" class="fig-hair"/>
+<line x1="276.0" y1="289.0" x2="276.0" y2="304.0" class="fig-hair"/>
+<line x1="284.0" y1="289.0" x2="284.0" y2="304.0" class="fig-hair"/>
+<line x1="292.0" y1="289.0" x2="292.0" y2="304.0" class="fig-hair"/>
+<line x1="300.0" y1="289.0" x2="300.0" y2="304.0" class="fig-hair"/>
+<line x1="308.0" y1="289.0" x2="308.0" y2="304.0" class="fig-hair"/>
+<line x1="316.0" y1="289.0" x2="316.0" y2="304.0" class="fig-hair"/>
+<line x1="324.0" y1="289.0" x2="324.0" y2="304.0" class="fig-hair"/>
+<line x1="332.0" y1="289.0" x2="332.0" y2="304.0" class="fig-hair"/>
+<line x1="340.0" y1="289.0" x2="340.0" y2="304.0" class="fig-hair"/>
+<line x1="348.0" y1="289.0" x2="348.0" y2="304.0" class="fig-hair"/>
+<rect x="228.0" y="312.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="228.0" y="312.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="236.0" y1="312.0" x2="236.0" y2="327.0" class="fig-hair"/>
+<line x1="244.0" y1="312.0" x2="244.0" y2="327.0" class="fig-hair"/>
+<line x1="252.0" y1="312.0" x2="252.0" y2="327.0" class="fig-hair"/>
+<line x1="260.0" y1="312.0" x2="260.0" y2="327.0" class="fig-hair"/>
+<line x1="268.0" y1="312.0" x2="268.0" y2="327.0" class="fig-hair"/>
+<line x1="276.0" y1="312.0" x2="276.0" y2="327.0" class="fig-hair"/>
+<line x1="284.0" y1="312.0" x2="284.0" y2="327.0" class="fig-hair"/>
+<line x1="292.0" y1="312.0" x2="292.0" y2="327.0" class="fig-hair"/>
+<line x1="300.0" y1="312.0" x2="300.0" y2="327.0" class="fig-hair"/>
+<line x1="308.0" y1="312.0" x2="308.0" y2="327.0" class="fig-hair"/>
+<line x1="316.0" y1="312.0" x2="316.0" y2="327.0" class="fig-hair"/>
+<line x1="324.0" y1="312.0" x2="324.0" y2="327.0" class="fig-hair"/>
+<line x1="332.0" y1="312.0" x2="332.0" y2="327.0" class="fig-hair"/>
+<line x1="340.0" y1="312.0" x2="340.0" y2="327.0" class="fig-hair"/>
+<line x1="348.0" y1="312.0" x2="348.0" y2="327.0" class="fig-hair"/>
+<rect x="228.0" y="335.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="228.0" y="335.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="236.0" y1="335.0" x2="236.0" y2="350.0" class="fig-hair"/>
+<line x1="244.0" y1="335.0" x2="244.0" y2="350.0" class="fig-hair"/>
+<line x1="252.0" y1="335.0" x2="252.0" y2="350.0" class="fig-hair"/>
+<line x1="260.0" y1="335.0" x2="260.0" y2="350.0" class="fig-hair"/>
+<line x1="268.0" y1="335.0" x2="268.0" y2="350.0" class="fig-hair"/>
+<line x1="276.0" y1="335.0" x2="276.0" y2="350.0" class="fig-hair"/>
+<line x1="284.0" y1="335.0" x2="284.0" y2="350.0" class="fig-hair"/>
+<line x1="292.0" y1="335.0" x2="292.0" y2="350.0" class="fig-hair"/>
+<line x1="300.0" y1="335.0" x2="300.0" y2="350.0" class="fig-hair"/>
+<line x1="308.0" y1="335.0" x2="308.0" y2="350.0" class="fig-hair"/>
+<line x1="316.0" y1="335.0" x2="316.0" y2="350.0" class="fig-hair"/>
+<line x1="324.0" y1="335.0" x2="324.0" y2="350.0" class="fig-hair"/>
+<line x1="332.0" y1="335.0" x2="332.0" y2="350.0" class="fig-hair"/>
+<line x1="340.0" y1="335.0" x2="340.0" y2="350.0" class="fig-hair"/>
+<line x1="348.0" y1="335.0" x2="348.0" y2="350.0" class="fig-hair"/>
+<rect x="228.0" y="358.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="228.0" y="358.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="236.0" y1="358.0" x2="236.0" y2="373.0" class="fig-hair"/>
+<line x1="244.0" y1="358.0" x2="244.0" y2="373.0" class="fig-hair"/>
+<line x1="252.0" y1="358.0" x2="252.0" y2="373.0" class="fig-hair"/>
+<line x1="260.0" y1="358.0" x2="260.0" y2="373.0" class="fig-hair"/>
+<line x1="268.0" y1="358.0" x2="268.0" y2="373.0" class="fig-hair"/>
+<line x1="276.0" y1="358.0" x2="276.0" y2="373.0" class="fig-hair"/>
+<line x1="284.0" y1="358.0" x2="284.0" y2="373.0" class="fig-hair"/>
+<line x1="292.0" y1="358.0" x2="292.0" y2="373.0" class="fig-hair"/>
+<line x1="300.0" y1="358.0" x2="300.0" y2="373.0" class="fig-hair"/>
+<line x1="308.0" y1="358.0" x2="308.0" y2="373.0" class="fig-hair"/>
+<line x1="316.0" y1="358.0" x2="316.0" y2="373.0" class="fig-hair"/>
+<line x1="324.0" y1="358.0" x2="324.0" y2="373.0" class="fig-hair"/>
+<line x1="332.0" y1="358.0" x2="332.0" y2="373.0" class="fig-hair"/>
+<line x1="340.0" y1="358.0" x2="340.0" y2="373.0" class="fig-hair"/>
+<line x1="348.0" y1="358.0" x2="348.0" y2="373.0" class="fig-hair"/>
+<rect x="228.0" y="381.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="228.0" y="381.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="236.0" y1="381.0" x2="236.0" y2="396.0" class="fig-hair"/>
+<line x1="244.0" y1="381.0" x2="244.0" y2="396.0" class="fig-hair"/>
+<line x1="252.0" y1="381.0" x2="252.0" y2="396.0" class="fig-hair"/>
+<line x1="260.0" y1="381.0" x2="260.0" y2="396.0" class="fig-hair"/>
+<line x1="268.0" y1="381.0" x2="268.0" y2="396.0" class="fig-hair"/>
+<line x1="276.0" y1="381.0" x2="276.0" y2="396.0" class="fig-hair"/>
+<line x1="284.0" y1="381.0" x2="284.0" y2="396.0" class="fig-hair"/>
+<line x1="292.0" y1="381.0" x2="292.0" y2="396.0" class="fig-hair"/>
+<line x1="300.0" y1="381.0" x2="300.0" y2="396.0" class="fig-hair"/>
+<line x1="308.0" y1="381.0" x2="308.0" y2="396.0" class="fig-hair"/>
+<line x1="316.0" y1="381.0" x2="316.0" y2="396.0" class="fig-hair"/>
+<line x1="324.0" y1="381.0" x2="324.0" y2="396.0" class="fig-hair"/>
+<line x1="332.0" y1="381.0" x2="332.0" y2="396.0" class="fig-hair"/>
+<line x1="340.0" y1="381.0" x2="340.0" y2="396.0" class="fig-hair"/>
+<line x1="348.0" y1="381.0" x2="348.0" y2="396.0" class="fig-hair"/>
+<text x="386.0" y="120.0" class="fig-tick" text-anchor="start">$0F80</text>
+<rect x="386.0" y="128.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="386.0" y="128.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="394.0" y1="128.0" x2="394.0" y2="143.0" class="fig-hair"/>
+<line x1="402.0" y1="128.0" x2="402.0" y2="143.0" class="fig-hair"/>
+<line x1="410.0" y1="128.0" x2="410.0" y2="143.0" class="fig-hair"/>
+<line x1="418.0" y1="128.0" x2="418.0" y2="143.0" class="fig-hair"/>
+<line x1="426.0" y1="128.0" x2="426.0" y2="143.0" class="fig-hair"/>
+<line x1="434.0" y1="128.0" x2="434.0" y2="143.0" class="fig-hair"/>
+<line x1="442.0" y1="128.0" x2="442.0" y2="143.0" class="fig-hair"/>
+<line x1="450.0" y1="128.0" x2="450.0" y2="143.0" class="fig-hair"/>
+<line x1="458.0" y1="128.0" x2="458.0" y2="143.0" class="fig-hair"/>
+<line x1="466.0" y1="128.0" x2="466.0" y2="143.0" class="fig-hair"/>
+<line x1="474.0" y1="128.0" x2="474.0" y2="143.0" class="fig-hair"/>
+<line x1="482.0" y1="128.0" x2="482.0" y2="143.0" class="fig-hair"/>
+<line x1="490.0" y1="128.0" x2="490.0" y2="143.0" class="fig-hair"/>
+<line x1="498.0" y1="128.0" x2="498.0" y2="143.0" class="fig-hair"/>
+<line x1="506.0" y1="128.0" x2="506.0" y2="143.0" class="fig-hair"/>
+<rect x="386.0" y="151.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="386.0" y="151.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="394.0" y1="151.0" x2="394.0" y2="166.0" class="fig-hair"/>
+<line x1="402.0" y1="151.0" x2="402.0" y2="166.0" class="fig-hair"/>
+<line x1="410.0" y1="151.0" x2="410.0" y2="166.0" class="fig-hair"/>
+<line x1="418.0" y1="151.0" x2="418.0" y2="166.0" class="fig-hair"/>
+<line x1="426.0" y1="151.0" x2="426.0" y2="166.0" class="fig-hair"/>
+<line x1="434.0" y1="151.0" x2="434.0" y2="166.0" class="fig-hair"/>
+<line x1="442.0" y1="151.0" x2="442.0" y2="166.0" class="fig-hair"/>
+<line x1="450.0" y1="151.0" x2="450.0" y2="166.0" class="fig-hair"/>
+<line x1="458.0" y1="151.0" x2="458.0" y2="166.0" class="fig-hair"/>
+<line x1="466.0" y1="151.0" x2="466.0" y2="166.0" class="fig-hair"/>
+<line x1="474.0" y1="151.0" x2="474.0" y2="166.0" class="fig-hair"/>
+<line x1="482.0" y1="151.0" x2="482.0" y2="166.0" class="fig-hair"/>
+<line x1="490.0" y1="151.0" x2="490.0" y2="166.0" class="fig-hair"/>
+<line x1="498.0" y1="151.0" x2="498.0" y2="166.0" class="fig-hair"/>
+<line x1="506.0" y1="151.0" x2="506.0" y2="166.0" class="fig-hair"/>
+<rect x="386.0" y="174.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="386.0" y="174.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="394.0" y1="174.0" x2="394.0" y2="189.0" class="fig-hair"/>
+<line x1="402.0" y1="174.0" x2="402.0" y2="189.0" class="fig-hair"/>
+<line x1="410.0" y1="174.0" x2="410.0" y2="189.0" class="fig-hair"/>
+<line x1="418.0" y1="174.0" x2="418.0" y2="189.0" class="fig-hair"/>
+<line x1="426.0" y1="174.0" x2="426.0" y2="189.0" class="fig-hair"/>
+<line x1="434.0" y1="174.0" x2="434.0" y2="189.0" class="fig-hair"/>
+<line x1="442.0" y1="174.0" x2="442.0" y2="189.0" class="fig-hair"/>
+<line x1="450.0" y1="174.0" x2="450.0" y2="189.0" class="fig-hair"/>
+<line x1="458.0" y1="174.0" x2="458.0" y2="189.0" class="fig-hair"/>
+<line x1="466.0" y1="174.0" x2="466.0" y2="189.0" class="fig-hair"/>
+<line x1="474.0" y1="174.0" x2="474.0" y2="189.0" class="fig-hair"/>
+<line x1="482.0" y1="174.0" x2="482.0" y2="189.0" class="fig-hair"/>
+<line x1="490.0" y1="174.0" x2="490.0" y2="189.0" class="fig-hair"/>
+<line x1="498.0" y1="174.0" x2="498.0" y2="189.0" class="fig-hair"/>
+<line x1="506.0" y1="174.0" x2="506.0" y2="189.0" class="fig-hair"/>
+<rect x="386.0" y="197.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="386.0" y="197.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="394.0" y1="197.0" x2="394.0" y2="212.0" class="fig-hair"/>
+<line x1="402.0" y1="197.0" x2="402.0" y2="212.0" class="fig-hair"/>
+<line x1="410.0" y1="197.0" x2="410.0" y2="212.0" class="fig-hair"/>
+<line x1="418.0" y1="197.0" x2="418.0" y2="212.0" class="fig-hair"/>
+<line x1="426.0" y1="197.0" x2="426.0" y2="212.0" class="fig-hair"/>
+<line x1="434.0" y1="197.0" x2="434.0" y2="212.0" class="fig-hair"/>
+<line x1="442.0" y1="197.0" x2="442.0" y2="212.0" class="fig-hair"/>
+<line x1="450.0" y1="197.0" x2="450.0" y2="212.0" class="fig-hair"/>
+<line x1="458.0" y1="197.0" x2="458.0" y2="212.0" class="fig-hair"/>
+<line x1="466.0" y1="197.0" x2="466.0" y2="212.0" class="fig-hair"/>
+<line x1="474.0" y1="197.0" x2="474.0" y2="212.0" class="fig-hair"/>
+<line x1="482.0" y1="197.0" x2="482.0" y2="212.0" class="fig-hair"/>
+<line x1="490.0" y1="197.0" x2="490.0" y2="212.0" class="fig-hair"/>
+<line x1="498.0" y1="197.0" x2="498.0" y2="212.0" class="fig-hair"/>
+<line x1="506.0" y1="197.0" x2="506.0" y2="212.0" class="fig-hair"/>
+<rect x="386.0" y="220.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="386.0" y="220.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="394.0" y1="220.0" x2="394.0" y2="235.0" class="fig-hair"/>
+<line x1="402.0" y1="220.0" x2="402.0" y2="235.0" class="fig-hair"/>
+<line x1="410.0" y1="220.0" x2="410.0" y2="235.0" class="fig-hair"/>
+<line x1="418.0" y1="220.0" x2="418.0" y2="235.0" class="fig-hair"/>
+<line x1="426.0" y1="220.0" x2="426.0" y2="235.0" class="fig-hair"/>
+<line x1="434.0" y1="220.0" x2="434.0" y2="235.0" class="fig-hair"/>
+<line x1="442.0" y1="220.0" x2="442.0" y2="235.0" class="fig-hair"/>
+<line x1="450.0" y1="220.0" x2="450.0" y2="235.0" class="fig-hair"/>
+<line x1="458.0" y1="220.0" x2="458.0" y2="235.0" class="fig-hair"/>
+<line x1="466.0" y1="220.0" x2="466.0" y2="235.0" class="fig-hair"/>
+<line x1="474.0" y1="220.0" x2="474.0" y2="235.0" class="fig-hair"/>
+<line x1="482.0" y1="220.0" x2="482.0" y2="235.0" class="fig-hair"/>
+<line x1="490.0" y1="220.0" x2="490.0" y2="235.0" class="fig-hair"/>
+<line x1="498.0" y1="220.0" x2="498.0" y2="235.0" class="fig-hair"/>
+<line x1="506.0" y1="220.0" x2="506.0" y2="235.0" class="fig-hair"/>
+<rect x="386.0" y="243.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="386.0" y="243.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="394.0" y1="243.0" x2="394.0" y2="258.0" class="fig-hair"/>
+<line x1="402.0" y1="243.0" x2="402.0" y2="258.0" class="fig-hair"/>
+<line x1="410.0" y1="243.0" x2="410.0" y2="258.0" class="fig-hair"/>
+<line x1="418.0" y1="243.0" x2="418.0" y2="258.0" class="fig-hair"/>
+<line x1="426.0" y1="243.0" x2="426.0" y2="258.0" class="fig-hair"/>
+<line x1="434.0" y1="243.0" x2="434.0" y2="258.0" class="fig-hair"/>
+<line x1="442.0" y1="243.0" x2="442.0" y2="258.0" class="fig-hair"/>
+<line x1="450.0" y1="243.0" x2="450.0" y2="258.0" class="fig-hair"/>
+<line x1="458.0" y1="243.0" x2="458.0" y2="258.0" class="fig-hair"/>
+<line x1="466.0" y1="243.0" x2="466.0" y2="258.0" class="fig-hair"/>
+<line x1="474.0" y1="243.0" x2="474.0" y2="258.0" class="fig-hair"/>
+<line x1="482.0" y1="243.0" x2="482.0" y2="258.0" class="fig-hair"/>
+<line x1="490.0" y1="243.0" x2="490.0" y2="258.0" class="fig-hair"/>
+<line x1="498.0" y1="243.0" x2="498.0" y2="258.0" class="fig-hair"/>
+<line x1="506.0" y1="243.0" x2="506.0" y2="258.0" class="fig-hair"/>
+<rect x="386.0" y="266.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="386.0" y="266.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="394.0" y1="266.0" x2="394.0" y2="281.0" class="fig-hair"/>
+<line x1="402.0" y1="266.0" x2="402.0" y2="281.0" class="fig-hair"/>
+<line x1="410.0" y1="266.0" x2="410.0" y2="281.0" class="fig-hair"/>
+<line x1="418.0" y1="266.0" x2="418.0" y2="281.0" class="fig-hair"/>
+<line x1="426.0" y1="266.0" x2="426.0" y2="281.0" class="fig-hair"/>
+<line x1="434.0" y1="266.0" x2="434.0" y2="281.0" class="fig-hair"/>
+<line x1="442.0" y1="266.0" x2="442.0" y2="281.0" class="fig-hair"/>
+<line x1="450.0" y1="266.0" x2="450.0" y2="281.0" class="fig-hair"/>
+<line x1="458.0" y1="266.0" x2="458.0" y2="281.0" class="fig-hair"/>
+<line x1="466.0" y1="266.0" x2="466.0" y2="281.0" class="fig-hair"/>
+<line x1="474.0" y1="266.0" x2="474.0" y2="281.0" class="fig-hair"/>
+<line x1="482.0" y1="266.0" x2="482.0" y2="281.0" class="fig-hair"/>
+<line x1="490.0" y1="266.0" x2="490.0" y2="281.0" class="fig-hair"/>
+<line x1="498.0" y1="266.0" x2="498.0" y2="281.0" class="fig-hair"/>
+<line x1="506.0" y1="266.0" x2="506.0" y2="281.0" class="fig-hair"/>
+<rect x="386.0" y="289.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="386.0" y="289.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="394.0" y1="289.0" x2="394.0" y2="304.0" class="fig-hair"/>
+<line x1="402.0" y1="289.0" x2="402.0" y2="304.0" class="fig-hair"/>
+<line x1="410.0" y1="289.0" x2="410.0" y2="304.0" class="fig-hair"/>
+<line x1="418.0" y1="289.0" x2="418.0" y2="304.0" class="fig-hair"/>
+<line x1="426.0" y1="289.0" x2="426.0" y2="304.0" class="fig-hair"/>
+<line x1="434.0" y1="289.0" x2="434.0" y2="304.0" class="fig-hair"/>
+<line x1="442.0" y1="289.0" x2="442.0" y2="304.0" class="fig-hair"/>
+<line x1="450.0" y1="289.0" x2="450.0" y2="304.0" class="fig-hair"/>
+<line x1="458.0" y1="289.0" x2="458.0" y2="304.0" class="fig-hair"/>
+<line x1="466.0" y1="289.0" x2="466.0" y2="304.0" class="fig-hair"/>
+<line x1="474.0" y1="289.0" x2="474.0" y2="304.0" class="fig-hair"/>
+<line x1="482.0" y1="289.0" x2="482.0" y2="304.0" class="fig-hair"/>
+<line x1="490.0" y1="289.0" x2="490.0" y2="304.0" class="fig-hair"/>
+<line x1="498.0" y1="289.0" x2="498.0" y2="304.0" class="fig-hair"/>
+<line x1="506.0" y1="289.0" x2="506.0" y2="304.0" class="fig-hair"/>
+<rect x="386.0" y="312.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="386.0" y="312.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="394.0" y1="312.0" x2="394.0" y2="327.0" class="fig-hair"/>
+<line x1="402.0" y1="312.0" x2="402.0" y2="327.0" class="fig-hair"/>
+<line x1="410.0" y1="312.0" x2="410.0" y2="327.0" class="fig-hair"/>
+<line x1="418.0" y1="312.0" x2="418.0" y2="327.0" class="fig-hair"/>
+<line x1="426.0" y1="312.0" x2="426.0" y2="327.0" class="fig-hair"/>
+<line x1="434.0" y1="312.0" x2="434.0" y2="327.0" class="fig-hair"/>
+<line x1="442.0" y1="312.0" x2="442.0" y2="327.0" class="fig-hair"/>
+<line x1="450.0" y1="312.0" x2="450.0" y2="327.0" class="fig-hair"/>
+<line x1="458.0" y1="312.0" x2="458.0" y2="327.0" class="fig-hair"/>
+<line x1="466.0" y1="312.0" x2="466.0" y2="327.0" class="fig-hair"/>
+<line x1="474.0" y1="312.0" x2="474.0" y2="327.0" class="fig-hair"/>
+<line x1="482.0" y1="312.0" x2="482.0" y2="327.0" class="fig-hair"/>
+<line x1="490.0" y1="312.0" x2="490.0" y2="327.0" class="fig-hair"/>
+<line x1="498.0" y1="312.0" x2="498.0" y2="327.0" class="fig-hair"/>
+<line x1="506.0" y1="312.0" x2="506.0" y2="327.0" class="fig-hair"/>
+<rect x="386.0" y="335.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="386.0" y="335.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="394.0" y1="335.0" x2="394.0" y2="350.0" class="fig-hair"/>
+<line x1="402.0" y1="335.0" x2="402.0" y2="350.0" class="fig-hair"/>
+<line x1="410.0" y1="335.0" x2="410.0" y2="350.0" class="fig-hair"/>
+<line x1="418.0" y1="335.0" x2="418.0" y2="350.0" class="fig-hair"/>
+<line x1="426.0" y1="335.0" x2="426.0" y2="350.0" class="fig-hair"/>
+<line x1="434.0" y1="335.0" x2="434.0" y2="350.0" class="fig-hair"/>
+<line x1="442.0" y1="335.0" x2="442.0" y2="350.0" class="fig-hair"/>
+<line x1="450.0" y1="335.0" x2="450.0" y2="350.0" class="fig-hair"/>
+<line x1="458.0" y1="335.0" x2="458.0" y2="350.0" class="fig-hair"/>
+<line x1="466.0" y1="335.0" x2="466.0" y2="350.0" class="fig-hair"/>
+<line x1="474.0" y1="335.0" x2="474.0" y2="350.0" class="fig-hair"/>
+<line x1="482.0" y1="335.0" x2="482.0" y2="350.0" class="fig-hair"/>
+<line x1="490.0" y1="335.0" x2="490.0" y2="350.0" class="fig-hair"/>
+<line x1="498.0" y1="335.0" x2="498.0" y2="350.0" class="fig-hair"/>
+<line x1="506.0" y1="335.0" x2="506.0" y2="350.0" class="fig-hair"/>
+<rect x="386.0" y="358.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="386.0" y="358.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="394.0" y1="358.0" x2="394.0" y2="373.0" class="fig-hair"/>
+<line x1="402.0" y1="358.0" x2="402.0" y2="373.0" class="fig-hair"/>
+<line x1="410.0" y1="358.0" x2="410.0" y2="373.0" class="fig-hair"/>
+<line x1="418.0" y1="358.0" x2="418.0" y2="373.0" class="fig-hair"/>
+<line x1="426.0" y1="358.0" x2="426.0" y2="373.0" class="fig-hair"/>
+<line x1="434.0" y1="358.0" x2="434.0" y2="373.0" class="fig-hair"/>
+<line x1="442.0" y1="358.0" x2="442.0" y2="373.0" class="fig-hair"/>
+<line x1="450.0" y1="358.0" x2="450.0" y2="373.0" class="fig-hair"/>
+<line x1="458.0" y1="358.0" x2="458.0" y2="373.0" class="fig-hair"/>
+<line x1="466.0" y1="358.0" x2="466.0" y2="373.0" class="fig-hair"/>
+<line x1="474.0" y1="358.0" x2="474.0" y2="373.0" class="fig-hair"/>
+<line x1="482.0" y1="358.0" x2="482.0" y2="373.0" class="fig-hair"/>
+<line x1="490.0" y1="358.0" x2="490.0" y2="373.0" class="fig-hair"/>
+<line x1="498.0" y1="358.0" x2="498.0" y2="373.0" class="fig-hair"/>
+<line x1="506.0" y1="358.0" x2="506.0" y2="373.0" class="fig-hair"/>
+<rect x="386.0" y="381.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="386.0" y="381.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="394.0" y1="381.0" x2="394.0" y2="396.0" class="fig-hair"/>
+<line x1="402.0" y1="381.0" x2="402.0" y2="396.0" class="fig-hair"/>
+<line x1="410.0" y1="381.0" x2="410.0" y2="396.0" class="fig-hair"/>
+<line x1="418.0" y1="381.0" x2="418.0" y2="396.0" class="fig-hair"/>
+<line x1="426.0" y1="381.0" x2="426.0" y2="396.0" class="fig-hair"/>
+<line x1="434.0" y1="381.0" x2="434.0" y2="396.0" class="fig-hair"/>
+<line x1="442.0" y1="381.0" x2="442.0" y2="396.0" class="fig-hair"/>
+<line x1="450.0" y1="381.0" x2="450.0" y2="396.0" class="fig-hair"/>
+<line x1="458.0" y1="381.0" x2="458.0" y2="396.0" class="fig-hair"/>
+<line x1="466.0" y1="381.0" x2="466.0" y2="396.0" class="fig-hair"/>
+<line x1="474.0" y1="381.0" x2="474.0" y2="396.0" class="fig-hair"/>
+<line x1="482.0" y1="381.0" x2="482.0" y2="396.0" class="fig-hair"/>
+<line x1="490.0" y1="381.0" x2="490.0" y2="396.0" class="fig-hair"/>
+<line x1="498.0" y1="381.0" x2="498.0" y2="396.0" class="fig-hair"/>
+<line x1="506.0" y1="381.0" x2="506.0" y2="396.0" class="fig-hair"/>
+<text x="544.0" y="120.0" class="fig-tick" text-anchor="start">$1040</text>
+<rect x="544.0" y="128.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="544.0" y="128.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="552.0" y1="128.0" x2="552.0" y2="143.0" class="fig-hair"/>
+<line x1="560.0" y1="128.0" x2="560.0" y2="143.0" class="fig-hair"/>
+<line x1="568.0" y1="128.0" x2="568.0" y2="143.0" class="fig-hair"/>
+<line x1="576.0" y1="128.0" x2="576.0" y2="143.0" class="fig-hair"/>
+<line x1="584.0" y1="128.0" x2="584.0" y2="143.0" class="fig-hair"/>
+<line x1="592.0" y1="128.0" x2="592.0" y2="143.0" class="fig-hair"/>
+<line x1="600.0" y1="128.0" x2="600.0" y2="143.0" class="fig-hair"/>
+<line x1="608.0" y1="128.0" x2="608.0" y2="143.0" class="fig-hair"/>
+<line x1="616.0" y1="128.0" x2="616.0" y2="143.0" class="fig-hair"/>
+<line x1="624.0" y1="128.0" x2="624.0" y2="143.0" class="fig-hair"/>
+<line x1="632.0" y1="128.0" x2="632.0" y2="143.0" class="fig-hair"/>
+<line x1="640.0" y1="128.0" x2="640.0" y2="143.0" class="fig-hair"/>
+<line x1="648.0" y1="128.0" x2="648.0" y2="143.0" class="fig-hair"/>
+<line x1="656.0" y1="128.0" x2="656.0" y2="143.0" class="fig-hair"/>
+<line x1="664.0" y1="128.0" x2="664.0" y2="143.0" class="fig-hair"/>
+<rect x="544.0" y="151.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="544.0" y="151.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="552.0" y1="151.0" x2="552.0" y2="166.0" class="fig-hair"/>
+<line x1="560.0" y1="151.0" x2="560.0" y2="166.0" class="fig-hair"/>
+<line x1="568.0" y1="151.0" x2="568.0" y2="166.0" class="fig-hair"/>
+<line x1="576.0" y1="151.0" x2="576.0" y2="166.0" class="fig-hair"/>
+<line x1="584.0" y1="151.0" x2="584.0" y2="166.0" class="fig-hair"/>
+<line x1="592.0" y1="151.0" x2="592.0" y2="166.0" class="fig-hair"/>
+<line x1="600.0" y1="151.0" x2="600.0" y2="166.0" class="fig-hair"/>
+<line x1="608.0" y1="151.0" x2="608.0" y2="166.0" class="fig-hair"/>
+<line x1="616.0" y1="151.0" x2="616.0" y2="166.0" class="fig-hair"/>
+<line x1="624.0" y1="151.0" x2="624.0" y2="166.0" class="fig-hair"/>
+<line x1="632.0" y1="151.0" x2="632.0" y2="166.0" class="fig-hair"/>
+<line x1="640.0" y1="151.0" x2="640.0" y2="166.0" class="fig-hair"/>
+<line x1="648.0" y1="151.0" x2="648.0" y2="166.0" class="fig-hair"/>
+<line x1="656.0" y1="151.0" x2="656.0" y2="166.0" class="fig-hair"/>
+<line x1="664.0" y1="151.0" x2="664.0" y2="166.0" class="fig-hair"/>
+<rect x="544.0" y="174.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="544.0" y="174.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="552.0" y1="174.0" x2="552.0" y2="189.0" class="fig-hair"/>
+<line x1="560.0" y1="174.0" x2="560.0" y2="189.0" class="fig-hair"/>
+<line x1="568.0" y1="174.0" x2="568.0" y2="189.0" class="fig-hair"/>
+<line x1="576.0" y1="174.0" x2="576.0" y2="189.0" class="fig-hair"/>
+<line x1="584.0" y1="174.0" x2="584.0" y2="189.0" class="fig-hair"/>
+<line x1="592.0" y1="174.0" x2="592.0" y2="189.0" class="fig-hair"/>
+<line x1="600.0" y1="174.0" x2="600.0" y2="189.0" class="fig-hair"/>
+<line x1="608.0" y1="174.0" x2="608.0" y2="189.0" class="fig-hair"/>
+<line x1="616.0" y1="174.0" x2="616.0" y2="189.0" class="fig-hair"/>
+<line x1="624.0" y1="174.0" x2="624.0" y2="189.0" class="fig-hair"/>
+<line x1="632.0" y1="174.0" x2="632.0" y2="189.0" class="fig-hair"/>
+<line x1="640.0" y1="174.0" x2="640.0" y2="189.0" class="fig-hair"/>
+<line x1="648.0" y1="174.0" x2="648.0" y2="189.0" class="fig-hair"/>
+<line x1="656.0" y1="174.0" x2="656.0" y2="189.0" class="fig-hair"/>
+<line x1="664.0" y1="174.0" x2="664.0" y2="189.0" class="fig-hair"/>
+<rect x="544.0" y="197.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="544.0" y="197.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="552.0" y1="197.0" x2="552.0" y2="212.0" class="fig-hair"/>
+<line x1="560.0" y1="197.0" x2="560.0" y2="212.0" class="fig-hair"/>
+<line x1="568.0" y1="197.0" x2="568.0" y2="212.0" class="fig-hair"/>
+<line x1="576.0" y1="197.0" x2="576.0" y2="212.0" class="fig-hair"/>
+<line x1="584.0" y1="197.0" x2="584.0" y2="212.0" class="fig-hair"/>
+<line x1="592.0" y1="197.0" x2="592.0" y2="212.0" class="fig-hair"/>
+<line x1="600.0" y1="197.0" x2="600.0" y2="212.0" class="fig-hair"/>
+<line x1="608.0" y1="197.0" x2="608.0" y2="212.0" class="fig-hair"/>
+<line x1="616.0" y1="197.0" x2="616.0" y2="212.0" class="fig-hair"/>
+<line x1="624.0" y1="197.0" x2="624.0" y2="212.0" class="fig-hair"/>
+<line x1="632.0" y1="197.0" x2="632.0" y2="212.0" class="fig-hair"/>
+<line x1="640.0" y1="197.0" x2="640.0" y2="212.0" class="fig-hair"/>
+<line x1="648.0" y1="197.0" x2="648.0" y2="212.0" class="fig-hair"/>
+<line x1="656.0" y1="197.0" x2="656.0" y2="212.0" class="fig-hair"/>
+<line x1="664.0" y1="197.0" x2="664.0" y2="212.0" class="fig-hair"/>
+<rect x="544.0" y="220.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="544.0" y="220.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="552.0" y1="220.0" x2="552.0" y2="235.0" class="fig-hair"/>
+<line x1="560.0" y1="220.0" x2="560.0" y2="235.0" class="fig-hair"/>
+<line x1="568.0" y1="220.0" x2="568.0" y2="235.0" class="fig-hair"/>
+<line x1="576.0" y1="220.0" x2="576.0" y2="235.0" class="fig-hair"/>
+<line x1="584.0" y1="220.0" x2="584.0" y2="235.0" class="fig-hair"/>
+<line x1="592.0" y1="220.0" x2="592.0" y2="235.0" class="fig-hair"/>
+<line x1="600.0" y1="220.0" x2="600.0" y2="235.0" class="fig-hair"/>
+<line x1="608.0" y1="220.0" x2="608.0" y2="235.0" class="fig-hair"/>
+<line x1="616.0" y1="220.0" x2="616.0" y2="235.0" class="fig-hair"/>
+<line x1="624.0" y1="220.0" x2="624.0" y2="235.0" class="fig-hair"/>
+<line x1="632.0" y1="220.0" x2="632.0" y2="235.0" class="fig-hair"/>
+<line x1="640.0" y1="220.0" x2="640.0" y2="235.0" class="fig-hair"/>
+<line x1="648.0" y1="220.0" x2="648.0" y2="235.0" class="fig-hair"/>
+<line x1="656.0" y1="220.0" x2="656.0" y2="235.0" class="fig-hair"/>
+<line x1="664.0" y1="220.0" x2="664.0" y2="235.0" class="fig-hair"/>
+<rect x="544.0" y="243.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="544.0" y="243.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="552.0" y1="243.0" x2="552.0" y2="258.0" class="fig-hair"/>
+<line x1="560.0" y1="243.0" x2="560.0" y2="258.0" class="fig-hair"/>
+<line x1="568.0" y1="243.0" x2="568.0" y2="258.0" class="fig-hair"/>
+<line x1="576.0" y1="243.0" x2="576.0" y2="258.0" class="fig-hair"/>
+<line x1="584.0" y1="243.0" x2="584.0" y2="258.0" class="fig-hair"/>
+<line x1="592.0" y1="243.0" x2="592.0" y2="258.0" class="fig-hair"/>
+<line x1="600.0" y1="243.0" x2="600.0" y2="258.0" class="fig-hair"/>
+<line x1="608.0" y1="243.0" x2="608.0" y2="258.0" class="fig-hair"/>
+<line x1="616.0" y1="243.0" x2="616.0" y2="258.0" class="fig-hair"/>
+<line x1="624.0" y1="243.0" x2="624.0" y2="258.0" class="fig-hair"/>
+<line x1="632.0" y1="243.0" x2="632.0" y2="258.0" class="fig-hair"/>
+<line x1="640.0" y1="243.0" x2="640.0" y2="258.0" class="fig-hair"/>
+<line x1="648.0" y1="243.0" x2="648.0" y2="258.0" class="fig-hair"/>
+<line x1="656.0" y1="243.0" x2="656.0" y2="258.0" class="fig-hair"/>
+<line x1="664.0" y1="243.0" x2="664.0" y2="258.0" class="fig-hair"/>
+<rect x="544.0" y="266.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="544.0" y="266.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="552.0" y1="266.0" x2="552.0" y2="281.0" class="fig-hair"/>
+<line x1="560.0" y1="266.0" x2="560.0" y2="281.0" class="fig-hair"/>
+<line x1="568.0" y1="266.0" x2="568.0" y2="281.0" class="fig-hair"/>
+<line x1="576.0" y1="266.0" x2="576.0" y2="281.0" class="fig-hair"/>
+<line x1="584.0" y1="266.0" x2="584.0" y2="281.0" class="fig-hair"/>
+<line x1="592.0" y1="266.0" x2="592.0" y2="281.0" class="fig-hair"/>
+<line x1="600.0" y1="266.0" x2="600.0" y2="281.0" class="fig-hair"/>
+<line x1="608.0" y1="266.0" x2="608.0" y2="281.0" class="fig-hair"/>
+<line x1="616.0" y1="266.0" x2="616.0" y2="281.0" class="fig-hair"/>
+<line x1="624.0" y1="266.0" x2="624.0" y2="281.0" class="fig-hair"/>
+<line x1="632.0" y1="266.0" x2="632.0" y2="281.0" class="fig-hair"/>
+<line x1="640.0" y1="266.0" x2="640.0" y2="281.0" class="fig-hair"/>
+<line x1="648.0" y1="266.0" x2="648.0" y2="281.0" class="fig-hair"/>
+<line x1="656.0" y1="266.0" x2="656.0" y2="281.0" class="fig-hair"/>
+<line x1="664.0" y1="266.0" x2="664.0" y2="281.0" class="fig-hair"/>
+<rect x="544.0" y="289.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="544.0" y="289.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="552.0" y1="289.0" x2="552.0" y2="304.0" class="fig-hair"/>
+<line x1="560.0" y1="289.0" x2="560.0" y2="304.0" class="fig-hair"/>
+<line x1="568.0" y1="289.0" x2="568.0" y2="304.0" class="fig-hair"/>
+<line x1="576.0" y1="289.0" x2="576.0" y2="304.0" class="fig-hair"/>
+<line x1="584.0" y1="289.0" x2="584.0" y2="304.0" class="fig-hair"/>
+<line x1="592.0" y1="289.0" x2="592.0" y2="304.0" class="fig-hair"/>
+<line x1="600.0" y1="289.0" x2="600.0" y2="304.0" class="fig-hair"/>
+<line x1="608.0" y1="289.0" x2="608.0" y2="304.0" class="fig-hair"/>
+<line x1="616.0" y1="289.0" x2="616.0" y2="304.0" class="fig-hair"/>
+<line x1="624.0" y1="289.0" x2="624.0" y2="304.0" class="fig-hair"/>
+<line x1="632.0" y1="289.0" x2="632.0" y2="304.0" class="fig-hair"/>
+<line x1="640.0" y1="289.0" x2="640.0" y2="304.0" class="fig-hair"/>
+<line x1="648.0" y1="289.0" x2="648.0" y2="304.0" class="fig-hair"/>
+<line x1="656.0" y1="289.0" x2="656.0" y2="304.0" class="fig-hair"/>
+<line x1="664.0" y1="289.0" x2="664.0" y2="304.0" class="fig-hair"/>
+<rect x="544.0" y="312.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="544.0" y="312.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="552.0" y1="312.0" x2="552.0" y2="327.0" class="fig-hair"/>
+<line x1="560.0" y1="312.0" x2="560.0" y2="327.0" class="fig-hair"/>
+<line x1="568.0" y1="312.0" x2="568.0" y2="327.0" class="fig-hair"/>
+<line x1="576.0" y1="312.0" x2="576.0" y2="327.0" class="fig-hair"/>
+<line x1="584.0" y1="312.0" x2="584.0" y2="327.0" class="fig-hair"/>
+<line x1="592.0" y1="312.0" x2="592.0" y2="327.0" class="fig-hair"/>
+<line x1="600.0" y1="312.0" x2="600.0" y2="327.0" class="fig-hair"/>
+<line x1="608.0" y1="312.0" x2="608.0" y2="327.0" class="fig-hair"/>
+<line x1="616.0" y1="312.0" x2="616.0" y2="327.0" class="fig-hair"/>
+<line x1="624.0" y1="312.0" x2="624.0" y2="327.0" class="fig-hair"/>
+<line x1="632.0" y1="312.0" x2="632.0" y2="327.0" class="fig-hair"/>
+<line x1="640.0" y1="312.0" x2="640.0" y2="327.0" class="fig-hair"/>
+<line x1="648.0" y1="312.0" x2="648.0" y2="327.0" class="fig-hair"/>
+<line x1="656.0" y1="312.0" x2="656.0" y2="327.0" class="fig-hair"/>
+<line x1="664.0" y1="312.0" x2="664.0" y2="327.0" class="fig-hair"/>
+<rect x="544.0" y="335.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="544.0" y="335.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="552.0" y1="335.0" x2="552.0" y2="350.0" class="fig-hair"/>
+<line x1="560.0" y1="335.0" x2="560.0" y2="350.0" class="fig-hair"/>
+<line x1="568.0" y1="335.0" x2="568.0" y2="350.0" class="fig-hair"/>
+<line x1="576.0" y1="335.0" x2="576.0" y2="350.0" class="fig-hair"/>
+<line x1="584.0" y1="335.0" x2="584.0" y2="350.0" class="fig-hair"/>
+<line x1="592.0" y1="335.0" x2="592.0" y2="350.0" class="fig-hair"/>
+<line x1="600.0" y1="335.0" x2="600.0" y2="350.0" class="fig-hair"/>
+<line x1="608.0" y1="335.0" x2="608.0" y2="350.0" class="fig-hair"/>
+<line x1="616.0" y1="335.0" x2="616.0" y2="350.0" class="fig-hair"/>
+<line x1="624.0" y1="335.0" x2="624.0" y2="350.0" class="fig-hair"/>
+<line x1="632.0" y1="335.0" x2="632.0" y2="350.0" class="fig-hair"/>
+<line x1="640.0" y1="335.0" x2="640.0" y2="350.0" class="fig-hair"/>
+<line x1="648.0" y1="335.0" x2="648.0" y2="350.0" class="fig-hair"/>
+<line x1="656.0" y1="335.0" x2="656.0" y2="350.0" class="fig-hair"/>
+<line x1="664.0" y1="335.0" x2="664.0" y2="350.0" class="fig-hair"/>
+<rect x="544.0" y="358.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="544.0" y="358.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="552.0" y1="358.0" x2="552.0" y2="373.0" class="fig-hair"/>
+<line x1="560.0" y1="358.0" x2="560.0" y2="373.0" class="fig-hair"/>
+<line x1="568.0" y1="358.0" x2="568.0" y2="373.0" class="fig-hair"/>
+<line x1="576.0" y1="358.0" x2="576.0" y2="373.0" class="fig-hair"/>
+<line x1="584.0" y1="358.0" x2="584.0" y2="373.0" class="fig-hair"/>
+<line x1="592.0" y1="358.0" x2="592.0" y2="373.0" class="fig-hair"/>
+<line x1="600.0" y1="358.0" x2="600.0" y2="373.0" class="fig-hair"/>
+<line x1="608.0" y1="358.0" x2="608.0" y2="373.0" class="fig-hair"/>
+<line x1="616.0" y1="358.0" x2="616.0" y2="373.0" class="fig-hair"/>
+<line x1="624.0" y1="358.0" x2="624.0" y2="373.0" class="fig-hair"/>
+<line x1="632.0" y1="358.0" x2="632.0" y2="373.0" class="fig-hair"/>
+<line x1="640.0" y1="358.0" x2="640.0" y2="373.0" class="fig-hair"/>
+<line x1="648.0" y1="358.0" x2="648.0" y2="373.0" class="fig-hair"/>
+<line x1="656.0" y1="358.0" x2="656.0" y2="373.0" class="fig-hair"/>
+<line x1="664.0" y1="358.0" x2="664.0" y2="373.0" class="fig-hair"/>
+<rect x="544.0" y="381.0" width="128.0" height="15.0" rx="1" class="fig-cell"/>
+<rect x="544.0" y="381.0" width="8.0" height="15.0" rx="1" class="fig-cell-type"/>
+<line x1="552.0" y1="381.0" x2="552.0" y2="396.0" class="fig-hair"/>
+<line x1="560.0" y1="381.0" x2="560.0" y2="396.0" class="fig-hair"/>
+<line x1="568.0" y1="381.0" x2="568.0" y2="396.0" class="fig-hair"/>
+<line x1="576.0" y1="381.0" x2="576.0" y2="396.0" class="fig-hair"/>
+<line x1="584.0" y1="381.0" x2="584.0" y2="396.0" class="fig-hair"/>
+<line x1="592.0" y1="381.0" x2="592.0" y2="396.0" class="fig-hair"/>
+<line x1="600.0" y1="381.0" x2="600.0" y2="396.0" class="fig-hair"/>
+<line x1="608.0" y1="381.0" x2="608.0" y2="396.0" class="fig-hair"/>
+<line x1="616.0" y1="381.0" x2="616.0" y2="396.0" class="fig-hair"/>
+<line x1="624.0" y1="381.0" x2="624.0" y2="396.0" class="fig-hair"/>
+<line x1="632.0" y1="381.0" x2="632.0" y2="396.0" class="fig-hair"/>
+<line x1="640.0" y1="381.0" x2="640.0" y2="396.0" class="fig-hair"/>
+<line x1="648.0" y1="381.0" x2="648.0" y2="396.0" class="fig-hair"/>
+<line x1="656.0" y1="381.0" x2="656.0" y2="396.0" class="fig-hair"/>
+<line x1="664.0" y1="381.0" x2="664.0" y2="396.0" class="fig-hair"/>
+<text x="70.0" y="416.0" class="fig-muted" text-anchor="start">each row is one record; memory runs down a column, then across</text>
+<line x1="40.0" y1="438.0" x2="740.0" y2="438.0" class="fig-hair"/>
+<text x="40.0" y="464.0" class="fig-title" text-anchor="start">One record, byte by byte</text>
+<rect x="60.0" y="492.0" width="34.0" height="26.0" rx="2" class="fig-cell-type"/>
+<text x="77.0" y="487.0" class="fig-tick" text-anchor="middle">0</text>
+<text x="77.0" y="530.0" class="fig-label" text-anchor="start" transform="rotate(42 77.0 530.0)">type</text>
+<rect x="96.0" y="492.0" width="34.0" height="26.0" rx="2" class="fig-cell"/>
+<text x="113.0" y="487.0" class="fig-tick" text-anchor="middle">1</text>
+<text x="113.0" y="530.0" class="fig-label" text-anchor="start" transform="rotate(42 113.0 530.0)">cell x</text>
+<rect x="132.0" y="492.0" width="34.0" height="26.0" rx="2" class="fig-cell"/>
+<text x="149.0" y="487.0" class="fig-tick" text-anchor="middle">2</text>
+<text x="149.0" y="530.0" class="fig-label" text-anchor="start" transform="rotate(42 149.0 530.0)">cell y</text>
+<rect x="168.0" y="492.0" width="34.0" height="26.0" rx="2" class="fig-cell"/>
+<text x="185.0" y="487.0" class="fig-tick" text-anchor="middle">3</text>
+<text x="185.0" y="530.0" class="fig-label" text-anchor="start" transform="rotate(42 185.0 530.0)">status</text>
+<rect x="204.0" y="492.0" width="34.0" height="26.0" rx="2" class="fig-cell"/>
+<text x="221.0" y="487.0" class="fig-tick" text-anchor="middle">4</text>
+<text x="221.0" y="530.0" class="fig-label" text-anchor="start" transform="rotate(42 221.0 530.0)">sub-cell x</text>
+<rect x="240.0" y="492.0" width="34.0" height="26.0" rx="2" class="fig-cell"/>
+<text x="257.0" y="487.0" class="fig-tick" text-anchor="middle">5</text>
+<text x="257.0" y="530.0" class="fig-label" text-anchor="start" transform="rotate(42 257.0 530.0)">sub-cell y</text>
+<rect x="276.0" y="492.0" width="34.0" height="26.0" rx="2" class="fig-cell"/>
+<text x="293.0" y="487.0" class="fig-tick" text-anchor="middle">6</text>
+<text x="293.0" y="530.0" class="fig-label" text-anchor="start" transform="rotate(42 293.0 530.0)">alt / aim</text>
+<rect x="312.0" y="492.0" width="34.0" height="26.0" rx="2" class="fig-cell"/>
+<text x="329.0" y="487.0" class="fig-tick" text-anchor="middle">7</text>
+<text x="329.0" y="530.0" class="fig-label" text-anchor="start" transform="rotate(42 329.0 530.0)">hp / height</text>
+<rect x="348.0" y="492.0" width="34.0" height="26.0" rx="2" class="fig-cell"/>
+<text x="365.0" y="487.0" class="fig-tick" text-anchor="middle">8</text>
+<text x="365.0" y="530.0" class="fig-label" text-anchor="start" transform="rotate(42 365.0 530.0)">overload</text>
+<rect x="384.0" y="492.0" width="34.0" height="26.0" rx="2" class="fig-cell"/>
+<text x="401.0" y="487.0" class="fig-tick" text-anchor="middle">9</text>
+<text x="401.0" y="530.0" class="fig-label" text-anchor="start" transform="rotate(42 401.0 530.0)">fire counter</text>
+<rect x="420.0" y="492.0" width="34.0" height="26.0" rx="2" class="fig-cell"/>
+<text x="437.0" y="487.0" class="fig-tick" text-anchor="middle">10</text>
+<text x="437.0" y="530.0" class="fig-label" text-anchor="start" transform="rotate(42 437.0 530.0)">blip</text>
+<rect x="456.0" y="492.0" width="34.0" height="26.0" rx="2" class="fig-cell"/>
+<text x="473.0" y="487.0" class="fig-tick" text-anchor="middle">11</text>
+<text x="473.0" y="530.0" class="fig-label" text-anchor="start" transform="rotate(42 473.0 530.0)">blip</text>
+<rect x="492.0" y="492.0" width="34.0" height="26.0" rx="2" class="fig-cell"/>
+<text x="509.0" y="487.0" class="fig-tick" text-anchor="middle">12</text>
+<text x="509.0" y="530.0" class="fig-label" text-anchor="start" transform="rotate(42 509.0 530.0)">distance</text>
+<rect x="528.0" y="492.0" width="34.0" height="26.0" rx="2" class="fig-cell"/>
+<text x="545.0" y="487.0" class="fig-tick" text-anchor="middle">13</text>
+<text x="545.0" y="530.0" class="fig-label" text-anchor="start" transform="rotate(42 545.0 530.0)">distance</text>
+<rect x="564.0" y="492.0" width="34.0" height="26.0" rx="2" class="fig-cell"/>
+<text x="581.0" y="487.0" class="fig-tick" text-anchor="middle">14</text>
+<text x="581.0" y="530.0" class="fig-label" text-anchor="start" transform="rotate(42 581.0 530.0)">target lo</text>
+<rect x="600.0" y="492.0" width="34.0" height="26.0" rx="2" class="fig-cell"/>
+<text x="617.0" y="487.0" class="fig-tick" text-anchor="middle">15</text>
+<text x="617.0" y="530.0" class="fig-label" text-anchor="start" transform="rotate(42 617.0 530.0)">target hi</text>
+<text x="60.0" y="624.0" class="fig-muted" text-anchor="start">Byte 0: bits 7-6 are state ($80 free, $40 dying); bits 5-0 pick the type row in $C39A.</text>
+</svg>

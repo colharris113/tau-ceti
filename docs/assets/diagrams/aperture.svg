@@ -1,0 +1,35 @@
+<svg class="tc-fig" viewBox="0 0 780 336" role="img" aria-labelledby="fig-aperture-t fig-aperture-d" xmlns="http://www.w3.org/2000/svg">
+<title id="fig-aperture-t">The aperture opening and closing over time</title>
+<desc id="fig-aperture-d">Two mirrored ramps: a scanned or locked building shuts its iris two points a frame, and a building within two cells opens it at the same rate. Both reach the end stop after 36 frames.</desc>
+<text x="40.0" y="30.0" class="fig-title" text-anchor="start">The iris takes 36 frames to travel</text>
+<text x="40.0" y="50.0" class="fig-muted" text-anchor="start">Two points a frame, in either direction.</text>
+<line x1="84.0" y1="250.0" x2="700.0" y2="250.0" class="fig-grid"/>
+<text x="74.0" y="253.0" class="fig-tick" text-anchor="end">0</text>
+<line x1="84.0" y1="207.0" x2="700.0" y2="207.0" class="fig-grid"/>
+<text x="74.0" y="210.0" class="fig-tick" text-anchor="end">18</text>
+<line x1="84.0" y1="164.0" x2="700.0" y2="164.0" class="fig-grid"/>
+<text x="74.0" y="167.0" class="fig-tick" text-anchor="end">36</text>
+<line x1="84.0" y1="121.0" x2="700.0" y2="121.0" class="fig-grid"/>
+<text x="74.0" y="124.0" class="fig-tick" text-anchor="end">54</text>
+<line x1="84.0" y1="78.0" x2="700.0" y2="78.0" class="fig-grid"/>
+<text x="74.0" y="81.0" class="fig-tick" text-anchor="end">72</text>
+<text x="84.0" y="268.0" class="fig-tick" text-anchor="middle">0</text>
+<text x="238.0" y="268.0" class="fig-tick" text-anchor="middle">10</text>
+<text x="392.0" y="268.0" class="fig-tick" text-anchor="middle">20</text>
+<text x="546.0" y="268.0" class="fig-tick" text-anchor="middle">30</text>
+<text x="700.0" y="268.0" class="fig-tick" text-anchor="middle">40</text>
+<line x1="84.0" y1="250.0" x2="700.0" y2="250.0" class="fig-axis"/>
+<line x1="84.0" y1="78.0" x2="84.0" y2="250.0" class="fig-axis"/>
+<line x1="84.0" y1="78.0" x2="638.4" y2="250.0" class="fig-ochre"/>
+<line x1="84.0" y1="250.0" x2="638.4" y2="78.0" class="fig-blue"/>
+<line x1="84.0" y1="314.0" x2="112.0" y2="314.0" class="fig-ochre"/>
+<text x="118.0" y="318.0" class="fig-label" text-anchor="start">closing (scanned or locked)</text>
+<line x1="340.0" y1="314.0" x2="368.0" y2="314.0" class="fig-blue"/>
+<text x="374.0" y="318.0" class="fig-label" text-anchor="start">opening (inside two cells)</text>
+<line x1="638.4" y1="250.0" x2="638.4" y2="78.0" class="fig-hair"/>
+<text x="644.4" y="106.7" class="fig-tick" text-anchor="start">36 frames (0.72 s)</text>
+<text x="222.6" y="135.3" class="fig-label" text-anchor="end">−2 a frame</text>
+<text x="171.0" y="235.7" class="fig-label" text-anchor="start">+2 a frame</text>
+<text x="392.0" y="292.0" class="fig-label" text-anchor="middle">frames</text>
+<text x="28.0" y="164.0" class="fig-label" text-anchor="middle" transform="rotate(-90 28 164.0)">aperture opening</text>
+</svg>

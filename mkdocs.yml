@@ -1,0 +1,97 @@
+site_name: Tau Ceti — A Guide to the C64 Code
+site_description: >-
+  An address-level guide to Tau Ceti on the Commodore 64 — how the record
+  table, docking, combat and the flight model actually work.
+site_author: Colin Harris
+docs_dir: docs
+use_directory_urls: true
+
+theme:
+  name: material
+  language: en
+  icon:
+    logo: material/space-station
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: black
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - toc.follow
+
+extra_css:
+  - assets/stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.snippets:
+      base_path: docs
+      check_paths: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  - search
+
+validation:
+  nav:
+    omitted_files: info
+  links:
+    absolute_links: info
+    anchors: warn
+    unrecognized_links: warn
+
+nav:
+  - Home: index.md
+  - Deep dives:
+      - The record table: deep-dives/the-record-table.md
+      - Docking and the aperture: deep-dives/docking-and-the-aperture.md
+      - Fuel, jumping and LAUNCH: deep-dives/fuel-and-jumping.md
+  - Source guide:
+      - Overview: source/index.md
+      - Variables: source/variables.md
+  - Reference:
+      - Type tables: reference/type-tables.md
+  - About:
+      - This project: about/index.md
+      - Method: about/method.md
+      - Acknowledgements: about/acknowledgements.md
+
+extra:
+  generator: false
+
+copyright: >-
+  A study of Tau Ceti (Pete Cooke / John Twiddy, CRL 1986). Tau Ceti is
+  © CRL Group PLC. This guide is an independent work of analysis.

@@ -1,0 +1,389 @@
+{
+  "comment": "Curated symbols. Every address here has been read in the disassembly and its behaviour checked in the game. 'more' lists additional entry points that belong to the same routine (branch targets that leave the linear decode); each is rendered as a separate block on the routine page.",
+  "routines": [
+    {
+      "addr": "25D3",
+      "slug": "frame-tick",
+      "name": "Frame tick: clock, shield and fuel",
+      "group": "Flight",
+      "summary": "Runs once a frame. A BCD counter at $0340 counts 50 frames to a second, then the BCD clock at $0341-$0343 advances. While not docked the shield creeps back one point a second and fuel is burned: (speed >> 3) + 16 while airborne, zero at altitude zero, plus 96 when the tank is ruptured. The burn is subtracted from the 16-bit value at $0345/$0346; a high byte of $20 raises the LOW FUEL flag, and an underflow clamps at zero and sets $03A3. Docking or grounding skips both the burn and the shield regeneration.",
+      "end": "26CC"
+    },
+    {
+      "addr": "5766",
+      "slug": "new-game-reset",
+      "name": "New-game state reset",
+      "group": "Flight",
+      "summary": "Clears the counters, clock and target pointers, then lays out a fresh ship at $57F0: altitude 28, shield and fuel full ($BF), eight missiles, flares and AMMs, laser heat zero.",
+      "end": "586C"
+    },
+    {
+      "addr": "586C",
+      "slug": "low-fuel-watch",
+      "name": "Low-fuel watch and the stranded state",
+      "group": "Flight",
+      "summary": "Called every frame. Queues LOW FUEL once when $03A2 is set and NO FUEL once when $03A3 is set. If the tank is empty, altitude and speed are both zero, it sets $0396 to 1; LAUNCH treats that stranded state differently from a normal dock ($0396 = $80).",
+      "end": "58A3"
+    },
+    {
+      "addr": "2B60",
+      "slug": "docking-test",
+      "name": "Object distance and the docking test",
+      "group": "Docking",
+      "summary": "Works out the distance to the record in $61/$62, scales it through the tables at $C800/$C900 and stores the product in bytes 12/13. Only a product under 128 is close enough to dock; anything up to 4,095 is added to the target list, and anything larger is dropped. For a close record, type 16 docks as a jump pad before anything else. A dockable building must pass |altitude - 28| + 55 < aperture, then a bearing test that allows a window of |bearing offset| + 56 against the same aperture. Passing both sets $0396 = $80 and copies the building's type and cell to $03A4/$0398/$0399.",
+      "more": [
+        {
+          "addr": "2CC0",
+          "end": "2CC6"
+        },
+        {
+          "addr": "2CC6",
+          "end": "2D5F"
+        }
+      ],
+      "end": "2CC0"
+    },
+    {
+      "addr": "43CF",
+      "slug": "record-scan",
+      "name": "Record scan",
+      "group": "Records",
+      "summary": "Walks the 48 sixteen-byte records at $0E00-$10FF. Byte 0 sorts them: $80 is free and skipped, $40 is dying and goes to the death animation, anything else is live and goes to the dispatcher at $445D. At the end of the sweep the game rotates the 6-bit round-robin index at $038F and advances its frame counters.",
+      "end": "441E"
+    },
+    {
+      "addr": "441E",
+      "slug": "dying",
+      "name": "Dying animation",
+      "group": "Records",
+      "summary": "Byte 6 falls by 8 a frame; when it reaches zero, byte 8 climbs by 8 a frame. At $F8 the record is freed. Types carrying bit 0 of $C39A (including both missile types) are freed at $78 instead, after 15 frames rather than 31.",
+      "end": "445D"
+    },
+    {
+      "addr": "445D",
+      "slug": "live-dispatch",
+      "name": "Live-record dispatch",
+      "group": "Records",
+      "summary": "Sorts a live record by its per-type flags at $C39A. Dockable types (bit 7) go to the aperture and docking path at $4465; sensor types (bit 1) are counted when in range at $44A1; everything else falls through to the guided-object and robot handlers.",
+      "end": "4465"
+    },
+    {
+      "addr": "4465",
+      "slug": "aperture",
+      "name": "Aperture animation",
+      "group": "Records",
+      "summary": "Dockable buildings only, and only while byte 3 bit 6 says the record is active. A missile lock (bit 4) or a hit (bit 5) shuts the iris two points a frame, except on type 27; otherwise it shuts while the scaled distance byte 13 is 2 or more, and opens two points a frame to $48 while byte 13 is below 2. The door takes 36 frames to travel from shut to fully open.",
+      "end": "44A1"
+    },
+    {
+      "addr": "44A1",
+      "slug": "sensors",
+      "name": "Sensor records",
+      "group": "Records",
+      "summary": "For records whose type flags carry bit 1. An in-range sensor (byte 3 bit 6, distance under 9 cells) is counted at $0373 and sets bit 7 of $03B0, which is what the scanner uses to know a contact is live.",
+      "end": "44C4"
+    },
+    {
+      "addr": "44C4",
+      "slug": "guided-objects",
+      "name": "Guided-object handling",
+      "group": "Records",
+      "summary": "Reached from the dispatcher when a live record is neither dockable nor a sensor. Missiles and other guided objects take their target from bytes 14/15, publish their state to the eight-byte block at $FFC0, and run the homing and detonation logic that follows.",
+      "end": "4620"
+    },
+    {
+      "addr": "4620",
+      "slug": "ai-dispatch",
+      "name": "Robot dispatch",
+      "group": "Records",
+      "summary": "A live record that is out of range has its moved/aimed bits cleared and is left alone. In range, the type flags choose the brain: bit 6 calls the static defence AI at $81F3, bit 5 calls the mobile unit AI at $80C3.",
+      "end": "464E"
+    },
+    {
+      "addr": "4838",
+      "slug": "clear-missiles",
+      "name": "Clear all missiles (AMM)",
+      "group": "Combat",
+      "summary": "Walks the record table and marks every missile record dying - the player's type 10 and the robots' type 11 alike. Nothing else is touched: the selected target in $0388/$0389 survives, as does the target's lock bit. Both missile types are freed after 15 frames.",
+      "end": "4878"
+    },
+    {
+      "addr": "4878",
+      "slug": "player-missile",
+      "name": "Player missile launch",
+      "group": "Combat",
+      "summary": "Refuses to fire at $0389 = 0 (no target). Otherwise finds a free record, makes it type 10, copies the ship's cell and sub-cell, sets byte 6 to altitude + $40, points bytes 14/15 at the target, sets the target's lock bit (byte 3 bit 4) and decrements the missile count at $0358.",
+      "end": "4906"
+    },
+    {
+      "addr": "4951",
+      "slug": "damage",
+      "name": "Damage",
+      "group": "Combat",
+      "summary": "Shared by lasers and everything else. Subtracts the damage in A from byte 7. On underflow it clears byte 8, sets the death sound counter, marks byte 0 dying, and for armed types adds one to the 16-bit kill count at $03A5/$03A6. Finally it sets $0359 = $FF for the screen flash. A record whose byte 7 is already negative is immune.",
+      "end": "498A"
+    },
+    {
+      "addr": "33F9",
+      "slug": "laser-fire",
+      "name": "Laser fire",
+      "group": "Combat",
+      "summary": "Four gates: no bolt already in flight ($036E), heat below $B0, laser not disabled ($0370), and the target in the sights. Firing sets the bolt timer to $80, latches provocation in $03BF, plays the shot sound and adds $0C to the heat at $0347, capped at $BF.",
+      "end": "3436"
+    },
+    {
+      "addr": "3D41",
+      "slug": "laser-bolt",
+      "name": "Laser bolt: timer and hit",
+      "group": "Combat",
+      "summary": "Counts the bolt's flight in the low seven bits of $036E. At 22 frames it clears the bolt colour, resets $036E and resolves the shot against $038C/$038D: exactly one target, only if still alive, takes 4 points through the damage routine at $4951 and gets byte 3 bit 5 set.",
+      "end": "3DD5"
+    },
+    {
+      "addr": "3D18",
+      "slug": "bit-test",
+      "name": "Flag-bit test",
+      "group": "Combat",
+      "summary": "Tests one bit of the eight-byte mask at $034A-$0351. A holds the bit index: X = A >> 3 selects the byte from $034A, and the low three bits index the mask table at $3D28. Returns with Z set when the bit is clear.",
+      "end": "3D28"
+    },
+    {
+      "addr": "81F3",
+      "slug": "static-defence-ai",
+      "name": "Static defence AI",
+      "group": "Combat",
+      "summary": "Static defence AI. Type flags bit 5 (mobile units) always run; everyone else runs only while the provocation latch $03BF is set. Out of class range it does nothing. In range it sets byte 3 bit 3, answers a player lock with an AMM after 24 frames (clearing its own lock first), and otherwise counts byte 9 against the fire interval at $C45E. A random roll masked by $C44E reloads the counter; behaviour bit 7 units also roll against $C46E and, on success, take a free record from $1000 and spawn a missile into it. Type 26 has an early path of its own at $8202. Movement ends at $8347.",
+      "end": "835A"
+    },
+    {
+      "addr": "80C3",
+      "slug": "mobile-ai",
+      "name": "Mobile unit AI",
+      "group": "Combat",
+      "summary": "Dispatched from $4620 for records whose type flags carry bit 5. Types 36 and 21 bob between two altitudes first, flipping byte 3 bit 0; every mobile then runs the class-range test, closes on the ship and fires. Out of range it clears byte 8 and returns.",
+      "end": "81F3"
+    },
+    {
+      "addr": "4127",
+      "slug": "message-queue",
+      "name": "Message queue",
+      "group": "Messages",
+      "summary": "Pushes a two-byte text pointer into the ring buffer at $0C00: A is the low byte, X the high, and $0384 is the write cursor. Does not print; the printer drains the queue separately.",
+      "end": "413B"
+    },
+    {
+      "addr": "41F7",
+      "slug": "message-printer",
+      "name": "Message text renderer",
+      "group": "Messages",
+      "summary": "Reads one character code at a time from the pointer in $1C/$1D. Codes under $80 select an 8-byte glyph from the game's own font at $9000-$92FF (32 glyphs a page); $80 is a control code, and $FF ends the string. The glyph is copied into the character/sprite buffer at $FCC8.",
+      "end": "424C"
+    }
+  ],
+  "variables": [
+    {
+      "addr": "0338",
+      "name": "Launch heading (low)",
+      "group": "Flight",
+      "doc": "Low eight bits of the ship's heading. LAUNCH adds $20 - 32 steps of 512, or 22.5 degrees - and carries into $0339."
+    },
+    {
+      "addr": "0339",
+      "name": "Launch heading (high)",
+      "group": "Flight",
+      "doc": "Ninth bit of the heading; toggled on launch so the 22.5-degree step wraps correctly."
+    },
+    {
+      "addr": "0340",
+      "name": "Frame counter",
+      "group": "Flight",
+      "doc": "BCD counter of frames within the second, 0-$49. At $50 the clock ticks."
+    },
+    {
+      "addr": "0341",
+      "name": "Seconds",
+      "group": "Flight",
+      "doc": "BCD seconds, 0-$59."
+    },
+    {
+      "addr": "0342",
+      "name": "Minutes",
+      "group": "Flight",
+      "doc": "BCD minutes, 0-$59."
+    },
+    {
+      "addr": "0343",
+      "name": "Hours",
+      "group": "Flight",
+      "doc": "BCD hours, 0-$23."
+    },
+    {
+      "addr": "0344",
+      "name": "Altitude",
+      "group": "Flight",
+      "doc": "0-$BF. Zero is the ground; docking altitude is 28 ($1C)."
+    },
+    {
+      "addr": "0345",
+      "name": "Fuel (low byte)",
+      "group": "Flight",
+      "doc": "Low byte of the 16-bit fuel value. The pair is decremented directly by the burn amount."
+    },
+    {
+      "addr": "0346",
+      "name": "Fuel (whole units)",
+      "group": "Flight",
+      "doc": "High byte of the fuel value. Full is $BF, just under 192 units; LAUNCH refuses at zero."
+    },
+    {
+      "addr": "0347",
+      "name": "Laser heat",
+      "group": "Combat",
+      "doc": "0-$BF. Each shot adds $0C; at $B0 or above the laser will not fire."
+    },
+    {
+      "addr": "034A",
+      "name": "Flag mask",
+      "group": "Combat",
+      "doc": "Eight bytes, 64 bits, tested by the helper at $3D18."
+    },
+    {
+      "addr": "0353",
+      "name": "Speed",
+      "group": "Flight",
+      "doc": "0-$BF. Divided by 8 to get the fuel burn, and tested for zero when deciding the ship is at rest."
+    },
+    {
+      "addr": "0358",
+      "name": "Missiles",
+      "group": "Combat",
+      "doc": "Missile count, eight at the start of a game; decremented by a launch."
+    },
+    {
+      "addr": "036E",
+      "name": "Bolt timer",
+      "group": "Combat",
+      "doc": "Zero when the laser is ready. Firing sets $80; the low seven bits then count the bolt's 22-frame flight."
+    },
+    {
+      "addr": "0370",
+      "name": "Laser lockout",
+      "group": "Combat",
+      "doc": "While non-zero the laser cannot fire."
+    },
+    {
+      "addr": "0377",
+      "name": "Shield",
+      "group": "Flight",
+      "doc": "0-$BF, full at the start of a game. Regenerates one point a second while airborne and not docked."
+    },
+    {
+      "addr": "0381",
+      "name": "Dock refused",
+      "group": "Docking",
+      "doc": "Set to $FF when a docking attempt fails the altitude or aim test."
+    },
+    {
+      "addr": "0383",
+      "name": "Message read cursor",
+      "group": "Messages",
+      "doc": "Next slot in the $0C00 ring buffer to print."
+    },
+    {
+      "addr": "0384",
+      "name": "Message write cursor",
+      "group": "Messages",
+      "doc": "Next slot in the $0C00 ring buffer to fill."
+    },
+    {
+      "addr": "0386",
+      "name": "Last on-screen target",
+      "group": "Combat",
+      "doc": "Pointer to the record most recently drawn or seen on the main view."
+    },
+    {
+      "addr": "0388",
+      "name": "Missile target",
+      "group": "Combat",
+      "doc": "Pointer the missile launch routine reads. Zero means no lock; cleared on a new game and after a jump."
+    },
+    {
+      "addr": "038A",
+      "name": "Scanner target",
+      "group": "Combat",
+      "doc": "Pointer to the record selected on the scanner."
+    },
+    {
+      "addr": "038C",
+      "name": "Laser target",
+      "group": "Combat",
+      "doc": "Pointer resolved when the bolt lands; the hit goes to this record and no other."
+    },
+    {
+      "addr": "0396",
+      "name": "Dock state",
+      "group": "Docking",
+      "doc": "0 in flight, $80 after a normal dock, 1 when stranded with an empty tank on the ground."
+    },
+    {
+      "addr": "0398",
+      "name": "Docked cell (low)",
+      "group": "Docking",
+      "doc": "Low byte of the docked building's cell, copied on docking and used as the ship's position on launch."
+    },
+    {
+      "addr": "0399",
+      "name": "Docked cell (high)",
+      "group": "Docking",
+      "doc": "High byte of the docked building's cell."
+    },
+    {
+      "addr": "039B",
+      "name": "Jump pad docked",
+      "group": "Docking",
+      "doc": "Set to $FF when the docked building is type 16, the jump pad."
+    },
+    {
+      "addr": "039E",
+      "name": "Tank ruptured",
+      "group": "Flight",
+      "doc": "Non-zero adds 96 to the per-second fuel burn."
+    },
+    {
+      "addr": "03A2",
+      "name": "LOW FUEL flag",
+      "group": "Flight",
+      "doc": "Set once when the fuel high byte reaches $20; the watch routine prints the message for value 1 and then increments it."
+    },
+    {
+      "addr": "03A3",
+      "name": "NO FUEL flag",
+      "group": "Flight",
+      "doc": "Set when fuel underflows. Also drives the stranded state on the ground."
+    },
+    {
+      "addr": "03A4",
+      "name": "Docked type",
+      "group": "Docking",
+      "doc": "Record byte 0 of the docked building, copied at $2C4E."
+    },
+    {
+      "addr": "03A5",
+      "name": "Kill count (low)",
+      "group": "Combat",
+      "doc": "Incremented by the damage routine for every armed type destroyed."
+    },
+    {
+      "addr": "03A6",
+      "name": "Kill count (high)",
+      "group": "Combat",
+      "doc": "High byte of the kill count."
+    },
+    {
+      "addr": "03BF",
+      "name": "Provocation latch",
+      "group": "Combat",
+      "doc": "Set by a laser ($341E) or a missile launch ($48F6) and cleared when a city loads. Static defences ignore the ship until it is set."
+    }
+  ]
+}
