@@ -1,0 +1,178 @@
+<svg class="tc-fig" viewBox="0 0 860 512" role="img" aria-labelledby="fig-screen-t fig-screen-d" xmlns="http://www.w3.org/2000/svg">
+<title id="fig-screen-t">The viewport screen layout and memory map</title>
+<desc id="fig-screen-d">The 320 by 200 display with its 16 by 16-cell viewport and a hires band at the bottom, beside the memory map of the bitmap, matrix, colour RAM and render buffer, and a diagram of the eight bytes that make one bitmap cell.</desc>
+<text x="40.0" y="30.0" class="fig-title" text-anchor="start">One screen, two graphics modes</text>
+<text x="40.0" y="50.0" class="fig-muted" text-anchor="start">A 320 × 200 display: a 16 × 16-cell bitmap viewport above a hires instrument band.</text>
+<rect x="76.0" y="86.0" width="352.0" height="220.0" rx="0" class="fig-frame"/>
+<rect x="84.8" y="94.8" width="140.8" height="140.8" rx="0" class="fig-band"/>
+<rect x="76.0" y="253.2" width="352.0" height="52.8" rx="0" class="fig-cell"/>
+<line x1="84.8" y1="86.0" x2="84.8" y2="306.0" class="fig-fine"/>
+<line x1="93.6" y1="86.0" x2="93.6" y2="306.0" class="fig-fine"/>
+<line x1="102.4" y1="86.0" x2="102.4" y2="306.0" class="fig-fine"/>
+<line x1="111.2" y1="86.0" x2="111.2" y2="306.0" class="fig-fine"/>
+<line x1="120.0" y1="86.0" x2="120.0" y2="306.0" class="fig-fine"/>
+<line x1="128.8" y1="86.0" x2="128.8" y2="306.0" class="fig-fine"/>
+<line x1="137.6" y1="86.0" x2="137.6" y2="306.0" class="fig-fine"/>
+<line x1="146.4" y1="86.0" x2="146.4" y2="306.0" class="fig-fine"/>
+<line x1="155.2" y1="86.0" x2="155.2" y2="306.0" class="fig-fine"/>
+<line x1="164.0" y1="86.0" x2="164.0" y2="306.0" class="fig-fine"/>
+<line x1="172.8" y1="86.0" x2="172.8" y2="306.0" class="fig-fine"/>
+<line x1="181.6" y1="86.0" x2="181.6" y2="306.0" class="fig-fine"/>
+<line x1="190.4" y1="86.0" x2="190.4" y2="306.0" class="fig-fine"/>
+<line x1="199.2" y1="86.0" x2="199.2" y2="306.0" class="fig-fine"/>
+<line x1="208.0" y1="86.0" x2="208.0" y2="306.0" class="fig-fine"/>
+<line x1="216.8" y1="86.0" x2="216.8" y2="306.0" class="fig-fine"/>
+<line x1="225.6" y1="86.0" x2="225.6" y2="306.0" class="fig-fine"/>
+<line x1="234.4" y1="86.0" x2="234.4" y2="306.0" class="fig-fine"/>
+<line x1="243.2" y1="86.0" x2="243.2" y2="306.0" class="fig-fine"/>
+<line x1="252.0" y1="86.0" x2="252.0" y2="306.0" class="fig-fine"/>
+<line x1="260.8" y1="86.0" x2="260.8" y2="306.0" class="fig-fine"/>
+<line x1="269.6" y1="86.0" x2="269.6" y2="306.0" class="fig-fine"/>
+<line x1="278.4" y1="86.0" x2="278.4" y2="306.0" class="fig-fine"/>
+<line x1="287.2" y1="86.0" x2="287.2" y2="306.0" class="fig-fine"/>
+<line x1="296.0" y1="86.0" x2="296.0" y2="306.0" class="fig-fine"/>
+<line x1="304.8" y1="86.0" x2="304.8" y2="306.0" class="fig-fine"/>
+<line x1="313.6" y1="86.0" x2="313.6" y2="306.0" class="fig-fine"/>
+<line x1="322.4" y1="86.0" x2="322.4" y2="306.0" class="fig-fine"/>
+<line x1="331.2" y1="86.0" x2="331.2" y2="306.0" class="fig-fine"/>
+<line x1="340.0" y1="86.0" x2="340.0" y2="306.0" class="fig-fine"/>
+<line x1="348.8" y1="86.0" x2="348.8" y2="306.0" class="fig-fine"/>
+<line x1="357.6" y1="86.0" x2="357.6" y2="306.0" class="fig-fine"/>
+<line x1="366.4" y1="86.0" x2="366.4" y2="306.0" class="fig-fine"/>
+<line x1="375.2" y1="86.0" x2="375.2" y2="306.0" class="fig-fine"/>
+<line x1="384.0" y1="86.0" x2="384.0" y2="306.0" class="fig-fine"/>
+<line x1="392.8" y1="86.0" x2="392.8" y2="306.0" class="fig-fine"/>
+<line x1="401.6" y1="86.0" x2="401.6" y2="306.0" class="fig-fine"/>
+<line x1="410.4" y1="86.0" x2="410.4" y2="306.0" class="fig-fine"/>
+<line x1="419.2" y1="86.0" x2="419.2" y2="306.0" class="fig-fine"/>
+<line x1="76.0" y1="94.8" x2="428.0" y2="94.8" class="fig-fine"/>
+<line x1="76.0" y1="103.6" x2="428.0" y2="103.6" class="fig-fine"/>
+<line x1="76.0" y1="112.4" x2="428.0" y2="112.4" class="fig-fine"/>
+<line x1="76.0" y1="121.2" x2="428.0" y2="121.2" class="fig-fine"/>
+<line x1="76.0" y1="130.0" x2="428.0" y2="130.0" class="fig-fine"/>
+<line x1="76.0" y1="138.8" x2="428.0" y2="138.8" class="fig-fine"/>
+<line x1="76.0" y1="147.6" x2="428.0" y2="147.6" class="fig-fine"/>
+<line x1="76.0" y1="156.4" x2="428.0" y2="156.4" class="fig-fine"/>
+<line x1="76.0" y1="165.2" x2="428.0" y2="165.2" class="fig-fine"/>
+<line x1="76.0" y1="174.0" x2="428.0" y2="174.0" class="fig-fine"/>
+<line x1="76.0" y1="182.8" x2="428.0" y2="182.8" class="fig-fine"/>
+<line x1="76.0" y1="191.6" x2="428.0" y2="191.6" class="fig-fine"/>
+<line x1="76.0" y1="200.4" x2="428.0" y2="200.4" class="fig-fine"/>
+<line x1="76.0" y1="209.2" x2="428.0" y2="209.2" class="fig-fine"/>
+<line x1="76.0" y1="218.0" x2="428.0" y2="218.0" class="fig-fine"/>
+<line x1="76.0" y1="226.8" x2="428.0" y2="226.8" class="fig-fine"/>
+<line x1="76.0" y1="235.6" x2="428.0" y2="235.6" class="fig-fine"/>
+<line x1="76.0" y1="244.4" x2="428.0" y2="244.4" class="fig-fine"/>
+<line x1="76.0" y1="253.2" x2="428.0" y2="253.2" class="fig-fine"/>
+<line x1="76.0" y1="262.0" x2="428.0" y2="262.0" class="fig-fine"/>
+<line x1="76.0" y1="270.8" x2="428.0" y2="270.8" class="fig-fine"/>
+<line x1="76.0" y1="279.6" x2="428.0" y2="279.6" class="fig-fine"/>
+<line x1="76.0" y1="288.4" x2="428.0" y2="288.4" class="fig-fine"/>
+<line x1="76.0" y1="297.2" x2="428.0" y2="297.2" class="fig-fine"/>
+<line x1="93.6" y1="94.8" x2="93.6" y2="235.6" class="fig-fine"/>
+<line x1="84.8" y1="103.6" x2="225.6" y2="103.6" class="fig-fine"/>
+<line x1="102.4" y1="94.8" x2="102.4" y2="235.6" class="fig-fine"/>
+<line x1="84.8" y1="112.4" x2="225.6" y2="112.4" class="fig-fine"/>
+<line x1="111.2" y1="94.8" x2="111.2" y2="235.6" class="fig-fine"/>
+<line x1="84.8" y1="121.2" x2="225.6" y2="121.2" class="fig-fine"/>
+<line x1="120.0" y1="94.8" x2="120.0" y2="235.6" class="fig-fine"/>
+<line x1="84.8" y1="130.0" x2="225.6" y2="130.0" class="fig-fine"/>
+<line x1="128.8" y1="94.8" x2="128.8" y2="235.6" class="fig-fine"/>
+<line x1="84.8" y1="138.8" x2="225.6" y2="138.8" class="fig-fine"/>
+<line x1="137.6" y1="94.8" x2="137.6" y2="235.6" class="fig-fine"/>
+<line x1="84.8" y1="147.6" x2="225.6" y2="147.6" class="fig-fine"/>
+<line x1="146.4" y1="94.8" x2="146.4" y2="235.6" class="fig-fine"/>
+<line x1="84.8" y1="156.4" x2="225.6" y2="156.4" class="fig-fine"/>
+<line x1="155.2" y1="94.8" x2="155.2" y2="235.6" class="fig-fine"/>
+<line x1="84.8" y1="165.2" x2="225.6" y2="165.2" class="fig-fine"/>
+<line x1="164.0" y1="94.8" x2="164.0" y2="235.6" class="fig-fine"/>
+<line x1="84.8" y1="174.0" x2="225.6" y2="174.0" class="fig-fine"/>
+<line x1="172.8" y1="94.8" x2="172.8" y2="235.6" class="fig-fine"/>
+<line x1="84.8" y1="182.8" x2="225.6" y2="182.8" class="fig-fine"/>
+<line x1="181.6" y1="94.8" x2="181.6" y2="235.6" class="fig-fine"/>
+<line x1="84.8" y1="191.6" x2="225.6" y2="191.6" class="fig-fine"/>
+<line x1="190.4" y1="94.8" x2="190.4" y2="235.6" class="fig-fine"/>
+<line x1="84.8" y1="200.4" x2="225.6" y2="200.4" class="fig-fine"/>
+<line x1="199.2" y1="94.8" x2="199.2" y2="235.6" class="fig-fine"/>
+<line x1="84.8" y1="209.2" x2="225.6" y2="209.2" class="fig-fine"/>
+<line x1="208.0" y1="94.8" x2="208.0" y2="235.6" class="fig-fine"/>
+<line x1="84.8" y1="218.0" x2="225.6" y2="218.0" class="fig-fine"/>
+<line x1="216.8" y1="94.8" x2="216.8" y2="235.6" class="fig-fine"/>
+<line x1="84.8" y1="226.8" x2="225.6" y2="226.8" class="fig-fine"/>
+<rect x="84.8" y="94.8" width="140.8" height="140.8" rx="0" class="fig-ochre"/>
+<text x="155.2" y="110.8" class="fig-label" text-anchor="middle">viewport — 16 × 16 cells</text>
+<text x="155.2" y="125.8" class="fig-tick" text-anchor="middle">matrix $CC29 · bitmap $E148 · eight bytes a cell</text>
+<text x="252.0" y="283.6" class="fig-label" text-anchor="middle">hires message and status band — rows 19–24</text>
+<text x="70.0" y="90.0" class="fig-tick" text-anchor="end">raster 51</text>
+<text x="70.0" y="304.0" class="fig-tick" text-anchor="end">250</text>
+<line x1="76.0" y1="253.2" x2="428.0" y2="253.2" class="fig-axis"/>
+<text x="428.0" y="247.2" class="fig-tick" text-anchor="end">raster 202: the rest of the screen is hires</text>
+<text x="252.0" y="322.0" class="fig-muted" text-anchor="middle">40 cells across × 25 down; each cell is 8 × 8 pixels</text>
+<rect x="470.0" y="86.0" width="330.0" height="50.0" rx="2" class="fig-cell"/>
+<text x="482.0" y="105.0" class="fig-label" text-anchor="start">render buffer</text>
+<text x="788.0" y="105.0" class="fig-tick" text-anchor="end">$0400–$0BFF</text>
+<text x="482.0" y="120.0" class="fig-tick" text-anchor="start">2,048 bytes · 128 rows of 16</text>
+<rect x="470.0" y="144.0" width="330.0" height="50.0" rx="2" class="fig-cell"/>
+<text x="482.0" y="163.0" class="fig-label" text-anchor="start">bitmap</text>
+<text x="788.0" y="163.0" class="fig-tick" text-anchor="end">$E000–$FFFF</text>
+<text x="482.0" y="178.0" class="fig-tick" text-anchor="start">8,192 bytes · eight bytes a cell</text>
+<rect x="470.0" y="202.0" width="330.0" height="50.0" rx="2" class="fig-cell"/>
+<text x="482.0" y="221.0" class="fig-label" text-anchor="start">matrix</text>
+<text x="788.0" y="221.0" class="fig-tick" text-anchor="end">$CC00–$CFE7</text>
+<text x="482.0" y="236.0" class="fig-tick" text-anchor="start">1,000 bytes · two colours a cell</text>
+<rect x="470.0" y="260.0" width="330.0" height="50.0" rx="2" class="fig-cell"/>
+<text x="482.0" y="279.0" class="fig-label" text-anchor="start">colour RAM</text>
+<text x="788.0" y="279.0" class="fig-tick" text-anchor="end">$D800–$DBFF</text>
+<text x="482.0" y="294.0" class="fig-tick" text-anchor="start">1,000 bytes · pair 11's colour, even in bitmap mode</text>
+<text x="470.0" y="326.0" class="fig-muted" text-anchor="start">The VIC sees bank $C000–$FFFF ($DD00 = %00).</text>
+<text x="470.0" y="342.0" class="fig-muted" text-anchor="start">$D018 = $38 puts the matrix at $CC00 and the bitmap at $E000.</text>
+<text x="40.0" y="380.0" class="fig-title" text-anchor="start">One cell is eight consecutive bytes of bitmap</text>
+<text x="40.0" y="398.0" class="fig-muted" text-anchor="start">The buffer is stored by scanline; the bitmap is stored by cell. The blit joins them.</text>
+<rect x="52.0" y="426.0" width="44.0" height="30.0" rx="2" class="fig-cell-type"/>
+<text x="74.0" y="420.0" class="fig-tick" text-anchor="middle">byte 0</text>
+<text x="74.0" y="470.0" class="fig-tick" text-anchor="middle">0</text>
+<rect x="100.0" y="426.0" width="44.0" height="30.0" rx="2" class="fig-cell"/>
+<text x="122.0" y="420.0" class="fig-tick" text-anchor="middle">byte 1</text>
+<text x="122.0" y="470.0" class="fig-tick" text-anchor="middle">1</text>
+<rect x="148.0" y="426.0" width="44.0" height="30.0" rx="2" class="fig-cell-type"/>
+<text x="170.0" y="420.0" class="fig-tick" text-anchor="middle">byte 2</text>
+<text x="170.0" y="470.0" class="fig-tick" text-anchor="middle">2</text>
+<rect x="196.0" y="426.0" width="44.0" height="30.0" rx="2" class="fig-cell"/>
+<text x="218.0" y="420.0" class="fig-tick" text-anchor="middle">byte 3</text>
+<text x="218.0" y="470.0" class="fig-tick" text-anchor="middle">3</text>
+<rect x="244.0" y="426.0" width="44.0" height="30.0" rx="2" class="fig-cell-type"/>
+<text x="266.0" y="420.0" class="fig-tick" text-anchor="middle">byte 4</text>
+<text x="266.0" y="470.0" class="fig-tick" text-anchor="middle">4</text>
+<rect x="292.0" y="426.0" width="44.0" height="30.0" rx="2" class="fig-cell"/>
+<text x="314.0" y="420.0" class="fig-tick" text-anchor="middle">byte 5</text>
+<text x="314.0" y="470.0" class="fig-tick" text-anchor="middle">5</text>
+<rect x="340.0" y="426.0" width="44.0" height="30.0" rx="2" class="fig-cell-type"/>
+<text x="362.0" y="420.0" class="fig-tick" text-anchor="middle">byte 6</text>
+<text x="362.0" y="470.0" class="fig-tick" text-anchor="middle">6</text>
+<rect x="388.0" y="426.0" width="44.0" height="30.0" rx="2" class="fig-cell"/>
+<text x="410.0" y="420.0" class="fig-tick" text-anchor="middle">byte 7</text>
+<text x="410.0" y="470.0" class="fig-tick" text-anchor="middle">7</text>
+<text x="438.0" y="445.0" class="fig-label" text-anchor="start">consecutive in the bitmap</text>
+<text x="52.0" y="492.0" class="fig-muted" text-anchor="start">The eight bytes are scanlines 0–7 of one cell; each byte is four fat pixels — four two-bit pairs.</text>
+<rect x="560.0" y="424.0" width="14.0" height="26.0" rx="1" class="fig-cell"/>
+<rect x="577.0" y="424.0" width="14.0" height="26.0" rx="1" class="fig-cell"/>
+<rect x="594.0" y="424.0" width="14.0" height="26.0" rx="1" class="fig-cell"/>
+<rect x="611.0" y="424.0" width="14.0" height="26.0" rx="1" class="fig-cell"/>
+<rect x="628.0" y="424.0" width="14.0" height="26.0" rx="1" class="fig-cell"/>
+<rect x="645.0" y="424.0" width="14.0" height="26.0" rx="1" class="fig-cell"/>
+<rect x="662.0" y="424.0" width="14.0" height="26.0" rx="1" class="fig-cell"/>
+<rect x="679.0" y="424.0" width="14.0" height="26.0" rx="1" class="fig-cell"/>
+<rect x="696.0" y="424.0" width="14.0" height="26.0" rx="1" class="fig-cell"/>
+<rect x="713.0" y="424.0" width="14.0" height="26.0" rx="1" class="fig-cell"/>
+<rect x="730.0" y="424.0" width="14.0" height="26.0" rx="1" class="fig-cell"/>
+<rect x="747.0" y="424.0" width="14.0" height="26.0" rx="1" class="fig-cell"/>
+<rect x="764.0" y="424.0" width="14.0" height="26.0" rx="1" class="fig-cell"/>
+<rect x="781.0" y="424.0" width="14.0" height="26.0" rx="1" class="fig-cell"/>
+<rect x="798.0" y="424.0" width="14.0" height="26.0" rx="1" class="fig-cell"/>
+<rect x="815.0" y="424.0" width="14.0" height="26.0" rx="1" class="fig-cell"/>
+<text x="696.0" y="416.0" class="fig-tick" text-anchor="middle">16 cells = one viewport cell row</text>
+<text x="560.0" y="466.0" class="fig-tick" text-anchor="start">$E148</text>
+<text x="829.0" y="466.0" class="fig-tick" text-anchor="end">$E1C0</text>
+<text x="560.0" y="484.0" class="fig-muted" text-anchor="start">next cell row: +320 bytes ($E288)</text>
+<text x="560.0" y="500.0" class="fig-muted" text-anchor="start">128 buffer bytes become 16 cells</text>
+</svg>

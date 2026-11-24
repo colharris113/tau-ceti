@@ -44,6 +44,7 @@
 ## Called by
 
 - `JSR` at `$49ED`
+- `JSR` at `$52FD`
 
 ---
 

@@ -145,13 +145,22 @@ def build_called_by(dis: Disassembler, routines: list[dict],
                     candidates: set[int]) -> dict[int, list[tuple[int, str, str]]]:
     """entry address -> [(caller instruction address, mnemonic, caller routine name)]."""
     # Decode every listing line start and every address we decoded ourselves,
-    # and keep the control transfers that land on a routine entry.
-    by_addr = {r["entry"]: r for r in routines}
+    # and keep the control transfers that land anywhere inside a routine (its
+    # first instruction or an additional entry point).
+    entry_of: dict[int, int] = {}
     index: dict[int, list[tuple[int, str, str]]] = {}
     inside: list[tuple[int, int, str]] = []
     for r in routines:
         for ins in r["insns"]:
+            entry_of.setdefault(ins["addr"], r["entry"])
             inside.append((ins["addr"], ins["addr"] + ins["len"], r["spec"]["name"]))
+        for extra in r["extras"]:
+            for ins in extra["insns"]:
+                entry_of.setdefault(ins["addr"], r["entry"])
+            if extra["insns"]:
+                last = extra["insns"][-1]
+                inside.append((extra["insns"][0]["addr"],
+                               last["addr"] + last["len"], r["spec"]["name"]))
     inside.sort()
 
     def owner(addr: int) -> str:
@@ -165,8 +174,9 @@ def build_called_by(dis: Disassembler, routines: list[dict],
         if mnemonic not in ("JSR", "JMP"):
             continue
         target = dis.target(addr, mnemonic, operand)
-        if target in by_addr:
-            index.setdefault(target, []).append((addr, mnemonic, owner(addr)))
+        target_entry = entry_of.get(target)
+        if target_entry is not None:
+            index.setdefault(target_entry, []).append((addr, mnemonic, owner(addr)))
     for entries in index.values():
         entries.sort()
     return index
@@ -225,7 +235,7 @@ def main() -> int:
             target = ins["target"]
             if target is None or target == ins["addr"]:
                 continue
-            if ins["op"] == "JSR" and target in sym_by_addr:
+            if ins["op"] == "JSR" and target in sym_by_addr and target != r["entry"]:
                 calls.setdefault(target, (sym_by_addr[target]["name"], ins["addr"]))
             elif ins["op"] == "JMP" and target in sym_by_addr and target != r["entry"]:
                 jumps.setdefault(target, (sym_by_addr[target]["name"], ins["addr"]))
@@ -267,7 +277,10 @@ def main() -> int:
                 body.append(f'- [`{name}`]({sym_by_addr[target]["slug"]}.md) at `${at:04X}`')
 
         body += ["", "## Called by", ""]
-        entries = called_by.get(r["entry"], [])
+        # Calls that land anywhere in this routine are gathered under its entry;
+        # ignore calls it makes to its own body.
+        entries = [e for e in called_by.get(r["entry"], [])
+                   if e[2] != spec["name"]]
         if entries:
             for addr, mnemonic, owner in entries:
                 owner_spec = next((x["spec"] for x in routines if x["spec"]["name"] == owner), None)
@@ -310,8 +323,9 @@ def main() -> int:
         "",
         "The `Calls` and `Called by` sections are built by decoding every line "
         "start in the listings and keeping the `JSR`/`JMP` instructions that land "
-        "on a known entry. Some call sites live in code the sweep never decoded, "
-        "so the lists are a good map, not proof of a complete one.",
+        "inside a known routine, at its entry or at an additional entry point. "
+        "Some call sites live in code the sweep never decoded, so the lists are "
+        "a good map, not proof of a complete one.",
         "",
         "## Routines",
         "",

@@ -78,7 +78,7 @@ The names below are the conventions the code actually uses. Several are state-de
 | 1, 2 | Cell x and y | Subtracted from ship cell at `$2A86`, `$2AB4` |
 | 3 | Status bits, rebuilt each frame | See below |
 | 4, 5 | Sub-cell x and y (1/256 cell) | Subtracted at `$2A7E`, `$2AAC` |
-| 6 | Altitude for a unit; height for a structure; falling body when dying | `$2C66`, `$4420`, `$82EF` |
+| 6 | Base altitude — the bottom a structure's profile is drawn from, and the height a unit flies at; falling body when dying | `$2C66`, `$4420`, `$82EF` |
 | 7 | Hit points | `$4951` subtracts damage here |
 | 8 | Aperture for a dockable; flash for a dying record | `$4465`, `$4430` |
 | 9 | Fire counter | `$82C0` |

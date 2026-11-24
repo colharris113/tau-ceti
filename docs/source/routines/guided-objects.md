@@ -190,7 +190,25 @@
 
 ## Called by
 
-*No call site found in the swept listings; this may be reached through a jump table or from undisassembled code.*
+- `JSR` at `$3C58`
+- `JSR` at `$3C6A`
+- `JSR` at `$529B`
+- `JMP` at `$5B97`
+- `JSR` at `$5E72`
+- `JSR` at `$5EB6`
+- `JSR` at `$60EB`
+- `JSR` at `$6109`
+- `JSR` at `$6202`
+- `JSR` at `$62BA`
+- `JSR` at `$6308`
+- `JMP` at `$6ED5`
+- `JMP` at `$6EEB`
+- `JMP` at `$6EFA`
+- `JSR` at `$79F7`
+- `JSR` at `$7B24`
+- `JSR` at `$7D1D`
+- `JSR` at `$C0A2`
+- `JSR` at `$C0C6`
 
 ---
 

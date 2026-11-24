@@ -163,6 +163,13 @@
   stroke-width: 1;
 }
 
+/* Grid finer than a hairline: the screen's 40 x 25 cell lattice. */
+.tc-fig .fig-fine {
+  stroke: var(--md-default-fg-color--lightest);
+  stroke-width: 0.4;
+  stroke-opacity: 0.7;
+}
+
 /* Series colours: the ochre/blue pair, validated for both themes. */
 .tc-fig .fig-ochre {
   stroke: #8a5a12;
@@ -207,6 +214,30 @@
   fill: currentColor;
 }
 
+/* City maps: each panel is one city sheet at $9400. */
+.tc-fig .fig-frame {
+  fill: none;
+  stroke: var(--md-default-fg-color--lightest);
+  stroke-width: 1;
+}
+
+.tc-fig .fig-city {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  fill: var(--md-default-fg-color--light);
+}
+
+.tc-fig .fig-mark-plain {
+  fill: var(--md-default-fg-color--light);
+}
+
+.tc-fig .fig-mark-dockable {
+  fill: none;
+  stroke: #8a5a12;
+  stroke-width: 1.6;
+}
+
 [data-md-color-scheme="slate"] .tc-fig .fig-ochre {
   stroke: #b8832f;
 }
@@ -231,6 +262,10 @@
 [data-md-color-scheme="slate"] .tc-fig .fig-cell-type {
   fill: #b8832f;
   fill-opacity: 0.55;
+}
+
+[data-md-color-scheme="slate"] .tc-fig .fig-mark-dockable {
+  stroke: #b8832f;
 }
 
 /* ------------------------------------------------------------------ */

@@ -2,7 +2,7 @@
 
 **Address** `$2B60-$2CBF` &nbsp;·&nbsp; **Group** Docking
 
-<p class="lede">Works out the distance to the record in <code class="addr">$61</code>/<code class="addr">$62</code>, scales it through the tables at <code class="addr">$C800</code>/<code class="addr">$C900</code> and stores the product in bytes 12/13. Only a product under 128 is close enough to dock; anything up to 4,095 is added to the target list, and anything larger is dropped. For a close record, type 16 docks as a jump pad before anything else. A dockable building must pass |altitude - 28| + 55 &lt; aperture, then a bearing test that allows a window of |bearing offset| + 56 against the same aperture. Passing both sets <code class="addr">$0396</code> = <code class="addr">$80</code> and copies the building's type and cell to <code class="addr">$03A4</code>/<code class="addr">$0398</code>/<code class="addr">$0399</code>.</p>
+<p class="lede">Works out the distance to the record in <code class="addr">$61</code>/<code class="addr">$62</code>, scales it through the tables at <code class="addr">$C800</code>/<code class="addr">$C900</code> and stores the product in bytes 12/13. Only a product under 128 is close enough to dock; anything up to 4,095 is added to the target list, and anything larger is dropped. For a close record, type 16 docks as a jump pad before anything else. A dockable building must pass |altitude - 28| + 55 &lt; aperture, then a bearing test of 2 * (|bearing offset| + 28) against the same aperture - at the full 72-point opening that is an offset of at most 7 steps of the 512-step circle, about 5 degrees. Passing both sets <code class="addr">$0396</code> = <code class="addr">$80</code> and copies the building's type and cell to <code class="addr">$03A4</code>/<code class="addr">$0398</code>/<code class="addr">$0399</code>.</p>
 
 ## Listing
 
@@ -286,6 +286,10 @@
 ## Called by
 
 - `JMP` at `$2ADB`
+- `JSR` at `$47F1`
+- `JSR` at `$65D9`
+- `JSR` at `$6C32`
+- `JSR` at `$6C4F`
 
 ---
 

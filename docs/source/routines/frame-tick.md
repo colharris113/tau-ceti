@@ -135,6 +135,8 @@
 
 - `JSR` at `$4A08`
 - `JSR` at `$4A44`
+- `JSR` at `$4C0E`
+- `JSR` at `$4C1A`
 
 ---
 

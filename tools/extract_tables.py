@@ -18,7 +18,7 @@ from pathlib import Path
 TABLES = [
     ("flags", 0xC39A, 37, "Per-type flags at $C39A"),
     ("hit_points", 0xC3BF, 37, "Record byte 7 at spawn ($C3BF)"),
-    ("alt_tolerance", 0xC3E4, 37, "Missile aim altitude allowance ($C3E4)"),
+    ("alt_tolerance", 0xC3E4, 37, "Profile length in rows ($C3E4)"),
     ("behaviour", 0xC409, 37, "Per-type behaviour byte at $C409"),
     ("class_range", 0xC42E, 16, "AI class range in cells ($C42E)"),
     ("class_speed", 0xC43E, 16, "AI class speed, 1/256 cell a frame ($C43E)"),

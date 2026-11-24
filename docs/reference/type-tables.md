@@ -6,9 +6,9 @@ These tables were extracted mechanically from the game image by `tools/extract_t
 
 ## The per-type tables
 
-`$C39A` flags, `$C3BF` starting hit points (record byte 7), `$C3E4` the altitude allowance used when aiming a missile, and `$C409` the behaviour byte. A type index is the low six bits of record byte 0.
+`$C39A` flags, `$C3BF` starting hit points (record byte 7), `$C3E4` the profile length in rows — the type's drawn height — and `$C409` the behaviour byte. A type index is the low six bits of record byte 0.
 
-| Type | Flags | Bits | Hit points | Altitude allowance | Behaviour | Notes |
+| Type | Flags | Bits | Hit points | Profile length (rows) | Behaviour | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
 | $00 (0) | $00 | none | 20 | 254 | $FF — unused ($FF) |  |
 | $01 (1) | $00 | none | 16 | 252 | $FF — unused ($FF) |  |
@@ -48,7 +48,7 @@ These tables were extracted mechanically from the game image by `tools/extract_t
 | $23 (35) | $00 | none | 20 | 200 | $FF — unused ($FF) |  |
 | $24 (36) | $20 | mobile | 16 | 159 | $FF — unused ($FF) | mobile unit |
 
-A hit-point or altitude allowance of 255 is usually a marker that the type is not a target in the ordinary sense; the dockable structures all sit at $FF.
+A hit-point value of 255 is usually a marker that the type is not a target in the ordinary sense; the dockable structures all sit at $FF. A profile length of 255 is simply the tallest profile a one-byte length can describe.
 
 ## Flag bits
 

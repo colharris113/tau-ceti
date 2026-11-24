@@ -100,7 +100,7 @@
 <span class="rt-addr">585A</span>  <span class="rt-bytes">20 AC 40</span>  <span class="rt-op">JSR</span>  <span class="rt-arg">$40AC</span>
 <span class="rt-addr">585D</span>  <span class="rt-bytes">20 BF 3F</span>  <span class="rt-op">JSR</span>  <span class="rt-arg">$3FBF</span>
 <span class="rt-addr">5860</span>  <span class="rt-bytes">20 19 73</span>  <span class="rt-op">JSR</span>  <span class="rt-arg">$7319</span>
-<span class="rt-addr">5863</span>  <span class="rt-bytes">20 21 29</span>  <span class="rt-op">JSR</span>  <span class="rt-arg">$2921</span>
+<span class="rt-addr">5863</span>  <span class="rt-bytes">20 21 29</span>  <span class="rt-op">JSR</span>  <span class="rt-arg">$2921</span>   <span class="rt-cmt">; City restore: stripping the state bits</span>
 <span class="rt-addr">5866</span>  <span class="rt-bytes">A9 08   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$08</span>
 <span class="rt-addr">5868</span>  <span class="rt-bytes">8D 9D 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$039D</span>
 <span class="rt-addr">586B</span>  <span class="rt-bytes">60      </span>  <span class="rt-op">RTS</span>  <span class="rt-arg"></span>
@@ -108,12 +108,14 @@
 
 ## Calls
 
-*None recorded in this body.*
+- [`City restore: stripping the state bits`](city-restore.md) from `$5863`
 
 ## Called by
 
 - `JSR` at `$2009`
 - `JSR` at `$64F0`
+- `JSR` at `$654D`
+- `JSR` at `$83A6`
 
 ---
 

@@ -47,6 +47,10 @@
 
 - `JSR` at `$3D89` in [`Laser bolt: timer and hit`](laser-bolt.md)
 - `JSR` at `$4615` in [`Guided-object handling`](guided-objects.md)
+- `JSR` at `$52A8`
+- `JSR` at `$61E3`
+- `JSR` at `$7D3D`
+- `JSR` at `$C0F9`
 
 ---
 

@@ -168,7 +168,7 @@
     },
     "alt_tolerance": {
       "address": "$C3E4",
-      "note": "Missile aim altitude allowance ($C3E4)",
+      "note": "Profile length in rows ($C3E4)",
       "bytes": [
         254,
         252,

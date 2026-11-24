@@ -18,6 +18,11 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const PAGES = [
   ['index', 'index.html'],
   ['record-table', 'deep-dives/the-record-table/index.html'],
+  ['cities', 'deep-dives/the-32-cities/index.html'],
+  ['viewport', 'deep-dives/the-viewport-in-flight/index.html'],
+  ['city-loader', 'source/routines/city-loader/index.html'],
+  ['city-save', 'source/routines/city-save/index.html'],
+  ['city-restore', 'source/routines/city-restore/index.html'],
   ['docking', 'deep-dives/docking-and-the-aperture/index.html'],
   ['fuel', 'deep-dives/fuel-and-jumping/index.html'],
   ['method', 'about/method/index.html'],

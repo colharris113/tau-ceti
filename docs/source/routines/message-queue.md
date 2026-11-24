@@ -33,6 +33,8 @@
 - `JSR` at `$3BB3`
 - `JSR` at `$3BCD`
 - `JSR` at `$3BD7`
+- `JSR` at `$3C19`
+- `JSR` at `$3C2E`
 - `JSR` at `$4881` in [`Player missile launch`](player-missile.md)
 - `JSR` at `$48FF` in [`Player missile launch`](player-missile.md)
 - `JSR` at `$4C3A`

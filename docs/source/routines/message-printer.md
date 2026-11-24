@@ -63,8 +63,14 @@
 
 ## Called by
 
+- `JMP` at `$3CB2`
 - `JSR` at `$4180`
 - `JSR` at `$41D0`
+- `JSR` at `$534A`
+- `JMP` at `$5F4F`
+- `JMP` at `$6009`
+- `JMP` at `$79E3`
+- `JSR` at `$BED9`
 
 ---
 

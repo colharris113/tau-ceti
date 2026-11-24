@@ -98,10 +98,10 @@ def main() -> int:
         "## The per-type tables",
         "",
         "`$C39A` flags, `$C3BF` starting hit points (record byte 7), `$C3E4` the "
-        "altitude allowance used when aiming a missile, and `$C409` the behaviour "
-        "byte. A type index is the low six bits of record byte 0.",
+        "profile length in rows — the type's drawn height — and `$C409` the "
+        "behaviour byte. A type index is the low six bits of record byte 0.",
         "",
-        "| Type | Flags | Bits | Hit points | Altitude allowance | Behaviour | Notes |",
+        "| Type | Flags | Bits | Hit points | Profile length (rows) | Behaviour | Notes |",
         "| --- | --- | --- | --- | --- | --- | --- |",
     ]
     for i in range(37):
@@ -114,9 +114,10 @@ def main() -> int:
 
     out += [
         "",
-        "A hit-point or altitude allowance of 255 is usually a marker that the "
-        "type is not a target in the ordinary sense; the dockable structures all "
-        "sit at $FF.",
+        "A hit-point value of 255 is usually a marker that the type is not a "
+        "target in the ordinary sense; the dockable structures all sit at $FF. "
+        "A profile length of 255 is simply the tallest profile a one-byte length "
+        "can describe.",
         "",
         "## Flag bits",
         "",

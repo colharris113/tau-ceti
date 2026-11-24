@@ -12,6 +12,14 @@ It is a guide to the machine, not a walkthrough. The aim is to answer the questi
 
     Forty-eight records of sixteen bytes, walked twice a frame. Everything else in the game is a loop over this array.
 
+-   **[The 32 cities](deep-dives/the-32-cities.md)**
+
+    Every building in the game is three bytes in a 96-byte sheet. The loader, the special buildings, the names, and all thirty-two layouts drawn from the data.
+
+-   **[The viewport in flight](deep-dives/the-viewport-in-flight.md)**
+
+    A 2 KB row buffer, a lathe of one-byte profiles, a painter that works farthest first, and a transpose into the cell-major bitmap. How 128 × 128 pixels are made without a polygon.
+
 -   **[Docking and the aperture](deep-dives/docking-and-the-aperture.md)**
 
     Two inequalities sharing one animated byte: the altitude window, the bearing window, and the door that opens only while you are close.
@@ -29,6 +37,8 @@ The guide is built around the parts of the code that reward close reading:
 | Area | The questions it answers |
 | --- | --- |
 | Records | How objects exist, move, die and share the table with missiles |
+| Cities | How 32 hand-placed layouts fit in 3 KB, and what the special buildings stake out |
+| Rendering | How a 2 KB row buffer becomes 128 × 128 bitmap pixels, and why there are no polygons |
 | Docking | What the aperture really tests, and why the door shuts when you shoot |
 | Fuel | What the tank gates, and what it does not |
 | Jumping | How a pad selects a destination and an arrival side |
@@ -52,7 +62,7 @@ Where a meaning is inferred rather than proved, the text says so. The [method](a
 
 ## Status
 
-The three deep dives on this site are complete. The source guide covers the frame tick, docking, the record dispatch, combat, AI and messages. Still to come: the city generator, the reactor and rods, the scanner and target list, and a full address map.
+Five deep dives are complete: the record table, the cities, the flight renderer, docking and jumping. The source guide covers the frame tick, city loading, docking, the record dispatch, combat, AI and messages. Still to come: the reactor and rods, the scanner and target list, the demo mode and easter eggs, and a full address map.
 
 ---
 

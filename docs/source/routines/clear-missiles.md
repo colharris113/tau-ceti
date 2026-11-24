@@ -52,7 +52,9 @@
 ## Called by
 
 - `JSR` at `$3BDA`
+- `JSR` at `$527B`
 - `JSR` at `$829A` in [`Static defence AI`](static-defence-ai.md)
+- `JSR` at `$C1F2`
 
 ---
 

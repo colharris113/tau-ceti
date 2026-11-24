@@ -57,6 +57,22 @@
 ## Called by
 
 - `JSR` at `$2057`
+- `JMP` at `$442D` in [`Dying animation`](dying.md)
+- `JMP` at `$445A` in [`Dying animation`](dying.md)
+- `JMP` at `$4486` in [`Aperture animation`](aperture.md)
+- `JMP` at `$449E` in [`Aperture animation`](aperture.md)
+- `JMP` at `$44C1` in [`Sensor records`](sensors.md)
+- `JMP` at `$452D` in [`Guided-object handling`](guided-objects.md)
+- `JMP` at `$4542` in [`Guided-object handling`](guided-objects.md)
+- `JMP` at `$45E6` in [`Guided-object handling`](guided-objects.md)
+- `JMP` at `$4612` in [`Guided-object handling`](guided-objects.md)
+- `JMP` at `$461D` in [`Guided-object handling`](guided-objects.md)
+- `JMP` at `$4637` in [`Robot dispatch`](ai-dispatch.md)
+- `JMP` at `$464B` in [`Robot dispatch`](ai-dispatch.md)
+- `JSR` at `$7ADB`
+- `JSR` at `$C13F`
+- `JSR` at `$C1D9`
+- `JSR` at `$C1F8`
 
 ---
 

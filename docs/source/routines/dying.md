@@ -49,7 +49,10 @@
 
 ## Called by
 
-*No call site found in the swept listings; this may be reached through a jump table or from undisassembled code.*
+- `JMP` at `$5B6F`
+- `JMP` at `$5EF6`
+- `JMP` at `$6979`
+- `JMP` at `$7B8C`
 
 ---
 

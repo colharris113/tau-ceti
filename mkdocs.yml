@@ -77,6 +77,8 @@ nav:
   - Home: index.md
   - Deep dives:
       - The record table: deep-dives/the-record-table.md
+      - The 32 cities: deep-dives/the-32-cities.md
+      - The viewport in flight: deep-dives/the-viewport-in-flight.md
       - Docking and the aperture: deep-dives/docking-and-the-aperture.md
       - Fuel, jumping and LAUNCH: deep-dives/fuel-and-jumping.md
   - Source guide:

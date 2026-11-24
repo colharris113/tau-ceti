@@ -30,7 +30,7 @@
       "slug": "docking-test",
       "name": "Object distance and the docking test",
       "group": "Docking",
-      "summary": "Works out the distance to the record in $61/$62, scales it through the tables at $C800/$C900 and stores the product in bytes 12/13. Only a product under 128 is close enough to dock; anything up to 4,095 is added to the target list, and anything larger is dropped. For a close record, type 16 docks as a jump pad before anything else. A dockable building must pass |altitude - 28| + 55 < aperture, then a bearing test that allows a window of |bearing offset| + 56 against the same aperture. Passing both sets $0396 = $80 and copies the building's type and cell to $03A4/$0398/$0399.",
+      "summary": "Works out the distance to the record in $61/$62, scales it through the tables at $C800/$C900 and stores the product in bytes 12/13. Only a product under 128 is close enough to dock; anything up to 4,095 is added to the target list, and anything larger is dropped. For a close record, type 16 docks as a jump pad before anything else. A dockable building must pass |altitude - 28| + 55 < aperture, then a bearing test of 2 * (|bearing offset| + 28) against the same aperture - at the full 72-point opening that is an offset of at most 7 steps of the 512-step circle, about 5 degrees. Passing both sets $0396 = $80 and copies the building's type and cell to $03A4/$0398/$0399.",
       "more": [
         {
           "addr": "2CC0",
@@ -42,6 +42,30 @@
         }
       ],
       "end": "2CC0"
+    },
+    {
+      "addr": "27EC",
+      "slug": "city-loader",
+      "name": "City loader: the sheet at $9400 into the record table",
+      "group": "Records",
+      "summary": "Rebuilds the 48-record table at $0E00 for the city index in $0354. The pointer builder at $27EC multiplies the index by three and then shifts right three times, which is exactly a stride of 96 bytes: $9400 + city × $60. The loop copies up to 32 three-byte records (type, x, y) from that sheet, stopping at a type byte of $C0, zeroes bytes 3-15 of each record, and copies hit points from $C3BF[type & $3F] into byte 7. It then scans the city's four bytes at $8900, which hold jump destinations (a byte of $80 or more is empty), and appends a pair of pad records for each one from the four shared templates at $C4BE + n × 8. Whatever space is left in the table is filled with type $C0, and the provocation latch at $03BF is cleared.",
+      "end": "28E6"
+    },
+    {
+      "addr": "28E6",
+      "slug": "city-save",
+      "name": "City save: writing damage back to the sheet",
+      "group": "Records",
+      "summary": "Called before a jump ($51C5) and from $6A77. Walks the city sheet at $9400 and the loaded record table at $0E00 in step, copying one byte per record — byte 0 — from the record back into the sheet. Types whose flags at $C39A hold both the mobile and armed bits ($60: types 3, 6, 9, 20 and 21) are skipped, so the armed mobile units always return. A destroyed building has already been marked type | $80 by the dying animation, so it is written back as free and stays destroyed on the next visit.",
+      "end": "2921"
+    },
+    {
+      "addr": "2921",
+      "slug": "city-restore",
+      "name": "City restore: stripping the state bits",
+      "group": "Records",
+      "summary": "Called by the new-game reset at $5863. Walks all twelve pages of the city sheet area from $9400 and masks every byte that is not $C0 with $3F, clearing the $80 and $40 state bits from every record. Since a destroyed record keeps its type under the free bit, this restores every city exactly: $93 becomes $13 again. The $C0 fillers are skipped because masking them would create type-0 buildings.",
+      "end": "2942"
     },
     {
       "addr": "43CF",

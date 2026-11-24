@@ -180,6 +180,7 @@
 ## Called by
 
 - `JSR` at `$4648` in [`Robot dispatch`](ai-dispatch.md)
+- `JSR` at `$8377`
 
 ---
 
