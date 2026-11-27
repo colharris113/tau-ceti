@@ -1,83 +1,83 @@
 # Laser bolt: timer and hit
 
-**Address** `$3D41-$3DD4` &nbsp;·&nbsp; **Group** Combat
+**Address** `$3D41-$3DD4` · **Group** Combat
 
-<p class="lede">Counts the bolt's flight in the low seven bits of <code class="addr">$036E</code>. At 22 frames it clears the bolt colour, resets <code class="addr">$036E</code> and resolves the shot against <code class="addr">$038C</code>/<code class="addr">$038D</code>: exactly one target, only if still alive, takes 4 points through the damage routine at <code class="addr">$4951</code> and gets byte 3 bit 5 set.</p>
+Counts the bolt's flight in the low seven bits of `$036E`. At 22 frames it clears the bolt colour, resets `$036E` and resolves the shot against `$038C`/`$038D`: exactly one target, only if still alive, takes 4 points through the damage routine at `$4951` and gets byte 3 bit 5 set.
 
 ## Listing
 
-*Re-disassembled from the byte map: every instruction shown is one the game really executes from this entry, and gaps are branch targets that follow an early return.*
+*Decoded from the byte map within the curated code ranges for this routine.*
 
-<pre class="rt-listing">
-<span class="rt-addr">3D41</span>  <span class="rt-bytes">AD 6E 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$036E</span>   <span class="rt-cmt">; Bolt timer</span>
-<span class="rt-addr">3D44</span>  <span class="rt-bytes">D0 01   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$3D47</span>
-<span class="rt-addr">3D46</span>  <span class="rt-bytes">60      </span>  <span class="rt-op">RTS</span>  <span class="rt-arg"></span>
-<span class="rt-addr">3D47</span>  <span class="rt-bytes">EE 6E 03</span>  <span class="rt-op">INC</span>  <span class="rt-arg">$036E</span>   <span class="rt-cmt">; Bolt timer</span>
-<span class="rt-addr">3D4A</span>  <span class="rt-bytes">29 7F   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$7F</span>
-<span class="rt-addr">3D4C</span>  <span class="rt-bytes">C9 16   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$16</span>
-<span class="rt-addr">3D4E</span>  <span class="rt-bytes">90 46   </span>  <span class="rt-op">BCC</span>  <span class="rt-arg">$3D96</span>
-<span class="rt-addr">3D50</span>  <span class="rt-bytes">AD 51 FF</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$FF51</span>
-<span class="rt-addr">3D53</span>  <span class="rt-bytes">29 FC   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$FC</span>
-<span class="rt-addr">3D55</span>  <span class="rt-bytes">8D 51 FF</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$FF51</span>
-<span class="rt-addr">3D58</span>  <span class="rt-bytes">A9 00   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">3D5A</span>  <span class="rt-bytes">8D 6E 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$036E</span>   <span class="rt-cmt">; Bolt timer</span>
-<span class="rt-addr">3D5D</span>  <span class="rt-bytes">AD 80 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$0380</span>
-<span class="rt-addr">3D60</span>  <span class="rt-bytes">D0 33   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$3D95</span>
-<span class="rt-addr">3D62</span>  <span class="rt-bytes">AE 8C 03</span>  <span class="rt-op">LDX</span>  <span class="rt-arg">$038C</span>   <span class="rt-cmt">; Laser target</span>
-<span class="rt-addr">3D65</span>  <span class="rt-bytes">AC 8D 03</span>  <span class="rt-op">LDY</span>  <span class="rt-arg">$038D</span>
-<span class="rt-addr">3D68</span>  <span class="rt-bytes">F0 2B   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$3D95</span>
-<span class="rt-addr">3D6A</span>  <span class="rt-bytes">A5 68   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$68</span>
-<span class="rt-addr">3D6C</span>  <span class="rt-bytes">48      </span>  <span class="rt-op">PHA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">3D6D</span>  <span class="rt-bytes">A5 63   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$63</span>
-<span class="rt-addr">3D6F</span>  <span class="rt-bytes">48      </span>  <span class="rt-op">PHA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">3D70</span>  <span class="rt-bytes">A5 64   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$64</span>
-<span class="rt-addr">3D72</span>  <span class="rt-bytes">48      </span>  <span class="rt-op">PHA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">3D73</span>  <span class="rt-bytes">86 63   </span>  <span class="rt-op">STX</span>  <span class="rt-arg">$63</span>
-<span class="rt-addr">3D75</span>  <span class="rt-bytes">84 64   </span>  <span class="rt-op">STY</span>  <span class="rt-arg">$64</span>
-<span class="rt-addr">3D77</span>  <span class="rt-bytes">A0 00   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">3D79</span>  <span class="rt-bytes">B1 63   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($63),Y</span>
-<span class="rt-addr">3D7B</span>  <span class="rt-bytes">29 C0   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$C0</span>
-<span class="rt-addr">3D7D</span>  <span class="rt-bytes">D0 0D   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$3D8C</span>
-<span class="rt-addr">3D7F</span>  <span class="rt-bytes">A0 03   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$03</span>
-<span class="rt-addr">3D81</span>  <span class="rt-bytes">B1 63   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($63),Y</span>
-<span class="rt-addr">3D83</span>  <span class="rt-bytes">09 20   </span>  <span class="rt-op">ORA</span>  <span class="rt-arg">#$20</span>
-<span class="rt-addr">3D85</span>  <span class="rt-bytes">91 63   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">($63),Y</span>
-<span class="rt-addr">3D87</span>  <span class="rt-bytes">A9 04   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$04</span>
-<span class="rt-addr">3D89</span>  <span class="rt-bytes">20 51 49</span>  <span class="rt-op">JSR</span>  <span class="rt-arg">$4951</span>   <span class="rt-cmt">; Damage</span>
-<span class="rt-addr">3D8C</span>  <span class="rt-bytes">68      </span>  <span class="rt-op">PLA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">3D8D</span>  <span class="rt-bytes">85 64   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">$64</span>
-<span class="rt-addr">3D8F</span>  <span class="rt-bytes">68      </span>  <span class="rt-op">PLA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">3D90</span>  <span class="rt-bytes">85 63   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">$63</span>
-<span class="rt-addr">3D92</span>  <span class="rt-bytes">68      </span>  <span class="rt-op">PLA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">3D93</span>  <span class="rt-bytes">85 68   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">$68</span>
-<span class="rt-addr">3D95</span>  <span class="rt-bytes">60      </span>  <span class="rt-op">RTS</span>  <span class="rt-arg"></span>
-<span class="rt-addr">3D96</span>  <span class="rt-bytes">AA      </span>  <span class="rt-op">TAX</span>  <span class="rt-arg"></span>
-<span class="rt-addr">3D97</span>  <span class="rt-bytes">BD D5 3D</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$3DD5,X</span>
-<span class="rt-addr">3D9A</span>  <span class="rt-bytes">18      </span>  <span class="rt-op">CLC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">3D9B</span>  <span class="rt-bytes">69 3E   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">#$3E</span>
-<span class="rt-addr">3D9D</span>  <span class="rt-bytes">8D 5E FF</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$FF5E</span>
-<span class="rt-addr">3DA0</span>  <span class="rt-bytes">69 09   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">#$09</span>
-<span class="rt-addr">3DA2</span>  <span class="rt-bytes">8D 5F FF</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$FF5F</span>
-<span class="rt-addr">3DA5</span>  <span class="rt-bytes">BD 01 3E</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$3E01,X</span>
-<span class="rt-addr">3DA8</span>  <span class="rt-bytes">8D 41 FF</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$FF41</span>
-<span class="rt-addr">3DAB</span>  <span class="rt-bytes">8D 43 FF</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$FF43</span>
-<span class="rt-addr">3DAE</span>  <span class="rt-bytes">BD EB 3D</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$3DEB,X</span>
-<span class="rt-addr">3DB1</span>  <span class="rt-bytes">8D 40 FF</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$FF40</span>
-<span class="rt-addr">3DB4</span>  <span class="rt-bytes">A9 A8   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$A8</span>
-<span class="rt-addr">3DB6</span>  <span class="rt-bytes">38      </span>  <span class="rt-op">SEC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">3DB7</span>  <span class="rt-bytes">FD EB 3D</span>  <span class="rt-op">SBC</span>  <span class="rt-arg">$3DEB,X</span>
-<span class="rt-addr">3DBA</span>  <span class="rt-bytes">8D 42 FF</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$FF42</span>
-<span class="rt-addr">3DBD</span>  <span class="rt-bytes">A9 01   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$01</span>
-<span class="rt-addr">3DBF</span>  <span class="rt-bytes">8D 56 FF</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$FF56</span>
-<span class="rt-addr">3DC2</span>  <span class="rt-bytes">8D 57 FF</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$FF57</span>
-<span class="rt-addr">3DC5</span>  <span class="rt-bytes">AD 51 FF</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$FF51</span>
-<span class="rt-addr">3DC8</span>  <span class="rt-bytes">29 FC   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$FC</span>
-<span class="rt-addr">3DCA</span>  <span class="rt-bytes">AE 80 03</span>  <span class="rt-op">LDX</span>  <span class="rt-arg">$0380</span>
-<span class="rt-addr">3DCD</span>  <span class="rt-bytes">D0 02   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$3DD1</span>
-<span class="rt-addr">3DCF</span>  <span class="rt-bytes">09 03   </span>  <span class="rt-op">ORA</span>  <span class="rt-arg">#$03</span>
-<span class="rt-addr">3DD1</span>  <span class="rt-bytes">8D 51 FF</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$FF51</span>
-<span class="rt-addr">3DD4</span>  <span class="rt-bytes">60      </span>  <span class="rt-op">RTS</span>  <span class="rt-arg"></span>
-</pre>
+```text
+3D41: AD 6E 03 LDA $036E   ; Bolt timer
+3D44: D0 01    BNE $3D47
+3D46: 60       RTS
+3D47: EE 6E 03 INC $036E   ; Bolt timer
+3D4A: 29 7F    AND #$7F
+3D4C: C9 16    CMP #$16
+3D4E: 90 46    BCC $3D96
+3D50: AD 51 FF LDA $FF51
+3D53: 29 FC    AND #$FC
+3D55: 8D 51 FF STA $FF51
+3D58: A9 00    LDA #$00
+3D5A: 8D 6E 03 STA $036E   ; Bolt timer
+3D5D: AD 80 03 LDA $0380
+3D60: D0 33    BNE $3D95
+3D62: AE 8C 03 LDX $038C   ; Laser target
+3D65: AC 8D 03 LDY $038D
+3D68: F0 2B    BEQ $3D95
+3D6A: A5 68    LDA $68
+3D6C: 48       PHA
+3D6D: A5 63    LDA $63
+3D6F: 48       PHA
+3D70: A5 64    LDA $64
+3D72: 48       PHA
+3D73: 86 63    STX $63
+3D75: 84 64    STY $64
+3D77: A0 00    LDY #$00
+3D79: B1 63    LDA ($63),Y
+3D7B: 29 C0    AND #$C0
+3D7D: D0 0D    BNE $3D8C
+3D7F: A0 03    LDY #$03
+3D81: B1 63    LDA ($63),Y
+3D83: 09 20    ORA #$20
+3D85: 91 63    STA ($63),Y
+3D87: A9 04    LDA #$04
+3D89: 20 51 49 JSR $4951   ; Damage
+3D8C: 68       PLA
+3D8D: 85 64    STA $64
+3D8F: 68       PLA
+3D90: 85 63    STA $63
+3D92: 68       PLA
+3D93: 85 68    STA $68
+3D95: 60       RTS
+3D96: AA       TAX
+3D97: BD D5 3D LDA $3DD5,X
+3D9A: 18       CLC
+3D9B: 69 3E    ADC #$3E
+3D9D: 8D 5E FF STA $FF5E
+3DA0: 69 09    ADC #$09
+3DA2: 8D 5F FF STA $FF5F
+3DA5: BD 01 3E LDA $3E01,X
+3DA8: 8D 41 FF STA $FF41
+3DAB: 8D 43 FF STA $FF43
+3DAE: BD EB 3D LDA $3DEB,X
+3DB1: 8D 40 FF STA $FF40
+3DB4: A9 A8    LDA #$A8
+3DB6: 38       SEC
+3DB7: FD EB 3D SBC $3DEB,X
+3DBA: 8D 42 FF STA $FF42
+3DBD: A9 01    LDA #$01
+3DBF: 8D 56 FF STA $FF56
+3DC2: 8D 57 FF STA $FF57
+3DC5: AD 51 FF LDA $FF51
+3DC8: 29 FC    AND #$FC
+3DCA: AE 80 03 LDX $0380
+3DCD: D0 02    BNE $3DD1
+3DCF: 09 03    ORA #$03
+3DD1: 8D 51 FF STA $FF51
+3DD4: 60       RTS
+```
 
 ## Calls
 

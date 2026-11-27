@@ -1,38 +1,38 @@
 # Low-fuel watch and the stranded state
 
-**Address** `$586C-$58A2` &nbsp;·&nbsp; **Group** Flight
+**Address** `$586C-$58A2` · **Group** Flight
 
-<p class="lede">Called every frame. Queues LOW FUEL once when <code class="addr">$03A2</code> is set and NO FUEL once when <code class="addr">$03A3</code> is set. If the tank is empty, altitude and speed are both zero, it sets <code class="addr">$0396</code> to 1; LAUNCH treats that stranded state differently from a normal dock (<code class="addr">$0396</code> = <code class="addr">$80</code>).</p>
+Called every frame. Queues LOW FUEL once when `$03A2` is set and NO FUEL once when `$03A3` is set. If the tank is empty, altitude and speed are both zero, it sets `$0396` to 1; LAUNCH treats that stranded state differently from a normal dock (`$0396` = `$80`).
 
 ## Listing
 
-*Re-disassembled from the byte map: every instruction shown is one the game really executes from this entry, and gaps are branch targets that follow an early return.*
+*Decoded from the byte map within the curated code ranges for this routine.*
 
-<pre class="rt-listing">
-<span class="rt-addr">586C</span>  <span class="rt-bytes">AD A2 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$03A2</span>   <span class="rt-cmt">; LOW FUEL flag</span>
-<span class="rt-addr">586F</span>  <span class="rt-bytes">C9 01   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$01</span>
-<span class="rt-addr">5871</span>  <span class="rt-bytes">D0 0A   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$587D</span>
-<span class="rt-addr">5873</span>  <span class="rt-bytes">EE A2 03</span>  <span class="rt-op">INC</span>  <span class="rt-arg">$03A2</span>   <span class="rt-cmt">; LOW FUEL flag</span>
-<span class="rt-addr">5876</span>  <span class="rt-bytes">A9 A3   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$A3</span>
-<span class="rt-addr">5878</span>  <span class="rt-bytes">A2 58   </span>  <span class="rt-op">LDX</span>  <span class="rt-arg">#$58</span>
-<span class="rt-addr">587A</span>  <span class="rt-bytes">20 27 41</span>  <span class="rt-op">JSR</span>  <span class="rt-arg">$4127</span>   <span class="rt-cmt">; Message queue</span>
-<span class="rt-addr">587D</span>  <span class="rt-bytes">AD A3 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$03A3</span>   <span class="rt-cmt">; NO FUEL flag</span>
-<span class="rt-addr">5880</span>  <span class="rt-bytes">C9 01   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$01</span>
-<span class="rt-addr">5882</span>  <span class="rt-bytes">D0 0A   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$588E</span>
-<span class="rt-addr">5884</span>  <span class="rt-bytes">EE A3 03</span>  <span class="rt-op">INC</span>  <span class="rt-arg">$03A3</span>   <span class="rt-cmt">; NO FUEL flag</span>
-<span class="rt-addr">5887</span>  <span class="rt-bytes">A9 AD   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$AD</span>
-<span class="rt-addr">5889</span>  <span class="rt-bytes">A2 58   </span>  <span class="rt-op">LDX</span>  <span class="rt-arg">#$58</span>
-<span class="rt-addr">588B</span>  <span class="rt-bytes">20 27 41</span>  <span class="rt-op">JSR</span>  <span class="rt-arg">$4127</span>   <span class="rt-cmt">; Message queue</span>
-<span class="rt-addr">588E</span>  <span class="rt-bytes">AD A3 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$03A3</span>   <span class="rt-cmt">; NO FUEL flag</span>
-<span class="rt-addr">5891</span>  <span class="rt-bytes">F0 0F   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$58A2</span>
-<span class="rt-addr">5893</span>  <span class="rt-bytes">AD 44 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$0344</span>   <span class="rt-cmt">; Altitude</span>
-<span class="rt-addr">5896</span>  <span class="rt-bytes">D0 0A   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$58A2</span>
-<span class="rt-addr">5898</span>  <span class="rt-bytes">AD 53 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$0353</span>   <span class="rt-cmt">; Speed</span>
-<span class="rt-addr">589B</span>  <span class="rt-bytes">D0 05   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$58A2</span>
-<span class="rt-addr">589D</span>  <span class="rt-bytes">A9 01   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$01</span>
-<span class="rt-addr">589F</span>  <span class="rt-bytes">8D 96 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0396</span>   <span class="rt-cmt">; Dock state</span>
-<span class="rt-addr">58A2</span>  <span class="rt-bytes">60      </span>  <span class="rt-op">RTS</span>  <span class="rt-arg"></span>
-</pre>
+```text
+586C: AD A2 03 LDA $03A2   ; LOW FUEL flag
+586F: C9 01    CMP #$01
+5871: D0 0A    BNE $587D
+5873: EE A2 03 INC $03A2   ; LOW FUEL flag
+5876: A9 A3    LDA #$A3
+5878: A2 58    LDX #$58
+587A: 20 27 41 JSR $4127   ; Message queue
+587D: AD A3 03 LDA $03A3   ; NO FUEL flag
+5880: C9 01    CMP #$01
+5882: D0 0A    BNE $588E
+5884: EE A3 03 INC $03A3   ; NO FUEL flag
+5887: A9 AD    LDA #$AD
+5889: A2 58    LDX #$58
+588B: 20 27 41 JSR $4127   ; Message queue
+588E: AD A3 03 LDA $03A3   ; NO FUEL flag
+5891: F0 0F    BEQ $58A2
+5893: AD 44 03 LDA $0344   ; Altitude
+5896: D0 0A    BNE $58A2
+5898: AD 53 03 LDA $0353   ; Speed
+589B: D0 05    BNE $58A2
+589D: A9 01    LDA #$01
+589F: 8D 96 03 STA $0396   ; Dock state
+58A2: 60       RTS
+```
 
 ## Calls
 

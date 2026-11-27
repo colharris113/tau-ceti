@@ -1,38 +1,38 @@
 # Robot dispatch
 
-**Address** `$4620-$464D` &nbsp;·&nbsp; **Group** Records
+**Address** `$4620-$464D` · **Group** Records
 
-<p class="lede">A live record that is out of range has its moved/aimed bits cleared and is left alone. In range, the type flags choose the brain: bit 6 calls the static defence AI at <code class="addr">$81F3</code>, bit 5 calls the mobile unit AI at <code class="addr">$80C3</code>.</p>
+A live record that is out of range has its moved/aimed bits cleared and is left alone. In range, the type flags choose the brain: bit 6 calls the static defence AI at `$81F3`, bit 5 calls the mobile unit AI at `$80C3`.
 
 ## Listing
 
-*Re-disassembled from the byte map: every instruction shown is one the game really executes from this entry, and gaps are branch targets that follow an early return.*
+*Decoded from the byte map within the curated code ranges for this routine.*
 
-<pre class="rt-listing">
-<span class="rt-addr">4620</span>  <span class="rt-bytes">A0 03   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$03</span>
-<span class="rt-addr">4622</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">4624</span>  <span class="rt-bytes">29 40   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$40</span>
-<span class="rt-addr">4626</span>  <span class="rt-bytes">D0 12   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$463A</span>
-<span class="rt-addr">4628</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">462A</span>  <span class="rt-bytes">29 FC   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$FC</span>
-<span class="rt-addr">462C</span>  <span class="rt-bytes">91 61   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">462E</span>  <span class="rt-bytes">A9 00   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">4630</span>  <span class="rt-bytes">A0 08   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$08</span>
-<span class="rt-addr">4632</span>  <span class="rt-bytes">91 61   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">4634</span>  <span class="rt-bytes">C8      </span>  <span class="rt-op">INY</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4635</span>  <span class="rt-bytes">91 61   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">4637</span>  <span class="rt-bytes">4C EB 43</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$43EB</span>
-<span class="rt-addr">463A</span>  <span class="rt-bytes">8A      </span>  <span class="rt-op">TXA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">463B</span>  <span class="rt-bytes">48      </span>  <span class="rt-op">PHA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">463C</span>  <span class="rt-bytes">29 40   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$40</span>
-<span class="rt-addr">463E</span>  <span class="rt-bytes">F0 03   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$4643</span>
-<span class="rt-addr">4640</span>  <span class="rt-bytes">20 F3 81</span>  <span class="rt-op">JSR</span>  <span class="rt-arg">$81F3</span>   <span class="rt-cmt">; Static defence AI</span>
-<span class="rt-addr">4643</span>  <span class="rt-bytes">68      </span>  <span class="rt-op">PLA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4644</span>  <span class="rt-bytes">29 20   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$20</span>
-<span class="rt-addr">4646</span>  <span class="rt-bytes">F0 03   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$464B</span>
-<span class="rt-addr">4648</span>  <span class="rt-bytes">20 C3 80</span>  <span class="rt-op">JSR</span>  <span class="rt-arg">$80C3</span>   <span class="rt-cmt">; Mobile unit AI</span>
-<span class="rt-addr">464B</span>  <span class="rt-bytes">4C EB 43</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$43EB</span>
-</pre>
+```text
+4620: A0 03    LDY #$03
+4622: B1 61    LDA ($61),Y
+4624: 29 40    AND #$40
+4626: D0 12    BNE $463A
+4628: B1 61    LDA ($61),Y
+462A: 29 FC    AND #$FC
+462C: 91 61    STA ($61),Y
+462E: A9 00    LDA #$00
+4630: A0 08    LDY #$08
+4632: 91 61    STA ($61),Y
+4634: C8       INY
+4635: 91 61    STA ($61),Y
+4637: 4C EB 43 JMP $43EB
+463A: 8A       TXA
+463B: 48       PHA
+463C: 29 40    AND #$40
+463E: F0 03    BEQ $4643
+4640: 20 F3 81 JSR $81F3   ; Static defence AI
+4643: 68       PLA
+4644: 29 20    AND #$20
+4646: F0 03    BEQ $464B
+4648: 20 C3 80 JSR $80C3   ; Mobile unit AI
+464B: 4C EB 43 JMP $43EB
+```
 
 ## Calls
 

@@ -1,49 +1,49 @@
 # Clear all missiles (AMM)
 
-**Address** `$4838-$4877` &nbsp;·&nbsp; **Group** Combat
+**Address** `$4838-$4877` · **Group** Combat
 
-<p class="lede">Walks the record table and marks every missile record dying - the player's type 10 and the robots' type 11 alike. Nothing else is touched: the selected target in <code class="addr">$0388</code>/<code class="addr">$0389</code> survives, as does the target's lock bit. Both missile types are freed after 15 frames.</p>
+Walks the record table and marks every missile record dying - the player's type 10 and the robots' type 11 alike. Nothing else is touched: the selected target in `$0388`/`$0389` survives, as does the target's lock bit. Both missile types are freed after 15 frames.
 
 ## Listing
 
-*Re-disassembled from the byte map: every instruction shown is one the game really executes from this entry, and gaps are branch targets that follow an early return.*
+*Decoded from the byte map within the curated code ranges for this routine.*
 
-<pre class="rt-listing">
-<span class="rt-addr">4838</span>  <span class="rt-bytes">A9 FF   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$FF</span>
-<span class="rt-addr">483A</span>  <span class="rt-bytes">8D 59 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0359</span>
-<span class="rt-addr">483D</span>  <span class="rt-bytes">A9 02   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$02</span>
-<span class="rt-addr">483F</span>  <span class="rt-bytes">8D C4 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$03C4</span>
-<span class="rt-addr">4842</span>  <span class="rt-bytes">A9 00   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">4844</span>  <span class="rt-bytes">85 61   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">$61</span>
-<span class="rt-addr">4846</span>  <span class="rt-bytes">A9 10   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$10</span>
-<span class="rt-addr">4848</span>  <span class="rt-bytes">85 62   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">$62</span>
-<span class="rt-addr">484A</span>  <span class="rt-bytes">A0 00   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">484C</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">484E</span>  <span class="rt-bytes">AA      </span>  <span class="rt-op">TAX</span>  <span class="rt-arg"></span>
-<span class="rt-addr">484F</span>  <span class="rt-bytes">29 C0   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$C0</span>
-<span class="rt-addr">4851</span>  <span class="rt-bytes">D0 1B   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$486E</span>
-<span class="rt-addr">4853</span>  <span class="rt-bytes">BD 9A C3</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$C39A,X</span>
-<span class="rt-addr">4856</span>  <span class="rt-bytes">29 0C   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$0C</span>
-<span class="rt-addr">4858</span>  <span class="rt-bytes">F0 14   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$486E</span>
-<span class="rt-addr">485A</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">485C</span>  <span class="rt-bytes">09 40   </span>  <span class="rt-op">ORA</span>  <span class="rt-arg">#$40</span>
-<span class="rt-addr">485E</span>  <span class="rt-bytes">91 61   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">4860</span>  <span class="rt-bytes">A9 0B   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$0B</span>
-<span class="rt-addr">4862</span>  <span class="rt-bytes">8D C5 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$03C5</span>
-<span class="rt-addr">4865</span>  <span class="rt-bytes">98      </span>  <span class="rt-op">TYA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4866</span>  <span class="rt-bytes">18      </span>  <span class="rt-op">CLC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4867</span>  <span class="rt-bytes">69 08   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">#$08</span>
-<span class="rt-addr">4869</span>  <span class="rt-bytes">A8      </span>  <span class="rt-op">TAY</span>  <span class="rt-arg"></span>
-<span class="rt-addr">486A</span>  <span class="rt-bytes">A9 00   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">486C</span>  <span class="rt-bytes">91 61   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">486E</span>  <span class="rt-bytes">98      </span>  <span class="rt-op">TYA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">486F</span>  <span class="rt-bytes">18      </span>  <span class="rt-op">CLC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4870</span>  <span class="rt-bytes">69 10   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">#$10</span>
-<span class="rt-addr">4872</span>  <span class="rt-bytes">29 F0   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$F0</span>
-<span class="rt-addr">4874</span>  <span class="rt-bytes">A8      </span>  <span class="rt-op">TAY</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4875</span>  <span class="rt-bytes">D0 D5   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$484C</span>
-<span class="rt-addr">4877</span>  <span class="rt-bytes">60      </span>  <span class="rt-op">RTS</span>  <span class="rt-arg"></span>
-</pre>
+```text
+4838: A9 FF    LDA #$FF
+483A: 8D 59 03 STA $0359
+483D: A9 02    LDA #$02
+483F: 8D C4 03 STA $03C4
+4842: A9 00    LDA #$00
+4844: 85 61    STA $61
+4846: A9 10    LDA #$10
+4848: 85 62    STA $62
+484A: A0 00    LDY #$00
+484C: B1 61    LDA ($61),Y
+484E: AA       TAX
+484F: 29 C0    AND #$C0
+4851: D0 1B    BNE $486E
+4853: BD 9A C3 LDA $C39A,X
+4856: 29 0C    AND #$0C
+4858: F0 14    BEQ $486E
+485A: B1 61    LDA ($61),Y
+485C: 09 40    ORA #$40
+485E: 91 61    STA ($61),Y
+4860: A9 0B    LDA #$0B
+4862: 8D C5 03 STA $03C5
+4865: 98       TYA
+4866: 18       CLC
+4867: 69 08    ADC #$08
+4869: A8       TAY
+486A: A9 00    LDA #$00
+486C: 91 61    STA ($61),Y
+486E: 98       TYA
+486F: 18       CLC
+4870: 69 10    ADC #$10
+4872: 29 F0    AND #$F0
+4874: A8       TAY
+4875: D0 D5    BNE $484C
+4877: 60       RTS
+```
 
 ## Calls
 
@@ -51,10 +51,7 @@
 
 ## Called by
 
-- `JSR` at `$3BDA`
-- `JSR` at `$527B`
 - `JSR` at `$829A` in [`Static defence AI`](static-defence-ai.md)
-- `JSR` at `$C1F2`
 
 ---
 

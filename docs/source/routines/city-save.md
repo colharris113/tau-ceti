@@ -1,46 +1,46 @@
 # City save: writing damage back to the sheet
 
-**Address** `$28E6-$2920` &nbsp;·&nbsp; **Group** Records
+**Address** `$28E6-$2920` · **Group** Records
 
-<p class="lede">Called before a jump (<code class="addr">$51C5</code>) and from <code class="addr">$6A77</code>. Walks the city sheet at <code class="addr">$9400</code> and the loaded record table at <code class="addr">$0E00</code> in step, copying one byte per record — byte 0 — from the record back into the sheet. Types whose flags at <code class="addr">$C39A</code> hold both the mobile and armed bits (<code class="addr">$60</code>: types 3, 6, 9, 20 and 21) are skipped, so the armed mobile units always return. A destroyed building has already been marked type | <code class="addr">$80</code> by the dying animation, so it is written back as free and stays destroyed on the next visit.</p>
+Called before a jump (`$51C5`) and from `$6A77`. Walks the city sheet at `$9400` and the loaded record table at `$0E00` in step, copying one byte per record — byte 0 — from the record back into the sheet. Types whose flags at `$C39A` hold both the mobile and armed bits (`$60`: types 3, 6, 9, 20 and 21) are skipped, so the armed mobile units always return. A destroyed building has already been marked type | `$80` by the dying animation, so it is written back as free and stays destroyed on the next visit.
 
 ## Listing
 
-*Re-disassembled from the byte map: every instruction shown is one the game really executes from this entry, and gaps are branch targets that follow an early return.*
+*Decoded from the byte map within the curated code ranges for this routine.*
 
-<pre class="rt-listing">
-<span class="rt-addr">28E6</span>  <span class="rt-bytes">20 EC 27</span>  <span class="rt-op">JSR</span>  <span class="rt-arg">$27EC</span>   <span class="rt-cmt">; City loader: the sheet at $9400 into the record table</span>
-<span class="rt-addr">28E9</span>  <span class="rt-bytes">A2 20   </span>  <span class="rt-op">LDX</span>  <span class="rt-arg">#$20</span>
-<span class="rt-addr">28EB</span>  <span class="rt-bytes">A0 00   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">28ED</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">28EF</span>  <span class="rt-bytes">C9 C0   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$C0</span>
-<span class="rt-addr">28F1</span>  <span class="rt-bytes">F0 2D   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$2920</span>
-<span class="rt-addr">28F3</span>  <span class="rt-bytes">B1 63   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($63),Y</span>
-<span class="rt-addr">28F5</span>  <span class="rt-bytes">29 3F   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$3F</span>
-<span class="rt-addr">28F7</span>  <span class="rt-bytes">A8      </span>  <span class="rt-op">TAY</span>  <span class="rt-arg"></span>
-<span class="rt-addr">28F8</span>  <span class="rt-bytes">B9 9A C3</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$C39A,Y</span>
-<span class="rt-addr">28FB</span>  <span class="rt-bytes">A0 00   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">28FD</span>  <span class="rt-bytes">29 60   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$60</span>
-<span class="rt-addr">28FF</span>  <span class="rt-bytes">C9 60   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$60</span>
-<span class="rt-addr">2901</span>  <span class="rt-bytes">F0 04   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$2907</span>
-<span class="rt-addr">2903</span>  <span class="rt-bytes">B1 63   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($63),Y</span>
-<span class="rt-addr">2905</span>  <span class="rt-bytes">91 61   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">2907</span>  <span class="rt-bytes">A5 63   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$63</span>
-<span class="rt-addr">2909</span>  <span class="rt-bytes">18      </span>  <span class="rt-op">CLC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">290A</span>  <span class="rt-bytes">69 10   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">#$10</span>
-<span class="rt-addr">290C</span>  <span class="rt-bytes">85 63   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">$63</span>
-<span class="rt-addr">290E</span>  <span class="rt-bytes">90 02   </span>  <span class="rt-op">BCC</span>  <span class="rt-arg">$2912</span>
-<span class="rt-addr">2910</span>  <span class="rt-bytes">E6 64   </span>  <span class="rt-op">INC</span>  <span class="rt-arg">$64</span>
-<span class="rt-addr">2912</span>  <span class="rt-bytes">A5 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$61</span>
-<span class="rt-addr">2914</span>  <span class="rt-bytes">18      </span>  <span class="rt-op">CLC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2915</span>  <span class="rt-bytes">69 03   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">#$03</span>
-<span class="rt-addr">2917</span>  <span class="rt-bytes">85 61   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">$61</span>
-<span class="rt-addr">2919</span>  <span class="rt-bytes">90 02   </span>  <span class="rt-op">BCC</span>  <span class="rt-arg">$291D</span>
-<span class="rt-addr">291B</span>  <span class="rt-bytes">E6 62   </span>  <span class="rt-op">INC</span>  <span class="rt-arg">$62</span>
-<span class="rt-addr">291D</span>  <span class="rt-bytes">CA      </span>  <span class="rt-op">DEX</span>  <span class="rt-arg"></span>
-<span class="rt-addr">291E</span>  <span class="rt-bytes">D0 CD   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$28ED</span>
-<span class="rt-addr">2920</span>  <span class="rt-bytes">60      </span>  <span class="rt-op">RTS</span>  <span class="rt-arg"></span>
-</pre>
+```text
+28E6: 20 EC 27 JSR $27EC   ; City loader: the sheet at $9400 into the record table
+28E9: A2 20    LDX #$20
+28EB: A0 00    LDY #$00
+28ED: B1 61    LDA ($61),Y
+28EF: C9 C0    CMP #$C0
+28F1: F0 2D    BEQ $2920
+28F3: B1 63    LDA ($63),Y
+28F5: 29 3F    AND #$3F
+28F7: A8       TAY
+28F8: B9 9A C3 LDA $C39A,Y
+28FB: A0 00    LDY #$00
+28FD: 29 60    AND #$60
+28FF: C9 60    CMP #$60
+2901: F0 04    BEQ $2907
+2903: B1 63    LDA ($63),Y
+2905: 91 61    STA ($61),Y
+2907: A5 63    LDA $63
+2909: 18       CLC
+290A: 69 10    ADC #$10
+290C: 85 63    STA $63
+290E: 90 02    BCC $2912
+2910: E6 64    INC $64
+2912: A5 61    LDA $61
+2914: 18       CLC
+2915: 69 03    ADC #$03
+2917: 85 61    STA $61
+2919: 90 02    BCC $291D
+291B: E6 62    INC $62
+291D: CA       DEX
+291E: D0 CD    BNE $28ED
+2920: 60       RTS
+```
 
 ## Calls
 
@@ -49,7 +49,6 @@
 ## Called by
 
 - `JSR` at `$51C5`
-- `JSR` at `$6A77`
 
 ---
 

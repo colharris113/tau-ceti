@@ -1,12 +1,19 @@
 {
-  "comment": "Curated symbols. Every address here has been read in the disassembly and its behaviour checked in the game. 'more' lists additional entry points that belong to the same routine (branch targets that leave the linear decode); each is rendered as a separate block on the routine page.",
+  "comment": "Curated code ranges and RAM symbols. End addresses are exclusive. 'more' lists additional blocks for a routine page. 'caller_blocks' lists code reviewed for incoming references outside the documented routines.",
+  "caller_blocks": [
+    {"addr": "2000", "end": "20B5", "name": "Startup and main loop"},
+    {"addr": "2A4D", "end": "2ADE", "name": "Proximity scan"},
+    {"addr": "413B", "end": "41F7", "name": "Message display and queue processing"},
+    {"addr": "49D9", "end": "4A4B", "name": "Flight and frame update handlers"},
+    {"addr": "511E", "end": "5252", "name": "Jump and docked messages"}
+  ],
   "routines": [
     {
       "addr": "25D3",
       "slug": "frame-tick",
       "name": "Frame tick: clock, shield and fuel",
       "group": "Flight",
-      "summary": "Runs once a frame. A BCD counter at $0340 counts 50 frames to a second, then the BCD clock at $0341-$0343 advances. While not docked the shield creeps back one point a second and fuel is burned: (speed >> 3) + 16 while airborne, zero at altitude zero, plus 96 when the tank is ruptured. The burn is subtracted from the 16-bit value at $0345/$0346; a high byte of $20 raises the LOW FUEL flag, and an underflow clamps at zero and sets $03A3. Docking or grounding skips both the burn and the shield regeneration.",
+      "summary": "A BCD counter at $0340 counts 50 frames to a second, then the BCD clock at $0341-$0343 advances. When $0396 is zero, the shield regenerates and the routine updates the fuel at $0345/$0346. In the air it subtracts (speed >> 3) + 16, plus 96 for a ruptured tank. At altitude zero it subtracts 96 for a ruptured tank or 256 for an intact tank because the computed zero burn takes the same carry path. A high byte of $20 raises the LOW FUEL flag. On underflow the routine clears only the high byte and increments $03A3.",
       "end": "26CC"
     },
     {
@@ -152,7 +159,7 @@
       "slug": "laser-fire",
       "name": "Laser fire",
       "group": "Combat",
-      "summary": "Four gates: no bolt already in flight ($036E), heat below $B0, laser not disabled ($0370), and the target in the sights. Firing sets the bolt timer to $80, latches provocation in $03BF, plays the shot sound and adds $0C to the heat at $0347, capped at $BF.",
+      "summary": "Checks that no bolt is in flight ($036E), heat is below $B0 and the laser is enabled ($0370), then checks the fire input. Firing sets the bolt timer to $80, latches provocation in $03BF, requests the shot sound and adds $0C to the heat at $0347, capped at $BF. The target is tested later when the bolt finishes.",
       "end": "3436"
     },
     {
@@ -251,7 +258,7 @@
       "addr": "0345",
       "name": "Fuel (low byte)",
       "group": "Flight",
-      "doc": "Low byte of the 16-bit fuel value. The pair is decremented directly by the burn amount."
+      "doc": "Low byte of the 16-bit fuel value. The burn routine keeps the low-byte result even when an underflow clears the high byte."
     },
     {
       "addr": "0346",
@@ -323,7 +330,7 @@
       "addr": "0386",
       "name": "Last on-screen target",
       "group": "Combat",
-      "doc": "Pointer to the record most recently drawn or seen on the main view."
+      "doc": "Viewport candidate whose projected width reaches the centre columns. The painter copies it to $0388/$0389 after finishing its pass."
     },
     {
       "addr": "0388",
@@ -333,9 +340,9 @@
     },
     {
       "addr": "038A",
-      "name": "Scanner target",
+      "name": "Viewport laser candidate",
       "group": "Combat",
-      "doc": "Pointer to the record selected on the scanner."
+      "doc": "Candidate set by the tighter raster test at $30F2. The painter copies it to $038C/$038D after finishing its pass."
     },
     {
       "addr": "038C",

@@ -1,8 +1,31 @@
-<svg class="tc-fig" viewBox="0 0 780 392" role="img" aria-labelledby="fig-fuel-t fig-fuel-d" xmlns="http://www.w3.org/2000/svg">
+<svg width="780" height="392" viewBox="0 0 780 392" role="img" aria-labelledby="fig-fuel-t fig-fuel-d" xmlns="http://www.w3.org/2000/svg">
 <title id="fig-fuel-t">Fuel burn and endurance against speed</title>
-<desc id="fig-fuel-d">Two panels sharing the speed axis: the burn per second for an intact and a ruptured tank, and the resulting endurance in minutes.</desc>
+<desc id="fig-fuel-d">Two panels sharing the speed axis: the airborne burn per second for an intact and a ruptured tank, and the resulting endurance in minutes.</desc>
+<style>
+text { font-family: system-ui, sans-serif; font-size: 11px; fill: #25221e; }
+.fig-title { font-size: 13px; font-weight: 600; }
+.fig-tick { font-size: 10px; }
+.fig-tick, .fig-muted, .fig-city, .fig-mark-plain { fill: #534e46; }
+.fig-grid, .fig-frame, .fig-hair, .fig-fine { stroke: #c4bdb2; }
+.fig-frame { fill: none; }
+.fig-axis { stroke: #777067; }
+.fig-fine { stroke-width: .4; }
+.fig-ochre, .fig-mark-dockable { stroke: #8a5a12; fill: none; }
+.fig-blue { stroke: #2465b5; fill: none; }
+.fig-ochre, .fig-blue { stroke-width: 2; }
+.fig-mark-dockable { stroke-width: 1.6; }
+.fig-ochre-fill, .fig-band, .fig-cell-type { fill: #8a5a12; }
+.fig-blue-fill { fill: #2465b5; }
+.fig-band { fill-opacity: .16; }
+.fig-cell { fill: #e8e4dc; }
+.fig-cell, .fig-cell-type { stroke: #fff; }
+.fig-cell-type { fill-opacity: .55; }
+.fig-glyph { fill: #25221e; }
+.fig-city { font-size: 9px; font-weight: 600; letter-spacing: .04em; }
+</style>
+<rect width="780" height="392" fill="#fff"/>
 <text x="40.0" y="30.0" class="fig-title" text-anchor="start">Fuel: how speed and a ruptured tank change the burn</text>
-<text x="40.0" y="50.0" class="fig-muted" text-anchor="start">One burn a second, at the 50-frame tick. On the ground the burn is zero.</text>
+<text x="40.0" y="50.0" class="fig-muted" text-anchor="start">Airborne fuel use at the 50-frame tick.</text>
 <line x1="480.0" y1="68.0" x2="508.0" y2="68.0" class="fig-ochre"/>
 <text x="514.0" y="72.0" class="fig-label" text-anchor="start">tank intact</text>
 <line x1="620.0" y1="68.0" x2="648.0" y2="68.0" class="fig-blue"/>
@@ -49,5 +72,6 @@
 <text x="718.0" y="244.8" class="fig-label" text-anchor="end">21 min</text>
 <text x="718.0" y="268.6" class="fig-label" text-anchor="end">6.1 min</text>
 <text x="584.0" y="336.0" class="fig-label" text-anchor="middle">speed ($00-$BF)</text>
-<text x="40.0" y="356.0" class="fig-muted" text-anchor="start">The burn is (speed &gt;&gt; 3) + 16, plus 96 if $039E says the tank is ruptured. One subtraction a second from a 16-bit tank of $BFFF = 49,151 units.</text>
+<text x="40.0" y="356.0" class="fig-muted" text-anchor="start">Burn is (speed &gt;&gt; 3) + 16, plus 96 if the tank is ruptured.</text>
+<text x="40.0" y="373.0" class="fig-muted" text-anchor="start">The once-a-second burn draws from a full tank of $BFFF = 49,151 units.</text>
 </svg>

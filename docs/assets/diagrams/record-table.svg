@@ -1,6 +1,29 @@
-<svg class="tc-fig" viewBox="0 0 780 626" role="img" aria-labelledby="fig-record-table-t fig-record-table-d" xmlns="http://www.w3.org/2000/svg">
+<svg width="780" height="626" viewBox="0 0 780 626" role="img" aria-labelledby="fig-record-table-t fig-record-table-d" xmlns="http://www.w3.org/2000/svg">
 <title id="fig-record-table-t">The record table: 48 records of 16 bytes</title>
 <desc id="fig-record-table-d">A schematic of the 768-byte record table at $0E00, with one record expanded to label all sixteen bytes.</desc>
+<style>
+text { font-family: system-ui, sans-serif; font-size: 11px; fill: #25221e; }
+.fig-title { font-size: 13px; font-weight: 600; }
+.fig-tick { font-size: 10px; }
+.fig-tick, .fig-muted, .fig-city, .fig-mark-plain { fill: #534e46; }
+.fig-grid, .fig-frame, .fig-hair, .fig-fine { stroke: #c4bdb2; }
+.fig-frame { fill: none; }
+.fig-axis { stroke: #777067; }
+.fig-fine { stroke-width: .4; }
+.fig-ochre, .fig-mark-dockable { stroke: #8a5a12; fill: none; }
+.fig-blue { stroke: #2465b5; fill: none; }
+.fig-ochre, .fig-blue { stroke-width: 2; }
+.fig-mark-dockable { stroke-width: 1.6; }
+.fig-ochre-fill, .fig-band, .fig-cell-type { fill: #8a5a12; }
+.fig-blue-fill { fill: #2465b5; }
+.fig-band { fill-opacity: .16; }
+.fig-cell { fill: #e8e4dc; }
+.fig-cell, .fig-cell-type { stroke: #fff; }
+.fig-cell-type { fill-opacity: .55; }
+.fig-glyph { fill: #25221e; }
+.fig-city { font-size: 9px; font-weight: 600; letter-spacing: .04em; }
+</style>
+<rect width="780" height="626" fill="#fff"/>
 <text x="40.0" y="32.0" class="fig-title" text-anchor="start">The record table: 48 records of 16 bytes</text>
 <text x="40.0" y="52.0" class="fig-muted" text-anchor="start">768 bytes at $0E00-$10FF. Byte 0 sorts every record; the rest is state.</text>
 <rect x="40.0" y="78.0" width="14.0" height="14.0" rx="2" class="fig-cell-type"/>
@@ -878,5 +901,5 @@
 <rect x="600.0" y="492.0" width="34.0" height="26.0" rx="2" class="fig-cell"/>
 <text x="617.0" y="487.0" class="fig-tick" text-anchor="middle">15</text>
 <text x="617.0" y="530.0" class="fig-label" text-anchor="start" transform="rotate(42 617.0 530.0)">target hi</text>
-<text x="60.0" y="624.0" class="fig-muted" text-anchor="start">Byte 0: bits 7-6 are state ($80 free, $40 dying); bits 5-0 pick the type row in $C39A.</text>
+<text x="60.0" y="602.0" class="fig-muted" text-anchor="start">Byte 0: bits 7-6 are state ($80 free, $40 dying); bits 5-0 pick the type row in $C39A.</text>
 </svg>

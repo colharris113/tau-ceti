@@ -1,6 +1,29 @@
-<svg class="tc-fig" viewBox="0 0 780 336" role="img" aria-labelledby="fig-aperture-t fig-aperture-d" xmlns="http://www.w3.org/2000/svg">
+<svg width="780" height="336" viewBox="0 0 780 336" role="img" aria-labelledby="fig-aperture-t fig-aperture-d" xmlns="http://www.w3.org/2000/svg">
 <title id="fig-aperture-t">The aperture opening and closing over time</title>
 <desc id="fig-aperture-d">Two mirrored ramps: a scanned or locked building shuts its iris two points a frame, and a building within two cells opens it at the same rate. Both reach the end stop after 36 frames.</desc>
+<style>
+text { font-family: system-ui, sans-serif; font-size: 11px; fill: #25221e; }
+.fig-title { font-size: 13px; font-weight: 600; }
+.fig-tick { font-size: 10px; }
+.fig-tick, .fig-muted, .fig-city, .fig-mark-plain { fill: #534e46; }
+.fig-grid, .fig-frame, .fig-hair, .fig-fine { stroke: #c4bdb2; }
+.fig-frame { fill: none; }
+.fig-axis { stroke: #777067; }
+.fig-fine { stroke-width: .4; }
+.fig-ochre, .fig-mark-dockable { stroke: #8a5a12; fill: none; }
+.fig-blue { stroke: #2465b5; fill: none; }
+.fig-ochre, .fig-blue { stroke-width: 2; }
+.fig-mark-dockable { stroke-width: 1.6; }
+.fig-ochre-fill, .fig-band, .fig-cell-type { fill: #8a5a12; }
+.fig-blue-fill { fill: #2465b5; }
+.fig-band { fill-opacity: .16; }
+.fig-cell { fill: #e8e4dc; }
+.fig-cell, .fig-cell-type { stroke: #fff; }
+.fig-cell-type { fill-opacity: .55; }
+.fig-glyph { fill: #25221e; }
+.fig-city { font-size: 9px; font-weight: 600; letter-spacing: .04em; }
+</style>
+<rect width="780" height="336" fill="#fff"/>
 <text x="40.0" y="30.0" class="fig-title" text-anchor="start">The iris takes 36 frames to travel</text>
 <text x="40.0" y="50.0" class="fig-muted" text-anchor="start">Two points a frame, in either direction.</text>
 <line x1="84.0" y1="250.0" x2="700.0" y2="250.0" class="fig-grid"/>

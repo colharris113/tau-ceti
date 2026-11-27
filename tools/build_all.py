@@ -3,8 +3,7 @@
 
     .venv/Scripts/python tools/build_all.py
 
-Order matters only in that the diagrams and tables are independent of the
-source pages; all of them read from ``sources/`` and write under ``docs/``.
+Recover the city data from the listings before rendering its maps.
 """
 from __future__ import annotations
 
@@ -16,6 +15,7 @@ ROOT = Path(__file__).resolve().parent.parent
 TOOLS = ROOT / "tools"
 
 STEPS = [
+    "extract_cities.py",
     "build_diagrams.py",
     "build_type_tables.py",
     "build_source.py",

@@ -1,6 +1,29 @@
-<svg class="tc-fig" viewBox="0 0 860 512" role="img" aria-labelledby="fig-screen-t fig-screen-d" xmlns="http://www.w3.org/2000/svg">
+<svg width="860" height="512" viewBox="0 0 860 512" role="img" aria-labelledby="fig-screen-t fig-screen-d" xmlns="http://www.w3.org/2000/svg">
 <title id="fig-screen-t">The viewport screen layout and memory map</title>
 <desc id="fig-screen-d">The 320 by 200 display with its 16 by 16-cell viewport and a hires band at the bottom, beside the memory map of the bitmap, matrix, colour RAM and render buffer, and a diagram of the eight bytes that make one bitmap cell.</desc>
+<style>
+text { font-family: system-ui, sans-serif; font-size: 11px; fill: #25221e; }
+.fig-title { font-size: 13px; font-weight: 600; }
+.fig-tick { font-size: 10px; }
+.fig-tick, .fig-muted, .fig-city, .fig-mark-plain { fill: #534e46; }
+.fig-grid, .fig-frame, .fig-hair, .fig-fine { stroke: #c4bdb2; }
+.fig-frame { fill: none; }
+.fig-axis { stroke: #777067; }
+.fig-fine { stroke-width: .4; }
+.fig-ochre, .fig-mark-dockable { stroke: #8a5a12; fill: none; }
+.fig-blue { stroke: #2465b5; fill: none; }
+.fig-ochre, .fig-blue { stroke-width: 2; }
+.fig-mark-dockable { stroke-width: 1.6; }
+.fig-ochre-fill, .fig-band, .fig-cell-type { fill: #8a5a12; }
+.fig-blue-fill { fill: #2465b5; }
+.fig-band { fill-opacity: .16; }
+.fig-cell { fill: #e8e4dc; }
+.fig-cell, .fig-cell-type { stroke: #fff; }
+.fig-cell-type { fill-opacity: .55; }
+.fig-glyph { fill: #25221e; }
+.fig-city { font-size: 9px; font-weight: 600; letter-spacing: .04em; }
+</style>
+<rect width="860" height="512" fill="#fff"/>
 <text x="40.0" y="30.0" class="fig-title" text-anchor="start">One screen, two graphics modes</text>
 <text x="40.0" y="50.0" class="fig-muted" text-anchor="start">A 320 × 200 display: a 16 × 16-cell bitmap viewport above a hires instrument band.</text>
 <rect x="76.0" y="86.0" width="352.0" height="220.0" rx="0" class="fig-frame"/>
@@ -152,7 +175,6 @@
 <rect x="388.0" y="426.0" width="44.0" height="30.0" rx="2" class="fig-cell"/>
 <text x="410.0" y="420.0" class="fig-tick" text-anchor="middle">byte 7</text>
 <text x="410.0" y="470.0" class="fig-tick" text-anchor="middle">7</text>
-<text x="438.0" y="445.0" class="fig-label" text-anchor="start">consecutive in the bitmap</text>
 <text x="52.0" y="492.0" class="fig-muted" text-anchor="start">The eight bytes are scanlines 0–7 of one cell; each byte is four fat pixels — four two-bit pairs.</text>
 <rect x="560.0" y="424.0" width="14.0" height="26.0" rx="1" class="fig-cell"/>
 <rect x="577.0" y="424.0" width="14.0" height="26.0" rx="1" class="fig-cell"/>

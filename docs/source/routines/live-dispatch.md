@@ -1,19 +1,19 @@
 # Live-record dispatch
 
-**Address** `$445D-$4464` &nbsp;·&nbsp; **Group** Records
+**Address** `$445D-$4464` · **Group** Records
 
-<p class="lede">Sorts a live record by its per-type flags at <code class="addr">$C39A</code>. Dockable types (bit 7) go to the aperture and docking path at <code class="addr">$4465</code>; sensor types (bit 1) are counted when in range at <code class="addr">$44A1</code>; everything else falls through to the guided-object and robot handlers.</p>
+Sorts a live record by its per-type flags at `$C39A`. Dockable types (bit 7) go to the aperture and docking path at `$4465`; sensor types (bit 1) are counted when in range at `$44A1`; everything else falls through to the guided-object and robot handlers.
 
 ## Listing
 
-*Re-disassembled from the byte map: every instruction shown is one the game really executes from this entry, and gaps are branch targets that follow an early return.*
+*Decoded from the byte map within the curated code ranges for this routine.*
 
-<pre class="rt-listing">
-<span class="rt-addr">445D</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">445F</span>  <span class="rt-bytes">A8      </span>  <span class="rt-op">TAY</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4460</span>  <span class="rt-bytes">BE 9A C3</span>  <span class="rt-op">LDX</span>  <span class="rt-arg">$C39A,Y</span>
-<span class="rt-addr">4463</span>  <span class="rt-bytes">10 3C   </span>  <span class="rt-op">BPL</span>  <span class="rt-arg">$44A1</span>   <span class="rt-cmt">; Sensor records</span>
-</pre>
+```text
+445D: B1 61    LDA ($61),Y
+445F: A8       TAY
+4460: BE 9A C3 LDX $C39A,Y
+4463: 10 3C    BPL $44A1   ; Sensor records
+```
 
 ## Calls
 
@@ -21,7 +21,7 @@
 
 ## Called by
 
-*No call site found in the swept listings; this may be reached through a jump table or from undisassembled code.*
+*No direct call or jump found in the curated code ranges.*
 
 ---
 

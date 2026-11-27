@@ -1,8 +1,31 @@
-<svg class="tc-fig" viewBox="0 0 780 552" role="img" aria-labelledby="fig-cities-t fig-cities-d" xmlns="http://www.w3.org/2000/svg">
+<svg width="780" height="552" viewBox="0 0 780 552" role="img" aria-labelledby="fig-cities-t fig-cities-d" xmlns="http://www.w3.org/2000/svg">
 <title id="fig-cities-t">All 32 city layouts from the city sheet at $9400</title>
 <desc id="fig-cities-d">Thirty-two small maps, one per city, showing every structure in the game's own three-byte city records, coloured by category.</desc>
+<style>
+text { font-family: system-ui, sans-serif; font-size: 11px; fill: #25221e; }
+.fig-title { font-size: 13px; font-weight: 600; }
+.fig-tick { font-size: 10px; }
+.fig-tick, .fig-muted, .fig-city, .fig-mark-plain { fill: #534e46; }
+.fig-grid, .fig-frame, .fig-hair, .fig-fine { stroke: #c4bdb2; }
+.fig-frame { fill: none; }
+.fig-axis { stroke: #777067; }
+.fig-fine { stroke-width: .4; }
+.fig-ochre, .fig-mark-dockable { stroke: #8a5a12; fill: none; }
+.fig-blue { stroke: #2465b5; fill: none; }
+.fig-ochre, .fig-blue { stroke-width: 2; }
+.fig-mark-dockable { stroke-width: 1.6; }
+.fig-ochre-fill, .fig-band, .fig-cell-type { fill: #8a5a12; }
+.fig-blue-fill { fill: #2465b5; }
+.fig-band { fill-opacity: .16; }
+.fig-cell { fill: #e8e4dc; }
+.fig-cell, .fig-cell-type { stroke: #fff; }
+.fig-cell-type { fill-opacity: .55; }
+.fig-glyph { fill: #25221e; }
+.fig-city { font-size: 9px; font-weight: 600; letter-spacing: .04em; }
+</style>
+<rect width="780" height="552" fill="#fff"/>
 <text x="40.0" y="32.0" class="fig-title" text-anchor="start">The 32 cities, drawn from the game's own table</text>
-<text x="40.0" y="52.0" class="fig-muted" text-anchor="start">Every mark is one of 1,005 three-byte records in the sheet at $9400; x runs east, y south.</text>
+<text x="40.0" y="52.0" class="fig-muted" text-anchor="start">Every mark is one of 1,005 three-byte records in the sheet at $9400; x runs east, y north.</text>
 <rect x="40.0" y="69.0" width="5.0" height="5.0" rx="0" class="fig-mark-plain"/>
 <text x="51.0" y="76.0" class="fig-label" text-anchor="start">structure</text>
 <rect x="150.0" y="69.0" width="5.0" height="5.0" rx="0" class="fig-ochre-fill"/>
@@ -13,1071 +36,1071 @@
 <text x="475.0" y="76.0" class="fig-label" text-anchor="start">dockable special</text>
 <text x="40.0" y="98.0" class="fig-city" text-anchor="start">CENTRALIS</text>
 <rect x="40.0" y="108.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="92.0" cy="136.0" r="3.0" class="fig-mark-dockable"/>
-<polygon points="88.0,131.1 90.9,134.0 88.0,136.9 85.1,134.0" class="fig-blue-fill"/>
-<rect x="90.0" y="130.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<polygon points="96.0,131.1 98.9,134.0 96.0,136.9 93.1,134.0" class="fig-blue-fill"/>
-<polygon points="58.0,155.1 60.9,158.0 58.0,160.9 55.1,158.0" class="fig-blue-fill"/>
-<polygon points="64.0,149.1 66.9,152.0 64.0,154.9 61.1,152.0" class="fig-blue-fill"/>
-<polygon points="72.0,143.1 74.9,146.0 72.0,148.9 69.1,146.0" class="fig-blue-fill"/>
-<polygon points="82.0,141.1 84.9,144.0 82.0,146.9 79.1,144.0" class="fig-blue-fill"/>
-<rect x="90.5" y="140.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="102.0,137.1 104.9,140.0 102.0,142.9 99.1,140.0" class="fig-blue-fill"/>
-<rect x="64.5" y="128.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="78.5" y="126.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="88.0,167.1 90.9,170.0 88.0,172.9 85.1,170.0" class="fig-blue-fill"/>
-<polygon points="82.0,167.1 84.9,170.0 82.0,172.9 79.1,170.0" class="fig-blue-fill"/>
-<polygon points="76.0,165.1 78.9,168.0 76.0,170.9 73.1,168.0" class="fig-blue-fill"/>
-<polygon points="58.0,147.1 60.9,150.0 58.0,152.9 55.1,150.0" class="fig-blue-fill"/>
-<polygon points="60.0,143.1 62.9,146.0 60.0,148.9 57.1,146.0" class="fig-blue-fill"/>
-<polygon points="102.0,143.1 104.9,146.0 102.0,148.9 99.1,146.0" class="fig-blue-fill"/>
-<polygon points="100.0,147.1 102.9,150.0 100.0,152.9 97.1,150.0" class="fig-blue-fill"/>
-<polygon points="98.0,151.1 100.9,154.0 98.0,156.9 95.1,154.0" class="fig-blue-fill"/>
-<rect x="86.5" y="154.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="80.5" y="154.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="74.5" y="132.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="82.5" y="136.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="98.5" y="136.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="90.5" y="126.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="78.0" y="120.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="56.0" y="128.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="54.0" y="126.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<polygon points="58.0,121.1 60.9,124.0 58.0,126.9 55.1,124.0" class="fig-blue-fill"/>
-<polygon points="110.0,147.1 112.9,150.0 110.0,152.9 107.1,150.0" class="fig-blue-fill"/>
+<circle cx="92.0" cy="160.0" r="3.0" class="fig-mark-dockable"/>
+<polygon points="88.0,159.1 90.9,162.0 88.0,164.9 85.1,162.0" class="fig-blue-fill"/>
+<rect x="90.0" y="162.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<polygon points="96.0,159.1 98.9,162.0 96.0,164.9 93.1,162.0" class="fig-blue-fill"/>
+<polygon points="58.0,135.1 60.9,138.0 58.0,140.9 55.1,138.0" class="fig-blue-fill"/>
+<polygon points="64.0,141.1 66.9,144.0 64.0,146.9 61.1,144.0" class="fig-blue-fill"/>
+<polygon points="72.0,147.1 74.9,150.0 72.0,152.9 69.1,150.0" class="fig-blue-fill"/>
+<polygon points="82.0,149.1 84.9,152.0 82.0,154.9 79.1,152.0" class="fig-blue-fill"/>
+<rect x="90.5" y="152.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="102.0,153.1 104.9,156.0 102.0,158.9 99.1,156.0" class="fig-blue-fill"/>
+<rect x="64.5" y="164.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="78.5" y="166.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="88.0,123.1 90.9,126.0 88.0,128.9 85.1,126.0" class="fig-blue-fill"/>
+<polygon points="82.0,123.1 84.9,126.0 82.0,128.9 79.1,126.0" class="fig-blue-fill"/>
+<polygon points="76.0,125.1 78.9,128.0 76.0,130.9 73.1,128.0" class="fig-blue-fill"/>
+<polygon points="58.0,143.1 60.9,146.0 58.0,148.9 55.1,146.0" class="fig-blue-fill"/>
+<polygon points="60.0,147.1 62.9,150.0 60.0,152.9 57.1,150.0" class="fig-blue-fill"/>
+<polygon points="102.0,147.1 104.9,150.0 102.0,152.9 99.1,150.0" class="fig-blue-fill"/>
+<polygon points="100.0,143.1 102.9,146.0 100.0,148.9 97.1,146.0" class="fig-blue-fill"/>
+<polygon points="98.0,139.1 100.9,142.0 98.0,144.9 95.1,142.0" class="fig-blue-fill"/>
+<rect x="86.5" y="138.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="80.5" y="138.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="74.5" y="160.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="82.5" y="156.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="98.5" y="156.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="90.5" y="166.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="78.0" y="172.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="56.0" y="164.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="54.0" y="166.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<polygon points="58.0,169.1 60.9,172.0 58.0,174.9 55.1,172.0" class="fig-blue-fill"/>
+<polygon points="110.0,143.1 112.9,146.0 110.0,148.9 107.1,146.0" class="fig-blue-fill"/>
 <polygon points="108.0,145.1 110.9,148.0 108.0,150.9 105.1,148.0" class="fig-blue-fill"/>
 <text x="132.0" y="98.0" class="fig-city" text-anchor="start">REEMA</text>
 <rect x="132.0" y="108.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="180.0" cy="128.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="180.5" y="152.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="182.0" y="140.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="182.5" y="136.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<circle cx="160.0" cy="164.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="186.0" cy="156.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="174.5" y="144.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="178.0" y="142.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="178.0" y="136.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="180.5" y="132.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="182.5" y="128.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="162.5" y="160.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="160.0" y="130.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="162.5" y="156.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="170.5" y="154.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="190.5" y="160.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="198.0,133.1 200.9,136.0 198.0,138.9 195.1,136.0" class="fig-blue-fill"/>
-<rect x="190.5" y="124.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="172.5" y="136.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="166.5" y="158.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="160.5" y="118.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="188.5" y="140.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="166.5" y="144.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<circle cx="180.0" cy="168.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="180.5" y="140.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="182.0" y="152.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="182.5" y="156.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<circle cx="160.0" cy="132.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="186.0" cy="140.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="174.5" y="148.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="178.0" y="150.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="178.0" y="156.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="180.5" y="160.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="182.5" y="164.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="162.5" y="132.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="160.0" y="162.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="162.5" y="136.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="170.5" y="138.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="190.5" y="132.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="198.0,157.1 200.9,160.0 198.0,162.9 195.1,160.0" class="fig-blue-fill"/>
+<rect x="190.5" y="168.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="172.5" y="156.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="166.5" y="134.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="160.5" y="174.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="188.5" y="152.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="166.5" y="148.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <text x="224.0" y="98.0" class="fig-city" text-anchor="start">HAME</text>
 <rect x="224.0" y="108.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<rect x="260.0" y="138.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="262.0" y="142.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="256.0" y="142.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="256.0" y="136.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="250.5" y="130.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="262.5" y="126.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="242.5" y="138.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="234.0,141.1 236.9,144.0 234.0,146.9 231.1,144.0" class="fig-blue-fill"/>
-<polygon points="236.0,143.1 238.9,146.0 236.0,148.9 233.1,146.0" class="fig-blue-fill"/>
+<rect x="260.0" y="154.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="262.0" y="150.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="256.0" y="150.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="256.0" y="156.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="250.5" y="162.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="262.5" y="166.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="242.5" y="154.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="234.0,149.1 236.9,152.0 234.0,154.9 231.1,152.0" class="fig-blue-fill"/>
+<polygon points="236.0,147.1 238.9,150.0 236.0,152.9 233.1,150.0" class="fig-blue-fill"/>
 <polygon points="236.0,145.1 238.9,148.0 236.0,150.9 233.1,148.0" class="fig-blue-fill"/>
-<rect x="252.5" y="142.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="262.0" y="134.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="242.0" y="130.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<polygon points="256.0,125.1 258.9,128.0 256.0,130.9 253.1,128.0" class="fig-blue-fill"/>
-<polygon points="246.0,133.1 248.9,136.0 246.0,138.9 243.1,136.0" class="fig-blue-fill"/>
-<polygon points="246.0,143.1 248.9,146.0 246.0,148.9 243.1,146.0" class="fig-blue-fill"/>
-<polygon points="254.0,147.1 256.9,150.0 254.0,152.9 251.1,150.0" class="fig-blue-fill"/>
-<polygon points="268.0,137.1 270.9,140.0 268.0,142.9 265.1,140.0" class="fig-blue-fill"/>
-<circle cx="270.0" cy="144.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="242.0" cy="138.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="252.5" y="150.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="262.0" y="158.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="242.0" y="162.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<polygon points="256.0,165.1 258.9,168.0 256.0,170.9 253.1,168.0" class="fig-blue-fill"/>
+<polygon points="246.0,157.1 248.9,160.0 246.0,162.9 243.1,160.0" class="fig-blue-fill"/>
+<polygon points="246.0,147.1 248.9,150.0 246.0,152.9 243.1,150.0" class="fig-blue-fill"/>
+<polygon points="254.0,143.1 256.9,146.0 254.0,148.9 251.1,146.0" class="fig-blue-fill"/>
+<polygon points="268.0,153.1 270.9,156.0 268.0,158.9 265.1,156.0" class="fig-blue-fill"/>
+<circle cx="270.0" cy="152.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="242.0" cy="158.0" r="3.0" class="fig-mark-dockable"/>
 <rect x="264.5" y="146.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="270.5" y="140.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="258.0" y="134.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="250.0" y="134.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="240.5" y="154.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="258.5" y="150.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="250.5" y="118.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="238.5" y="122.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="236.5" y="128.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="280.5" y="128.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="260.0,129.1 262.9,132.0 260.0,134.9 257.1,132.0" class="fig-blue-fill"/>
+<rect x="270.5" y="152.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="258.0" y="158.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="250.0" y="158.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="240.5" y="138.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="258.5" y="142.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="250.5" y="174.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="238.5" y="170.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="236.5" y="164.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="280.5" y="164.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="260.0,161.1 262.9,164.0 260.0,166.9 257.1,164.0" class="fig-blue-fill"/>
 <text x="316.0" y="98.0" class="fig-city" text-anchor="start">AURIGA</text>
 <rect x="316.0" y="108.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="376.0" cy="136.0" r="3.0" class="fig-mark-dockable"/>
-<polygon points="372.0,137.1 374.9,140.0 372.0,142.9 369.1,140.0" class="fig-blue-fill"/>
-<polygon points="376.0,137.1 378.9,140.0 376.0,142.9 373.1,140.0" class="fig-blue-fill"/>
-<rect x="370.5" y="134.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="336.0,141.1 338.9,144.0 336.0,146.9 333.1,144.0" class="fig-blue-fill"/>
+<circle cx="376.0" cy="160.0" r="3.0" class="fig-mark-dockable"/>
+<polygon points="372.0,153.1 374.9,156.0 372.0,158.9 369.1,156.0" class="fig-blue-fill"/>
+<polygon points="376.0,153.1 378.9,156.0 376.0,158.9 373.1,156.0" class="fig-blue-fill"/>
+<rect x="370.5" y="158.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="336.0,149.1 338.9,152.0 336.0,154.9 333.1,152.0" class="fig-blue-fill"/>
 <polygon points="338.0,145.1 340.9,148.0 338.0,150.9 335.1,148.0" class="fig-blue-fill"/>
 <polygon points="336.0,145.1 338.9,148.0 336.0,150.9 333.1,148.0" class="fig-blue-fill"/>
-<polygon points="336.0,147.1 338.9,150.0 336.0,152.9 333.1,150.0" class="fig-blue-fill"/>
+<polygon points="336.0,143.1 338.9,146.0 336.0,148.9 333.1,146.0" class="fig-blue-fill"/>
 <polygon points="366.0,145.1 368.9,148.0 366.0,150.9 363.1,148.0" class="fig-blue-fill"/>
-<polygon points="362.0,139.1 364.9,142.0 362.0,144.9 359.1,142.0" class="fig-blue-fill"/>
-<polygon points="358.0,135.1 360.9,138.0 358.0,140.9 355.1,138.0" class="fig-blue-fill"/>
-<rect x="364.5" y="130.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="356.0" y="142.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="370.5" y="142.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="366.5" y="136.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="358.5" y="130.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="376.0" y="132.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="346.0" y="170.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="364.5" y="142.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="378.5" y="136.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="372.5" y="126.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="350.5" y="168.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="362.0" y="168.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="376.5" y="166.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="376.0" y="154.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="334.0" y="162.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="330.0" y="168.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="326.5" y="162.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="330.5" y="162.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="334.5" y="170.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="366.5" y="176.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<circle cx="338.0" cy="170.0" r="3.0" class="fig-mark-dockable"/>
+<polygon points="362.0,151.1 364.9,154.0 362.0,156.9 359.1,154.0" class="fig-blue-fill"/>
+<polygon points="358.0,155.1 360.9,158.0 358.0,160.9 355.1,158.0" class="fig-blue-fill"/>
+<rect x="364.5" y="162.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="356.0" y="150.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="370.5" y="150.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="366.5" y="156.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="358.5" y="162.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="376.0" y="160.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="346.0" y="122.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="364.5" y="150.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="378.5" y="156.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="372.5" y="166.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="350.5" y="124.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="362.0" y="124.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="376.5" y="126.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="376.0" y="138.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="334.0" y="130.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="330.0" y="124.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="326.5" y="130.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="330.5" y="130.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="334.5" y="122.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="366.5" y="116.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<circle cx="338.0" cy="126.0" r="3.0" class="fig-mark-dockable"/>
 <text x="408.0" y="98.0" class="fig-city" text-anchor="start">ENTROLA</text>
 <rect x="408.0" y="108.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="450.0" cy="156.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="446.0" cy="154.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="442.0" y="144.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="448.0" y="142.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="458.0" y="144.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<circle cx="450.0" cy="140.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="446.0" cy="142.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="442.0" y="148.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="448.0" y="150.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="458.0" y="148.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
 <rect x="460.0" y="146.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<polygon points="464.0,139.1 466.9,142.0 464.0,144.9 461.1,142.0" class="fig-blue-fill"/>
-<polygon points="448.0,129.1 450.9,132.0 448.0,134.9 445.1,132.0" class="fig-blue-fill"/>
-<rect x="442.5" y="138.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="452.5" y="144.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="448.0" y="158.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="452.5" y="152.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="454.5" y="158.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="442.5" y="160.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="456.5" y="134.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="450.0,117.1 452.9,120.0 450.0,122.9 447.1,120.0" class="fig-blue-fill"/>
-<polygon points="446.0,119.1 448.9,122.0 446.0,124.9 443.1,122.0" class="fig-blue-fill"/>
-<polygon points="444.0,115.1 446.9,118.0 444.0,120.9 441.1,118.0" class="fig-blue-fill"/>
-<polygon points="442.0,117.1 444.9,120.0 442.0,122.9 439.1,120.0" class="fig-blue-fill"/>
-<rect x="440.5" y="156.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="454.5" y="130.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="432.5" y="148.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="434.5" y="144.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="434.5" y="142.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="428.5" y="144.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="430.5" y="138.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="438.5" y="134.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="464.5" y="154.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="430.5" y="164.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="436.5" y="158.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="464.0,151.1 466.9,154.0 464.0,156.9 461.1,154.0" class="fig-blue-fill"/>
+<polygon points="448.0,161.1 450.9,164.0 448.0,166.9 445.1,164.0" class="fig-blue-fill"/>
+<rect x="442.5" y="154.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="452.5" y="148.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="448.0" y="134.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="452.5" y="140.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="454.5" y="134.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="442.5" y="132.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="456.5" y="158.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="450.0,173.1 452.9,176.0 450.0,178.9 447.1,176.0" class="fig-blue-fill"/>
+<polygon points="446.0,171.1 448.9,174.0 446.0,176.9 443.1,174.0" class="fig-blue-fill"/>
+<polygon points="444.0,175.1 446.9,178.0 444.0,180.9 441.1,178.0" class="fig-blue-fill"/>
+<polygon points="442.0,173.1 444.9,176.0 442.0,178.9 439.1,176.0" class="fig-blue-fill"/>
+<rect x="440.5" y="136.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="454.5" y="162.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="432.5" y="144.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="434.5" y="148.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="434.5" y="150.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="428.5" y="148.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="430.5" y="154.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="438.5" y="158.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="464.5" y="138.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="430.5" y="128.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="436.5" y="134.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <text x="500.0" y="98.0" class="fig-city" text-anchor="start">CERITI</text>
 <rect x="500.0" y="108.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="526.0" cy="164.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="554.0" cy="134.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="544.5" y="134.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="540.5" y="138.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="532.5" y="158.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="528.0" y="154.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="538.0" y="154.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<circle cx="526.0" cy="132.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="554.0" cy="162.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="544.5" y="158.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="540.5" y="154.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="532.5" y="134.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="528.0" y="138.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="538.0" y="138.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
 <rect x="542.0" y="146.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="550.0" y="140.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="536.0" y="132.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="530.0" y="142.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="538.5" y="142.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="542.5" y="140.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="528.0,141.1 530.9,144.0 528.0,146.9 525.1,144.0" class="fig-blue-fill"/>
-<polygon points="526.0,143.1 528.9,146.0 526.0,148.9 523.1,146.0" class="fig-blue-fill"/>
-<polygon points="524.0,155.1 526.9,158.0 524.0,160.9 521.1,158.0" class="fig-blue-fill"/>
-<polygon points="520.0,159.1 522.9,162.0 520.0,164.9 517.1,162.0" class="fig-blue-fill"/>
-<polygon points="534.0,173.1 536.9,176.0 534.0,178.9 531.1,176.0" class="fig-blue-fill"/>
-<polygon points="542.0,169.1 544.9,172.0 542.0,174.9 539.1,172.0" class="fig-blue-fill"/>
-<polygon points="536.0,167.1 538.9,170.0 536.0,172.9 533.1,170.0" class="fig-blue-fill"/>
-<polygon points="550.0,131.1 552.9,134.0 550.0,136.9 547.1,134.0" class="fig-blue-fill"/>
-<polygon points="550.0,125.1 552.9,128.0 550.0,130.9 547.1,128.0" class="fig-blue-fill"/>
-<polygon points="546.0,121.1 548.9,124.0 546.0,126.9 543.1,124.0" class="fig-blue-fill"/>
-<polygon points="528.0,129.1 530.9,132.0 528.0,134.9 525.1,132.0" class="fig-blue-fill"/>
-<polygon points="538.0,137.1 540.9,140.0 538.0,142.9 535.1,140.0" class="fig-blue-fill"/>
-<rect x="552.0" y="144.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="546.5" y="142.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="532.5" y="152.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="526.5" y="166.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="542.0" y="162.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="546.5" y="152.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="556.0" y="150.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="550.0" y="152.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="536.0" y="160.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="530.0" y="150.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="538.5" y="150.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="542.5" y="152.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="528.0,149.1 530.9,152.0 528.0,154.9 525.1,152.0" class="fig-blue-fill"/>
+<polygon points="526.0,147.1 528.9,150.0 526.0,152.9 523.1,150.0" class="fig-blue-fill"/>
+<polygon points="524.0,135.1 526.9,138.0 524.0,140.9 521.1,138.0" class="fig-blue-fill"/>
+<polygon points="520.0,131.1 522.9,134.0 520.0,136.9 517.1,134.0" class="fig-blue-fill"/>
+<polygon points="534.0,117.1 536.9,120.0 534.0,122.9 531.1,120.0" class="fig-blue-fill"/>
+<polygon points="542.0,121.1 544.9,124.0 542.0,126.9 539.1,124.0" class="fig-blue-fill"/>
+<polygon points="536.0,123.1 538.9,126.0 536.0,128.9 533.1,126.0" class="fig-blue-fill"/>
+<polygon points="550.0,159.1 552.9,162.0 550.0,164.9 547.1,162.0" class="fig-blue-fill"/>
+<polygon points="550.0,165.1 552.9,168.0 550.0,170.9 547.1,168.0" class="fig-blue-fill"/>
+<polygon points="546.0,169.1 548.9,172.0 546.0,174.9 543.1,172.0" class="fig-blue-fill"/>
+<polygon points="528.0,161.1 530.9,164.0 528.0,166.9 525.1,164.0" class="fig-blue-fill"/>
+<polygon points="538.0,153.1 540.9,156.0 538.0,158.9 535.1,156.0" class="fig-blue-fill"/>
+<rect x="552.0" y="148.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="546.5" y="150.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="532.5" y="140.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="526.5" y="126.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="542.0" y="130.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="546.5" y="140.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="556.0" y="142.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
 <text x="592.0" y="98.0" class="fig-city" text-anchor="start">ZOON</text>
 <rect x="592.0" y="108.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="616.0" cy="164.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="624.5" y="162.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="620.5" y="158.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="614.5" y="158.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="610.5" y="164.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="634.0,161.1 636.9,164.0 634.0,166.9 631.1,164.0" class="fig-blue-fill"/>
-<polygon points="638.0,157.1 640.9,160.0 638.0,162.9 635.1,160.0" class="fig-blue-fill"/>
-<polygon points="630.0,149.1 632.9,152.0 630.0,154.9 627.1,152.0" class="fig-blue-fill"/>
-<polygon points="626.0,149.1 628.9,152.0 626.0,154.9 623.1,152.0" class="fig-blue-fill"/>
+<circle cx="616.0" cy="132.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="624.5" y="130.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="620.5" y="134.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="614.5" y="134.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="610.5" y="128.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="634.0,129.1 636.9,132.0 634.0,134.9 631.1,132.0" class="fig-blue-fill"/>
+<polygon points="638.0,133.1 640.9,136.0 638.0,138.9 635.1,136.0" class="fig-blue-fill"/>
+<polygon points="630.0,141.1 632.9,144.0 630.0,146.9 627.1,144.0" class="fig-blue-fill"/>
+<polygon points="626.0,141.1 628.9,144.0 626.0,146.9 623.1,144.0" class="fig-blue-fill"/>
 <polygon points="628.0,145.1 630.9,148.0 628.0,150.9 625.1,148.0" class="fig-blue-fill"/>
-<polygon points="620.0,129.1 622.9,132.0 620.0,134.9 617.1,132.0" class="fig-blue-fill"/>
-<polygon points="618.0,129.1 620.9,132.0 618.0,134.9 615.1,132.0" class="fig-blue-fill"/>
-<polygon points="618.0,125.1 620.9,128.0 618.0,130.9 615.1,128.0" class="fig-blue-fill"/>
-<rect x="626.0" y="134.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="634.0" y="152.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="612.5" y="152.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="614.5" y="142.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="616.5" y="132.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="626.5" y="124.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="604.5" y="142.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="620.0,161.1 622.9,164.0 620.0,166.9 617.1,164.0" class="fig-blue-fill"/>
+<polygon points="618.0,161.1 620.9,164.0 618.0,166.9 615.1,164.0" class="fig-blue-fill"/>
+<polygon points="618.0,165.1 620.9,168.0 618.0,170.9 615.1,168.0" class="fig-blue-fill"/>
+<rect x="626.0" y="158.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="634.0" y="140.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="612.5" y="140.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="614.5" y="150.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="616.5" y="160.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="626.5" y="168.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="604.5" y="150.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="604.5" y="142.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="606.5" y="146.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="634.5" y="142.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="636.0" y="138.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="634.5" y="138.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="632.5" y="132.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="630.0" y="130.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="604.0" y="136.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="602.5" y="136.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="626.5" y="116.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="632.5" y="122.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<circle cx="620.0" cy="168.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="634.5" y="150.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="636.0" y="154.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="634.5" y="154.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="632.5" y="160.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="630.0" y="162.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="604.0" y="156.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="602.5" y="156.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="626.5" y="176.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="632.5" y="170.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<circle cx="620.0" cy="128.0" r="3.0" class="fig-mark-dockable"/>
 <text x="684.0" y="98.0" class="fig-city" text-anchor="start">ROON</text>
 <rect x="684.0" y="108.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<rect x="726.5" y="168.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="726.5" y="158.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="718.5" y="160.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="710.5" y="166.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="736.5" y="160.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="742.5" y="154.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="738.5" y="148.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="726.5" y="124.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="726.5" y="134.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="718.5" y="132.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="710.5" y="126.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="736.5" y="132.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="742.5" y="138.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="738.5" y="144.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="730.5" y="146.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="748.5" y="140.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="736.0" y="144.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="748.5" y="152.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="736.0" y="148.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
 <rect x="726.5" y="146.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="728.0" y="162.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="738.0" y="164.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="714.0" y="162.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="716.0" y="158.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="736.0" y="152.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="710.0" y="154.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="732.0" y="158.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="734.0" y="170.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="744.0" y="150.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<circle cx="720.0" cy="146.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="744.0" cy="140.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="740.5" y="144.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="738.0" y="140.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="722.5" y="152.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="720.0,175.1 722.9,178.0 720.0,180.9 717.1,178.0" class="fig-blue-fill"/>
-<polygon points="722.0,173.1 724.9,176.0 722.0,178.9 719.1,176.0" class="fig-blue-fill"/>
-<polygon points="726.0,175.1 728.9,178.0 726.0,180.9 723.1,178.0" class="fig-blue-fill"/>
-<polygon points="754.0,143.1 756.9,146.0 754.0,148.9 751.1,146.0" class="fig-blue-fill"/>
+<rect x="728.0" y="130.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="738.0" y="128.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="714.0" y="130.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="716.0" y="134.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="736.0" y="140.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="710.0" y="138.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="732.0" y="134.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="734.0" y="122.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="744.0" y="142.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<circle cx="720.0" cy="150.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="744.0" cy="156.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="740.5" y="148.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="738.0" y="152.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="722.5" y="140.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="720.0,115.1 722.9,118.0 720.0,120.9 717.1,118.0" class="fig-blue-fill"/>
+<polygon points="722.0,117.1 724.9,120.0 722.0,122.9 719.1,120.0" class="fig-blue-fill"/>
+<polygon points="726.0,115.1 728.9,118.0 726.0,120.9 723.1,118.0" class="fig-blue-fill"/>
+<polygon points="754.0,147.1 756.9,150.0 754.0,152.9 751.1,150.0" class="fig-blue-fill"/>
 <polygon points="754.0,145.1 756.9,148.0 754.0,150.9 751.1,148.0" class="fig-blue-fill"/>
 <text x="40.0" y="206.0" class="fig-city" text-anchor="start">QUILBA</text>
 <rect x="40.0" y="216.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="84.0" cy="264.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="60.0" cy="248.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="68.5" y="258.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="64.0" y="262.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="60.5" y="266.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="56.0" y="270.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="52.5" y="274.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="52.0" y="264.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="60.0" y="256.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="60.0" y="274.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="70.0" y="270.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<polygon points="66.0,243.1 68.9,246.0 66.0,248.9 63.1,246.0" class="fig-blue-fill"/>
-<polygon points="64.0,241.1 66.9,244.0 64.0,246.9 61.1,244.0" class="fig-blue-fill"/>
-<polygon points="62.0,239.1 64.9,242.0 62.0,244.9 59.1,242.0" class="fig-blue-fill"/>
-<polygon points="50.0,267.1 52.9,270.0 50.0,272.9 47.1,270.0" class="fig-blue-fill"/>
-<polygon points="50.0,271.1 52.9,274.0 50.0,276.9 47.1,274.0" class="fig-blue-fill"/>
-<polygon points="52.0,271.1 54.9,274.0 52.0,276.9 49.1,274.0" class="fig-blue-fill"/>
-<polygon points="84.0,269.1 86.9,272.0 84.0,274.9 81.1,272.0" class="fig-blue-fill"/>
-<polygon points="82.0,271.1 84.9,274.0 82.0,276.9 79.1,274.0" class="fig-blue-fill"/>
-<polygon points="82.0,267.1 84.9,270.0 82.0,272.9 79.1,270.0" class="fig-blue-fill"/>
-<rect x="74.5" y="254.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="64.0" y="256.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="64.0" y="272.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="58.5" y="262.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="68.5" y="266.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="78.5" y="258.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="72.5" y="250.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="74.5" y="246.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="70.5" y="246.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="70.5" y="250.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<circle cx="84.0" cy="248.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="60.0" cy="264.0" r="3.0" class="fig-mark-dockable"/>
 <rect x="68.5" y="250.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="64.0" y="246.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="60.5" y="242.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="56.0" y="238.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="52.5" y="234.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="52.0" y="244.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="60.0" y="252.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="60.0" y="234.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="70.0" y="238.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<polygon points="66.0,263.1 68.9,266.0 66.0,268.9 63.1,266.0" class="fig-blue-fill"/>
+<polygon points="64.0,265.1 66.9,268.0 64.0,270.9 61.1,268.0" class="fig-blue-fill"/>
+<polygon points="62.0,267.1 64.9,270.0 62.0,272.9 59.1,270.0" class="fig-blue-fill"/>
+<polygon points="50.0,239.1 52.9,242.0 50.0,244.9 47.1,242.0" class="fig-blue-fill"/>
+<polygon points="50.0,235.1 52.9,238.0 50.0,240.9 47.1,238.0" class="fig-blue-fill"/>
+<polygon points="52.0,235.1 54.9,238.0 52.0,240.9 49.1,238.0" class="fig-blue-fill"/>
+<polygon points="84.0,237.1 86.9,240.0 84.0,242.9 81.1,240.0" class="fig-blue-fill"/>
+<polygon points="82.0,235.1 84.9,238.0 82.0,240.9 79.1,238.0" class="fig-blue-fill"/>
+<polygon points="82.0,239.1 84.9,242.0 82.0,244.9 79.1,242.0" class="fig-blue-fill"/>
+<rect x="74.5" y="254.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="64.0" y="252.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="64.0" y="236.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="58.5" y="246.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="68.5" y="242.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="78.5" y="250.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="72.5" y="258.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="74.5" y="262.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="70.5" y="262.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="70.5" y="258.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="68.5" y="258.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <text x="132.0" y="206.0" class="fig-city" text-anchor="start">ERMA</text>
 <rect x="132.0" y="216.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="190.0" cy="270.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="184.5" y="268.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="188.5" y="264.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="188.5" y="260.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="172.5" y="260.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="172.5" y="252.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="164.5" y="252.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="164.0" y="242.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="172.0" y="236.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="160.0" y="236.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<polygon points="166.0,223.1 168.9,226.0 166.0,228.9 163.1,226.0" class="fig-blue-fill"/>
-<polygon points="172.0,227.1 174.9,230.0 172.0,232.9 169.1,230.0" class="fig-blue-fill"/>
-<polygon points="144.0,251.1 146.9,254.0 144.0,256.9 141.1,254.0" class="fig-blue-fill"/>
-<polygon points="146.0,255.1 148.9,258.0 146.0,260.9 143.1,258.0" class="fig-blue-fill"/>
-<circle cx="164.0" cy="258.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="152.5" y="256.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="156.0" y="252.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="150.0" y="252.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="164.5" y="258.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="162.0,257.1 164.9,260.0 162.0,262.9 159.1,260.0" class="fig-blue-fill"/>
+<circle cx="190.0" cy="242.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="184.5" y="240.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="188.5" y="244.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="188.5" y="248.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="172.5" y="248.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="172.5" y="256.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="164.5" y="256.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="164.0" y="266.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="172.0" y="272.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="160.0" y="272.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<polygon points="166.0,283.1 168.9,286.0 166.0,288.9 163.1,286.0" class="fig-blue-fill"/>
+<polygon points="172.0,279.1 174.9,282.0 172.0,284.9 169.1,282.0" class="fig-blue-fill"/>
+<polygon points="144.0,255.1 146.9,258.0 144.0,260.9 141.1,258.0" class="fig-blue-fill"/>
+<polygon points="146.0,251.1 148.9,254.0 146.0,256.9 143.1,254.0" class="fig-blue-fill"/>
+<circle cx="164.0" cy="254.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="152.5" y="252.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="156.0" y="256.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="150.0" y="256.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="164.5" y="250.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="162.0,249.1 164.9,252.0 162.0,254.9 159.1,252.0" class="fig-blue-fill"/>
 <rect x="160.5" y="254.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="162.0,243.1 164.9,246.0 162.0,248.9 159.1,246.0" class="fig-blue-fill"/>
-<polygon points="156.0,239.1 158.9,242.0 156.0,244.9 153.1,242.0" class="fig-blue-fill"/>
-<polygon points="156.0,235.1 158.9,238.0 156.0,240.9 153.1,238.0" class="fig-blue-fill"/>
-<polygon points="152.0,235.1 154.9,238.0 152.0,240.9 149.1,238.0" class="fig-blue-fill"/>
-<rect x="166.5" y="264.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="168.5" y="256.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="162.0,263.1 164.9,266.0 162.0,268.9 159.1,266.0" class="fig-blue-fill"/>
+<polygon points="156.0,267.1 158.9,270.0 156.0,272.9 153.1,270.0" class="fig-blue-fill"/>
+<polygon points="156.0,271.1 158.9,274.0 156.0,276.9 153.1,274.0" class="fig-blue-fill"/>
+<polygon points="152.0,271.1 154.9,274.0 152.0,276.9 149.1,274.0" class="fig-blue-fill"/>
+<rect x="166.5" y="244.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="168.5" y="252.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="178.5" y="254.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="176.5" y="226.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="156.5" y="264.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="152.5" y="266.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="154.5" y="268.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="176.5" y="282.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="156.5" y="244.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="152.5" y="242.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="154.5" y="240.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <text x="224.0" y="206.0" class="fig-city" text-anchor="start">CORUK</text>
 <rect x="224.0" y="216.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
 <rect x="278.0" y="254.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="280.0" y="252.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="280.0" y="256.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
 <rect x="274.0" y="254.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="288.0" y="248.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="286.0" y="246.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="290.0" y="244.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="270.0" y="264.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="266.0" y="262.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="266.0" y="266.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<circle cx="264.0" cy="270.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="288.0" cy="244.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="266.0" y="242.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="262.5" y="240.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="266.0" y="236.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="260.5" y="234.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="258.5" y="266.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="278.0,241.1 280.9,244.0 278.0,246.9 275.1,244.0" class="fig-blue-fill"/>
-<polygon points="276.0,241.1 278.9,244.0 276.0,246.9 273.1,244.0" class="fig-blue-fill"/>
-<polygon points="276.0,243.1 278.9,246.0 276.0,248.9 273.1,246.0" class="fig-blue-fill"/>
-<rect x="276.5" y="228.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="280.5" y="232.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="274.5" y="234.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="272.5" y="230.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="272.5" y="240.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="264.5" y="238.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="266.0,225.1 268.9,228.0 266.0,230.9 263.1,228.0" class="fig-blue-fill"/>
-<polygon points="256.0,231.1 258.9,234.0 256.0,236.9 253.1,234.0" class="fig-blue-fill"/>
-<polygon points="260.0,275.1 262.9,278.0 260.0,280.9 257.1,278.0" class="fig-blue-fill"/>
 <rect x="288.0" y="260.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="274.0" y="276.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="258.0" y="262.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="278.0" y="258.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="286.0" y="262.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="290.0" y="264.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="270.0" y="244.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="266.0" y="246.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="266.0" y="242.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<circle cx="264.0" cy="242.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="288.0" cy="268.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="266.0" y="266.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="262.5" y="268.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="266.0" y="272.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="260.5" y="274.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="258.5" y="242.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="278.0,265.1 280.9,268.0 278.0,270.9 275.1,268.0" class="fig-blue-fill"/>
+<polygon points="276.0,265.1 278.9,268.0 276.0,270.9 273.1,268.0" class="fig-blue-fill"/>
+<polygon points="276.0,263.1 278.9,266.0 276.0,268.9 273.1,266.0" class="fig-blue-fill"/>
+<rect x="276.5" y="280.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="280.5" y="276.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="274.5" y="274.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="272.5" y="278.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="272.5" y="268.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="264.5" y="270.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="266.0,281.1 268.9,284.0 266.0,286.9 263.1,284.0" class="fig-blue-fill"/>
+<polygon points="256.0,275.1 258.9,278.0 256.0,280.9 253.1,278.0" class="fig-blue-fill"/>
+<polygon points="260.0,231.1 262.9,234.0 260.0,236.9 257.1,234.0" class="fig-blue-fill"/>
+<rect x="288.0" y="248.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="274.0" y="232.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="258.0" y="246.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="278.0" y="250.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
 <text x="316.0" y="206.0" class="fig-city" text-anchor="start">RILENY</text>
 <rect x="316.0" y="216.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="374.0" cy="250.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="360.0" cy="282.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="364.0" y="258.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="368.5" y="256.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<circle cx="374.0" cy="262.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="360.0" cy="230.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="364.0" y="250.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
 <rect x="368.5" y="252.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="372.0" y="252.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="372.0" y="260.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="362.5" y="272.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="362.5" y="268.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="358.0,263.1 360.9,266.0 358.0,268.9 355.1,266.0" class="fig-blue-fill"/>
-<polygon points="376.0,267.1 378.9,270.0 376.0,272.9 373.1,270.0" class="fig-blue-fill"/>
-<polygon points="362.0,251.1 364.9,254.0 362.0,256.9 359.1,254.0" class="fig-blue-fill"/>
+<rect x="368.5" y="256.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="372.0" y="256.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="372.0" y="248.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="362.5" y="236.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="362.5" y="240.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="358.0,243.1 360.9,246.0 358.0,248.9 355.1,246.0" class="fig-blue-fill"/>
+<polygon points="376.0,239.1 378.9,242.0 376.0,244.9 373.1,242.0" class="fig-blue-fill"/>
+<polygon points="362.0,255.1 364.9,258.0 362.0,260.9 359.1,258.0" class="fig-blue-fill"/>
 <polygon points="360.0,253.1 362.9,256.0 360.0,258.9 357.1,256.0" class="fig-blue-fill"/>
-<polygon points="360.0,249.1 362.9,252.0 360.0,254.9 357.1,252.0" class="fig-blue-fill"/>
-<polygon points="356.0,249.1 358.9,252.0 356.0,254.9 353.1,252.0" class="fig-blue-fill"/>
-<rect x="354.5" y="260.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="354.0" y="280.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="356.0" y="276.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="350.0" y="276.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="364.0" y="280.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="336.0" y="266.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<polygon points="360.0,257.1 362.9,260.0 360.0,262.9 357.1,260.0" class="fig-blue-fill"/>
+<polygon points="356.0,257.1 358.9,260.0 356.0,262.9 353.1,260.0" class="fig-blue-fill"/>
+<rect x="354.5" y="248.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="354.0" y="228.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="356.0" y="232.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="350.0" y="232.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="364.0" y="228.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="336.0" y="242.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
 <rect x="354.5" y="254.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="384.0,259.1 386.9,262.0 384.0,264.9 381.1,262.0" class="fig-blue-fill"/>
+<polygon points="384.0,247.1 386.9,250.0 384.0,252.9 381.1,250.0" class="fig-blue-fill"/>
 <polygon points="380.0,253.1 382.9,256.0 380.0,258.9 377.1,256.0" class="fig-blue-fill"/>
 <rect x="364.5" y="254.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="368.5" y="268.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="372.5" y="276.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="344.0" y="248.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="340.0" y="252.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="352.5" y="242.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="346.5" y="242.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="368.5" y="240.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="372.5" y="232.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="344.0" y="260.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="340.0" y="256.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="352.5" y="266.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="346.5" y="266.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <text x="408.0" y="206.0" class="fig-city" text-anchor="start">GOBORINDI</text>
 <rect x="408.0" y="216.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="452.0" cy="250.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="428.0" cy="234.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="444.5" y="248.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="444.5" y="246.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="446.5" y="244.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="448.5" y="242.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="450.5" y="242.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="452.5" y="242.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="454.5" y="244.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="456.5" y="246.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="454.5" y="256.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="452.5" y="256.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="450.5" y="256.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<circle cx="452.0" cy="262.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="428.0" cy="278.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="444.5" y="260.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="444.5" y="262.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="446.5" y="264.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="448.5" y="266.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="450.5" y="266.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="452.5" y="266.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="454.5" y="264.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="456.5" y="262.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="454.5" y="252.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="452.5" y="252.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="450.5" y="252.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="446.5" y="254.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="444.5" y="252.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="444.5" y="250.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="458.5" y="248.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="462.5" y="250.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="444.5" y="256.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="444.5" y="258.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="458.5" y="260.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="462.5" y="258.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="466.5" y="254.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="456.5" y="260.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="460.5" y="264.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="468.5" y="258.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="470.5" y="262.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="470.5" y="266.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="470.5" y="270.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="466.5" y="274.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="458.5" y="268.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="464.5" y="260.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="470.0,241.1 472.9,244.0 470.0,246.9 467.1,244.0" class="fig-blue-fill"/>
-<polygon points="468.0,241.1 470.9,244.0 468.0,246.9 465.1,244.0" class="fig-blue-fill"/>
-<polygon points="466.0,241.1 468.9,244.0 466.0,246.9 463.1,244.0" class="fig-blue-fill"/>
-<rect x="448.0" y="250.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="456.5" y="248.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="460.5" y="244.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="468.5" y="250.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="470.5" y="246.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="470.5" y="242.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="470.5" y="238.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="466.5" y="234.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="458.5" y="240.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="464.5" y="248.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="470.0,265.1 472.9,268.0 470.0,270.9 467.1,268.0" class="fig-blue-fill"/>
+<polygon points="468.0,265.1 470.9,268.0 468.0,270.9 465.1,268.0" class="fig-blue-fill"/>
+<polygon points="466.0,265.1 468.9,268.0 466.0,270.9 463.1,268.0" class="fig-blue-fill"/>
+<rect x="448.0" y="258.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
 <text x="500.0" y="206.0" class="fig-city" text-anchor="start">ZILOGI</text>
 <rect x="500.0" y="216.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="556.0" cy="246.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="552.0" cy="244.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="552.5" y="250.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="548.5" y="250.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="544.5" y="250.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="544.5" y="246.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="544.5" y="242.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="544.5" y="238.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="544.5" y="234.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="548.5" y="234.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="552.5" y="234.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="556.5" y="234.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="560.5" y="234.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="562.5" y="238.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="562.5" y="242.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="562.5" y="246.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="562.5" y="250.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="562.5" y="254.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="562.5" y="258.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<circle cx="556.0" cy="266.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="552.0" cy="268.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="552.5" y="258.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="548.5" y="258.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="544.5" y="258.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="544.5" y="262.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="544.5" y="266.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="544.5" y="270.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="544.5" y="274.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="548.5" y="274.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="552.5" y="274.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="556.5" y="274.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="560.5" y="274.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="562.5" y="270.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="562.5" y="266.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="562.5" y="262.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="558.5" y="262.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="554.5" y="262.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="550.5" y="262.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="546.5" y="262.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="542.5" y="262.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="552.0" y="238.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="550.0" y="238.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<polygon points="542.0,241.1 544.9,244.0 542.0,246.9 539.1,244.0" class="fig-blue-fill"/>
-<polygon points="536.0,255.1 538.9,258.0 536.0,260.9 533.1,258.0" class="fig-blue-fill"/>
-<polygon points="540.0,255.1 542.9,258.0 540.0,260.9 537.1,258.0" class="fig-blue-fill"/>
-<polygon points="538.0,239.1 540.9,242.0 538.0,244.9 535.1,242.0" class="fig-blue-fill"/>
-<polygon points="536.0,237.1 538.9,240.0 536.0,242.9 533.1,240.0" class="fig-blue-fill"/>
+<rect x="562.5" y="258.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="562.5" y="254.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="562.5" y="250.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="562.5" y="246.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="558.5" y="246.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="554.5" y="246.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="550.5" y="246.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="546.5" y="246.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="542.5" y="246.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="552.0" y="270.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="550.0" y="270.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<polygon points="542.0,265.1 544.9,268.0 542.0,270.9 539.1,268.0" class="fig-blue-fill"/>
+<polygon points="536.0,251.1 538.9,254.0 536.0,256.9 533.1,254.0" class="fig-blue-fill"/>
+<polygon points="540.0,251.1 542.9,254.0 540.0,256.9 537.1,254.0" class="fig-blue-fill"/>
+<polygon points="538.0,267.1 540.9,270.0 538.0,272.9 535.1,270.0" class="fig-blue-fill"/>
+<polygon points="536.0,269.1 538.9,272.0 536.0,274.9 533.1,272.0" class="fig-blue-fill"/>
 <text x="592.0" y="206.0" class="fig-city" text-anchor="start">KULA</text>
 <rect x="592.0" y="216.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="622.0" cy="266.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="624.0" y="262.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="620.0" y="262.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="616.0" y="258.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<circle cx="622.0" cy="246.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="624.0" y="246.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="620.0" y="246.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="616.0" y="250.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
 <rect x="626.5" y="254.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="630.5" y="252.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="634.5" y="248.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="636.5" y="242.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="634.5" y="234.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="638.5" y="230.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="642.0,247.1 644.9,250.0 642.0,252.9 639.1,250.0" class="fig-blue-fill"/>
-<polygon points="630.0,247.1 632.9,250.0 630.0,252.9 627.1,250.0" class="fig-blue-fill"/>
-<polygon points="630.0,243.1 632.9,246.0 630.0,248.9 627.1,246.0" class="fig-blue-fill"/>
-<polygon points="626.0,243.1 628.9,246.0 626.0,248.9 623.1,246.0" class="fig-blue-fill"/>
-<polygon points="630.0,235.1 632.9,238.0 630.0,240.9 627.1,238.0" class="fig-blue-fill"/>
-<polygon points="658.0,243.1 660.9,246.0 658.0,248.9 655.1,246.0" class="fig-blue-fill"/>
-<polygon points="656.0,245.1 658.9,248.0 656.0,250.9 653.1,248.0" class="fig-blue-fill"/>
-<polygon points="656.0,249.1 658.9,252.0 656.0,254.9 653.1,252.0" class="fig-blue-fill"/>
+<rect x="630.5" y="256.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="634.5" y="260.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="636.5" y="266.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="634.5" y="274.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="638.5" y="278.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="642.0,259.1 644.9,262.0 642.0,264.9 639.1,262.0" class="fig-blue-fill"/>
+<polygon points="630.0,259.1 632.9,262.0 630.0,264.9 627.1,262.0" class="fig-blue-fill"/>
+<polygon points="630.0,263.1 632.9,266.0 630.0,268.9 627.1,266.0" class="fig-blue-fill"/>
+<polygon points="626.0,263.1 628.9,266.0 626.0,268.9 623.1,266.0" class="fig-blue-fill"/>
+<polygon points="630.0,271.1 632.9,274.0 630.0,276.9 627.1,274.0" class="fig-blue-fill"/>
+<polygon points="658.0,263.1 660.9,266.0 658.0,268.9 655.1,266.0" class="fig-blue-fill"/>
+<polygon points="656.0,261.1 658.9,264.0 656.0,266.9 653.1,264.0" class="fig-blue-fill"/>
+<polygon points="656.0,257.1 658.9,260.0 656.0,262.9 653.1,260.0" class="fig-blue-fill"/>
 <rect x="646.5" y="254.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="646.5" y="240.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="628.0" y="226.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<polygon points="634.0,225.1 636.9,228.0 634.0,230.9 631.1,228.0" class="fig-blue-fill"/>
-<polygon points="660.0,255.1 662.9,258.0 660.0,260.9 657.1,258.0" class="fig-blue-fill"/>
-<rect x="632.5" y="256.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="620.5" y="248.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="614.0" y="248.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="614.0" y="244.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="618.5" y="232.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="642.5" y="234.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="652.5" y="260.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<circle cx="612.0" cy="248.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="646.5" y="268.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="628.0" y="282.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<polygon points="634.0,281.1 636.9,284.0 634.0,286.9 631.1,284.0" class="fig-blue-fill"/>
+<polygon points="660.0,251.1 662.9,254.0 660.0,256.9 657.1,254.0" class="fig-blue-fill"/>
+<rect x="632.5" y="252.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="620.5" y="260.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="614.0" y="260.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="614.0" y="264.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="618.5" y="276.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="642.5" y="274.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="652.5" y="248.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<circle cx="612.0" cy="264.0" r="3.0" class="fig-mark-dockable"/>
 <text x="684.0" y="206.0" class="fig-city" text-anchor="start">TSULA</text>
 <rect x="684.0" y="216.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="724.0" cy="266.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="730.0" cy="276.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="724.0" y="250.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<circle cx="724.0" cy="246.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="730.0" cy="236.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="724.0" y="258.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
 <rect x="724.5" y="254.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="720.5" y="254.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="720.5" y="250.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="736.5" y="246.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="736.5" y="240.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="728.0,239.1 730.9,242.0 728.0,244.9 725.1,242.0" class="fig-blue-fill"/>
-<polygon points="716.0,239.1 718.9,242.0 716.0,244.9 713.1,242.0" class="fig-blue-fill"/>
-<polygon points="718.0,237.1 720.9,240.0 718.0,242.9 715.1,240.0" class="fig-blue-fill"/>
-<polygon points="720.0,237.1 722.9,240.0 720.0,242.9 717.1,240.0" class="fig-blue-fill"/>
-<polygon points="744.0,239.1 746.9,242.0 744.0,244.9 741.1,242.0" class="fig-blue-fill"/>
-<polygon points="744.0,241.1 746.9,244.0 744.0,246.9 741.1,244.0" class="fig-blue-fill"/>
-<polygon points="746.0,243.1 748.9,246.0 746.0,248.9 743.1,246.0" class="fig-blue-fill"/>
-<polygon points="746.0,267.1 748.9,270.0 746.0,272.9 743.1,270.0" class="fig-blue-fill"/>
+<rect x="720.5" y="258.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="736.5" y="262.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="736.5" y="268.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="728.0,267.1 730.9,270.0 728.0,272.9 725.1,270.0" class="fig-blue-fill"/>
+<polygon points="716.0,267.1 718.9,270.0 716.0,272.9 713.1,270.0" class="fig-blue-fill"/>
+<polygon points="718.0,269.1 720.9,272.0 718.0,274.9 715.1,272.0" class="fig-blue-fill"/>
+<polygon points="720.0,269.1 722.9,272.0 720.0,274.9 717.1,272.0" class="fig-blue-fill"/>
 <polygon points="744.0,267.1 746.9,270.0 744.0,272.9 741.1,270.0" class="fig-blue-fill"/>
 <polygon points="744.0,265.1 746.9,268.0 744.0,270.9 741.1,268.0" class="fig-blue-fill"/>
-<polygon points="714.0,265.1 716.9,268.0 714.0,270.9 711.1,268.0" class="fig-blue-fill"/>
-<polygon points="714.0,263.1 716.9,266.0 714.0,268.9 711.1,266.0" class="fig-blue-fill"/>
-<polygon points="712.0,261.1 714.9,264.0 712.0,266.9 709.1,264.0" class="fig-blue-fill"/>
-<rect x="730.5" y="252.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="722.5" y="246.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="716.5" y="252.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="722.5" y="258.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="726.0" y="272.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="726.0" y="266.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="706.0" y="250.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="706.5" y="258.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="746.0,263.1 748.9,266.0 746.0,268.9 743.1,266.0" class="fig-blue-fill"/>
+<polygon points="746.0,239.1 748.9,242.0 746.0,244.9 743.1,242.0" class="fig-blue-fill"/>
+<polygon points="744.0,239.1 746.9,242.0 744.0,244.9 741.1,242.0" class="fig-blue-fill"/>
+<polygon points="744.0,241.1 746.9,244.0 744.0,246.9 741.1,244.0" class="fig-blue-fill"/>
+<polygon points="714.0,241.1 716.9,244.0 714.0,246.9 711.1,244.0" class="fig-blue-fill"/>
+<polygon points="714.0,243.1 716.9,246.0 714.0,248.9 711.1,246.0" class="fig-blue-fill"/>
+<polygon points="712.0,245.1 714.9,248.0 712.0,250.9 709.1,248.0" class="fig-blue-fill"/>
+<rect x="730.5" y="256.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="722.5" y="262.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="716.5" y="256.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="722.5" y="250.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="726.0" y="236.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="726.0" y="242.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="706.0" y="258.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="706.5" y="250.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <polygon points="698.0,253.1 700.9,256.0 698.0,258.9 695.1,256.0" class="fig-blue-fill"/>
-<rect x="722.5" y="272.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="720.5" y="274.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="722.5" y="236.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="720.5" y="234.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <text x="40.0" y="314.0" class="fig-city" text-anchor="start">KRILL</text>
 <rect x="40.0" y="324.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="84.0" cy="358.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="74.0" cy="372.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="52.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="54.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="56.5" y="364.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="52.5" y="362.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="54.5" y="360.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<circle cx="84.0" cy="370.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="74.0" cy="356.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="52.5" y="358.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="54.5" y="358.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="58.5" y="358.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="58.5" y="356.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="76.5" y="358.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="68.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="106.0,363.1 108.9,366.0 106.0,368.9 103.1,366.0" class="fig-blue-fill"/>
-<polygon points="104.0,359.1 106.9,362.0 104.0,364.9 101.1,362.0" class="fig-blue-fill"/>
-<polygon points="108.0,355.1 110.9,358.0 108.0,360.9 105.1,358.0" class="fig-blue-fill"/>
-<polygon points="96.0,355.1 98.9,358.0 96.0,360.9 93.1,358.0" class="fig-blue-fill"/>
-<rect x="78.5" y="352.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="70.5" y="360.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="78.5" y="368.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="84.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="88.5" y="368.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="86.5" y="372.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="82.5" y="374.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="76.5" y="374.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="76.5" y="378.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="80.5" y="380.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="66.5" y="380.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="56.5" y="360.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="52.5" y="362.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="54.5" y="364.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="54.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="58.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="58.5" y="368.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="76.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="68.5" y="358.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="106.0,359.1 108.9,362.0 106.0,364.9 103.1,362.0" class="fig-blue-fill"/>
+<polygon points="104.0,363.1 106.9,366.0 104.0,368.9 101.1,366.0" class="fig-blue-fill"/>
+<polygon points="108.0,367.1 110.9,370.0 108.0,372.9 105.1,370.0" class="fig-blue-fill"/>
+<polygon points="96.0,367.1 98.9,370.0 96.0,372.9 93.1,370.0" class="fig-blue-fill"/>
+<rect x="78.5" y="372.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="70.5" y="364.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="78.5" y="356.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="84.5" y="358.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="88.5" y="356.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="86.5" y="352.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="82.5" y="350.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="76.5" y="350.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="76.5" y="346.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="80.5" y="344.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="66.5" y="344.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="66.5" y="362.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="94.5" y="362.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="90.5" y="352.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="82.5" y="348.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="90.5" y="372.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="82.5" y="376.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <text x="132.0" y="314.0" class="fig-city" text-anchor="start">DRANO</text>
 <rect x="132.0" y="324.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="168.0" cy="372.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="190.0" cy="372.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="184.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="180.5" y="370.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="174.5" y="370.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="168.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="154.5" y="368.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="156.5" y="364.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<circle cx="168.0" cy="356.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="190.0" cy="356.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="184.5" y="358.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="180.5" y="354.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="174.5" y="354.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="168.5" y="358.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="154.5" y="356.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="156.5" y="360.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="156.5" y="362.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="158.5" y="358.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="166.5" y="358.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="158.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="166.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="176.5" y="362.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <polygon points="188.0,361.1 190.9,364.0 188.0,366.9 185.1,364.0" class="fig-blue-fill"/>
-<polygon points="186.0,357.1 188.9,360.0 186.0,362.9 183.1,360.0" class="fig-blue-fill"/>
-<polygon points="176.0,357.1 178.9,360.0 176.0,362.9 173.1,360.0" class="fig-blue-fill"/>
-<polygon points="174.0,355.1 176.9,358.0 174.0,360.9 171.1,358.0" class="fig-blue-fill"/>
-<polygon points="176.0,353.1 178.9,356.0 176.0,358.9 173.1,356.0" class="fig-blue-fill"/>
-<rect x="150.5" y="354.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="186.0,365.1 188.9,368.0 186.0,370.9 183.1,368.0" class="fig-blue-fill"/>
+<polygon points="176.0,365.1 178.9,368.0 176.0,370.9 173.1,368.0" class="fig-blue-fill"/>
+<polygon points="174.0,367.1 176.9,370.0 174.0,372.9 171.1,370.0" class="fig-blue-fill"/>
+<polygon points="176.0,369.1 178.9,372.0 176.0,374.9 173.1,372.0" class="fig-blue-fill"/>
+<rect x="150.5" y="370.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="152.5" y="362.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="152.5" y="372.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="158.5" y="372.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="172.5" y="374.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="178.0" y="366.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="172.0" y="366.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="166.0" y="348.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="158.0" y="350.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="164.0" y="380.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="194.5" y="368.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="196.5" y="370.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="194.5" y="372.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="148.5" y="370.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="150.5" y="368.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="152.5" y="352.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="158.5" y="352.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="172.5" y="350.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="178.0" y="358.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="172.0" y="358.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="166.0" y="376.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="158.0" y="374.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="164.0" y="344.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="194.5" y="356.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="196.5" y="354.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="194.5" y="352.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="148.5" y="354.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="150.5" y="356.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <text x="224.0" y="314.0" class="fig-city" text-anchor="start">KDAPT</text>
 <rect x="224.0" y="324.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="278.0" cy="356.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="276.0" cy="350.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="246.0" y="358.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="244.0" y="354.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="242.0" y="352.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="260.0" y="352.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="256.5" y="352.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="254.0" y="348.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="266.5" y="348.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="272.5" y="352.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="262.0,345.1 264.9,348.0 262.0,350.9 259.1,348.0" class="fig-blue-fill"/>
-<polygon points="262.0,343.1 264.9,346.0 262.0,348.9 259.1,346.0" class="fig-blue-fill"/>
-<polygon points="260.0,343.1 262.9,346.0 260.0,348.9 257.1,346.0" class="fig-blue-fill"/>
-<polygon points="244.0,345.1 246.9,348.0 244.0,350.9 241.1,348.0" class="fig-blue-fill"/>
-<polygon points="242.0,345.1 244.9,348.0 242.0,350.9 239.1,348.0" class="fig-blue-fill"/>
-<polygon points="248.0,343.1 250.9,346.0 248.0,348.9 245.1,346.0" class="fig-blue-fill"/>
-<rect x="252.5" y="344.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="252.5" y="358.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="242.0" y="358.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="246.5" y="348.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="264.5" y="352.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="276.5" y="352.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="236.0,357.1 238.9,360.0 236.0,362.9 233.1,360.0" class="fig-blue-fill"/>
-<polygon points="238.0,349.1 240.9,352.0 238.0,354.9 235.1,352.0" class="fig-blue-fill"/>
-<polygon points="254.0,337.1 256.9,340.0 254.0,342.9 251.1,340.0" class="fig-blue-fill"/>
-<rect x="238.5" y="364.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="256.5" y="356.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="258.5" y="358.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="260.5" y="358.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="264.5" y="356.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="268.5" y="338.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="260.5" y="340.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<circle cx="278.0" cy="372.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="276.0" cy="378.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="246.0" y="366.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="244.0" y="370.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="242.0" y="372.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="260.0" y="372.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="256.5" y="372.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="254.0" y="376.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="266.5" y="376.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="272.5" y="372.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="262.0,377.1 264.9,380.0 262.0,382.9 259.1,380.0" class="fig-blue-fill"/>
+<polygon points="262.0,379.1 264.9,382.0 262.0,384.9 259.1,382.0" class="fig-blue-fill"/>
+<polygon points="260.0,379.1 262.9,382.0 260.0,384.9 257.1,382.0" class="fig-blue-fill"/>
+<polygon points="244.0,377.1 246.9,380.0 244.0,382.9 241.1,380.0" class="fig-blue-fill"/>
+<polygon points="242.0,377.1 244.9,380.0 242.0,382.9 239.1,380.0" class="fig-blue-fill"/>
+<polygon points="248.0,379.1 250.9,382.0 248.0,384.9 245.1,382.0" class="fig-blue-fill"/>
+<rect x="252.5" y="380.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="252.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="242.0" y="366.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="246.5" y="376.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="264.5" y="372.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="276.5" y="372.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="236.0,365.1 238.9,368.0 236.0,370.9 233.1,368.0" class="fig-blue-fill"/>
+<polygon points="238.0,373.1 240.9,376.0 238.0,378.9 235.1,376.0" class="fig-blue-fill"/>
+<polygon points="254.0,385.1 256.9,388.0 254.0,390.9 251.1,388.0" class="fig-blue-fill"/>
+<rect x="238.5" y="360.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="256.5" y="368.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="258.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="260.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="264.5" y="368.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="268.5" y="386.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="260.5" y="384.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <text x="316.0" y="314.0" class="fig-city" text-anchor="start">KZINTI</text>
 <rect x="316.0" y="324.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="350.0" cy="384.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="354.0" cy="366.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="352.5" y="384.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="346.0" y="386.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="344.5" y="382.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="346.0" y="378.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="342.0" y="378.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="350.0" y="378.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="350.0" y="386.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="360.5" y="376.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="360.5" y="372.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="354.5" y="372.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="348.5" y="370.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="344.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="350.5" y="374.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="344.5" y="370.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="358.5" y="380.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="364.5" y="380.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="338.5" y="384.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="336.0" y="382.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="336.0" y="380.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="332.0" y="378.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="332.0" y="380.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="334.0" y="386.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="340.5" y="374.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="344.0,391.1 346.9,394.0 344.0,396.9 341.1,394.0" class="fig-blue-fill"/>
-<polygon points="346.0,389.1 348.9,392.0 346.0,394.9 343.1,392.0" class="fig-blue-fill"/>
-<polygon points="344.0,387.1 346.9,390.0 344.0,392.9 341.1,390.0" class="fig-blue-fill"/>
-<rect x="362.0" y="370.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="368.0" y="376.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="360.0" y="386.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="348.0" y="360.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<circle cx="350.0" cy="344.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="354.0" cy="362.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="352.5" y="340.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="346.0" y="338.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="344.5" y="342.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="346.0" y="346.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="342.0" y="346.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="350.0" y="346.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="350.0" y="338.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="360.5" y="348.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="360.5" y="352.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="354.5" y="352.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="348.5" y="354.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="344.5" y="358.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="350.5" y="350.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="344.5" y="354.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="358.5" y="344.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="364.5" y="344.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="338.5" y="340.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="336.0" y="342.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="336.0" y="344.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="332.0" y="346.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="332.0" y="344.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="334.0" y="338.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="340.5" y="350.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="344.0,331.1 346.9,334.0 344.0,336.9 341.1,334.0" class="fig-blue-fill"/>
+<polygon points="346.0,333.1 348.9,336.0 346.0,338.9 343.1,336.0" class="fig-blue-fill"/>
+<polygon points="344.0,335.1 346.9,338.0 344.0,340.9 341.1,338.0" class="fig-blue-fill"/>
+<rect x="362.0" y="354.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="368.0" y="348.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="360.0" y="338.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="348.0" y="364.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
 <text x="408.0" y="314.0" class="fig-city" text-anchor="start">HEYROL</text>
 <rect x="408.0" y="324.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="436.0" cy="374.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="458.0" cy="374.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="446.5" y="374.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="450.0" y="366.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="458.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="464.5" y="374.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="458.5" y="380.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="450.5" y="380.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="450.0,349.1 452.9,352.0 450.0,354.9 447.1,352.0" class="fig-blue-fill"/>
-<polygon points="448.0,349.1 450.9,352.0 448.0,354.9 445.1,352.0" class="fig-blue-fill"/>
-<polygon points="448.0,347.1 450.9,350.0 448.0,352.9 445.1,350.0" class="fig-blue-fill"/>
-<polygon points="444.0,355.1 446.9,358.0 444.0,360.9 441.1,358.0" class="fig-blue-fill"/>
-<polygon points="444.0,357.1 446.9,360.0 444.0,362.9 441.1,360.0" class="fig-blue-fill"/>
-<polygon points="442.0,359.1 444.9,362.0 442.0,364.9 439.1,362.0" class="fig-blue-fill"/>
-<rect x="438.5" y="382.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="444.5" y="378.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="440.5" y="368.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="434.5" y="364.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<circle cx="436.0" cy="354.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="458.0" cy="354.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="446.5" y="350.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="450.0" y="358.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="458.5" y="358.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="464.5" y="350.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="458.5" y="344.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="450.5" y="344.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="450.0,373.1 452.9,376.0 450.0,378.9 447.1,376.0" class="fig-blue-fill"/>
+<polygon points="448.0,373.1 450.9,376.0 448.0,378.9 445.1,376.0" class="fig-blue-fill"/>
+<polygon points="448.0,375.1 450.9,378.0 448.0,380.9 445.1,378.0" class="fig-blue-fill"/>
+<polygon points="444.0,367.1 446.9,370.0 444.0,372.9 441.1,370.0" class="fig-blue-fill"/>
+<polygon points="444.0,365.1 446.9,368.0 444.0,370.9 441.1,368.0" class="fig-blue-fill"/>
+<polygon points="442.0,363.1 444.9,366.0 442.0,368.9 439.1,366.0" class="fig-blue-fill"/>
+<rect x="438.5" y="342.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="444.5" y="346.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="440.5" y="356.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="434.5" y="360.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="470.5" y="362.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="464.5" y="360.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="458.5" y="360.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="420.5" y="360.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="426.5" y="358.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="434.5" y="358.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="430.0" y="378.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="428.5" y="374.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="428.0" y="368.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="432.0" y="368.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="424.0" y="372.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="424.0" y="380.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="430.0" y="384.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="426.0" y="382.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="464.5" y="364.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="458.5" y="364.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="420.5" y="364.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="426.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="434.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="430.0" y="346.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="428.5" y="350.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="428.0" y="356.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="432.0" y="356.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="424.0" y="352.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="424.0" y="344.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="430.0" y="340.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="426.0" y="342.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
 <text x="500.0" y="314.0" class="fig-city" text-anchor="start">SCARTH</text>
 <rect x="500.0" y="324.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="512.0" cy="370.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="536.0" cy="340.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="530.0" y="390.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="530.5" y="386.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="532.5" y="384.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="534.5" y="384.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="512.0" y="372.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="512.0" y="366.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="528.5" y="340.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="534.5" y="344.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="538.5" y="342.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="538.5" y="338.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="522.0,343.1 524.9,346.0 522.0,348.9 519.1,346.0" class="fig-blue-fill"/>
-<rect x="520.5" y="346.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="538.0,363.1 540.9,366.0 538.0,368.9 535.1,366.0" class="fig-blue-fill"/>
-<polygon points="542.0,359.1 544.9,362.0 542.0,364.9 539.1,362.0" class="fig-blue-fill"/>
+<circle cx="512.0" cy="358.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="536.0" cy="388.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="530.0" y="334.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="530.5" y="338.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="532.5" y="340.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="534.5" y="340.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="512.0" y="352.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="512.0" y="358.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="528.5" y="384.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="534.5" y="380.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="538.5" y="382.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="538.5" y="386.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="522.0,379.1 524.9,382.0 522.0,384.9 519.1,382.0" class="fig-blue-fill"/>
+<rect x="520.5" y="378.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <polygon points="538.0,359.1 540.9,362.0 538.0,364.9 535.1,362.0" class="fig-blue-fill"/>
+<polygon points="542.0,363.1 544.9,366.0 542.0,368.9 539.1,366.0" class="fig-blue-fill"/>
+<polygon points="538.0,363.1 540.9,366.0 538.0,368.9 535.1,366.0" class="fig-blue-fill"/>
 <polygon points="534.0,361.1 536.9,364.0 534.0,366.9 531.1,364.0" class="fig-blue-fill"/>
 <polygon points="536.0,361.1 538.9,364.0 536.0,366.9 533.1,364.0" class="fig-blue-fill"/>
-<polygon points="536.0,357.1 538.9,360.0 536.0,362.9 533.1,360.0" class="fig-blue-fill"/>
-<rect x="516.5" y="356.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="530.5" y="350.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="530.5" y="378.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="564.0" y="366.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="566.0" y="358.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="554.0" y="358.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<polygon points="536.0,365.1 538.9,368.0 536.0,370.9 533.1,368.0" class="fig-blue-fill"/>
+<rect x="516.5" y="368.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="530.5" y="374.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="530.5" y="346.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="564.0" y="358.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="566.0" y="366.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="554.0" y="366.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
 <rect x="562.0" y="362.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="566.0" y="364.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="558.0" y="364.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="558.0" y="358.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="562.0" y="356.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<polygon points="538.0,333.1 540.9,336.0 538.0,338.9 535.1,336.0" class="fig-blue-fill"/>
+<rect x="566.0" y="360.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="558.0" y="360.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="558.0" y="366.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="562.0" y="368.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<polygon points="538.0,389.1 540.9,392.0 538.0,394.9 535.1,392.0" class="fig-blue-fill"/>
 <text x="592.0" y="314.0" class="fig-city" text-anchor="start">JADE</text>
 <rect x="592.0" y="324.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="642.0" cy="370.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="640.0" cy="366.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="636.5" y="372.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="634.5" y="368.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="632.5" y="372.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="634.5" y="376.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="628.5" y="362.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="630.5" y="360.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="634.5" y="358.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="638.5" y="358.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="642.5" y="356.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<circle cx="642.0" cy="358.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="640.0" cy="362.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="636.5" y="352.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="634.5" y="356.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="632.5" y="352.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="628.0" y="354.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="628.0" y="366.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="636.0" y="366.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="644.0" y="364.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="638.0" y="352.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="630.5" y="342.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="622.5" y="348.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="620.5" y="358.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="620.5" y="368.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="624.5" y="380.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="634.5" y="386.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="642.5" y="378.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="648.5" y="370.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="650.5" y="356.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="644.5" y="348.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="636.5" y="344.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="642.5" y="372.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="640.5" y="352.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="628.5" y="348.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="628.5" y="374.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="634.5" y="348.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="628.5" y="362.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="630.5" y="364.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="634.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="638.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="642.5" y="368.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="632.5" y="372.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="628.0" y="370.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="628.0" y="358.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="636.0" y="358.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="644.0" y="360.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="638.0" y="372.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="630.5" y="382.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="622.5" y="376.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="620.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="620.5" y="356.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="624.5" y="344.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="634.5" y="338.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="642.5" y="346.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="648.5" y="354.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="650.5" y="368.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="644.5" y="376.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="636.5" y="380.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="642.5" y="352.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="640.5" y="372.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="628.5" y="376.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="628.5" y="350.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <text x="684.0" y="314.0" class="fig-city" text-anchor="start">BOTANIA</text>
 <rect x="684.0" y="324.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="736.0" cy="358.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="718.0" cy="348.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="730.5" y="368.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="726.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="722.5" y="370.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="718.5" y="368.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="714.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="718.5" y="364.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="722.5" y="366.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="730.5" y="372.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="736.0" y="370.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="734.5" y="370.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="708.0" y="364.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<circle cx="736.0" cy="370.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="718.0" cy="380.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="730.5" y="356.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="726.5" y="358.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="722.5" y="354.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="718.5" y="356.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="714.5" y="358.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="718.5" y="360.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="722.5" y="358.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="730.5" y="352.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="736.0" y="354.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="734.5" y="354.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="708.0" y="360.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
 <rect x="706.5" y="362.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="710.0,373.1 712.9,376.0 710.0,378.9 707.1,376.0" class="fig-blue-fill"/>
-<polygon points="708.0,373.1 710.9,376.0 708.0,378.9 705.1,376.0" class="fig-blue-fill"/>
-<polygon points="706.0,369.1 708.9,372.0 706.0,374.9 703.1,372.0" class="fig-blue-fill"/>
-<polygon points="730.0,377.1 732.9,380.0 730.0,382.9 727.1,380.0" class="fig-blue-fill"/>
-<polygon points="732.0,379.1 734.9,382.0 732.0,384.9 729.1,382.0" class="fig-blue-fill"/>
-<polygon points="732.0,383.1 734.9,386.0 732.0,388.9 729.1,386.0" class="fig-blue-fill"/>
-<rect x="720.0" y="350.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="728.0" y="358.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<polygon points="728.0,333.1 730.9,336.0 728.0,338.9 725.1,336.0" class="fig-blue-fill"/>
-<polygon points="724.0,335.1 726.9,338.0 724.0,340.9 721.1,338.0" class="fig-blue-fill"/>
-<polygon points="720.0,389.1 722.9,392.0 720.0,394.9 717.1,392.0" class="fig-blue-fill"/>
-<rect x="722.5" y="382.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="722.5" y="378.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="726.0" y="352.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="728.0" y="350.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="726.0" y="348.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="724.5" y="348.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="724.5" y="346.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="710.0,349.1 712.9,352.0 710.0,354.9 707.1,352.0" class="fig-blue-fill"/>
+<polygon points="708.0,349.1 710.9,352.0 708.0,354.9 705.1,352.0" class="fig-blue-fill"/>
+<polygon points="706.0,353.1 708.9,356.0 706.0,358.9 703.1,356.0" class="fig-blue-fill"/>
+<polygon points="730.0,345.1 732.9,348.0 730.0,350.9 727.1,348.0" class="fig-blue-fill"/>
+<polygon points="732.0,343.1 734.9,346.0 732.0,348.9 729.1,346.0" class="fig-blue-fill"/>
+<polygon points="732.0,339.1 734.9,342.0 732.0,344.9 729.1,342.0" class="fig-blue-fill"/>
+<rect x="720.0" y="374.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="728.0" y="366.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<polygon points="728.0,389.1 730.9,392.0 728.0,394.9 725.1,392.0" class="fig-blue-fill"/>
+<polygon points="724.0,387.1 726.9,390.0 724.0,392.9 721.1,390.0" class="fig-blue-fill"/>
+<polygon points="720.0,333.1 722.9,336.0 720.0,338.9 717.1,336.0" class="fig-blue-fill"/>
+<rect x="722.5" y="342.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="722.5" y="346.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="726.0" y="372.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="728.0" y="374.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="726.0" y="376.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="724.5" y="376.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="724.5" y="378.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <text x="40.0" y="422.0" class="fig-city" text-anchor="start">MINSTRO</text>
 <rect x="40.0" y="432.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="76.0" cy="478.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="84.0" cy="450.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="88.0" y="474.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<circle cx="76.0" cy="466.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="84.0" cy="494.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="88.0" y="466.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
 <rect x="88.0" y="470.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="84.0" y="466.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="70.5" y="464.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="70.5" y="460.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="74.5" y="456.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="74.0" y="452.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="82.0" y="452.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="82.0" y="462.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="92.0" y="466.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<polygon points="76.0,471.1 78.9,474.0 76.0,476.9 73.1,474.0" class="fig-blue-fill"/>
-<polygon points="80.0,453.1 82.9,456.0 80.0,458.9 77.1,456.0" class="fig-blue-fill"/>
-<polygon points="70.0,453.1 72.9,456.0 70.0,458.9 67.1,456.0" class="fig-blue-fill"/>
-<polygon points="68.0,451.1 70.9,454.0 68.0,456.9 65.1,454.0" class="fig-blue-fill"/>
-<polygon points="68.0,449.1 70.9,452.0 68.0,454.9 65.1,452.0" class="fig-blue-fill"/>
-<polygon points="92.0,479.1 94.9,482.0 92.0,484.9 89.1,482.0" class="fig-blue-fill"/>
-<polygon points="90.0,479.1 92.9,482.0 90.0,484.9 87.1,482.0" class="fig-blue-fill"/>
-<polygon points="90.0,483.1 92.9,486.0 90.0,488.9 87.1,486.0" class="fig-blue-fill"/>
-<rect x="66.5" y="478.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="84.0" y="474.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="70.5" y="476.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="70.5" y="480.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="74.5" y="484.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="74.0" y="488.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="82.0" y="488.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="82.0" y="478.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="92.0" y="474.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<polygon points="76.0,467.1 78.9,470.0 76.0,472.9 73.1,470.0" class="fig-blue-fill"/>
+<polygon points="80.0,485.1 82.9,488.0 80.0,490.9 77.1,488.0" class="fig-blue-fill"/>
+<polygon points="70.0,485.1 72.9,488.0 70.0,490.9 67.1,488.0" class="fig-blue-fill"/>
+<polygon points="68.0,487.1 70.9,490.0 68.0,492.9 65.1,490.0" class="fig-blue-fill"/>
+<polygon points="68.0,489.1 70.9,492.0 68.0,494.9 65.1,492.0" class="fig-blue-fill"/>
+<polygon points="92.0,459.1 94.9,462.0 92.0,464.9 89.1,462.0" class="fig-blue-fill"/>
+<polygon points="90.0,459.1 92.9,462.0 90.0,464.9 87.1,462.0" class="fig-blue-fill"/>
+<polygon points="90.0,455.1 92.9,458.0 90.0,460.9 87.1,458.0" class="fig-blue-fill"/>
+<rect x="66.5" y="462.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="68.5" y="470.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="80.0" y="470.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="80.0" y="464.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="102.0" y="466.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="104.5" y="472.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="76.5" y="446.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="70.5" y="490.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="74.5" y="496.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="66.5" y="490.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="66.5" y="488.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="68.5" y="486.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="80.0" y="476.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="102.0" y="474.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="104.5" y="468.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="76.5" y="494.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="70.5" y="450.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="74.5" y="444.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="66.5" y="450.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="66.5" y="452.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="68.5" y="454.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <text x="132.0" y="422.0" class="fig-city" text-anchor="start">FROME</text>
 <rect x="132.0" y="432.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="162.0" cy="466.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="166.0" cy="474.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="160.0" y="472.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<circle cx="162.0" cy="478.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="166.0" cy="470.0" r="3.0" class="fig-mark-dockable"/>
 <rect x="160.0" y="468.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="164.0" y="466.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="164.0" y="462.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="156.5" y="462.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="160.0" y="472.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="164.0" y="474.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="164.0" y="478.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="156.5" y="478.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="156.5" y="470.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="160.5" y="476.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="154.5" y="476.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="154.5" y="466.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="146.0" y="460.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="160.5" y="464.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="154.5" y="464.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="154.5" y="474.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="146.0" y="480.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
 <rect x="148.0" y="470.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="152.0" y="480.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="160.0" y="488.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="174.0" y="470.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="152.0" y="460.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
 <rect x="160.0" y="452.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="154.5" y="458.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="164.5" y="480.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="144.0,479.1 146.9,482.0 144.0,484.9 141.1,482.0" class="fig-blue-fill"/>
-<polygon points="142.0,475.1 144.9,478.0 142.0,480.9 139.1,478.0" class="fig-blue-fill"/>
-<polygon points="140.0,463.1 142.9,466.0 140.0,468.9 137.1,466.0" class="fig-blue-fill"/>
-<rect x="146.5" y="464.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="146.5" y="478.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="148.5" y="488.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="146.5" y="490.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="142.5" y="490.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="144.5" y="494.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="152.5" y="494.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="152.5" y="490.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="156.5" y="490.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="146.5" y="498.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="174.0" y="470.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="160.0" y="488.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="154.5" y="482.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="164.5" y="460.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="144.0,459.1 146.9,462.0 144.0,464.9 141.1,462.0" class="fig-blue-fill"/>
+<polygon points="142.0,463.1 144.9,466.0 142.0,468.9 139.1,466.0" class="fig-blue-fill"/>
+<polygon points="140.0,475.1 142.9,478.0 140.0,480.9 137.1,478.0" class="fig-blue-fill"/>
+<rect x="146.5" y="476.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="146.5" y="462.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="148.5" y="452.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="146.5" y="450.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="142.5" y="450.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="144.5" y="446.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="152.5" y="446.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="152.5" y="450.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="156.5" y="450.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="146.5" y="442.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <text x="224.0" y="422.0" class="fig-city" text-anchor="start">ILEA</text>
 <rect x="224.0" y="432.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
 <circle cx="288.0" cy="472.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="258.0" cy="464.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="266.5" y="446.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="268.5" y="450.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="270.5" y="454.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="258.0,441.1 260.9,444.0 258.0,446.9 255.1,444.0" class="fig-blue-fill"/>
-<polygon points="266.0,439.1 268.9,442.0 266.0,444.9 263.1,442.0" class="fig-blue-fill"/>
-<polygon points="260.0,437.1 262.9,440.0 260.0,442.9 257.1,440.0" class="fig-blue-fill"/>
-<polygon points="254.0,451.1 256.9,454.0 254.0,456.9 251.1,454.0" class="fig-blue-fill"/>
-<polygon points="252.0,449.1 254.9,452.0 252.0,454.9 249.1,452.0" class="fig-blue-fill"/>
-<polygon points="252.0,445.1 254.9,448.0 252.0,450.9 249.1,448.0" class="fig-blue-fill"/>
-<polygon points="282.0,459.1 284.9,462.0 282.0,464.9 279.1,462.0" class="fig-blue-fill"/>
-<polygon points="284.0,457.1 286.9,460.0 284.0,462.9 281.1,460.0" class="fig-blue-fill"/>
-<polygon points="288.0,463.1 290.9,466.0 288.0,468.9 285.1,466.0" class="fig-blue-fill"/>
-<polygon points="290.0,461.1 292.9,464.0 290.0,466.9 287.1,464.0" class="fig-blue-fill"/>
-<rect x="242.0" y="450.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="258.0" y="446.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="258.0" y="460.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<circle cx="258.0" cy="480.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="266.5" y="494.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="268.5" y="490.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="270.5" y="486.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="258.0,497.1 260.9,500.0 258.0,502.9 255.1,500.0" class="fig-blue-fill"/>
+<polygon points="266.0,499.1 268.9,502.0 266.0,504.9 263.1,502.0" class="fig-blue-fill"/>
+<polygon points="260.0,501.1 262.9,504.0 260.0,506.9 257.1,504.0" class="fig-blue-fill"/>
+<polygon points="254.0,487.1 256.9,490.0 254.0,492.9 251.1,490.0" class="fig-blue-fill"/>
+<polygon points="252.0,489.1 254.9,492.0 252.0,494.9 249.1,492.0" class="fig-blue-fill"/>
+<polygon points="252.0,493.1 254.9,496.0 252.0,498.9 249.1,496.0" class="fig-blue-fill"/>
+<polygon points="282.0,479.1 284.9,482.0 282.0,484.9 279.1,482.0" class="fig-blue-fill"/>
+<polygon points="284.0,481.1 286.9,484.0 284.0,486.9 281.1,484.0" class="fig-blue-fill"/>
+<polygon points="288.0,475.1 290.9,478.0 288.0,480.9 285.1,478.0" class="fig-blue-fill"/>
+<polygon points="290.0,477.1 292.9,480.0 290.0,482.9 287.1,480.0" class="fig-blue-fill"/>
+<rect x="242.0" y="490.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="258.0" y="494.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="258.0" y="480.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
 <rect x="246.0" y="470.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="268.0" y="466.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="262.5" y="456.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="262.5" y="448.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="268.0" y="474.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="262.5" y="484.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="262.5" y="492.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="260.5" y="470.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="256.5" y="470.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="252.5" y="470.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="252.0" y="472.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="256.0" y="476.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="258.0" y="476.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="262.5" y="472.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="244.5" y="462.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="248.5" y="454.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="252.0" y="468.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="256.0" y="464.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="258.0" y="464.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="262.5" y="468.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="244.5" y="478.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="248.5" y="486.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <text x="316.0" y="422.0" class="fig-city" text-anchor="start">LEESTRA</text>
 <rect x="316.0" y="432.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="354.0" cy="482.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="372.0" cy="476.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="372.5" y="466.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="366.5" y="468.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<circle cx="354.0" cy="462.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="372.0" cy="468.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="372.5" y="474.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="366.5" y="472.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="360.0" y="470.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="354.5" y="482.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="356.5" y="482.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="358.0" y="480.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<polygon points="342.0,465.1 344.9,468.0 342.0,470.9 339.1,468.0" class="fig-blue-fill"/>
-<rect x="342.5" y="478.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="342.5" y="472.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="352.5" y="474.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="354.5" y="458.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="356.5" y="458.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="358.0" y="460.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<polygon points="342.0,473.1 344.9,476.0 342.0,478.9 339.1,476.0" class="fig-blue-fill"/>
+<rect x="342.5" y="462.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="342.5" y="468.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="352.5" y="466.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="348.5" y="470.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="336.5" y="470.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="330.5" y="476.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="332.5" y="474.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="362.5" y="474.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="330.5" y="464.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="332.5" y="466.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="362.5" y="466.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="374.5" y="470.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="336.0,463.1 338.9,466.0 336.0,468.9 333.1,466.0" class="fig-blue-fill"/>
-<polygon points="338.0,461.1 340.9,464.0 338.0,466.9 335.1,464.0" class="fig-blue-fill"/>
-<polygon points="336.0,461.1 338.9,464.0 336.0,466.9 333.1,464.0" class="fig-blue-fill"/>
-<rect x="348.0" y="482.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="348.0" y="478.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="346.0" y="480.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="356.5" y="462.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="360.0" y="462.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="362.0" y="462.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="362.0" y="460.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="366.0" y="460.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="366.0" y="458.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="350.5" y="458.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="330.5" y="468.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="336.0,475.1 338.9,478.0 336.0,480.9 333.1,478.0" class="fig-blue-fill"/>
+<polygon points="338.0,477.1 340.9,480.0 338.0,482.9 335.1,480.0" class="fig-blue-fill"/>
+<polygon points="336.0,477.1 338.9,480.0 336.0,482.9 333.1,480.0" class="fig-blue-fill"/>
+<rect x="348.0" y="458.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="348.0" y="462.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="346.0" y="460.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="356.5" y="478.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="360.0" y="478.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="362.0" y="478.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="362.0" y="480.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="366.0" y="480.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="366.0" y="482.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="350.5" y="482.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="330.5" y="472.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <text x="408.0" y="422.0" class="fig-city" text-anchor="start">PREEMA</text>
 <rect x="408.0" y="432.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<polygon points="476.0,471.1 478.9,474.0 476.0,476.9 473.1,474.0" class="fig-blue-fill"/>
+<polygon points="476.0,467.1 478.9,470.0 476.0,472.9 473.1,470.0" class="fig-blue-fill"/>
 <polygon points="476.0,469.1 478.9,472.0 476.0,474.9 473.1,472.0" class="fig-blue-fill"/>
-<rect x="470.0" y="468.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="472.0" y="464.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="454.0" y="472.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="450.0" y="472.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="452.0" y="474.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="454.5" y="476.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="454.0" y="480.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="452.5" y="482.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="450.0" y="484.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="454.0" y="484.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="458.0" y="474.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<circle cx="468.0" cy="484.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="448.0" cy="480.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="444.5" y="472.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="446.5" y="466.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="454.5" y="466.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="460.0" y="466.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="462.0" y="464.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="462.5" y="474.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="460.5" y="480.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="460.5" y="490.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="458.5" y="486.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="442.0" y="482.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="438.0" y="476.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="448.5" y="476.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="448.5" y="478.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="442.5" y="476.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="476.5" y="476.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="480.0,465.1 482.9,468.0 480.0,470.9 477.1,468.0" class="fig-blue-fill"/>
+<rect x="470.0" y="472.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="472.0" y="476.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="454.0" y="468.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="450.0" y="468.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="452.0" y="466.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="454.5" y="464.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="454.0" y="460.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="452.5" y="458.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="450.0" y="456.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="454.0" y="456.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="458.0" y="466.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<circle cx="468.0" cy="460.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="448.0" cy="464.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="444.5" y="468.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="446.5" y="474.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="454.5" y="474.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="460.0" y="474.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="462.0" y="476.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="462.5" y="466.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="460.5" y="460.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="460.5" y="450.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="458.5" y="454.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="442.0" y="458.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="438.0" y="464.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="448.5" y="464.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="448.5" y="462.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="442.5" y="464.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="476.5" y="464.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="480.0,473.1 482.9,476.0 480.0,478.9 477.1,476.0" class="fig-blue-fill"/>
 <rect x="456.5" y="470.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <text x="500.0" y="422.0" class="fig-city" text-anchor="start">REYES</text>
 <rect x="500.0" y="432.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="554.0" cy="450.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="550.0" cy="464.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="548.5" y="458.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="550.5" y="454.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="554.0,449.1 556.9,452.0 554.0,454.9 551.1,452.0" class="fig-blue-fill"/>
-<polygon points="542.0,449.1 544.9,452.0 542.0,454.9 539.1,452.0" class="fig-blue-fill"/>
-<polygon points="540.0,453.1 542.9,456.0 540.0,458.9 537.1,456.0" class="fig-blue-fill"/>
-<polygon points="536.0,451.1 538.9,454.0 536.0,456.9 533.1,454.0" class="fig-blue-fill"/>
-<rect x="542.5" y="468.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="542.0" y="464.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="538.0" y="464.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="544.5" y="444.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="546.5" y="444.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="546.5" y="442.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="538.5" y="458.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="552.5" y="458.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="516.0,453.1 518.9,456.0 516.0,458.9 513.1,456.0" class="fig-blue-fill"/>
-<polygon points="520.0,453.1 522.9,456.0 520.0,458.9 517.1,456.0" class="fig-blue-fill"/>
-<polygon points="522.0,449.1 524.9,452.0 522.0,454.9 519.1,452.0" class="fig-blue-fill"/>
-<rect x="516.5" y="450.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="532.5" y="462.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="528.0" y="466.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="528.5" y="460.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<circle cx="554.0" cy="494.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="550.0" cy="480.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="548.5" y="482.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="550.5" y="486.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="554.0,489.1 556.9,492.0 554.0,494.9 551.1,492.0" class="fig-blue-fill"/>
+<polygon points="542.0,489.1 544.9,492.0 542.0,494.9 539.1,492.0" class="fig-blue-fill"/>
+<polygon points="540.0,485.1 542.9,488.0 540.0,490.9 537.1,488.0" class="fig-blue-fill"/>
+<polygon points="536.0,487.1 538.9,490.0 536.0,492.9 533.1,490.0" class="fig-blue-fill"/>
+<rect x="542.5" y="472.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="542.0" y="476.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="538.0" y="476.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="544.5" y="496.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="546.5" y="496.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="546.5" y="498.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="538.5" y="482.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="552.5" y="482.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="516.0,485.1 518.9,488.0 516.0,490.9 513.1,488.0" class="fig-blue-fill"/>
+<polygon points="520.0,485.1 522.9,488.0 520.0,490.9 517.1,488.0" class="fig-blue-fill"/>
+<polygon points="522.0,489.1 524.9,492.0 522.0,494.9 519.1,492.0" class="fig-blue-fill"/>
+<rect x="516.5" y="490.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="532.5" y="478.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="528.0" y="474.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="528.5" y="480.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="530.0" y="470.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
 <rect x="550.5" y="470.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="554.5" y="462.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="522.5" y="460.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="526.5" y="454.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="528.5" y="448.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="534.5" y="444.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="532.0" y="458.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="544.0" y="458.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="554.5" y="478.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="522.5" y="480.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="526.5" y="486.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="528.5" y="492.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="534.5" y="496.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="532.0" y="482.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="544.0" y="482.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
 <text x="592.0" y="422.0" class="fig-city" text-anchor="start">NOVIA</text>
 <rect x="592.0" y="432.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="648.0" cy="458.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="650.0" cy="456.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="648.0" cy="486.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="650.0" cy="488.0" r="3.0" class="fig-mark-dockable"/>
 <rect x="604.5" y="470.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="602.5" y="466.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="600.5" y="476.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="604.5" y="474.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="602.5" y="474.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="600.5" y="464.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="604.5" y="466.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="614.5" y="470.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <rect x="608.5" y="470.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="620.5" y="468.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="626.5" y="466.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="630.5" y="462.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="634.5" y="458.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="632.0,455.1 634.9,458.0 632.0,460.9 629.1,458.0" class="fig-blue-fill"/>
-<polygon points="630.0,455.1 632.9,458.0 630.0,460.9 627.1,458.0" class="fig-blue-fill"/>
-<polygon points="630.0,453.1 632.9,456.0 630.0,458.9 627.1,456.0" class="fig-blue-fill"/>
-<polygon points="638.0,465.1 640.9,468.0 638.0,470.9 635.1,468.0" class="fig-blue-fill"/>
-<polygon points="636.0,465.1 638.9,468.0 636.0,470.9 633.1,468.0" class="fig-blue-fill"/>
-<polygon points="636.0,467.1 638.9,470.0 636.0,472.9 633.1,470.0" class="fig-blue-fill"/>
-<polygon points="652.0,449.1 654.9,452.0 652.0,454.9 649.1,452.0" class="fig-blue-fill"/>
-<polygon points="650.0,449.1 652.9,452.0 650.0,454.9 647.1,452.0" class="fig-blue-fill"/>
-<polygon points="648.0,447.1 650.9,450.0 648.0,452.9 645.1,450.0" class="fig-blue-fill"/>
-<rect x="642.0" y="452.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="638.5" y="450.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="640.0" y="456.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="644.5" y="460.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="622.5" y="464.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="618.5" y="474.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="640.5" y="474.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="642.5" y="472.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="648.5" y="472.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="646.5" y="468.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="642.5" y="466.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="620.5" y="472.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="626.5" y="474.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="630.5" y="478.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="634.5" y="482.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="632.0,483.1 634.9,486.0 632.0,488.9 629.1,486.0" class="fig-blue-fill"/>
+<polygon points="630.0,483.1 632.9,486.0 630.0,488.9 627.1,486.0" class="fig-blue-fill"/>
+<polygon points="630.0,485.1 632.9,488.0 630.0,490.9 627.1,488.0" class="fig-blue-fill"/>
+<polygon points="638.0,473.1 640.9,476.0 638.0,478.9 635.1,476.0" class="fig-blue-fill"/>
+<polygon points="636.0,473.1 638.9,476.0 636.0,478.9 633.1,476.0" class="fig-blue-fill"/>
+<polygon points="636.0,471.1 638.9,474.0 636.0,476.9 633.1,474.0" class="fig-blue-fill"/>
+<polygon points="652.0,489.1 654.9,492.0 652.0,494.9 649.1,492.0" class="fig-blue-fill"/>
+<polygon points="650.0,489.1 652.9,492.0 650.0,494.9 647.1,492.0" class="fig-blue-fill"/>
+<polygon points="648.0,491.1 650.9,494.0 648.0,496.9 645.1,494.0" class="fig-blue-fill"/>
+<rect x="642.0" y="488.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="638.5" y="490.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="640.0" y="484.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="644.5" y="480.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="622.5" y="476.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="618.5" y="466.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="640.5" y="466.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="642.5" y="468.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="648.5" y="468.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="646.5" y="472.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="642.5" y="474.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 <text x="684.0" y="422.0" class="fig-city" text-anchor="start">RUBIYA</text>
 <rect x="684.0" y="432.0" width="80.0" height="80.0" rx="0" class="fig-frame"/>
-<circle cx="730.0" cy="480.0" r="3.0" class="fig-mark-dockable"/>
-<circle cx="712.0" cy="494.0" r="3.0" class="fig-mark-dockable"/>
-<rect x="710.5" y="496.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="714.0" y="492.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="718.5" y="488.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="732.0" y="480.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="728.5" y="480.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="724.5" y="480.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="734.0,491.1 736.9,494.0 734.0,496.9 731.1,494.0" class="fig-blue-fill"/>
-<rect x="732.5" y="490.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<polygon points="732.0,487.1 734.9,490.0 732.0,492.9 729.1,490.0" class="fig-blue-fill"/>
-<polygon points="736.0,497.1 738.9,500.0 736.0,502.9 733.1,500.0" class="fig-blue-fill"/>
-<polygon points="734.0,497.1 736.9,500.0 734.0,502.9 731.1,500.0" class="fig-blue-fill"/>
-<polygon points="734.0,483.1 736.9,486.0 734.0,488.9 731.1,486.0" class="fig-blue-fill"/>
-<polygon points="732.0,483.1 734.9,486.0 732.0,488.9 729.1,486.0" class="fig-blue-fill"/>
-<polygon points="720.0,483.1 722.9,486.0 720.0,488.9 717.1,486.0" class="fig-blue-fill"/>
-<polygon points="720.0,481.1 722.9,484.0 720.0,486.9 717.1,484.0" class="fig-blue-fill"/>
-<polygon points="714.0,487.1 716.9,490.0 714.0,492.9 711.1,490.0" class="fig-blue-fill"/>
-<polygon points="714.0,485.1 716.9,488.0 714.0,490.9 711.1,488.0" class="fig-blue-fill"/>
-<polygon points="712.0,485.1 714.9,488.0 712.0,490.9 709.1,488.0" class="fig-blue-fill"/>
-<polygon points="716.0,499.1 718.9,502.0 716.0,504.9 713.1,502.0" class="fig-blue-fill"/>
-<polygon points="718.0,497.1 720.9,500.0 718.0,502.9 715.1,500.0" class="fig-blue-fill"/>
-<polygon points="728.0,473.1 730.9,476.0 728.0,478.9 725.1,476.0" class="fig-blue-fill"/>
-<polygon points="726.0,475.1 728.9,478.0 726.0,480.9 723.1,478.0" class="fig-blue-fill"/>
-<rect x="724.0" y="484.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
-<rect x="734.5" y="480.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="732.5" y="478.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="726.5" y="486.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="728.5" y="494.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="720.5" y="492.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="706.5" y="496.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
-<rect x="704.5" y="492.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<circle cx="730.0" cy="464.0" r="3.0" class="fig-mark-dockable"/>
+<circle cx="712.0" cy="450.0" r="3.0" class="fig-mark-dockable"/>
+<rect x="710.5" y="444.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="714.0" y="448.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="718.5" y="452.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="732.0" y="460.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="728.5" y="460.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="724.5" y="460.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="734.0,447.1 736.9,450.0 734.0,452.9 731.1,450.0" class="fig-blue-fill"/>
+<rect x="732.5" y="450.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<polygon points="732.0,451.1 734.9,454.0 732.0,456.9 729.1,454.0" class="fig-blue-fill"/>
+<polygon points="736.0,441.1 738.9,444.0 736.0,446.9 733.1,444.0" class="fig-blue-fill"/>
+<polygon points="734.0,441.1 736.9,444.0 734.0,446.9 731.1,444.0" class="fig-blue-fill"/>
+<polygon points="734.0,455.1 736.9,458.0 734.0,460.9 731.1,458.0" class="fig-blue-fill"/>
+<polygon points="732.0,455.1 734.9,458.0 732.0,460.9 729.1,458.0" class="fig-blue-fill"/>
+<polygon points="720.0,455.1 722.9,458.0 720.0,460.9 717.1,458.0" class="fig-blue-fill"/>
+<polygon points="720.0,457.1 722.9,460.0 720.0,462.9 717.1,460.0" class="fig-blue-fill"/>
+<polygon points="714.0,451.1 716.9,454.0 714.0,456.9 711.1,454.0" class="fig-blue-fill"/>
+<polygon points="714.0,453.1 716.9,456.0 714.0,458.9 711.1,456.0" class="fig-blue-fill"/>
+<polygon points="712.0,453.1 714.9,456.0 712.0,458.9 709.1,456.0" class="fig-blue-fill"/>
+<polygon points="716.0,439.1 718.9,442.0 716.0,444.9 713.1,442.0" class="fig-blue-fill"/>
+<polygon points="718.0,441.1 720.9,444.0 718.0,446.9 715.1,444.0" class="fig-blue-fill"/>
+<polygon points="728.0,465.1 730.9,468.0 728.0,470.9 725.1,468.0" class="fig-blue-fill"/>
+<polygon points="726.0,463.1 728.9,466.0 726.0,468.9 723.1,466.0" class="fig-blue-fill"/>
+<rect x="724.0" y="456.0" width="4.0" height="4.0" rx="0" class="fig-ochre-fill"/>
+<rect x="734.5" y="460.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="732.5" y="462.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="726.5" y="454.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="728.5" y="446.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="720.5" y="448.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="706.5" y="444.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
+<rect x="704.5" y="448.5" width="3.0" height="3.0" rx="0" class="fig-mark-plain"/>
 </svg>

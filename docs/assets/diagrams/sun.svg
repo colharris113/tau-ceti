@@ -1,6 +1,29 @@
-<svg class="tc-fig" viewBox="0 0 860 450" role="img" aria-labelledby="fig-sun-t fig-sun-d" xmlns="http://www.w3.org/2000/svg">
+<svg width="860" height="450" viewBox="0 0 860 450" role="img" aria-labelledby="fig-sun-t fig-sun-d" xmlns="http://www.w3.org/2000/svg">
 <title id="fig-sun-t">The sun-driven viewport palettes</title>
 <desc id="fig-sun-d">A sixteen-phase sun dial beside four rows of sixteen palette bytes from the table at $C298. Every viewport cell carries the byte; its two nibbles are the two body tones, so both faces of a building shift hue as the sun turns.</desc>
+<style>
+text { font-family: system-ui, sans-serif; font-size: 11px; fill: #25221e; }
+.fig-title { font-size: 13px; font-weight: 600; }
+.fig-tick { font-size: 10px; }
+.fig-tick, .fig-muted, .fig-city, .fig-mark-plain { fill: #534e46; }
+.fig-grid, .fig-frame, .fig-hair, .fig-fine { stroke: #c4bdb2; }
+.fig-frame { fill: none; }
+.fig-axis { stroke: #777067; }
+.fig-fine { stroke-width: .4; }
+.fig-ochre, .fig-mark-dockable { stroke: #8a5a12; fill: none; }
+.fig-blue { stroke: #2465b5; fill: none; }
+.fig-ochre, .fig-blue { stroke-width: 2; }
+.fig-mark-dockable { stroke-width: 1.6; }
+.fig-ochre-fill, .fig-band, .fig-cell-type { fill: #8a5a12; }
+.fig-blue-fill { fill: #2465b5; }
+.fig-band { fill-opacity: .16; }
+.fig-cell { fill: #e8e4dc; }
+.fig-cell, .fig-cell-type { stroke: #fff; }
+.fig-cell-type { fill-opacity: .55; }
+.fig-glyph { fill: #25221e; }
+.fig-city { font-size: 9px; font-weight: 600; letter-spacing: .04em; }
+</style>
+<rect width="860" height="450" fill="#fff"/>
 <text x="40.0" y="30.0" class="fig-title" text-anchor="start">The city's colours turn with the sun</text>
 <text x="40.0" y="48.0" class="fig-muted" text-anchor="start">Each viewport cell's matrix byte is $C298[(city &amp; 3) × 16 + (sun &gt;&gt; 5)].</text>
 <text x="40.0" y="64.0" class="fig-muted" text-anchor="start">Pair 01 (the $55 fill) takes the high nibble; pair 10 (the $AA fill) takes the low nibble.</text>

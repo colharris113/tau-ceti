@@ -1,31 +1,31 @@
 # Sensor records
 
-**Address** `$44A1-$44C3` &nbsp;·&nbsp; **Group** Records
+**Address** `$44A1-$44C3` · **Group** Records
 
-<p class="lede">For records whose type flags carry bit 1. An in-range sensor (byte 3 bit 6, distance under 9 cells) is counted at <code class="addr">$0373</code> and sets bit 7 of <code class="addr">$03B0</code>, which is what the scanner uses to know a contact is live.</p>
+For records whose type flags carry bit 1. An in-range sensor (byte 3 bit 6, distance under 9 cells) is counted at `$0373` and sets bit 7 of `$03B0`, which is what the scanner uses to know a contact is live.
 
 ## Listing
 
-*Re-disassembled from the byte map: every instruction shown is one the game really executes from this entry, and gaps are branch targets that follow an early return.*
+*Decoded from the byte map within the curated code ranges for this routine.*
 
-<pre class="rt-listing">
-<span class="rt-addr">44A1</span>  <span class="rt-bytes">8A      </span>  <span class="rt-op">TXA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">44A2</span>  <span class="rt-bytes">29 02   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$02</span>
-<span class="rt-addr">44A4</span>  <span class="rt-bytes">F0 1E   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$44C4</span>   <span class="rt-cmt">; Guided-object handling</span>
-<span class="rt-addr">44A6</span>  <span class="rt-bytes">A0 03   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$03</span>
-<span class="rt-addr">44A8</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">44AA</span>  <span class="rt-bytes">29 40   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$40</span>
-<span class="rt-addr">44AC</span>  <span class="rt-bytes">F0 13   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$44C1</span>
-<span class="rt-addr">44AE</span>  <span class="rt-bytes">A0 0D   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$0D</span>
-<span class="rt-addr">44B0</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">44B2</span>  <span class="rt-bytes">C9 09   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$09</span>
-<span class="rt-addr">44B4</span>  <span class="rt-bytes">B0 0B   </span>  <span class="rt-op">BCS</span>  <span class="rt-arg">$44C1</span>
-<span class="rt-addr">44B6</span>  <span class="rt-bytes">EE 73 03</span>  <span class="rt-op">INC</span>  <span class="rt-arg">$0373</span>
-<span class="rt-addr">44B9</span>  <span class="rt-bytes">AD B0 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$03B0</span>
-<span class="rt-addr">44BC</span>  <span class="rt-bytes">09 80   </span>  <span class="rt-op">ORA</span>  <span class="rt-arg">#$80</span>
-<span class="rt-addr">44BE</span>  <span class="rt-bytes">8D B0 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$03B0</span>
-<span class="rt-addr">44C1</span>  <span class="rt-bytes">4C EB 43</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$43EB</span>
-</pre>
+```text
+44A1: 8A       TXA
+44A2: 29 02    AND #$02
+44A4: F0 1E    BEQ $44C4   ; Guided-object handling
+44A6: A0 03    LDY #$03
+44A8: B1 61    LDA ($61),Y
+44AA: 29 40    AND #$40
+44AC: F0 13    BEQ $44C1
+44AE: A0 0D    LDY #$0D
+44B0: B1 61    LDA ($61),Y
+44B2: C9 09    CMP #$09
+44B4: B0 0B    BCS $44C1
+44B6: EE 73 03 INC $0373
+44B9: AD B0 03 LDA $03B0
+44BC: 09 80    ORA #$80
+44BE: 8D B0 03 STA $03B0
+44C1: 4C EB 43 JMP $43EB
+```
 
 ## Calls
 
@@ -33,7 +33,7 @@
 
 ## Called by
 
-*No call site found in the swept listings; this may be reached through a jump table or from undisassembled code.*
+*No direct call or jump found in the curated code ranges.*
 
 ---
 

@@ -13,12 +13,11 @@ Outputs (all generated; do not edit):
 
 The listings in ``sources/`` are a linear sweep, so their line starts are not
 reliable routine boundaries.  This script rebuilds a byte map from every
-``ADDR: XX XX`` line, re-disassembles from the curated entry points with py65,
-and follows forward branches so early returns do not truncate a listing.
+``ADDR: XX XX`` line and re-disassembles the curated code ranges with py65.
+Incoming references are indexed from those ranges and supplemental caller blocks.
 """
 from __future__ import annotations
 
-import html
 import json
 import re
 import sys
@@ -28,7 +27,7 @@ from pathlib import Path
 # not on sys.path automatically.  Add it explicitly for ``listing``.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from listing import BRANCHES, Disassembler, load_byte_map, load_line_starts
+from listing import BRANCHES, Disassembler, load_byte_map
 
 ROOT = Path(__file__).resolve().parent.parent
 SOURCES = sorted((ROOT / "sources").glob("dis_*.txt"))
@@ -42,9 +41,8 @@ GROUP_ORDER = ["Flight", "Docking", "Records", "Combat", "Messages"]
 
 
 def render_text(text: str) -> str:
-    """Escape prose and turn every $XXXX into an address chip."""
-    escaped = html.escape(text, quote=False)
-    return ADDR_RE.sub(lambda m: f'<code class="addr">${m.group(1).upper()}</code>', escaped)
+    """Format hexadecimal values as Markdown code spans."""
+    return ADDR_RE.sub(lambda m: f'`${m.group(1).upper()}`', text)
 
 
 def render_cell(text: str) -> str:
@@ -116,8 +114,8 @@ def render_listing(insns: list[dict], sym_by_addr: dict[int, dict],
             lines.append("")
         prev_end = ins["addr"] + ins["len"]
         raw = " ".join(f"{b:02X}" for b in ins["bytes"])
-        op = html.escape(ins["op"])
-        arg = html.escape(ADDR_RE.sub(lambda m: f"${m.group(1).upper()}", ins["arg"]))
+        op = ins["op"]
+        arg = ADDR_RE.sub(lambda m: f"${m.group(1).upper()}", ins["arg"])
         comment = ""
         target = ins["target"]
         if target is not None and target in sym_by_addr and target != ins["addr"]:
@@ -128,64 +126,42 @@ def render_listing(insns: list[dict], sym_by_addr: dict[int, dict],
                 if var:
                     comment = var["name"]
                     break
-        parts = [
-            f'<span class="rt-addr">{ins["addr"]:04X}</span>',
-            f'<span class="rt-bytes">{raw:<8}</span>',
-            f'<span class="rt-op">{op}</span>',
-            f'<span class="rt-arg">{arg}</span>',
-        ]
-        line = "  ".join(parts).rstrip()
+        line = f'{ins["addr"]:04X}: {raw:<8} {op:<3} {arg}'.rstrip()
         if comment:
-            line += f'   <span class="rt-cmt">; {html.escape(comment)}</span>'
+            line += f"   ; {comment}"
         lines.append(line)
-    return '<pre class="rt-listing">\n' + "\n".join(lines) + "\n</pre>"
+    return "\n".join(["```text", *lines, "```"])
 
 
-def build_called_by(dis: Disassembler, routines: list[dict],
-                    candidates: set[int]) -> dict[int, list[tuple[int, str, str]]]:
-    """entry address -> [(caller instruction address, mnemonic, caller routine name)]."""
-    # Decode every listing line start and every address we decoded ourselves,
-    # and keep the control transfers that land anywhere inside a routine (its
-    # first instruction or an additional entry point).
+def build_called_by(
+    routines: list[dict], caller_blocks: list[list[dict]],
+) -> dict[int, list[tuple[int, str, int | None]]]:
+    """Index direct transfers from curated code to known instruction addresses."""
     entry_of: dict[int, int] = {}
-    index: dict[int, list[tuple[int, str, str]]] = {}
-    inside: list[tuple[int, int, str]] = []
+    instructions: dict[int, dict] = {}
     for r in routines:
-        for ins in r["insns"]:
-            entry_of.setdefault(ins["addr"], r["entry"])
-            inside.append((ins["addr"], ins["addr"] + ins["len"], r["spec"]["name"]))
-        for extra in r["extras"]:
-            for ins in extra["insns"]:
+        for block in [r["insns"], *(extra["insns"] for extra in r["extras"])]:
+            for ins in block:
                 entry_of.setdefault(ins["addr"], r["entry"])
-            if extra["insns"]:
-                last = extra["insns"][-1]
-                inside.append((extra["insns"][0]["addr"],
-                               last["addr"] + last["len"], r["spec"]["name"]))
-    inside.sort()
+                instructions.setdefault(ins["addr"], ins)
+    for block in caller_blocks:
+        for ins in block:
+            instructions.setdefault(ins["addr"], ins)
 
-    def owner(addr: int) -> str:
-        for start, end, name in inside:
-            if start <= addr < end:
-                return name
-        return ""
-
-    for addr in sorted(candidates):
-        length, mnemonic, operand = dis.instruction(addr)
-        if mnemonic not in ("JSR", "JMP"):
+    index: dict[int, list[tuple[int, str, int | None]]] = {}
+    for addr, ins in sorted(instructions.items()):
+        if ins["op"] not in ("JSR", "JMP"):
             continue
-        target = dis.target(addr, mnemonic, operand)
-        target_entry = entry_of.get(target)
-        if target_entry is not None:
-            index.setdefault(target_entry, []).append((addr, mnemonic, owner(addr)))
-    for entries in index.values():
-        entries.sort()
+        target_entry = entry_of.get(ins["target"])
+        owner = entry_of.get(addr)
+        if target_entry is not None and target_entry != owner:
+            index.setdefault(target_entry, []).append((addr, ins["op"], owner))
     return index
 
 
 def main() -> int:
     symbols = json.loads(SYMBOLS_PATH.read_text(encoding="utf-8"))
     memory = load_byte_map(SOURCES)
-    line_starts = load_line_starts(SOURCES)
     dis = Disassembler(memory)
     sym_by_addr = {int(r["addr"], 16): r for r in symbols["routines"]}
     var_by_addr = {int(v["addr"], 16): v for v in symbols["variables"]}
@@ -208,16 +184,9 @@ def main() -> int:
         if not insns:
             raise SystemExit(f"{spec['slug']}: nothing decoded at ${entry:04X}")
 
-    # Cross-references: every line start and every decoded instruction is a
-    # candidate control transfer.
-    candidates = set(line_starts)
-    for r in routines:
-        for ins in r["insns"]:
-            candidates.add(ins["addr"])
-        for extra in r["extras"]:
-            for ins in extra["insns"]:
-                candidates.add(ins["addr"])
-    called_by = build_called_by(dis, routines, candidates)
+    caller_blocks = [walk(dis, int(block["addr"], 16), int(block["end"], 16))
+                     for block in symbols["caller_blocks"]]
+    called_by = build_called_by(routines, caller_blocks)
 
     # Per-routine pages.
     outdir = DOCS / "source" / "routines"
@@ -245,15 +214,14 @@ def main() -> int:
         body = [
             f"# {spec['name']}",
             "",
-            f"**Address** `{span}` &nbsp;·&nbsp; **Group** {spec['group']}",
+            f"**Address** `{span}` · **Group** {spec['group']}",
             "",
-            f'<p class="lede">{render_text(spec["summary"])}</p>',
+            render_text(spec["summary"]),
             "",
             "## Listing",
             "",
-            "*Re-disassembled from the byte map: every instruction shown is one the "
-            "game really executes from this entry, and gaps are branch targets that "
-            "follow an early return.*",
+            "*Decoded from the byte map within the curated code ranges for this "
+            "routine.*",
             "",
             render_listing(r["insns"], sym_by_addr, var_by_addr),
         ]
@@ -277,21 +245,17 @@ def main() -> int:
                 body.append(f'- [`{name}`]({sym_by_addr[target]["slug"]}.md) at `${at:04X}`')
 
         body += ["", "## Called by", ""]
-        # Calls that land anywhere in this routine are gathered under its entry;
-        # ignore calls it makes to its own body.
-        entries = [e for e in called_by.get(r["entry"], [])
-                   if e[2] != spec["name"]]
+        entries = called_by.get(r["entry"], [])
         if entries:
             for addr, mnemonic, owner in entries:
-                owner_spec = next((x["spec"] for x in routines if x["spec"]["name"] == owner), None)
+                owner_spec = sym_by_addr.get(owner) if owner is not None else None
                 if owner_spec:
                     body.append(f'- `{mnemonic}` at `${addr:04X}` in '
                                 f'[`{owner_spec["name"]}`]({owner_spec["slug"]}.md)')
                 else:
                     body.append(f'- `{mnemonic}` at `${addr:04X}`')
         else:
-            body.append("*No call site found in the swept listings; this may be "
-                        "reached through a jump table or from undisassembled code.*")
+            body.append("*No direct call or jump found in the curated code ranges.*")
 
         body += [
             "",
@@ -309,23 +273,20 @@ def main() -> int:
     index = [
         "# Source guide",
         "",
-        '<p class="lede">Every address here has been checked against the running '
-        "game. The pages are generated by re-disassembling the original listings "
-        "from curated entry points, so a page shows the real instruction stream "
-        "rather than a linear sweep's guess.</p>",
+        "The pages are generated from the original listing bytes "
+        "and curated code ranges. The labels and summaries explain how the routines "
+        "fit into the game.",
         "",
         "## How to read a listing",
         "",
         "Each line is an instruction: its address, its bytes, the mnemonic and "
-        "operand, and a comment naming the routine or variable it touches. Gaps "
-        "between blocks are branch targets that follow an early `RTS`; the game "
-        "reaches them, the linear listing just could not show them in place.",
+        "operand, and a comment where a routine or variable has a known name. "
+        "A routine can include additional code blocks at separate addresses.",
         "",
-        "The `Calls` and `Called by` sections are built by decoding every line "
-        "start in the listings and keeping the `JSR`/`JMP` instructions that land "
-        "inside a known routine, at its entry or at an additional entry point. "
-        "Some call sites live in code the sweep never decoded, so the lists are "
-        "a good map, not proof of a complete one.",
+        "`Called by` lists direct `JSR` and `JMP` instructions from the curated "
+        "code ranges that land on an instruction in the routine. Coverage grows "
+        "as more code ranges are reviewed. Indirect jumps and fall-through paths "
+        "are outside the scope of this index.",
         "",
         "## Routines",
         "",
@@ -336,14 +297,13 @@ def main() -> int:
         if not group_routines:
             continue
         index += [f"### {group}", "",
-                  '<div class="routine-index" markdown>', "",
                   "| Routine | Address | What it does |",
                   "| --- | --- | --- |"]
         for r in group_routines:
             spec = r["spec"]
             index.append(f'| [`{spec["name"]}`](routines/{spec["slug"]}.md) | '
                          f'`${r["entry"]:04X}` | {render_cell(spec["summary"])} |')
-        index += ["", "</div>", ""]
+        index.append("")
     index += [
         "## Variables",
         "",
@@ -352,6 +312,8 @@ def main() -> int:
         "",
         "*Generated by `tools/build_source.py`.*",
         "",
+        "[Back to the guide](../index.md)",
+        "",
     ]
     (DOCS / "source" / "index.md").write_text("\n".join(index), encoding="utf-8")
 
@@ -359,9 +321,9 @@ def main() -> int:
     var_lines = [
         "# Variables",
         "",
-        '<p class="lede">The game keeps almost everything in the zero page and '
+        "The game keeps almost everything in the zero page and "
         "the first few pages of RAM. These are the values the routines in this "
-        "guide read and write; names are ours, addresses are the game's.</p>",
+        "guide read and write; names are ours, addresses are the game's.",
         "",
     ]
     for group in GROUP_ORDER:
@@ -373,10 +335,15 @@ def main() -> int:
                       "| Address | Name | Notes |",
                       "| --- | --- | --- |"]
         for v in group_vars:
-            var_lines.append(f'| <code class="addr">${v["addr"]}</code> | **{v["name"]}** | '
-                             f'{render_text(v["doc"])} |')
+            var_lines.append(f'| `${v["addr"]}` | **{v["name"]}** | '
+                             f'{render_cell(v["doc"])} |')
         var_lines.append("")
-    var_lines += ["*Generated by `tools/build_source.py`.*", ""]
+    var_lines += [
+        "*Generated by `tools/build_source.py`.*",
+        "",
+        "[Back to the source guide](index.md)",
+        "",
+    ]
     (DOCS / "source" / "variables.md").write_text("\n".join(var_lines), encoding="utf-8")
 
     print(f"wrote {len(routines)} routine pages, the source index and variables page")

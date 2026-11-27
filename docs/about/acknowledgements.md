@@ -8,7 +8,7 @@ The Commodore 64 port is the subject because it is the version whose code I coul
 
 - **[VICE](https://vice-emu.sourceforge.io/)** — the emulator used to run the original, capture memory and check behaviour on screen.
 - **[py65](https://github.com/mnaberez/py65)** — the 6502 decoding tables used by the re-disassembler.
-- **[MkDocs](https://www.mkdocs.org/)** and **[Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)** — the site and its theme.
+- **[MkDocs](https://www.mkdocs.org/)** and **[Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)** — used for the original site edition.
 
 ## Form
 
@@ -24,3 +24,5 @@ Those sites demonstrate that a game's code can be explained to a general reader 
 If you have not played *Tau Ceti*, the 1986 original is still the best introduction to what this guide is describing. The modern remake that accompanies this analysis is a separate project and is not required reading.
 
 *Tau Ceti* remains the copyright of its rights holders. This guide is an independent, non-commercial work of analysis, unaffiliated with CRL or the original authors. It reproduces no original graphics, sound or in-game text; the Source guide shows disassembled routines for analysis and commentary, and the font figure is an analytical re-rendering of the message glyphs.
+
+[Back to About](index.md)

@@ -1,34 +1,34 @@
 # City restore: stripping the state bits
 
-**Address** `$2921-$2941` &nbsp;·&nbsp; **Group** Records
+**Address** `$2921-$2941` · **Group** Records
 
-<p class="lede">Called by the new-game reset at <code class="addr">$5863</code>. Walks all twelve pages of the city sheet area from <code class="addr">$9400</code> and masks every byte that is not <code class="addr">$C0</code> with <code class="addr">$3F</code>, clearing the <code class="addr">$80</code> and <code class="addr">$40</code> state bits from every record. Since a destroyed record keeps its type under the free bit, this restores every city exactly: <code class="addr">$93</code> becomes <code class="addr">$13</code> again. The <code class="addr">$C0</code> fillers are skipped because masking them would create type-0 buildings.</p>
+Called by the new-game reset at `$5863`. Walks all twelve pages of the city sheet area from `$9400` and masks every byte that is not `$C0` with `$3F`, clearing the `$80` and `$40` state bits from every record. Since a destroyed record keeps its type under the free bit, this restores every city exactly: `$93` becomes `$13` again. The `$C0` fillers are skipped because masking them would create type-0 buildings.
 
 ## Listing
 
-*Re-disassembled from the byte map: every instruction shown is one the game really executes from this entry, and gaps are branch targets that follow an early return.*
+*Decoded from the byte map within the curated code ranges for this routine.*
 
-<pre class="rt-listing">
-<span class="rt-addr">2921</span>  <span class="rt-bytes">A0 00   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">2923</span>  <span class="rt-bytes">84 61   </span>  <span class="rt-op">STY</span>  <span class="rt-arg">$61</span>
-<span class="rt-addr">2925</span>  <span class="rt-bytes">A9 94   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$94</span>
-<span class="rt-addr">2927</span>  <span class="rt-bytes">85 62   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">$62</span>
-<span class="rt-addr">2929</span>  <span class="rt-bytes">A2 0C   </span>  <span class="rt-op">LDX</span>  <span class="rt-arg">#$0C</span>
-<span class="rt-addr">292B</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">292D</span>  <span class="rt-bytes">C9 C0   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$C0</span>
-<span class="rt-addr">292F</span>  <span class="rt-bytes">F0 04   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$2935</span>
-<span class="rt-addr">2931</span>  <span class="rt-bytes">29 3F   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$3F</span>
-<span class="rt-addr">2933</span>  <span class="rt-bytes">91 61   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">2935</span>  <span class="rt-bytes">98      </span>  <span class="rt-op">TYA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2936</span>  <span class="rt-bytes">18      </span>  <span class="rt-op">CLC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2937</span>  <span class="rt-bytes">69 03   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">#$03</span>
-<span class="rt-addr">2939</span>  <span class="rt-bytes">A8      </span>  <span class="rt-op">TAY</span>  <span class="rt-arg"></span>
-<span class="rt-addr">293A</span>  <span class="rt-bytes">90 EF   </span>  <span class="rt-op">BCC</span>  <span class="rt-arg">$292B</span>
-<span class="rt-addr">293C</span>  <span class="rt-bytes">E6 62   </span>  <span class="rt-op">INC</span>  <span class="rt-arg">$62</span>
-<span class="rt-addr">293E</span>  <span class="rt-bytes">CA      </span>  <span class="rt-op">DEX</span>  <span class="rt-arg"></span>
-<span class="rt-addr">293F</span>  <span class="rt-bytes">D0 EA   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$292B</span>
-<span class="rt-addr">2941</span>  <span class="rt-bytes">60      </span>  <span class="rt-op">RTS</span>  <span class="rt-arg"></span>
-</pre>
+```text
+2921: A0 00    LDY #$00
+2923: 84 61    STY $61
+2925: A9 94    LDA #$94
+2927: 85 62    STA $62
+2929: A2 0C    LDX #$0C
+292B: B1 61    LDA ($61),Y
+292D: C9 C0    CMP #$C0
+292F: F0 04    BEQ $2935
+2931: 29 3F    AND #$3F
+2933: 91 61    STA ($61),Y
+2935: 98       TYA
+2936: 18       CLC
+2937: 69 03    ADC #$03
+2939: A8       TAY
+293A: 90 EF    BCC $292B
+293C: E6 62    INC $62
+293E: CA       DEX
+293F: D0 EA    BNE $292B
+2941: 60       RTS
+```
 
 ## Calls
 
@@ -37,8 +37,6 @@
 ## Called by
 
 - `JSR` at `$5863` in [`New-game state reset`](new-game-reset.md)
-- `JSR` at `$69ED`
-- `JSR` at `$730F`
 
 ---
 

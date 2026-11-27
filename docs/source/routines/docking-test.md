@@ -1,283 +1,283 @@
 # Object distance and the docking test
 
-**Address** `$2B60-$2CBF` &nbsp;·&nbsp; **Group** Docking
+**Address** `$2B60-$2CBF` · **Group** Docking
 
-<p class="lede">Works out the distance to the record in <code class="addr">$61</code>/<code class="addr">$62</code>, scales it through the tables at <code class="addr">$C800</code>/<code class="addr">$C900</code> and stores the product in bytes 12/13. Only a product under 128 is close enough to dock; anything up to 4,095 is added to the target list, and anything larger is dropped. For a close record, type 16 docks as a jump pad before anything else. A dockable building must pass |altitude - 28| + 55 &lt; aperture, then a bearing test of 2 * (|bearing offset| + 28) against the same aperture - at the full 72-point opening that is an offset of at most 7 steps of the 512-step circle, about 5 degrees. Passing both sets <code class="addr">$0396</code> = <code class="addr">$80</code> and copies the building's type and cell to <code class="addr">$03A4</code>/<code class="addr">$0398</code>/<code class="addr">$0399</code>.</p>
+Works out the distance to the record in `$61`/`$62`, scales it through the tables at `$C800`/`$C900` and stores the product in bytes 12/13. Only a product under 128 is close enough to dock; anything up to 4,095 is added to the target list, and anything larger is dropped. For a close record, type 16 docks as a jump pad before anything else. A dockable building must pass |altitude - 28| + 55 < aperture, then a bearing test of 2 * (|bearing offset| + 28) against the same aperture - at the full 72-point opening that is an offset of at most 7 steps of the 512-step circle, about 5 degrees. Passing both sets `$0396` = `$80` and copies the building's type and cell to `$03A4`/`$0398`/`$0399`.
 
 ## Listing
 
-*Re-disassembled from the byte map: every instruction shown is one the game really executes from this entry, and gaps are branch targets that follow an early return.*
+*Decoded from the byte map within the curated code ranges for this routine.*
 
-<pre class="rt-listing">
-<span class="rt-addr">2B60</span>  <span class="rt-bytes">A6 5A   </span>  <span class="rt-op">LDX</span>  <span class="rt-arg">$5A</span>
-<span class="rt-addr">2B62</span>  <span class="rt-bytes">A5 5B   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$5B</span>
-<span class="rt-addr">2B64</span>  <span class="rt-bytes">C9 01   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$01</span>
-<span class="rt-addr">2B66</span>  <span class="rt-bytes">F0 1A   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$2B82</span>
-<span class="rt-addr">2B68</span>  <span class="rt-bytes">C9 0A   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$0A</span>
-<span class="rt-addr">2B6A</span>  <span class="rt-bytes">B0 1C   </span>  <span class="rt-op">BCS</span>  <span class="rt-arg">$2B88</span>
-<span class="rt-addr">2B6C</span>  <span class="rt-bytes">38      </span>  <span class="rt-op">SEC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2B6D</span>  <span class="rt-bytes">E9 02   </span>  <span class="rt-op">SBC</span>  <span class="rt-arg">#$02</span>
-<span class="rt-addr">2B6F</span>  <span class="rt-bytes">86 55   </span>  <span class="rt-op">STX</span>  <span class="rt-arg">$55</span>
-<span class="rt-addr">2B71</span>  <span class="rt-bytes">4A      </span>  <span class="rt-op">LSR</span>  <span class="rt-arg">A</span>
-<span class="rt-addr">2B72</span>  <span class="rt-bytes">66 55   </span>  <span class="rt-op">ROR</span>  <span class="rt-arg">$55</span>
-<span class="rt-addr">2B74</span>  <span class="rt-bytes">4A      </span>  <span class="rt-op">LSR</span>  <span class="rt-arg">A</span>
-<span class="rt-addr">2B75</span>  <span class="rt-bytes">66 55   </span>  <span class="rt-op">ROR</span>  <span class="rt-arg">$55</span>
-<span class="rt-addr">2B77</span>  <span class="rt-bytes">4A      </span>  <span class="rt-op">LSR</span>  <span class="rt-arg">A</span>
-<span class="rt-addr">2B78</span>  <span class="rt-bytes">66 55   </span>  <span class="rt-op">ROR</span>  <span class="rt-arg">$55</span>
-<span class="rt-addr">2B7A</span>  <span class="rt-bytes">A6 55   </span>  <span class="rt-op">LDX</span>  <span class="rt-arg">$55</span>
-<span class="rt-addr">2B7C</span>  <span class="rt-bytes">BD 00 C9</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$C900,X</span>
-<span class="rt-addr">2B7F</span>  <span class="rt-bytes">4C 8A 2B</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$2B8A</span>
-<span class="rt-addr">2B82</span>  <span class="rt-bytes">BD 00 C8</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$C800,X</span>
-<span class="rt-addr">2B85</span>  <span class="rt-bytes">4C 8A 2B</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$2B8A</span>
-<span class="rt-addr">2B88</span>  <span class="rt-bytes">A9 00   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">2B8A</span>  <span class="rt-bytes">85 26   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">$26</span>
-<span class="rt-addr">2B8C</span>  <span class="rt-bytes">A6 58   </span>  <span class="rt-op">LDX</span>  <span class="rt-arg">$58</span>
-<span class="rt-addr">2B8E</span>  <span class="rt-bytes">A4 59   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">$59</span>
-<span class="rt-addr">2B90</span>  <span class="rt-bytes">A9 00   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">2B92</span>  <span class="rt-bytes">85 57   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">$57</span>
-<span class="rt-addr">2B94</span>  <span class="rt-bytes">85 55   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">$55</span>
-<span class="rt-addr">2B96</span>  <span class="rt-bytes">46 26   </span>  <span class="rt-op">LSR</span>  <span class="rt-arg">$26</span>
-<span class="rt-addr">2B98</span>  <span class="rt-bytes">90 0F   </span>  <span class="rt-op">BCC</span>  <span class="rt-arg">$2BA9</span>
-<span class="rt-addr">2B9A</span>  <span class="rt-bytes">A5 57   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$57</span>
-<span class="rt-addr">2B9C</span>  <span class="rt-bytes">18      </span>  <span class="rt-op">CLC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2B9D</span>  <span class="rt-bytes">65 58   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">$58</span>
-<span class="rt-addr">2B9F</span>  <span class="rt-bytes">85 57   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">$57</span>
-<span class="rt-addr">2BA1</span>  <span class="rt-bytes">8A      </span>  <span class="rt-op">TXA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2BA2</span>  <span class="rt-bytes">65 59   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">$59</span>
-<span class="rt-addr">2BA4</span>  <span class="rt-bytes">AA      </span>  <span class="rt-op">TAX</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2BA5</span>  <span class="rt-bytes">98      </span>  <span class="rt-op">TYA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2BA6</span>  <span class="rt-bytes">65 55   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">$55</span>
-<span class="rt-addr">2BA8</span>  <span class="rt-bytes">A8      </span>  <span class="rt-op">TAY</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2BA9</span>  <span class="rt-bytes">06 58   </span>  <span class="rt-op">ASL</span>  <span class="rt-arg">$58</span>
-<span class="rt-addr">2BAB</span>  <span class="rt-bytes">26 59   </span>  <span class="rt-op">ROL</span>  <span class="rt-arg">$59</span>
-<span class="rt-addr">2BAD</span>  <span class="rt-bytes">26 55   </span>  <span class="rt-op">ROL</span>  <span class="rt-arg">$55</span>
-<span class="rt-addr">2BAF</span>  <span class="rt-bytes">A5 26   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$26</span>
-<span class="rt-addr">2BB1</span>  <span class="rt-bytes">D0 E3   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$2B96</span>
-<span class="rt-addr">2BB3</span>  <span class="rt-bytes">C0 10   </span>  <span class="rt-op">CPY</span>  <span class="rt-arg">#$10</span>
-<span class="rt-addr">2BB5</span>  <span class="rt-bytes">90 03   </span>  <span class="rt-op">BCC</span>  <span class="rt-arg">$2BBA</span>
-<span class="rt-addr">2BB7</span>  <span class="rt-bytes">4C 5B 2A</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$2A5B</span>
-<span class="rt-addr">2BBA</span>  <span class="rt-bytes">98      </span>  <span class="rt-op">TYA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2BBB</span>  <span class="rt-bytes">08      </span>  <span class="rt-op">PHP</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2BBC</span>  <span class="rt-bytes">A0 0D   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$0D</span>
-<span class="rt-addr">2BBE</span>  <span class="rt-bytes">91 61   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">2BC0</span>  <span class="rt-bytes">88      </span>  <span class="rt-op">DEY</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2BC1</span>  <span class="rt-bytes">8A      </span>  <span class="rt-op">TXA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2BC2</span>  <span class="rt-bytes">91 61   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">2BC4</span>  <span class="rt-bytes">A0 03   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$03</span>
-<span class="rt-addr">2BC6</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">2BC8</span>  <span class="rt-bytes">09 40   </span>  <span class="rt-op">ORA</span>  <span class="rt-arg">#$40</span>
-<span class="rt-addr">2BCA</span>  <span class="rt-bytes">91 61   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">2BCC</span>  <span class="rt-bytes">28      </span>  <span class="rt-op">PLP</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2BCD</span>  <span class="rt-bytes">D0 04   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$2BD3</span>
-<span class="rt-addr">2BCF</span>  <span class="rt-bytes">E0 80   </span>  <span class="rt-op">CPX</span>  <span class="rt-arg">#$80</span>
-<span class="rt-addr">2BD1</span>  <span class="rt-bytes">90 03   </span>  <span class="rt-op">BCC</span>  <span class="rt-arg">$2BD6</span>
-<span class="rt-addr">2BD3</span>  <span class="rt-bytes">4C C0 2C</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$2CC0</span>
-<span class="rt-addr">2BD6</span>  <span class="rt-bytes">A0 00   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">2BD8</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">2BDA</span>  <span class="rt-bytes">29 C0   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$C0</span>
-<span class="rt-addr">2BDC</span>  <span class="rt-bytes">D0 3B   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$2C19</span>
-<span class="rt-addr">2BDE</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">2BE0</span>  <span class="rt-bytes">C9 10   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$10</span>
-<span class="rt-addr">2BE2</span>  <span class="rt-bytes">D0 15   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$2BF9</span>
-<span class="rt-addr">2BE4</span>  <span class="rt-bytes">AD 6C 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$036C</span>
-<span class="rt-addr">2BE7</span>  <span class="rt-bytes">D0 08   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$2BF1</span>
-<span class="rt-addr">2BE9</span>  <span class="rt-bytes">AE 0F 01</span>  <span class="rt-op">LDX</span>  <span class="rt-arg">$010F</span>
-<span class="rt-addr">2BEC</span>  <span class="rt-bytes">20 18 3D</span>  <span class="rt-op">JSR</span>  <span class="rt-arg">$3D18</span>   <span class="rt-cmt">; Flag-bit test</span>
-<span class="rt-addr">2BEF</span>  <span class="rt-bytes">D0 28   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$2C19</span>
-<span class="rt-addr">2BF1</span>  <span class="rt-bytes">A9 FF   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$FF</span>
-<span class="rt-addr">2BF3</span>  <span class="rt-bytes">8D 9B 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$039B</span>   <span class="rt-cmt">; Jump pad docked</span>
-<span class="rt-addr">2BF6</span>  <span class="rt-bytes">4C BD 2C</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$2CBD</span>
-<span class="rt-addr">2BF9</span>  <span class="rt-bytes">A8      </span>  <span class="rt-op">TAY</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2BFA</span>  <span class="rt-bytes">B9 9A C3</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$C39A,Y</span>
-<span class="rt-addr">2BFD</span>  <span class="rt-bytes">10 61   </span>  <span class="rt-op">BPL</span>  <span class="rt-arg">$2C60</span>
-<span class="rt-addr">2BFF</span>  <span class="rt-bytes">AD 44 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$0344</span>   <span class="rt-cmt">; Altitude</span>
-<span class="rt-addr">2C02</span>  <span class="rt-bytes">38      </span>  <span class="rt-op">SEC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2C03</span>  <span class="rt-bytes">E9 1C   </span>  <span class="rt-op">SBC</span>  <span class="rt-arg">#$1C</span>
-<span class="rt-addr">2C05</span>  <span class="rt-bytes">B0 04   </span>  <span class="rt-op">BCS</span>  <span class="rt-arg">$2C0B</span>
-<span class="rt-addr">2C07</span>  <span class="rt-bytes">49 FF   </span>  <span class="rt-op">EOR</span>  <span class="rt-arg">#$FF</span>
-<span class="rt-addr">2C09</span>  <span class="rt-bytes">69 01   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">#$01</span>
-<span class="rt-addr">2C0B</span>  <span class="rt-bytes">18      </span>  <span class="rt-op">CLC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2C0C</span>  <span class="rt-bytes">69 37   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">#$37</span>
-<span class="rt-addr">2C0E</span>  <span class="rt-bytes">A0 08   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$08</span>
-<span class="rt-addr">2C10</span>  <span class="rt-bytes">D1 61   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">2C12</span>  <span class="rt-bytes">90 08   </span>  <span class="rt-op">BCC</span>  <span class="rt-arg">$2C1C</span>
-<span class="rt-addr">2C14</span>  <span class="rt-bytes">A9 FF   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$FF</span>
-<span class="rt-addr">2C16</span>  <span class="rt-bytes">8D 81 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0381</span>   <span class="rt-cmt">; Dock refused</span>
-<span class="rt-addr">2C19</span>  <span class="rt-bytes">4C BD 2C</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$2CBD</span>
-<span class="rt-addr">2C1C</span>  <span class="rt-bytes">20 C6 2C</span>  <span class="rt-op">JSR</span>  <span class="rt-arg">$2CC6</span>
-<span class="rt-addr">2C1F</span>  <span class="rt-bytes">38      </span>  <span class="rt-op">SEC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2C20</span>  <span class="rt-bytes">ED 38 03</span>  <span class="rt-op">SBC</span>  <span class="rt-arg">$0338</span>   <span class="rt-cmt">; Launch heading (low)</span>
-<span class="rt-addr">2C23</span>  <span class="rt-bytes">08      </span>  <span class="rt-op">PHP</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2C24</span>  <span class="rt-bytes">38      </span>  <span class="rt-op">SEC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2C25</span>  <span class="rt-bytes">E9 20   </span>  <span class="rt-op">SBC</span>  <span class="rt-arg">#$20</span>
-<span class="rt-addr">2C27</span>  <span class="rt-bytes">A8      </span>  <span class="rt-op">TAY</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2C28</span>  <span class="rt-bytes">8A      </span>  <span class="rt-op">TXA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2C29</span>  <span class="rt-bytes">E9 00   </span>  <span class="rt-op">SBC</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">2C2B</span>  <span class="rt-bytes">28      </span>  <span class="rt-op">PLP</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2C2C</span>  <span class="rt-bytes">ED 39 03</span>  <span class="rt-op">SBC</span>  <span class="rt-arg">$0339</span>   <span class="rt-cmt">; Launch heading (high)</span>
-<span class="rt-addr">2C2F</span>  <span class="rt-bytes">4A      </span>  <span class="rt-op">LSR</span>  <span class="rt-arg">A</span>
-<span class="rt-addr">2C30</span>  <span class="rt-bytes">98      </span>  <span class="rt-op">TYA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2C31</span>  <span class="rt-bytes">90 04   </span>  <span class="rt-op">BCC</span>  <span class="rt-arg">$2C37</span>
-<span class="rt-addr">2C33</span>  <span class="rt-bytes">49 FF   </span>  <span class="rt-op">EOR</span>  <span class="rt-arg">#$FF</span>
-<span class="rt-addr">2C35</span>  <span class="rt-bytes">69 00   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">2C37</span>  <span class="rt-bytes">18      </span>  <span class="rt-op">CLC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2C38</span>  <span class="rt-bytes">69 1C   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">#$1C</span>
-<span class="rt-addr">2C3A</span>  <span class="rt-bytes">B0 D8   </span>  <span class="rt-op">BCS</span>  <span class="rt-arg">$2C14</span>
-<span class="rt-addr">2C3C</span>  <span class="rt-bytes">0A      </span>  <span class="rt-op">ASL</span>  <span class="rt-arg">A</span>
-<span class="rt-addr">2C3D</span>  <span class="rt-bytes">B0 D5   </span>  <span class="rt-op">BCS</span>  <span class="rt-arg">$2C14</span>
-<span class="rt-addr">2C3F</span>  <span class="rt-bytes">A0 08   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$08</span>
-<span class="rt-addr">2C41</span>  <span class="rt-bytes">D1 61   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">2C43</span>  <span class="rt-bytes">B0 CF   </span>  <span class="rt-op">BCS</span>  <span class="rt-arg">$2C14</span>
-<span class="rt-addr">2C45</span>  <span class="rt-bytes">A9 80   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$80</span>
-<span class="rt-addr">2C47</span>  <span class="rt-bytes">8D 96 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0396</span>   <span class="rt-cmt">; Dock state</span>
-<span class="rt-addr">2C4A</span>  <span class="rt-bytes">A0 00   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">2C4C</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">2C4E</span>  <span class="rt-bytes">8D A4 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$03A4</span>   <span class="rt-cmt">; Docked type</span>
-<span class="rt-addr">2C51</span>  <span class="rt-bytes">C8      </span>  <span class="rt-op">INY</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2C52</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">2C54</span>  <span class="rt-bytes">8D 98 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0398</span>   <span class="rt-cmt">; Docked cell (low)</span>
-<span class="rt-addr">2C57</span>  <span class="rt-bytes">C8      </span>  <span class="rt-op">INY</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2C58</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">2C5A</span>  <span class="rt-bytes">8D 99 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0399</span>   <span class="rt-cmt">; Docked cell (high)</span>
-<span class="rt-addr">2C5D</span>  <span class="rt-bytes">4C BD 2C</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$2CBD</span>
-<span class="rt-addr">2C60</span>  <span class="rt-bytes">29 0C   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$0C</span>
-<span class="rt-addr">2C62</span>  <span class="rt-bytes">D0 59   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$2CBD</span>
-<span class="rt-addr">2C64</span>  <span class="rt-bytes">A0 06   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$06</span>
-<span class="rt-addr">2C66</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">2C68</span>  <span class="rt-bytes">CD 44 03</span>  <span class="rt-op">CMP</span>  <span class="rt-arg">$0344</span>   <span class="rt-cmt">; Altitude</span>
-<span class="rt-addr">2C6B</span>  <span class="rt-bytes">90 3C   </span>  <span class="rt-op">BCC</span>  <span class="rt-arg">$2CA9</span>
-<span class="rt-addr">2C6D</span>  <span class="rt-bytes">E9 80   </span>  <span class="rt-op">SBC</span>  <span class="rt-arg">#$80</span>
-<span class="rt-addr">2C6F</span>  <span class="rt-bytes">90 05   </span>  <span class="rt-op">BCC</span>  <span class="rt-arg">$2C76</span>
-<span class="rt-addr">2C71</span>  <span class="rt-bytes">CD 44 03</span>  <span class="rt-op">CMP</span>  <span class="rt-arg">$0344</span>   <span class="rt-cmt">; Altitude</span>
-<span class="rt-addr">2C74</span>  <span class="rt-bytes">B0 47   </span>  <span class="rt-op">BCS</span>  <span class="rt-arg">$2CBD</span>
-<span class="rt-addr">2C76</span>  <span class="rt-bytes">A0 00   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">2C78</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">2C7A</span>  <span class="rt-bytes">09 40   </span>  <span class="rt-op">ORA</span>  <span class="rt-arg">#$40</span>
-<span class="rt-addr">2C7C</span>  <span class="rt-bytes">91 61   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">2C7E</span>  <span class="rt-bytes">A0 08   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$08</span>
-<span class="rt-addr">2C80</span>  <span class="rt-bytes">A9 00   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">2C82</span>  <span class="rt-bytes">91 61   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">2C84</span>  <span class="rt-bytes">A0 07   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$07</span>
-<span class="rt-addr">2C86</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">2C88</span>  <span class="rt-bytes">18      </span>  <span class="rt-op">CLC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2C89</span>  <span class="rt-bytes">69 40   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">#$40</span>
-<span class="rt-addr">2C8B</span>  <span class="rt-bytes">90 02   </span>  <span class="rt-op">BCC</span>  <span class="rt-arg">$2C8F</span>
-<span class="rt-addr">2C8D</span>  <span class="rt-bytes">A9 FF   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$FF</span>
-<span class="rt-addr">2C8F</span>  <span class="rt-bytes">20 65 3E</span>  <span class="rt-op">JSR</span>  <span class="rt-arg">$3E65</span>
-<span class="rt-addr">2C92</span>  <span class="rt-bytes">A9 FF   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$FF</span>
-<span class="rt-addr">2C94</span>  <span class="rt-bytes">8D 92 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0392</span>
-<span class="rt-addr">2C97</span>  <span class="rt-bytes">A9 01   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$01</span>
-<span class="rt-addr">2C99</span>  <span class="rt-bytes">8D 93 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0393</span>
-<span class="rt-addr">2C9C</span>  <span class="rt-bytes">A9 04   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$04</span>
-<span class="rt-addr">2C9E</span>  <span class="rt-bytes">8D C5 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$03C5</span>
-<span class="rt-addr">2CA1</span>  <span class="rt-bytes">A9 00   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">2CA3</span>  <span class="rt-bytes">8D C4 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$03C4</span>
-<span class="rt-addr">2CA6</span>  <span class="rt-bytes">4C BD 2C</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$2CBD</span>
-<span class="rt-addr">2CA9</span>  <span class="rt-bytes">48      </span>  <span class="rt-op">PHA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2CAA</span>  <span class="rt-bytes">A0 00   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">2CAC</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">2CAE</span>  <span class="rt-bytes">29 3F   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$3F</span>
-<span class="rt-addr">2CB0</span>  <span class="rt-bytes">A8      </span>  <span class="rt-op">TAY</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2CB1</span>  <span class="rt-bytes">68      </span>  <span class="rt-op">PLA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2CB2</span>  <span class="rt-bytes">18      </span>  <span class="rt-op">CLC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2CB3</span>  <span class="rt-bytes">79 E4 C3</span>  <span class="rt-op">ADC</span>  <span class="rt-arg">$C3E4,Y</span>
-<span class="rt-addr">2CB6</span>  <span class="rt-bytes">B0 BE   </span>  <span class="rt-op">BCS</span>  <span class="rt-arg">$2C76</span>
-<span class="rt-addr">2CB8</span>  <span class="rt-bytes">CD 44 03</span>  <span class="rt-op">CMP</span>  <span class="rt-arg">$0344</span>   <span class="rt-cmt">; Altitude</span>
-<span class="rt-addr">2CBB</span>  <span class="rt-bytes">B0 B9   </span>  <span class="rt-op">BCS</span>  <span class="rt-arg">$2C76</span>
-<span class="rt-addr">2CBD</span>  <span class="rt-bytes">4C 5B 2A</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$2A5B</span>
-</pre>
+```text
+2B60: A6 5A    LDX $5A
+2B62: A5 5B    LDA $5B
+2B64: C9 01    CMP #$01
+2B66: F0 1A    BEQ $2B82
+2B68: C9 0A    CMP #$0A
+2B6A: B0 1C    BCS $2B88
+2B6C: 38       SEC
+2B6D: E9 02    SBC #$02
+2B6F: 86 55    STX $55
+2B71: 4A       LSR A
+2B72: 66 55    ROR $55
+2B74: 4A       LSR A
+2B75: 66 55    ROR $55
+2B77: 4A       LSR A
+2B78: 66 55    ROR $55
+2B7A: A6 55    LDX $55
+2B7C: BD 00 C9 LDA $C900,X
+2B7F: 4C 8A 2B JMP $2B8A
+2B82: BD 00 C8 LDA $C800,X
+2B85: 4C 8A 2B JMP $2B8A
+2B88: A9 00    LDA #$00
+2B8A: 85 26    STA $26
+2B8C: A6 58    LDX $58
+2B8E: A4 59    LDY $59
+2B90: A9 00    LDA #$00
+2B92: 85 57    STA $57
+2B94: 85 55    STA $55
+2B96: 46 26    LSR $26
+2B98: 90 0F    BCC $2BA9
+2B9A: A5 57    LDA $57
+2B9C: 18       CLC
+2B9D: 65 58    ADC $58
+2B9F: 85 57    STA $57
+2BA1: 8A       TXA
+2BA2: 65 59    ADC $59
+2BA4: AA       TAX
+2BA5: 98       TYA
+2BA6: 65 55    ADC $55
+2BA8: A8       TAY
+2BA9: 06 58    ASL $58
+2BAB: 26 59    ROL $59
+2BAD: 26 55    ROL $55
+2BAF: A5 26    LDA $26
+2BB1: D0 E3    BNE $2B96
+2BB3: C0 10    CPY #$10
+2BB5: 90 03    BCC $2BBA
+2BB7: 4C 5B 2A JMP $2A5B
+2BBA: 98       TYA
+2BBB: 08       PHP
+2BBC: A0 0D    LDY #$0D
+2BBE: 91 61    STA ($61),Y
+2BC0: 88       DEY
+2BC1: 8A       TXA
+2BC2: 91 61    STA ($61),Y
+2BC4: A0 03    LDY #$03
+2BC6: B1 61    LDA ($61),Y
+2BC8: 09 40    ORA #$40
+2BCA: 91 61    STA ($61),Y
+2BCC: 28       PLP
+2BCD: D0 04    BNE $2BD3
+2BCF: E0 80    CPX #$80
+2BD1: 90 03    BCC $2BD6
+2BD3: 4C C0 2C JMP $2CC0
+2BD6: A0 00    LDY #$00
+2BD8: B1 61    LDA ($61),Y
+2BDA: 29 C0    AND #$C0
+2BDC: D0 3B    BNE $2C19
+2BDE: B1 61    LDA ($61),Y
+2BE0: C9 10    CMP #$10
+2BE2: D0 15    BNE $2BF9
+2BE4: AD 6C 03 LDA $036C
+2BE7: D0 08    BNE $2BF1
+2BE9: AE 0F 01 LDX $010F
+2BEC: 20 18 3D JSR $3D18   ; Flag-bit test
+2BEF: D0 28    BNE $2C19
+2BF1: A9 FF    LDA #$FF
+2BF3: 8D 9B 03 STA $039B   ; Jump pad docked
+2BF6: 4C BD 2C JMP $2CBD
+2BF9: A8       TAY
+2BFA: B9 9A C3 LDA $C39A,Y
+2BFD: 10 61    BPL $2C60
+2BFF: AD 44 03 LDA $0344   ; Altitude
+2C02: 38       SEC
+2C03: E9 1C    SBC #$1C
+2C05: B0 04    BCS $2C0B
+2C07: 49 FF    EOR #$FF
+2C09: 69 01    ADC #$01
+2C0B: 18       CLC
+2C0C: 69 37    ADC #$37
+2C0E: A0 08    LDY #$08
+2C10: D1 61    CMP ($61),Y
+2C12: 90 08    BCC $2C1C
+2C14: A9 FF    LDA #$FF
+2C16: 8D 81 03 STA $0381   ; Dock refused
+2C19: 4C BD 2C JMP $2CBD
+2C1C: 20 C6 2C JSR $2CC6
+2C1F: 38       SEC
+2C20: ED 38 03 SBC $0338   ; Launch heading (low)
+2C23: 08       PHP
+2C24: 38       SEC
+2C25: E9 20    SBC #$20
+2C27: A8       TAY
+2C28: 8A       TXA
+2C29: E9 00    SBC #$00
+2C2B: 28       PLP
+2C2C: ED 39 03 SBC $0339   ; Launch heading (high)
+2C2F: 4A       LSR A
+2C30: 98       TYA
+2C31: 90 04    BCC $2C37
+2C33: 49 FF    EOR #$FF
+2C35: 69 00    ADC #$00
+2C37: 18       CLC
+2C38: 69 1C    ADC #$1C
+2C3A: B0 D8    BCS $2C14
+2C3C: 0A       ASL A
+2C3D: B0 D5    BCS $2C14
+2C3F: A0 08    LDY #$08
+2C41: D1 61    CMP ($61),Y
+2C43: B0 CF    BCS $2C14
+2C45: A9 80    LDA #$80
+2C47: 8D 96 03 STA $0396   ; Dock state
+2C4A: A0 00    LDY #$00
+2C4C: B1 61    LDA ($61),Y
+2C4E: 8D A4 03 STA $03A4   ; Docked type
+2C51: C8       INY
+2C52: B1 61    LDA ($61),Y
+2C54: 8D 98 03 STA $0398   ; Docked cell (low)
+2C57: C8       INY
+2C58: B1 61    LDA ($61),Y
+2C5A: 8D 99 03 STA $0399   ; Docked cell (high)
+2C5D: 4C BD 2C JMP $2CBD
+2C60: 29 0C    AND #$0C
+2C62: D0 59    BNE $2CBD
+2C64: A0 06    LDY #$06
+2C66: B1 61    LDA ($61),Y
+2C68: CD 44 03 CMP $0344   ; Altitude
+2C6B: 90 3C    BCC $2CA9
+2C6D: E9 80    SBC #$80
+2C6F: 90 05    BCC $2C76
+2C71: CD 44 03 CMP $0344   ; Altitude
+2C74: B0 47    BCS $2CBD
+2C76: A0 00    LDY #$00
+2C78: B1 61    LDA ($61),Y
+2C7A: 09 40    ORA #$40
+2C7C: 91 61    STA ($61),Y
+2C7E: A0 08    LDY #$08
+2C80: A9 00    LDA #$00
+2C82: 91 61    STA ($61),Y
+2C84: A0 07    LDY #$07
+2C86: B1 61    LDA ($61),Y
+2C88: 18       CLC
+2C89: 69 40    ADC #$40
+2C8B: 90 02    BCC $2C8F
+2C8D: A9 FF    LDA #$FF
+2C8F: 20 65 3E JSR $3E65
+2C92: A9 FF    LDA #$FF
+2C94: 8D 92 03 STA $0392
+2C97: A9 01    LDA #$01
+2C99: 8D 93 03 STA $0393
+2C9C: A9 04    LDA #$04
+2C9E: 8D C5 03 STA $03C5
+2CA1: A9 00    LDA #$00
+2CA3: 8D C4 03 STA $03C4
+2CA6: 4C BD 2C JMP $2CBD
+2CA9: 48       PHA
+2CAA: A0 00    LDY #$00
+2CAC: B1 61    LDA ($61),Y
+2CAE: 29 3F    AND #$3F
+2CB0: A8       TAY
+2CB1: 68       PLA
+2CB2: 18       CLC
+2CB3: 79 E4 C3 ADC $C3E4,Y
+2CB6: B0 BE    BCS $2C76
+2CB8: CD 44 03 CMP $0344   ; Altitude
+2CBB: B0 B9    BCS $2C76
+2CBD: 4C 5B 2A JMP $2A5B
+```
 
 ### Additional code at `$2CC0`
 
-<pre class="rt-listing">
-<span class="rt-addr">2CC0</span>  <span class="rt-bytes">20 C6 2C</span>  <span class="rt-op">JSR</span>  <span class="rt-arg">$2CC6</span>
-<span class="rt-addr">2CC3</span>  <span class="rt-bytes">4C 5F 2D</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$2D5F</span>
-</pre>
+```text
+2CC0: 20 C6 2C JSR $2CC6
+2CC3: 4C 5F 2D JMP $2D5F
+```
 
 ### Additional code at `$2CC6`
 
-<pre class="rt-listing">
-<span class="rt-addr">2CC6</span>  <span class="rt-bytes">A5 5B   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$5B</span>
-<span class="rt-addr">2CC8</span>  <span class="rt-bytes">C9 40   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$40</span>
-<span class="rt-addr">2CCA</span>  <span class="rt-bytes">90 04   </span>  <span class="rt-op">BCC</span>  <span class="rt-arg">$2CD0</span>
-<span class="rt-addr">2CCC</span>  <span class="rt-bytes">A9 7F   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$7F</span>
-<span class="rt-addr">2CCE</span>  <span class="rt-bytes">D0 21   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$2CF1</span>
-<span class="rt-addr">2CD0</span>  <span class="rt-bytes">06 5A   </span>  <span class="rt-op">ASL</span>  <span class="rt-arg">$5A</span>
-<span class="rt-addr">2CD2</span>  <span class="rt-bytes">2A      </span>  <span class="rt-op">ROL</span>  <span class="rt-arg">A</span>
-<span class="rt-addr">2CD3</span>  <span class="rt-bytes">06 5A   </span>  <span class="rt-op">ASL</span>  <span class="rt-arg">$5A</span>
-<span class="rt-addr">2CD5</span>  <span class="rt-bytes">2A      </span>  <span class="rt-op">ROL</span>  <span class="rt-arg">A</span>
-<span class="rt-addr">2CD6</span>  <span class="rt-bytes">C9 10   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$10</span>
-<span class="rt-addr">2CD8</span>  <span class="rt-bytes">B0 13   </span>  <span class="rt-op">BCS</span>  <span class="rt-arg">$2CED</span>
-<span class="rt-addr">2CDA</span>  <span class="rt-bytes">06 5A   </span>  <span class="rt-op">ASL</span>  <span class="rt-arg">$5A</span>
-<span class="rt-addr">2CDC</span>  <span class="rt-bytes">2A      </span>  <span class="rt-op">ROL</span>  <span class="rt-arg">A</span>
-<span class="rt-addr">2CDD</span>  <span class="rt-bytes">06 5A   </span>  <span class="rt-op">ASL</span>  <span class="rt-arg">$5A</span>
-<span class="rt-addr">2CDF</span>  <span class="rt-bytes">2A      </span>  <span class="rt-op">ROL</span>  <span class="rt-arg">A</span>
-<span class="rt-addr">2CE0</span>  <span class="rt-bytes">06 5A   </span>  <span class="rt-op">ASL</span>  <span class="rt-arg">$5A</span>
-<span class="rt-addr">2CE2</span>  <span class="rt-bytes">2A      </span>  <span class="rt-op">ROL</span>  <span class="rt-arg">A</span>
-<span class="rt-addr">2CE3</span>  <span class="rt-bytes">06 5A   </span>  <span class="rt-op">ASL</span>  <span class="rt-arg">$5A</span>
-<span class="rt-addr">2CE5</span>  <span class="rt-bytes">2A      </span>  <span class="rt-op">ROL</span>  <span class="rt-arg">A</span>
-<span class="rt-addr">2CE6</span>  <span class="rt-bytes">A8      </span>  <span class="rt-op">TAY</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2CE7</span>  <span class="rt-bytes">B9 00 8B</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$8B00,Y</span>
-<span class="rt-addr">2CEA</span>  <span class="rt-bytes">4C F1 2C</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$2CF1</span>
-<span class="rt-addr">2CED</span>  <span class="rt-bytes">A8      </span>  <span class="rt-op">TAY</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2CEE</span>  <span class="rt-bytes">B9 00 8A</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$8A00,Y</span>
-<span class="rt-addr">2CF1</span>  <span class="rt-bytes">85 26   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">$26</span>
-<span class="rt-addr">2CF3</span>  <span class="rt-bytes">A5 E7   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$E7</span>
-<span class="rt-addr">2CF5</span>  <span class="rt-bytes">D0 28   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$2D1F</span>
-<span class="rt-addr">2CF7</span>  <span class="rt-bytes">A5 E8   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$E8</span>
-<span class="rt-addr">2CF9</span>  <span class="rt-bytes">D0 12   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$2D0D</span>
-<span class="rt-addr">2CFB</span>  <span class="rt-bytes">A5 E9   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$E9</span>
-<span class="rt-addr">2CFD</span>  <span class="rt-bytes">D0 07   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$2D06</span>
-<span class="rt-addr">2CFF</span>  <span class="rt-bytes">A2 00   </span>  <span class="rt-op">LDX</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">2D01</span>  <span class="rt-bytes">A0 00   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">2D03</span>  <span class="rt-bytes">4C 47 2D</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$2D47</span>
-<span class="rt-addr">2D06</span>  <span class="rt-bytes">A2 7F   </span>  <span class="rt-op">LDX</span>  <span class="rt-arg">#$7F</span>
-<span class="rt-addr">2D08</span>  <span class="rt-bytes">A0 00   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">2D0A</span>  <span class="rt-bytes">4C 52 2D</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$2D52</span>
-<span class="rt-addr">2D0D</span>  <span class="rt-bytes">A5 E9   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$E9</span>
-<span class="rt-addr">2D0F</span>  <span class="rt-bytes">D0 07   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$2D18</span>
-<span class="rt-addr">2D11</span>  <span class="rt-bytes">A2 FF   </span>  <span class="rt-op">LDX</span>  <span class="rt-arg">#$FF</span>
-<span class="rt-addr">2D13</span>  <span class="rt-bytes">A0 00   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">2D15</span>  <span class="rt-bytes">4C 52 2D</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$2D52</span>
-<span class="rt-addr">2D18</span>  <span class="rt-bytes">A2 80   </span>  <span class="rt-op">LDX</span>  <span class="rt-arg">#$80</span>
-<span class="rt-addr">2D1A</span>  <span class="rt-bytes">A0 00   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">2D1C</span>  <span class="rt-bytes">4C 47 2D</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$2D47</span>
-<span class="rt-addr">2D1F</span>  <span class="rt-bytes">A5 E8   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$E8</span>
-<span class="rt-addr">2D21</span>  <span class="rt-bytes">D0 12   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$2D35</span>
-<span class="rt-addr">2D23</span>  <span class="rt-bytes">A5 E9   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$E9</span>
-<span class="rt-addr">2D25</span>  <span class="rt-bytes">D0 07   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$2D2E</span>
-<span class="rt-addr">2D27</span>  <span class="rt-bytes">A2 FF   </span>  <span class="rt-op">LDX</span>  <span class="rt-arg">#$FF</span>
-<span class="rt-addr">2D29</span>  <span class="rt-bytes">A0 01   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$01</span>
-<span class="rt-addr">2D2B</span>  <span class="rt-bytes">4C 52 2D</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$2D52</span>
-<span class="rt-addr">2D2E</span>  <span class="rt-bytes">A2 80   </span>  <span class="rt-op">LDX</span>  <span class="rt-arg">#$80</span>
-<span class="rt-addr">2D30</span>  <span class="rt-bytes">A0 01   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$01</span>
-<span class="rt-addr">2D32</span>  <span class="rt-bytes">4C 47 2D</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$2D47</span>
-<span class="rt-addr">2D35</span>  <span class="rt-bytes">A5 E9   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$E9</span>
-<span class="rt-addr">2D37</span>  <span class="rt-bytes">D0 07   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$2D40</span>
-<span class="rt-addr">2D39</span>  <span class="rt-bytes">A2 00   </span>  <span class="rt-op">LDX</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">2D3B</span>  <span class="rt-bytes">A0 01   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$01</span>
-<span class="rt-addr">2D3D</span>  <span class="rt-bytes">4C 47 2D</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$2D47</span>
-<span class="rt-addr">2D40</span>  <span class="rt-bytes">A2 7F   </span>  <span class="rt-op">LDX</span>  <span class="rt-arg">#$7F</span>
-<span class="rt-addr">2D42</span>  <span class="rt-bytes">A0 01   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$01</span>
-<span class="rt-addr">2D44</span>  <span class="rt-bytes">4C 52 2D</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$2D52</span>
-<span class="rt-addr">2D47</span>  <span class="rt-bytes">8A      </span>  <span class="rt-op">TXA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2D48</span>  <span class="rt-bytes">18      </span>  <span class="rt-op">CLC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2D49</span>  <span class="rt-bytes">65 26   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">$26</span>
-<span class="rt-addr">2D4B</span>  <span class="rt-bytes">48      </span>  <span class="rt-op">PHA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2D4C</span>  <span class="rt-bytes">98      </span>  <span class="rt-op">TYA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2D4D</span>  <span class="rt-bytes">69 00   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">2D4F</span>  <span class="rt-bytes">4C 5A 2D</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$2D5A</span>
-<span class="rt-addr">2D52</span>  <span class="rt-bytes">8A      </span>  <span class="rt-op">TXA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2D53</span>  <span class="rt-bytes">38      </span>  <span class="rt-op">SEC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2D54</span>  <span class="rt-bytes">E5 26   </span>  <span class="rt-op">SBC</span>  <span class="rt-arg">$26</span>
-<span class="rt-addr">2D56</span>  <span class="rt-bytes">48      </span>  <span class="rt-op">PHA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2D57</span>  <span class="rt-bytes">98      </span>  <span class="rt-op">TYA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2D58</span>  <span class="rt-bytes">E9 00   </span>  <span class="rt-op">SBC</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">2D5A</span>  <span class="rt-bytes">29 01   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$01</span>
-<span class="rt-addr">2D5C</span>  <span class="rt-bytes">AA      </span>  <span class="rt-op">TAX</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2D5D</span>  <span class="rt-bytes">68      </span>  <span class="rt-op">PLA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2D5E</span>  <span class="rt-bytes">60      </span>  <span class="rt-op">RTS</span>  <span class="rt-arg"></span>
-</pre>
+```text
+2CC6: A5 5B    LDA $5B
+2CC8: C9 40    CMP #$40
+2CCA: 90 04    BCC $2CD0
+2CCC: A9 7F    LDA #$7F
+2CCE: D0 21    BNE $2CF1
+2CD0: 06 5A    ASL $5A
+2CD2: 2A       ROL A
+2CD3: 06 5A    ASL $5A
+2CD5: 2A       ROL A
+2CD6: C9 10    CMP #$10
+2CD8: B0 13    BCS $2CED
+2CDA: 06 5A    ASL $5A
+2CDC: 2A       ROL A
+2CDD: 06 5A    ASL $5A
+2CDF: 2A       ROL A
+2CE0: 06 5A    ASL $5A
+2CE2: 2A       ROL A
+2CE3: 06 5A    ASL $5A
+2CE5: 2A       ROL A
+2CE6: A8       TAY
+2CE7: B9 00 8B LDA $8B00,Y
+2CEA: 4C F1 2C JMP $2CF1
+2CED: A8       TAY
+2CEE: B9 00 8A LDA $8A00,Y
+2CF1: 85 26    STA $26
+2CF3: A5 E7    LDA $E7
+2CF5: D0 28    BNE $2D1F
+2CF7: A5 E8    LDA $E8
+2CF9: D0 12    BNE $2D0D
+2CFB: A5 E9    LDA $E9
+2CFD: D0 07    BNE $2D06
+2CFF: A2 00    LDX #$00
+2D01: A0 00    LDY #$00
+2D03: 4C 47 2D JMP $2D47
+2D06: A2 7F    LDX #$7F
+2D08: A0 00    LDY #$00
+2D0A: 4C 52 2D JMP $2D52
+2D0D: A5 E9    LDA $E9
+2D0F: D0 07    BNE $2D18
+2D11: A2 FF    LDX #$FF
+2D13: A0 00    LDY #$00
+2D15: 4C 52 2D JMP $2D52
+2D18: A2 80    LDX #$80
+2D1A: A0 00    LDY #$00
+2D1C: 4C 47 2D JMP $2D47
+2D1F: A5 E8    LDA $E8
+2D21: D0 12    BNE $2D35
+2D23: A5 E9    LDA $E9
+2D25: D0 07    BNE $2D2E
+2D27: A2 FF    LDX #$FF
+2D29: A0 01    LDY #$01
+2D2B: 4C 52 2D JMP $2D52
+2D2E: A2 80    LDX #$80
+2D30: A0 01    LDY #$01
+2D32: 4C 47 2D JMP $2D47
+2D35: A5 E9    LDA $E9
+2D37: D0 07    BNE $2D40
+2D39: A2 00    LDX #$00
+2D3B: A0 01    LDY #$01
+2D3D: 4C 47 2D JMP $2D47
+2D40: A2 7F    LDX #$7F
+2D42: A0 01    LDY #$01
+2D44: 4C 52 2D JMP $2D52
+2D47: 8A       TXA
+2D48: 18       CLC
+2D49: 65 26    ADC $26
+2D4B: 48       PHA
+2D4C: 98       TYA
+2D4D: 69 00    ADC #$00
+2D4F: 4C 5A 2D JMP $2D5A
+2D52: 8A       TXA
+2D53: 38       SEC
+2D54: E5 26    SBC $26
+2D56: 48       PHA
+2D57: 98       TYA
+2D58: E9 00    SBC #$00
+2D5A: 29 01    AND #$01
+2D5C: AA       TAX
+2D5D: 68       PLA
+2D5E: 60       RTS
+```
 
 ## Calls
 
@@ -286,10 +286,6 @@
 ## Called by
 
 - `JMP` at `$2ADB`
-- `JSR` at `$47F1`
-- `JSR` at `$65D9`
-- `JSR` at `$6C32`
-- `JSR` at `$6C4F`
 
 ---
 

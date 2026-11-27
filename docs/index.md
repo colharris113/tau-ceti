@@ -1,12 +1,20 @@
 # Tau Ceti: a guide to the C64 code
 
-<p class="lede">Tau Ceti is a 1986 Commodore 64 game by Pete Cooke, converted by John Twiddy and published by CRL. This site explains how it works, address by address: the record table that holds every object, the docking aperture, the fuel clock, the jump network, the AI and the rest.</p>
+Tau Ceti is a 1986 Commodore 64 game by Pete Cooke, converted by John Twiddy and published by CRL. This guide explains how it works, address by address: the record table that holds every object, the docking aperture, the fuel clock, the jump network, the AI and the rest.
 
 It is a guide to the machine, not a walkthrough. The aim is to answer the question "why did the game do that?" with a routine and a byte, and to make the answers readable without a background in 6502 assembly.
 
 ## Start here
 
-<div class="grid cards" markdown>
+[Deep Dives](deep-dives/index.md) · [Source Guide](source/index.md) · [Type Tables](reference/type-tables.md) · [About](about/index.md)
+
+-   **[One frame in the skimmer](deep-dives/one-frame-in-the-skimmer.md)**
+
+    Follow the flight loop and the raster interrupt to see when the game draws, updates objects and changes modes.
+
+-   **[How the cooling rods work](deep-dives/the-cooling-rods.md)**
+
+    Forty shuffled halves, a byte-level matching puzzle and twenty reactor sockets.
 
 -   **[The record table](deep-dives/the-record-table.md)**
 
@@ -28,7 +36,7 @@ It is a guide to the machine, not a walkthrough. The aim is to answer the questi
 
     A sixteen-bit tank drained once a second, a LAUNCH gate that reads only the high byte, and a 32-city jump graph where the side you land on chooses where you go.
 
-</div>
+[Browse all the deep dives](deep-dives/index.md).
 
 ## What is covered
 
@@ -45,14 +53,16 @@ The guide is built around the parts of the code that reward close reading:
 | Types | What the 37 type rows say about flags, hit points and behaviour |
 | AI | How static defences and mobile units decide to fire, lock and launch |
 | Combat | Lasers, heat, missiles, lock-ons and damage |
+| Mission | Where rod sections come from, how they fit and how the reactor accepts them |
+| Sound | How speed and effect tables drive the SID |
 
 The [source guide](source/index.md) holds a generated page for each routine: the real instruction stream, the variables it touches, and who calls it. The [type tables](reference/type-tables.md) reproduce the game's nine parallel tables.
 
-## How the site is organised
+## How the guide is organised
 
-- **Deep dives** are written explanations of one mechanism at a time, with diagrams generated from the game's own constants.
+- **[Deep dives](deep-dives/index.md)** explain one mechanism at a time, with diagrams generated from the game's own constants.
 - **Source guide** pages are regenerated from the disassembly, so addresses, bytes and call sites are never retyped by hand.
-- **Reference** pages are mechanical dumps with interpretation: type flags, class tables, zero-page variables.
+- **Reference** pages document type flags, class tables and RAM variables.
 
 ## Provenance
 
@@ -62,7 +72,7 @@ Where a meaning is inferred rather than proved, the text says so. The [method](a
 
 ## Status
 
-Five deep dives are complete: the record table, the cities, the flight renderer, docking and jumping. The source guide covers the frame tick, city loading, docking, the record dispatch, combat, AI and messages. Still to come: the reactor and rods, the scanner and target list, the demo mode and easter eggs, and a full address map.
+The source guide covers the frame tick, city loading, docking, the record dispatch, combat, AI and messages. The attract demo, command parser and full address map are still to come.
 
 ---
 

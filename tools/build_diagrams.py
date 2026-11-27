@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the guide's explanatory figures as theme-aware SVG.
+"""Generate the guide's explanatory figures as standalone SVG files.
 
     .venv/Scripts/python tools/build_diagrams.py
 
@@ -7,8 +7,7 @@ Every number used by a figure comes from the game's own constants, read out
 of the disassembly in the prose: the docking altitude 28, the 55-unit offset
 in the aperture test, the $48 aperture ceiling, the $1C/$BF altitude range,
 the 50-frame clock, the BFFF fuel value and the (speed >> 3) + 16 burn.  The
-figures are inlined in the pages with pymdownx.snippets, so their colours
-follow the light/dark theme through CSS classes in extra.css.
+figures include their own colours and background for Markdown image embeds.
 """
 from __future__ import annotations
 
@@ -17,6 +16,29 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "docs" / "assets" / "diagrams"
+
+FIGURE_STYLE = """<style>
+text { font-family: system-ui, sans-serif; font-size: 11px; fill: #25221e; }
+.fig-title { font-size: 13px; font-weight: 600; }
+.fig-tick { font-size: 10px; }
+.fig-tick, .fig-muted, .fig-city, .fig-mark-plain { fill: #534e46; }
+.fig-grid, .fig-frame, .fig-hair, .fig-fine { stroke: #c4bdb2; }
+.fig-frame { fill: none; }
+.fig-axis { stroke: #777067; }
+.fig-fine { stroke-width: .4; }
+.fig-ochre, .fig-mark-dockable { stroke: #8a5a12; fill: none; }
+.fig-blue { stroke: #2465b5; fill: none; }
+.fig-ochre, .fig-blue { stroke-width: 2; }
+.fig-mark-dockable { stroke-width: 1.6; }
+.fig-ochre-fill, .fig-band, .fig-cell-type { fill: #8a5a12; }
+.fig-blue-fill { fill: #2465b5; }
+.fig-band { fill-opacity: .16; }
+.fig-cell { fill: #e8e4dc; }
+.fig-cell, .fig-cell-type { stroke: #fff; }
+.fig-cell-type { fill-opacity: .55; }
+.fig-glyph { fill: #25221e; }
+.fig-city { font-size: 9px; font-weight: 600; letter-spacing: .04em; }
+</style>"""
 
 # --- game constants ---------------------------------------------------------
 DOCK_ALT = 0x1C           # 28: docking altitude
@@ -59,10 +81,12 @@ def diamond(cx: float, cy: float, r: float, cls: str) -> str:
 
 def document(slug: str, w: int, h: int, title: str, desc: str, body: list[str]) -> str:
     return "\n".join([
-        f'<svg class="tc-fig" viewBox="0 0 {w} {h}" role="img" '
+        f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}" role="img" '
         f'aria-labelledby="{slug}-t {slug}-d" xmlns="http://www.w3.org/2000/svg">',
         f'<title id="{slug}-t">{esc(title)}</title>',
         f'<desc id="{slug}-d">{esc(desc)}</desc>',
+        FIGURE_STYLE,
+        f'<rect width="{w}" height="{h}" fill="#fff"/>',
         *body,
         "</svg>",
         "",
@@ -122,7 +146,7 @@ def record_table() -> str:
         lx, ly = x + (cell_w - 2) / 2, y0 + cell_h + 12
         body.append(text(lx, ly, fields[i], "fig-label", "start",
                          f'transform="rotate(42 {lx:.1f} {ly:.1f})"'))
-    body.append(text(x0, y0 + 132,
+    body.append(text(x0, y0 + 110,
                      "Byte 0: bits 7-6 are state ($80 free, $40 dying); bits 5-0 pick the type row in $C39A.",
                      "fig-muted"))
 
@@ -268,7 +292,7 @@ def fuel_burn() -> str:
     body: list[str] = []
     body.append(text(40, 30, "Fuel: how speed and a ruptured tank change the burn", "fig-title"))
     body.append(text(40, 50,
-                     "One burn a second, at the 50-frame tick. On the ground the burn is zero.",
+                     "Airborne fuel use at the 50-frame tick.",
                      "fig-muted"))
 
     # Legend, shared by both panels.
@@ -315,14 +339,14 @@ def fuel_burn() -> str:
 
         body.append(text((x0 + x1) / 2, y1 + 40, "speed ($00-$BF)", "fig-label", "middle"))
 
-    body.append(text(40, 356,
-                     "The burn is (speed >> 3) + 16, plus 96 if $039E says the tank is ruptured. "
-                     "One subtraction a second from a 16-bit tank of $BFFF = 49,151 units.",
+    body.append(text(40, 356, "Burn is (speed >> 3) + 16, plus 96 if the tank is ruptured.",
+                     "fig-muted"))
+    body.append(text(40, 373, "The once-a-second burn draws from a full tank of $BFFF = 49,151 units.",
                      "fig-muted"))
     return document("fig-fuel", w, h,
                     "Fuel burn and endurance against speed",
-                    "Two panels sharing the speed axis: the burn per second for an intact and "
-                    "a ruptured tank, and the resulting endurance in minutes.", body)
+                    "Two panels sharing the speed axis: the airborne burn per second for "
+                    "an intact and a ruptured tank, and the resulting endurance in minutes.", body)
 
 
 # --- figure 5: the death animation -----------------------------------------
@@ -428,7 +452,7 @@ def city_maps() -> str:
                      "fig-title"))
     body.append(text(x0, 52,
                      "Every mark is one of 1,005 three-byte records in the sheet at "
-                     "$9400; x runs east, y south.", "fig-muted"))
+                     "$9400; x runs east, y north.", "fig-muted"))
 
     # Legend, one shape per category.
     body.append(rect(40, 69, 5, 5, "fig-mark-plain"))
@@ -449,7 +473,7 @@ def city_maps() -> str:
         for type_byte, gx, gy in city["records"]:
             if not (map_lo <= gx <= map_hi and map_lo <= gy <= map_hi):
                 continue
-            cx, cy = px + (gx - map_lo), py + (gy - map_lo)
+            cx, cy = px + (gx - map_lo), py + (map_hi - gy)
             f = flags[type_byte] if type_byte < len(flags) else 0
             if f & 0x80:
                 body.append(circle(cx, cy, 3.0, "fig-mark-dockable"))
@@ -572,8 +596,6 @@ def screen_map() -> str:
         body.append(rect(x, cy, cw, ch, "fig-cell-type" if i % 2 == 0 else "fig-cell", 2))
         body.append(text(x + cw / 2, cy - 6, f"byte {i}", "fig-tick", "middle"))
         body.append(text(x + cw / 2, cy + ch + 14, str(i), "fig-tick", "middle"))
-    body.append(text(cx + 8 * (cw + 4) + 2, cy + ch / 2 + 4, "consecutive in the bitmap",
-                     "fig-label"))
     body.append(text(cx, cy + ch + 36,
                      "The eight bytes are scanlines 0–7 of one cell; each byte is four fat "
                      "pixels — four two-bit pairs.", "fig-muted"))
@@ -712,8 +734,8 @@ def lathe(memory: dict[int, int]) -> str:
                     f'height="12" fill="{low}"/>')
         if k % 2 == 0:
             body.append(text(left - 6, yy + 10, f"{rr['r']}", "fig-tick", "end"))
-    body.append(text(290, 314, "radius · left fill $AA, right fill $55", "fig-muted"))
-    body.append(text(290, 330, "$F8 = $78 puts the boundary on the centre column.", "fig-muted"))
+    body.append(text(mx, 314, "Left fill $AA, right fill $55", "fig-muted", "middle"))
+    body.append(text(mx, 330, "$F8 = $78 centres the boundary", "fig-muted", "middle"))
 
     # Right: the viewport as the buffer holds it.
     vx, vy, ps = 500, 70, 2.0
@@ -828,6 +850,68 @@ def sun_palette(memory: dict[int, int]) -> str:
                     "two body tones, so both faces of a building shift hue as the sun turns.", body)
 
 
+def rod_sites(memory: dict[int, int]) -> str:
+    """Plot part counts over the original planet coordinates and jump links."""
+    cities = json.loads((ROOT / "sources" / "data" / "cities.json")
+                        .read_text(encoding="utf-8"))["cities"]
+    indices = range(len(cities))
+    counts = [memory[0x7440 + i] & 0x7F for i in indices]
+    points = [(265 + (memory[0x89A0 + i] - 128) * 1.9,
+               230 - (memory[0x89C0 + i] - 128) * 1.9) for i in indices]
+    body = [text(40, 32, "Where the cooling-rod sections start", "fig-title")]
+    for i, (x, y) in enumerate(points):
+        for slot in range(4):
+            dest = memory[0x8900 + i * 4 + slot]
+            if i < dest < len(points):
+                body.append(line(x, y, *points[dest], "fig-axis"))
+    for i, (x, y) in enumerate(points):
+        count = counts[i]
+        marker = circle(x, y, 3.5 + count * 1.7,
+                        "fig-blue-fill" if count else "fig-mark-dockable")
+        label = esc(f'{cities[i]["name"]}: {count}')
+        body.append(f"<g><title>{label}</title>{marker}</g>")
+    for i, dx, dy in [(0, -13, -8), (1, 12, -9), (7, 10, 4), (23, -11, 16)]:
+        x, y = points[i]
+        body.append(text(x + dx, y + dy, cities[i]["name"], "fig-city",
+                         "end" if dx < 0 else "start"))
+    for count in range(4):
+        y = 142 + count * 27
+        body.append(circle(460, y, 3.5 + count * 1.7,
+                           "fig-blue-fill" if count else "fig-mark-dockable"))
+        label = "part" if count == 1 else "parts"
+        city_count = counts.count(count)
+        cities_label = "city" if city_count == 1 else "cities"
+        body.append(text(480, y + 4, f"{count} {label} · {city_count} {cities_label}"))
+    return document("fig-rod-sites", 620, 425, "Cooling-rod sections by city",
+                    "The original jump network showing the number of parts in each city. "
+                    "Three cities have no parts. Centralis has three.", body)
+
+
+def frame_order() -> str:
+    stages = [
+        ("$202D–$2044", "Prepare the view", "Distance, docking and the painter"),
+        ("$204C–$2069", "Update the world", "Controls, records and display request"),
+        ("$206C / $49BD", "Wait for the raster handler", "The handler copies and clears $0348"),
+        ("$2071–$20B2", "Refresh contacts and dispatch", "Scanner, fuel notices and mode changes"),
+    ]
+    body = []
+    for i, (address, heading, detail) in enumerate(stages):
+        y = 14 + i * 61
+        body.append(rect(60, y, 660, 49, "fig-frame", 3))
+        body.append(text(80, y + 29, address, "fig-tick"))
+        body.append(text(253, y + 20, heading, "fig-title"))
+        body.append(text(253, y + 37, detail, "fig-muted"))
+        if i < len(stages) - 1:
+            body.extend([
+                line(390, y + 49, 390, y + 59, "fig-axis"),
+                line(386, y + 55, 390, y + 59, "fig-axis"),
+                line(394, y + 55, 390, y + 59, "fig-axis"),
+            ])
+    return document("fig-frame-order", 780, 260, "An ordinary pass through the flight loop",
+                    "Prepare the view, update the world, wait for the raster handler, "
+                    "then refresh contacts and dispatch the next game mode.", body)
+
+
 def main() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
     memory: dict[int, int] = {}
@@ -846,6 +930,7 @@ def main() -> int:
         "fuel.svg": fuel_burn(),
         "dying.svg": dying_timeline(),
         "cities.svg": city_maps(),
+        "frame-order.svg": frame_order(),
     }
     if memory:
         figures["font.svg"] = font_sheet(memory)
@@ -853,6 +938,7 @@ def main() -> int:
         figures["profiles.svg"] = profile_gallery(memory)
         figures["lathe.svg"] = lathe(memory)
         figures["sun.svg"] = sun_palette(memory)
+        figures["rod-sites.svg"] = rod_sites(memory)
     for name, svg in figures.items():
         (OUT / name).write_text(svg, encoding="utf-8")
         print(f"wrote {name}")

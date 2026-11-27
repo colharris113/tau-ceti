@@ -1,25 +1,25 @@
 # Message queue
 
-**Address** `$4127-$413A` &nbsp;·&nbsp; **Group** Messages
+**Address** `$4127-$413A` · **Group** Messages
 
-<p class="lede">Pushes a two-byte text pointer into the ring buffer at <code class="addr">$0C00</code>: A is the low byte, X the high, and <code class="addr">$0384</code> is the write cursor. Does not print; the printer drains the queue separately.</p>
+Pushes a two-byte text pointer into the ring buffer at `$0C00`: A is the low byte, X the high, and `$0384` is the write cursor. Does not print; the printer drains the queue separately.
 
 ## Listing
 
-*Re-disassembled from the byte map: every instruction shown is one the game really executes from this entry, and gaps are branch targets that follow an early return.*
+*Decoded from the byte map within the curated code ranges for this routine.*
 
-<pre class="rt-listing">
-<span class="rt-addr">4127</span>  <span class="rt-bytes">AC 84 03</span>  <span class="rt-op">LDY</span>  <span class="rt-arg">$0384</span>   <span class="rt-cmt">; Message write cursor</span>
-<span class="rt-addr">412A</span>  <span class="rt-bytes">99 00 0C</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0C00,Y</span>
-<span class="rt-addr">412D</span>  <span class="rt-bytes">C8      </span>  <span class="rt-op">INY</span>  <span class="rt-arg"></span>
-<span class="rt-addr">412E</span>  <span class="rt-bytes">8A      </span>  <span class="rt-op">TXA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">412F</span>  <span class="rt-bytes">99 00 0C</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0C00,Y</span>
-<span class="rt-addr">4132</span>  <span class="rt-bytes">C8      </span>  <span class="rt-op">INY</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4133</span>  <span class="rt-bytes">10 02   </span>  <span class="rt-op">BPL</span>  <span class="rt-arg">$4137</span>
-<span class="rt-addr">4135</span>  <span class="rt-bytes">A0 00   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">4137</span>  <span class="rt-bytes">8C 84 03</span>  <span class="rt-op">STY</span>  <span class="rt-arg">$0384</span>   <span class="rt-cmt">; Message write cursor</span>
-<span class="rt-addr">413A</span>  <span class="rt-bytes">60      </span>  <span class="rt-op">RTS</span>  <span class="rt-arg"></span>
-</pre>
+```text
+4127: AC 84 03 LDY $0384   ; Message write cursor
+412A: 99 00 0C STA $0C00,Y
+412D: C8       INY
+412E: 8A       TXA
+412F: 99 00 0C STA $0C00,Y
+4132: C8       INY
+4133: 10 02    BPL $4137
+4135: A0 00    LDY #$00
+4137: 8C 84 03 STY $0384   ; Message write cursor
+413A: 60       RTS
+```
 
 ## Calls
 
@@ -27,95 +27,12 @@
 
 ## Called by
 
-- `JSR` at `$3B41`
-- `JSR` at `$3B58`
-- `JSR` at `$3B94`
-- `JSR` at `$3BB3`
-- `JSR` at `$3BCD`
-- `JSR` at `$3BD7`
-- `JSR` at `$3C19`
-- `JSR` at `$3C2E`
 - `JSR` at `$4881` in [`Player missile launch`](player-missile.md)
 - `JSR` at `$48FF` in [`Player missile launch`](player-missile.md)
-- `JSR` at `$4C3A`
-- `JSR` at `$4C4A`
-- `JSR` at `$4C5A`
-- `JSR` at `$4C75`
-- `JSR` at `$4C85`
-- `JSR` at `$4C97`
-- `JSR` at `$4CAC`
-- `JSR` at `$4CC1`
-- `JSR` at `$4DE7`
-- `JSR` at `$4E41`
-- `JSR` at `$4EE3`
-- `JSR` at `$4FC8`
-- `JSR` at `$4FE5`
-- `JSR` at `$4FEF`
-- `JSR` at `$4FFF`
 - `JSR` at `$5237`
 - `JSR` at `$524C`
-- `JSR` at `$53D4`
-- `JSR` at `$54D4`
-- `JSR` at `$54E1`
-- `JSR` at `$54EE`
-- `JSR` at `$54FB`
-- `JSR` at `$5508`
-- `JSR` at `$5523`
-- `JSR` at `$55A0`
-- `JMP` at `$55AA`
-- `JMP` at `$55B1`
 - `JSR` at `$587A` in [`Low-fuel watch and the stranded state`](low-fuel-watch.md)
 - `JSR` at `$588B` in [`Low-fuel watch and the stranded state`](low-fuel-watch.md)
-- `JSR` at `$5AAD`
-- `JSR` at `$5C23`
-- `JSR` at `$5C2D`
-- `JSR` at `$5E64`
-- `JSR` at `$5EA4`
-- `JSR` at `$5EC9`
-- `JSR` at `$5ED0`
-- `JSR` at `$5F05`
-- `JSR` at `$5F14`
-- `JSR` at `$5F2A`
-- `JSR` at `$602E`
-- `JMP` at `$616A`
-- `JSR` at `$6171`
-- `JMP` at `$6182`
-- `JSR` at `$6255`
-- `JSR` at `$6463`
-- `JSR` at `$646A`
-- `JSR` at `$6477`
-- `JSR` at `$64C2`
-- `JSR` at `$64C9`
-- `JSR` at `$694D`
-- `JSR` at `$69E7`
-- `JSR` at `$6A28`
-- `JSR` at `$6A73`
-- `JSR` at `$6B7E`
-- `JSR` at `$6BB1`
-- `JSR` at `$6C0A`
-- `JSR` at `$6C95`
-- `JSR` at `$6E34`
-- `JSR` at `$6E6A`
-- `JSR` at `$6E88`
-- `JSR` at `$6EAB`
-- `JSR` at `$7411`
-- `JSR` at `$7424`
-- `JSR` at `$7716`
-- `JSR` at `$7720`
-- `JSR` at `$78A8`
-- `JSR` at `$78D5`
-- `JSR` at `$7943`
-- `JSR` at `$7981`
-- `JSR` at `$7E3E`
-- `JSR` at `$7E73`
-- `JSR` at `$7E88`
-- `JSR` at `$7EB2`
-- `JSR` at `$7EB9`
-- `JSR` at `$7ECC`
-- `JSR` at `$7ED3`
-- `JSR` at `$7F11`
-- `JSR` at `$7F26`
-- `JSR` at `$7F45`
 - `JSR` at `$821F` in [`Static defence AI`](static-defence-ai.md)
 - `JSR` at `$8297` in [`Static defence AI`](static-defence-ai.md)
 - `JSR` at `$830B` in [`Static defence AI`](static-defence-ai.md)

@@ -1,53 +1,53 @@
 # Record scan
 
-**Address** `$43CF-$441D` &nbsp;·&nbsp; **Group** Records
+**Address** `$43CF-$441D` · **Group** Records
 
-<p class="lede">Walks the 48 sixteen-byte records at <code class="addr">$0E00</code>-<code class="addr">$10FF</code>. Byte 0 sorts them: <code class="addr">$80</code> is free and skipped, <code class="addr">$40</code> is dying and goes to the death animation, anything else is live and goes to the dispatcher at <code class="addr">$445D</code>. At the end of the sweep the game rotates the 6-bit round-robin index at <code class="addr">$038F</code> and advances its frame counters.</p>
+Walks the 48 sixteen-byte records at `$0E00`-`$10FF`. Byte 0 sorts them: `$80` is free and skipped, `$40` is dying and goes to the death animation, anything else is live and goes to the dispatcher at `$445D`. At the end of the sweep the game rotates the 6-bit round-robin index at `$038F` and advances its frame counters.
 
 ## Listing
 
-*Re-disassembled from the byte map: every instruction shown is one the game really executes from this entry, and gaps are branch targets that follow an early return.*
+*Decoded from the byte map within the curated code ranges for this routine.*
 
-<pre class="rt-listing">
-<span class="rt-addr">43CF</span>  <span class="rt-bytes">A9 00   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">43D1</span>  <span class="rt-bytes">85 61   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">$61</span>
-<span class="rt-addr">43D3</span>  <span class="rt-bytes">A9 0E   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$0E</span>
-<span class="rt-addr">43D5</span>  <span class="rt-bytes">85 62   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">$62</span>
-<span class="rt-addr">43D7</span>  <span class="rt-bytes">A9 00   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">43D9</span>  <span class="rt-bytes">8D 73 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0373</span>
-<span class="rt-addr">43DC</span>  <span class="rt-bytes">8D B0 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$03B0</span>
-<span class="rt-addr">43DF</span>  <span class="rt-bytes">A0 00   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">43E1</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">43E3</span>  <span class="rt-bytes">29 C0   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$C0</span>
-<span class="rt-addr">43E5</span>  <span class="rt-bytes">C9 40   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$40</span>
-<span class="rt-addr">43E7</span>  <span class="rt-bytes">90 74   </span>  <span class="rt-op">BCC</span>  <span class="rt-arg">$445D</span>   <span class="rt-cmt">; Live-record dispatch</span>
-<span class="rt-addr">43E9</span>  <span class="rt-bytes">F0 33   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$441E</span>   <span class="rt-cmt">; Dying animation</span>
-<span class="rt-addr">43EB</span>  <span class="rt-bytes">A5 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$61</span>
-<span class="rt-addr">43ED</span>  <span class="rt-bytes">18      </span>  <span class="rt-op">CLC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">43EE</span>  <span class="rt-bytes">69 10   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">#$10</span>
-<span class="rt-addr">43F0</span>  <span class="rt-bytes">85 61   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">$61</span>
-<span class="rt-addr">43F2</span>  <span class="rt-bytes">90 EB   </span>  <span class="rt-op">BCC</span>  <span class="rt-arg">$43DF</span>
-<span class="rt-addr">43F4</span>  <span class="rt-bytes">E6 62   </span>  <span class="rt-op">INC</span>  <span class="rt-arg">$62</span>
-<span class="rt-addr">43F6</span>  <span class="rt-bytes">A5 62   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$62</span>
-<span class="rt-addr">43F8</span>  <span class="rt-bytes">38      </span>  <span class="rt-op">SEC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">43F9</span>  <span class="rt-bytes">E9 0E   </span>  <span class="rt-op">SBC</span>  <span class="rt-arg">#$0E</span>
-<span class="rt-addr">43FB</span>  <span class="rt-bytes">C9 03   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$03</span>
-<span class="rt-addr">43FD</span>  <span class="rt-bytes">90 E0   </span>  <span class="rt-op">BCC</span>  <span class="rt-arg">$43DF</span>
-<span class="rt-addr">43FF</span>  <span class="rt-bytes">AD 8F 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$038F</span>
-<span class="rt-addr">4402</span>  <span class="rt-bytes">18      </span>  <span class="rt-op">CLC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4403</span>  <span class="rt-bytes">69 08   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">#$08</span>
-<span class="rt-addr">4405</span>  <span class="rt-bytes">29 3F   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$3F</span>
-<span class="rt-addr">4407</span>  <span class="rt-bytes">8D 8F 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$038F</span>
-<span class="rt-addr">440A</span>  <span class="rt-bytes">AD 73 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$0373</span>
-<span class="rt-addr">440D</span>  <span class="rt-bytes">8D 74 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0374</span>
-<span class="rt-addr">4410</span>  <span class="rt-bytes">AD B0 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$03B0</span>
-<span class="rt-addr">4413</span>  <span class="rt-bytes">8D 75 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0375</span>
-<span class="rt-addr">4416</span>  <span class="rt-bytes">A5 EA   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$EA</span>
-<span class="rt-addr">4418</span>  <span class="rt-bytes">18      </span>  <span class="rt-op">CLC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4419</span>  <span class="rt-bytes">69 4D   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">#$4D</span>
-<span class="rt-addr">441B</span>  <span class="rt-bytes">85 EA   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">$EA</span>
-<span class="rt-addr">441D</span>  <span class="rt-bytes">60      </span>  <span class="rt-op">RTS</span>  <span class="rt-arg"></span>
-</pre>
+```text
+43CF: A9 00    LDA #$00
+43D1: 85 61    STA $61
+43D3: A9 0E    LDA #$0E
+43D5: 85 62    STA $62
+43D7: A9 00    LDA #$00
+43D9: 8D 73 03 STA $0373
+43DC: 8D B0 03 STA $03B0
+43DF: A0 00    LDY #$00
+43E1: B1 61    LDA ($61),Y
+43E3: 29 C0    AND #$C0
+43E5: C9 40    CMP #$40
+43E7: 90 74    BCC $445D   ; Live-record dispatch
+43E9: F0 33    BEQ $441E   ; Dying animation
+43EB: A5 61    LDA $61
+43ED: 18       CLC
+43EE: 69 10    ADC #$10
+43F0: 85 61    STA $61
+43F2: 90 EB    BCC $43DF
+43F4: E6 62    INC $62
+43F6: A5 62    LDA $62
+43F8: 38       SEC
+43F9: E9 0E    SBC #$0E
+43FB: C9 03    CMP #$03
+43FD: 90 E0    BCC $43DF
+43FF: AD 8F 03 LDA $038F
+4402: 18       CLC
+4403: 69 08    ADC #$08
+4405: 29 3F    AND #$3F
+4407: 8D 8F 03 STA $038F
+440A: AD 73 03 LDA $0373
+440D: 8D 74 03 STA $0374
+4410: AD B0 03 LDA $03B0
+4413: 8D 75 03 STA $0375
+4416: A5 EA    LDA $EA
+4418: 18       CLC
+4419: 69 4D    ADC #$4D
+441B: 85 EA    STA $EA
+441D: 60       RTS
+```
 
 ## Calls
 
@@ -69,10 +69,6 @@
 - `JMP` at `$461D` in [`Guided-object handling`](guided-objects.md)
 - `JMP` at `$4637` in [`Robot dispatch`](ai-dispatch.md)
 - `JMP` at `$464B` in [`Robot dispatch`](ai-dispatch.md)
-- `JSR` at `$7ADB`
-- `JSR` at `$C13F`
-- `JSR` at `$C1D9`
-- `JSR` at `$C1F8`
 
 ---
 

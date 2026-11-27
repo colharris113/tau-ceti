@@ -1,61 +1,61 @@
 # Message text renderer
 
-**Address** `$41F7-$424B` &nbsp;·&nbsp; **Group** Messages
+**Address** `$41F7-$424B` · **Group** Messages
 
-<p class="lede">Reads one character code at a time from the pointer in <code class="addr">$1C</code>/<code class="addr">$1D</code>. Codes under <code class="addr">$80</code> select an 8-byte glyph from the game's own font at <code class="addr">$9000</code>-<code class="addr">$92FF</code> (32 glyphs a page); <code class="addr">$80</code> is a control code, and <code class="addr">$FF</code> ends the string. The glyph is copied into the character/sprite buffer at <code class="addr">$FCC8</code>.</p>
+Reads one character code at a time from the pointer in `$1C`/`$1D`. Codes under `$80` select an 8-byte glyph from the game's own font at `$9000`-`$92FF` (32 glyphs a page); `$80` is a control code, and `$FF` ends the string. The glyph is copied into the character/sprite buffer at `$FCC8`.
 
 ## Listing
 
-*Re-disassembled from the byte map: every instruction shown is one the game really executes from this entry, and gaps are branch targets that follow an early return.*
+*Decoded from the byte map within the curated code ranges for this routine.*
 
-<pre class="rt-listing">
-<span class="rt-addr">41F7</span>  <span class="rt-bytes">A0 00   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">41F9</span>  <span class="rt-bytes">B1 1C   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($1C),Y</span>
-<span class="rt-addr">41FB</span>  <span class="rt-bytes">E6 1C   </span>  <span class="rt-op">INC</span>  <span class="rt-arg">$1C</span>
-<span class="rt-addr">41FD</span>  <span class="rt-bytes">D0 02   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$4201</span>
-<span class="rt-addr">41FF</span>  <span class="rt-bytes">E6 1D   </span>  <span class="rt-op">INC</span>  <span class="rt-arg">$1D</span>
-<span class="rt-addr">4201</span>  <span class="rt-bytes">C9 80   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$80</span>
-<span class="rt-addr">4203</span>  <span class="rt-bytes">90 0B   </span>  <span class="rt-op">BCC</span>  <span class="rt-arg">$4210</span>
-<span class="rt-addr">4205</span>  <span class="rt-bytes">F0 06   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$420D</span>
-<span class="rt-addr">4207</span>  <span class="rt-bytes">A9 00   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">4209</span>  <span class="rt-bytes">8D A1 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$03A1</span>
-<span class="rt-addr">420C</span>  <span class="rt-bytes">60      </span>  <span class="rt-op">RTS</span>  <span class="rt-arg"></span>
-<span class="rt-addr">420D</span>  <span class="rt-bytes">4C E4 40</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$40E4</span>
-<span class="rt-addr">4210</span>  <span class="rt-bytes">AC 85 03</span>  <span class="rt-op">LDY</span>  <span class="rt-arg">$0385</span>
-<span class="rt-addr">4213</span>  <span class="rt-bytes">0A      </span>  <span class="rt-op">ASL</span>  <span class="rt-arg">A</span>
-<span class="rt-addr">4214</span>  <span class="rt-bytes">0A      </span>  <span class="rt-op">ASL</span>  <span class="rt-arg">A</span>
-<span class="rt-addr">4215</span>  <span class="rt-bytes">B0 22   </span>  <span class="rt-op">BCS</span>  <span class="rt-arg">$4239</span>
-<span class="rt-addr">4217</span>  <span class="rt-bytes">0A      </span>  <span class="rt-op">ASL</span>  <span class="rt-arg">A</span>
-<span class="rt-addr">4218</span>  <span class="rt-bytes">AA      </span>  <span class="rt-op">TAX</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4219</span>  <span class="rt-bytes">B0 0F   </span>  <span class="rt-op">BCS</span>  <span class="rt-arg">$422A</span>
-<span class="rt-addr">421B</span>  <span class="rt-bytes">BD 00 90</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$9000,X</span>
-<span class="rt-addr">421E</span>  <span class="rt-bytes">99 C8 FC</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$FCC8,Y</span>
-<span class="rt-addr">4221</span>  <span class="rt-bytes">E8      </span>  <span class="rt-op">INX</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4222</span>  <span class="rt-bytes">C8      </span>  <span class="rt-op">INY</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4223</span>  <span class="rt-bytes">98      </span>  <span class="rt-op">TYA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4224</span>  <span class="rt-bytes">29 07   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$07</span>
-<span class="rt-addr">4226</span>  <span class="rt-bytes">D0 F3   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$421B</span>
-<span class="rt-addr">4228</span>  <span class="rt-bytes">F0 1E   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$4248</span>
-<span class="rt-addr">422A</span>  <span class="rt-bytes">BD 00 91</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$9100,X</span>
-<span class="rt-addr">422D</span>  <span class="rt-bytes">99 C8 FC</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$FCC8,Y</span>
-<span class="rt-addr">4230</span>  <span class="rt-bytes">E8      </span>  <span class="rt-op">INX</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4231</span>  <span class="rt-bytes">C8      </span>  <span class="rt-op">INY</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4232</span>  <span class="rt-bytes">98      </span>  <span class="rt-op">TYA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4233</span>  <span class="rt-bytes">29 07   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$07</span>
-<span class="rt-addr">4235</span>  <span class="rt-bytes">D0 F3   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$422A</span>
-<span class="rt-addr">4237</span>  <span class="rt-bytes">F0 0F   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$4248</span>
-<span class="rt-addr">4239</span>  <span class="rt-bytes">0A      </span>  <span class="rt-op">ASL</span>  <span class="rt-arg">A</span>
-<span class="rt-addr">423A</span>  <span class="rt-bytes">AA      </span>  <span class="rt-op">TAX</span>  <span class="rt-arg"></span>
-<span class="rt-addr">423B</span>  <span class="rt-bytes">BD 00 92</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$9200,X</span>
-<span class="rt-addr">423E</span>  <span class="rt-bytes">99 C8 FC</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$FCC8,Y</span>
-<span class="rt-addr">4241</span>  <span class="rt-bytes">E8      </span>  <span class="rt-op">INX</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4242</span>  <span class="rt-bytes">C8      </span>  <span class="rt-op">INY</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4243</span>  <span class="rt-bytes">98      </span>  <span class="rt-op">TYA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4244</span>  <span class="rt-bytes">29 07   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$07</span>
-<span class="rt-addr">4246</span>  <span class="rt-bytes">D0 F3   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$423B</span>
-<span class="rt-addr">4248</span>  <span class="rt-bytes">8C 85 03</span>  <span class="rt-op">STY</span>  <span class="rt-arg">$0385</span>
-<span class="rt-addr">424B</span>  <span class="rt-bytes">60      </span>  <span class="rt-op">RTS</span>  <span class="rt-arg"></span>
-</pre>
+```text
+41F7: A0 00    LDY #$00
+41F9: B1 1C    LDA ($1C),Y
+41FB: E6 1C    INC $1C
+41FD: D0 02    BNE $4201
+41FF: E6 1D    INC $1D
+4201: C9 80    CMP #$80
+4203: 90 0B    BCC $4210
+4205: F0 06    BEQ $420D
+4207: A9 00    LDA #$00
+4209: 8D A1 03 STA $03A1
+420C: 60       RTS
+420D: 4C E4 40 JMP $40E4
+4210: AC 85 03 LDY $0385
+4213: 0A       ASL A
+4214: 0A       ASL A
+4215: B0 22    BCS $4239
+4217: 0A       ASL A
+4218: AA       TAX
+4219: B0 0F    BCS $422A
+421B: BD 00 90 LDA $9000,X
+421E: 99 C8 FC STA $FCC8,Y
+4221: E8       INX
+4222: C8       INY
+4223: 98       TYA
+4224: 29 07    AND #$07
+4226: D0 F3    BNE $421B
+4228: F0 1E    BEQ $4248
+422A: BD 00 91 LDA $9100,X
+422D: 99 C8 FC STA $FCC8,Y
+4230: E8       INX
+4231: C8       INY
+4232: 98       TYA
+4233: 29 07    AND #$07
+4235: D0 F3    BNE $422A
+4237: F0 0F    BEQ $4248
+4239: 0A       ASL A
+423A: AA       TAX
+423B: BD 00 92 LDA $9200,X
+423E: 99 C8 FC STA $FCC8,Y
+4241: E8       INX
+4242: C8       INY
+4243: 98       TYA
+4244: 29 07    AND #$07
+4246: D0 F3    BNE $423B
+4248: 8C 85 03 STY $0385
+424B: 60       RTS
+```
 
 ## Calls
 
@@ -63,14 +63,8 @@
 
 ## Called by
 
-- `JMP` at `$3CB2`
 - `JSR` at `$4180`
 - `JSR` at `$41D0`
-- `JSR` at `$534A`
-- `JMP` at `$5F4F`
-- `JMP` at `$6009`
-- `JMP` at `$79E3`
-- `JSR` at `$BED9`
 
 ---
 

@@ -1,6 +1,29 @@
-<svg class="tc-fig" viewBox="0 0 550 354" role="img" aria-labelledby="fig-font-t fig-font-d" xmlns="http://www.w3.org/2000/svg">
+<svg width="550" height="354" viewBox="0 0 550 354" role="img" aria-labelledby="fig-font-t fig-font-d" xmlns="http://www.w3.org/2000/svg">
 <title id="fig-font-t">The message font re-rendered from the game image</title>
 <desc id="fig-font-d">All 96 eight-by-eight glyphs at $9000-$92FF, drawn one-to-one from the bytes in the disassembly. The message text in the game indexes these glyphs directly.</desc>
+<style>
+text { font-family: system-ui, sans-serif; font-size: 11px; fill: #25221e; }
+.fig-title { font-size: 13px; font-weight: 600; }
+.fig-tick { font-size: 10px; }
+.fig-tick, .fig-muted, .fig-city, .fig-mark-plain { fill: #534e46; }
+.fig-grid, .fig-frame, .fig-hair, .fig-fine { stroke: #c4bdb2; }
+.fig-frame { fill: none; }
+.fig-axis { stroke: #777067; }
+.fig-fine { stroke-width: .4; }
+.fig-ochre, .fig-mark-dockable { stroke: #8a5a12; fill: none; }
+.fig-blue { stroke: #2465b5; fill: none; }
+.fig-ochre, .fig-blue { stroke-width: 2; }
+.fig-mark-dockable { stroke-width: 1.6; }
+.fig-ochre-fill, .fig-band, .fig-cell-type { fill: #8a5a12; }
+.fig-blue-fill { fill: #2465b5; }
+.fig-band { fill-opacity: .16; }
+.fig-cell { fill: #e8e4dc; }
+.fig-cell, .fig-cell-type { stroke: #fff; }
+.fig-cell-type { fill-opacity: .55; }
+.fig-glyph { fill: #25221e; }
+.fig-city { font-size: 9px; font-weight: 600; letter-spacing: .04em; }
+</style>
+<rect width="550" height="354" fill="#fff"/>
 <text x="40.0" y="30.0" class="fig-title" text-anchor="start">The game's message font, re-rendered from $9000-$92FF</text>
 <text x="40.0" y="50.0" class="fig-muted" text-anchor="start">96 glyphs of eight bytes; character codes in messages index this table.</text>
 <rect x="62.0" y="64.0" width="3.0" height="3.0" rx="0" class="fig-glyph"/>

@@ -5,67 +5,33 @@ CRL, 1986): what each part of the program does, how the record table is laid
 out, how docking really works, how fuel is burned, and how the game's data
 drives its robots.
 
-The published site is built with [MkDocs Material](https://squidfunk.github.io/mkdocs-material/)
-and is in the style of the [Elite](https://elite.bbcelite.com/) and
-[The Sentinel](https://thesentinel.bbcelite.com/) code guides: prose tied to
-real addresses, with diagrams generated from the game's own constants and
-data.
+## Read the guide
 
-## Status
+Open the [guide index](docs/index.md) on GitHub or in a Markdown viewer. The
+articles, routine listings and figures are ready to read without setup.
 
-Work in progress. The scaffold, the source-listing pipeline and three deep
-dives are in place; the remaining routines and screens will be added as the
-analysis is verified.
+- [Deep Dives](docs/deep-dives/index.md) covers the flight loop, cities, mission, rendering, combat and sound.
+- [Source Guide](docs/source/index.md) shows the annotated 6502 routines and shared variables.
+- [Type Tables](docs/reference/type-tables.md) documents the object flags, combat data and AI classes.
 
-## Building the site
-
-```sh
-python -m venv .venv
-.venv/Scripts/pip install -r requirements.txt      # Windows
-# .venv/bin/pip install -r requirements.txt        # Unix
-
-.venv/Scripts/python tools/build_all.py
-.venv/Scripts/mkdocs serve                         # http://127.0.0.1:8000
-```
-
-A strict build (warnings are errors) is the publishing gate:
-
-```sh
-.venv/Scripts/mkdocs build --strict
-```
-
-## Regenerating the derived content
-
-Everything under `docs/source/routines/`, `docs/reference/type-tables.md`,
-`docs/assets/diagrams/` and `sources/data/` is generated. Do not edit those by
-hand; edit `tools/symbols.json` or the builders and re-run:
-
-```sh
-.venv/Scripts/python tools/build_all.py
-```
-
-If you have the game image extracted (the PRG that loads at `$8900`), the type
-tables and the lathe profiles can be re-derived from your own copy:
-
-```sh
-.venv/Scripts/python -I tools/extract_tables.py path/to/04_8900-CC00.prg
-```
-
-The extractor lives in `tools/` and only slices bytes at known addresses; the
-image is treated as data, never executed.
+The presentation takes inspiration from the [Elite](https://elite.bbcelite.com/)
+and [The Sentinel](https://thesentinel.bbcelite.com/) code guides.
 
 ## Layout
 
 ```
 sources/            disassembly listings and generated data
-  data/             type_tables.json (generated)
-tools/              builders: source listings, diagrams, tables
-docs/               the site
+  data/             cities.json and type_tables.json (generated)
+tools/              optional maintenance tools for the generated material
+docs/               the Markdown guide
   deep-dives/       long-form articles
   source/routines/  generated routine pages
   reference/        generated data pages
   assets/diagrams/  generated SVGs
 ```
+
+[Method](docs/about/method.md) explains the evidence behind the guides and how
+contributors can regenerate the derived material after a source change.
 
 ## Provenance and copyright
 

@@ -1,47 +1,47 @@
 # Dying animation
 
-**Address** `$441E-$445C` &nbsp;·&nbsp; **Group** Records
+**Address** `$441E-$445C` · **Group** Records
 
-<p class="lede">Byte 6 falls by 8 a frame; when it reaches zero, byte 8 climbs by 8 a frame. At <code class="addr">$F8</code> the record is freed. Types carrying bit 0 of <code class="addr">$C39A</code> (including both missile types) are freed at <code class="addr">$78</code> instead, after 15 frames rather than 31.</p>
+Byte 6 falls by 8 a frame; when it reaches zero, byte 8 climbs by 8 a frame. At `$F8` the record is freed. Types carrying bit 0 of `$C39A` (including both missile types) are freed at `$78` instead, after 15 frames rather than 31.
 
 ## Listing
 
-*Re-disassembled from the byte map: every instruction shown is one the game really executes from this entry, and gaps are branch targets that follow an early return.*
+*Decoded from the byte map within the curated code ranges for this routine.*
 
-<pre class="rt-listing">
-<span class="rt-addr">441E</span>  <span class="rt-bytes">A0 06   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$06</span>
-<span class="rt-addr">4420</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">4422</span>  <span class="rt-bytes">F0 0C   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$4430</span>
-<span class="rt-addr">4424</span>  <span class="rt-bytes">38      </span>  <span class="rt-op">SEC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4425</span>  <span class="rt-bytes">E9 08   </span>  <span class="rt-op">SBC</span>  <span class="rt-arg">#$08</span>
-<span class="rt-addr">4427</span>  <span class="rt-bytes">B0 02   </span>  <span class="rt-op">BCS</span>  <span class="rt-arg">$442B</span>
-<span class="rt-addr">4429</span>  <span class="rt-bytes">A9 00   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">442B</span>  <span class="rt-bytes">91 61   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">442D</span>  <span class="rt-bytes">4C EB 43</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$43EB</span>
-<span class="rt-addr">4430</span>  <span class="rt-bytes">A0 08   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$08</span>
-<span class="rt-addr">4432</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">4434</span>  <span class="rt-bytes">18      </span>  <span class="rt-op">CLC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4435</span>  <span class="rt-bytes">69 08   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">#$08</span>
-<span class="rt-addr">4437</span>  <span class="rt-bytes">91 61   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">4439</span>  <span class="rt-bytes">C9 F8   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$F8</span>
-<span class="rt-addr">443B</span>  <span class="rt-bytes">B0 13   </span>  <span class="rt-op">BCS</span>  <span class="rt-arg">$4450</span>
-<span class="rt-addr">443D</span>  <span class="rt-bytes">AA      </span>  <span class="rt-op">TAX</span>  <span class="rt-arg"></span>
-<span class="rt-addr">443E</span>  <span class="rt-bytes">A0 00   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">4440</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">4442</span>  <span class="rt-bytes">29 3F   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$3F</span>
-<span class="rt-addr">4444</span>  <span class="rt-bytes">A8      </span>  <span class="rt-op">TAY</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4445</span>  <span class="rt-bytes">B9 9A C3</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$C39A,Y</span>
-<span class="rt-addr">4448</span>  <span class="rt-bytes">29 01   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$01</span>
-<span class="rt-addr">444A</span>  <span class="rt-bytes">F0 9F   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$43EB</span>
-<span class="rt-addr">444C</span>  <span class="rt-bytes">E0 78   </span>  <span class="rt-op">CPX</span>  <span class="rt-arg">#$78</span>
-<span class="rt-addr">444E</span>  <span class="rt-bytes">90 9B   </span>  <span class="rt-op">BCC</span>  <span class="rt-arg">$43EB</span>
-<span class="rt-addr">4450</span>  <span class="rt-bytes">A0 00   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">4452</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">4454</span>  <span class="rt-bytes">29 3F   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$3F</span>
-<span class="rt-addr">4456</span>  <span class="rt-bytes">09 80   </span>  <span class="rt-op">ORA</span>  <span class="rt-arg">#$80</span>
-<span class="rt-addr">4458</span>  <span class="rt-bytes">91 61   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">445A</span>  <span class="rt-bytes">4C EB 43</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$43EB</span>
-</pre>
+```text
+441E: A0 06    LDY #$06
+4420: B1 61    LDA ($61),Y
+4422: F0 0C    BEQ $4430
+4424: 38       SEC
+4425: E9 08    SBC #$08
+4427: B0 02    BCS $442B
+4429: A9 00    LDA #$00
+442B: 91 61    STA ($61),Y
+442D: 4C EB 43 JMP $43EB
+4430: A0 08    LDY #$08
+4432: B1 61    LDA ($61),Y
+4434: 18       CLC
+4435: 69 08    ADC #$08
+4437: 91 61    STA ($61),Y
+4439: C9 F8    CMP #$F8
+443B: B0 13    BCS $4450
+443D: AA       TAX
+443E: A0 00    LDY #$00
+4440: B1 61    LDA ($61),Y
+4442: 29 3F    AND #$3F
+4444: A8       TAY
+4445: B9 9A C3 LDA $C39A,Y
+4448: 29 01    AND #$01
+444A: F0 9F    BEQ $43EB
+444C: E0 78    CPX #$78
+444E: 90 9B    BCC $43EB
+4450: A0 00    LDY #$00
+4452: B1 61    LDA ($61),Y
+4454: 29 3F    AND #$3F
+4456: 09 80    ORA #$80
+4458: 91 61    STA ($61),Y
+445A: 4C EB 43 JMP $43EB
+```
 
 ## Calls
 
@@ -49,10 +49,7 @@
 
 ## Called by
 
-- `JMP` at `$5B6F`
-- `JMP` at `$5EF6`
-- `JMP` at `$6979`
-- `JMP` at `$7B8C`
+*No direct call or jump found in the curated code ranges.*
 
 ---
 

@@ -1,6 +1,6 @@
 # The 32 cities
 
-<p class="lede">Tau Ceti has no city generator. All thirty-two cities, with every building in them, are written down in advance: one 96-byte sheet per city at <code class="addr">$9400</code>, each a list of three-byte records. This article recovers all of them from the listing, follows the loader that turns one sheet into the game's record table, and draws every city side by side.</p>
+Tau Ceti has no city generator. All thirty-two cities, with every building in them, are written down in advance: one 96-byte sheet per city at `$9400`, each a list of three-byte records. This article recovers all of them from the listing, follows the loader that turns one sheet into the game's record table, and draws every city side by side.
 
 The cities feel varied because they were placed by hand, not because the code varies. There is one loader, one record format and one set of type tables; what changes from city to city is a short list of positions. Reading that list is enough to map the whole game.
 
@@ -20,11 +20,11 @@ A sheet has room for 32 records, and ends early with a type byte of `$C0`. The r
 
 ## Finding a city's sheet
 
-The current city is a single byte at <code class="addr">$0354</code>. The pointer builder at <code class="addr">$27EC</code> turns that index into the address of its sheet with a multiply and a divide:
+The current city is a single byte at `$0354`. The pointer builder at `$27EC` turns that index into the address of its sheet with a multiply and a divide:
 
 - `ASL A` then `ADC $0354` gives the index × 3.
 - Three `LSR A` / `ROR $61` pairs shift that right three times, collecting the bits that fall off the end in the low byte of the pointer.
-- `ADC #$94` sets the high byte, `<code class="addr">$63</code>` is set to zero for the destination, and the result is a pointer to the sheet.
+- `ADC #$94` sets the high byte, ``$63`` is set to zero for the destination, and the result is a pointer to the sheet.
 
 The arithmetic is a stride of 96 disguised as a stride of 3: 96 is 3 × 32, so the game multiplies by three and divides by eight. For city 1 the shift leaves nothing in the high byte, and the low byte becomes 3 × 32 = `$60`:
 
@@ -35,25 +35,25 @@ The arithmetic is a stride of 96 disguised as a stride of 3: 96 is 3 × 32, so t
 pointer      = $9460    = $9400 + 1 × $60
 ```
 
-The same instruction pair builds the destination pointer: <code class="addr">$63</code>/<code class="addr">$64</code> is set to <code class="addr">$0E00</code>, the start of the 48-record table.
+The same instruction pair builds the destination pointer: `$63`/`$64` is set to `$0E00`, the start of the 48-record table.
 
 ## The loader, step by step
 
-<code class="addr">$280B</code> rebuilds the record table for the city in <code class="addr">$0354</code>. It is not a per-frame routine: it runs when the game switches city — at jump arrival in <code class="addr">$51DB</code>, and in two other places that rebuild the current city (<code class="addr">$64F3</code> and <code class="addr">$6B72</code>).
+`$280B` rebuilds the record table for the city in `$0354`. It is not a per-frame routine: it runs when the game switches city — at jump arrival in `$51DB`, and in two other places that rebuild the current city (`$64F3` and `$6B72`).
 
 | Step | Address | What it does |
 | --- | --- | --- |
-| 1 | <code class="addr">$27EC</code> | Turn the city index into a sheet pointer |
-| 2 | <code class="addr">$280E</code> | Set the slot counter to 32 |
-| 3 | <code class="addr">$2812</code> | Read a type byte; `$C0` ends the sheet |
-| 4 | <code class="addr">$2818</code> | Copy type, x and y into the record |
-| 5 | <code class="addr">$2823</code> | Zero bytes 3–15 |
-| 6 | <code class="addr">$2831</code> | Copy hit points from `$C3BF[type & $3F]` into byte 7 |
-| 7 | <code class="addr">$284E</code> | Advance both pointers and take the next slot |
-| 8 | <code class="addr">$2857</code> | Scan the city's four jump destinations at `$8900` |
-| 9 | <code class="addr">$286B</code> | Append two pad records per destination from `$C4BE` |
-| 10 | <code class="addr">$28C4</code> | Fill the rest of the table with `$C0` |
-| 11 | <code class="addr">$28E0</code> | Clear the provocation latch at `$03BF` |
+| 1 | `$27EC` | Turn the city index into a sheet pointer |
+| 2 | `$280E` | Set the slot counter to 32 |
+| 3 | `$2812` | Read a type byte; `$C0` ends the sheet |
+| 4 | `$2818` | Copy type, x and y into the record |
+| 5 | `$2823` | Zero bytes 3–15 |
+| 6 | `$2831` | Copy hit points from `$C3BF[type & $3F]` into byte 7 |
+| 7 | `$284E` | Advance both pointers and take the next slot |
+| 8 | `$2857` | Scan the city's four jump destinations at `$8900` |
+| 9 | `$286B` | Append two pad records per destination from `$C4BE` |
+| 10 | `$28C4` | Fill the rest of the table with `$C0` |
+| 11 | `$28E0` | Clear the provocation latch at `$03BF` |
 
 ### The building records
 
@@ -61,7 +61,7 @@ Steps 3 to 7 are the whole of a city. The loader reads the type byte first, beca
 
 Three bytes are copied to the record's start, then bytes 3 to 15 are zeroed. This clean slate matters. Byte 3 is cleared, so the building begins with no status bits; byte 8, the docking aperture, begins shut and then animates through play; the fire counters, blips and target pointers all begin at zero.
 
-Byte 7 is then filled from the hit point table at <code class="addr">$C3BF</code>:
+Byte 7 is then filled from the hit point table at `$C3BF`:
 
 ```asm
 LDA ($63),Y     ; the record's type byte
@@ -78,13 +78,13 @@ The type byte is masked first, so the state bits copied from the sheet cannot di
 
 The sheet does not contain the jump pads. They are added from a second table, which is why the loader keeps counting after the city's last building.
 
-Each city has four bytes at <code class="addr">$8900</code> + city × 4. Each byte is the index of a destination city; `$FF` (any byte with bit 7 set) means the slot is unused. For each used byte, the loader appends **two** records from a shared table at <code class="addr">$C4BE</code>:
+Each city has four bytes at `$8900` + city × 4. Each byte is the index of a destination city; `$FF` (any byte with bit 7 set) means the slot is unused. For each used byte, the loader appends **two** records from a shared table at `$C4BE`:
 
 - the entry is eight bytes: two four-byte groups of type, x, y and hit points;
 - the two records are a jump pad (type 16) and a small type-15 structure two cells further out;
-- the record counter at <code class="addr">$67</code> is spent two at a time on these pairs, and one at a time on fillers, so the 48-slot table always ends exactly full.
+- the record counter at `$67` is spent two at a time on these pairs, and one at a time on fillers, so the 48-slot table always ends exactly full.
 
-The table is shared by every city, and its four entries are the four sides of the central square: south (y = 160), north (y = 96), east (x = 160) and west (x = 96), each with its type-15 marker just outside the pad. A city's four destination bytes are therefore also four sides of the city, and a city with three links has three pads. The game picks the side from the ship's position — x of 144 or more is east, x below 112 is west, y below 112 is north, and the remainder is south — using the comparisons at <code class="addr">$5134</code>–<code class="addr">$5147</code>.
+The four entries are shared by every city. In table order they are north (y = 160), south (y = 96), east (x = 160) and west (x = 96), each with its type-15 marker just outside the pad. A city with three links has three pads. The comparisons at `$5134`–`$5147` select east when x is at least 144, west when x is below 112, south when y is below 112, and north otherwise.
 
 Across the 32 cities there are 72 destination bytes, so the loader appends 144 pad and marker records. With the 1,005 buildings that makes 1,149 live records when every city has been visited. The jump graph itself is the subject of [Fuel, jumping and LAUNCH](fuel-and-jumping.md); here it is enough to note that every link is stored at both ends — each of the 72 entries has a reciprocal in the destination city.
 
@@ -92,11 +92,11 @@ Across the 32 cities there are 72 destination bytes, so the loader appends 144 p
 
 Whatever the buildings and pads do not use is filled with a record whose type byte is `$C0` and whose other fifteen bytes are zero (step 10). The record scan reads byte 0 and skips anything with bit 7 set, so `$C0` is a record that is already free. The table is never shorter than 48 entries; the end of the city is simply a run of blanks.
 
-Finally the loader clears <code class="addr">$03BF</code>, the provocation latch. That is what stops a city's static defences firing at you the moment you arrive: they ignore the ship until a laser or a missile sets the latch. Mobile units are not governed by that latch, which is why some cities are hostile the instant you appear.
+Finally the loader clears `$03BF`, the provocation latch. That is what stops a city's static defences firing at you the moment you arrive: they ignore the ship until a laser or a missile sets the latch. Mobile units are not governed by that latch, which is why some cities are hostile the instant you appear.
 
 ## The sheets remember
 
-The city sheet is not only read. Before a jump, <code class="addr">$28E6</code> walks the sheet and the loaded record table together and copies one byte per record — **byte 0** — from the record back into the sheet. The city you leave is written down, and the next visit starts from what you left behind.
+The city sheet is not only read. Before a jump, `$28E6` walks the sheet and the loaded record table together and copies one byte per record — **byte 0** — from the record back into the sheet. The city you leave is written down, and the next visit starts from what you left behind.
 
 Two rules make this work:
 
@@ -105,13 +105,13 @@ Two rules make this work:
 
 The [save routine](../source/routines/city-save.md) deliberately skips the five armed mobile types — 3, 6, 9, 20 and 21, the ones whose flags hold both the mobile and armed bits. Machines are not architecture: they always come back, however many you shoot down.
 
-The reverse happens at the start of a new game. <code class="addr">$2921</code> ([city restore](../source/routines/city-restore.md)), called by the new-game reset, walks all twelve pages of the sheet area and masks every byte that is not `$C0` with `$3F`. The `$80` falls away and the original building returns, which is exactly why the type had to be preserved. This also explains the filler value: an empty slot marked `$80` would be masked to type 0 and come back as a building, so the fillers are `$C0`, the one value the restore leaves alone.
+The reverse happens at the start of a new game. `$2921` ([city restore](../source/routines/city-restore.md)), called by the new-game reset, walks all twelve pages of the sheet area and masks every byte that is not `$C0` with `$3F`. The `$80` falls away and the original building returns, which is exactly why the type had to be preserved. This also explains the filler value: an empty slot marked `$80` would be masked to type 0 and come back as a building, so the fillers are `$C0`, the one value the restore leaves alone.
 
 The sheet is therefore a small save file as well as a layout: 96 bytes per city hold exactly what you have destroyed there. It is one of the few places in Tau Ceti where the game remembers something between visits.
 
 ## What the numbers mean
 
-The type byte's low six bits select a row in nine parallel tables that begin at <code class="addr">$C39A</code>: flags, hit points, profile length, behaviour, class range, class speed, fire masks, fire ticks and the missile threshold. The [type tables](../reference/type-tables.md) reproduce all of them. Three flag bits do most of the work in a city:
+The type byte's low six bits select a row in nine parallel tables that begin at `$C39A`: flags, hit points, profile length, behaviour, class range, class speed, fire masks, fire ticks and the missile threshold. The [type tables](../reference/type-tables.md) reproduce all of them. Three flag bits do most of the work in a city:
 
 | Flag | Bit | Meaning in a city |
 | --- | --- | --- |
@@ -119,7 +119,7 @@ The type byte's low six bits select a row in nine parallel tables that begin at 
 | `$40` | 6 | Armed — a static defence |
 | `$20` | 5 | Mobile — a hunter, sand hopper or other machine |
 
-The x and y bytes are city cells, from 0 to 255, with the city centre at 128. In the actual data every record lies between **96 and 160** on both axes: the whole of every city sits inside a 64-cell square, no more than 32 cells from the centre. x runs east and y runs south, so a map drawn with y increasing downwards has the same orientation as the game's coordinates.
+The x and y bytes are city cells, from 0 to 255, with the city centre at 128. Every record lies between **96 and 160** on both axes, so the whole city fits inside a 64-cell square. Increasing x goes east and increasing y goes north. The diagrams draw larger y values higher on the page.
 
 ## The special buildings
 
@@ -139,10 +139,9 @@ That layout is the campaign in miniature. The only lander is at REEMA, so that i
 
 ## The maps
 
-<figure>
---8<-- "assets/diagrams/cities.svg"
-<figcaption>All 32 city sheets, drawn from the game's own table at <code class="addr">$9400</code>. Each panel is an 80-cell window around the city centre; every mark is one three-byte record. The jump pads and their markers are absent because they are not in the sheet: the loader appends them from four shared templates at <code class="addr">$C4BE</code>, always at the same four edge positions.</figcaption>
-</figure>
+![The layouts of all 32 cities](../assets/diagrams/cities.svg)
+
+*All 32 city sheets, drawn from the game's own table at `$9400`. Each panel is an 80-cell window around the city centre; every mark is one three-byte record. The jump pads and their markers are absent because they are not in the sheet: the loader appends them from four shared templates at `$C4BE`, always at the same four edge positions.*
 
 The figure is generated directly from the sheet, not traced from screenshots, so it can be checked against the extraction script. A few things stand out:
 
@@ -153,14 +152,14 @@ The figure is generated directly from the sheet, not traced from screenshots, so
 
 ## The names
 
-The city names live at <code class="addr">$8D02</code>, one after another in the same order as the sheets. Each character is one byte and each name ends with a byte that has bit 7 set — in practice `$C0`. CENTRALIS begins:
+The city names live at `$8D02`, one after another in the same order as the sheets. Each character is one byte and each name ends with a byte that has bit 7 set — in practice `$C0`. CENTRALIS begins:
 
 ```text
 $23 $25 $2E $34 $32 $21 $2C $29 $33 $C0
  C   E   N   T   R   A   L   I   S  end
 ```
 
-Those bytes are not text codes in the usual sense: they are **glyph numbers** into the message font at <code class="addr">$9000</code>. The font's first glyphs are the digits, and the alphabet starts at 33, so `A` is `$21` and `C` is `$23`. The bytes are copied straight to the screen buffer by the printer at <code class="addr">$5149</code>, which finds the name it wants by walking the table from the beginning and counting terminators until it has passed the right number of names. There is no index and no fixed record size.
+Those bytes are not text codes in the usual sense: they are **glyph numbers** into the message font at `$9000`. The font's first glyphs are the digits, and the alphabet starts at 33, so `A` is `$21` and `C` is `$23`. The bytes are copied straight to the screen buffer by the printer at `$5149`, which finds the name it wants by walking the table from the beginning and counting terminators until it has passed the right number of names. There is no index and no fixed record size.
 
 That is the whole string system in about 200 bytes: variable-length names, a one-byte terminator, and a linear scan. The [message renderer](../source/routines/message-printer.md) uses the same font and the same trick.
 
@@ -180,3 +179,5 @@ Under four kilobytes holds the architecture of the entire game. The saving comes
 ## Next steps
 
 The next question is how those three-byte records become buildings on screen: the profiles that give each type its shape, the lathe that draws it, and the two-colour light that falls across it. [The viewport in flight](the-viewport-in-flight.md) follows a record from this table to the raster. The storage side is documented in full on the [city loader](../source/routines/city-loader.md) page, and the record format it produces is the subject of [The record table](the-record-table.md).
+
+[Back to Deep Dives](index.md)

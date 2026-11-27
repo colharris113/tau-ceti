@@ -1,26 +1,26 @@
 # Flag-bit test
 
-**Address** `$3D18-$3D27` &nbsp;·&nbsp; **Group** Combat
+**Address** `$3D18-$3D27` · **Group** Combat
 
-<p class="lede">Tests one bit of the eight-byte mask at <code class="addr">$034A</code>-<code class="addr">$0351</code>. A holds the bit index: X = A &gt;&gt; 3 selects the byte from <code class="addr">$034A</code>, and the low three bits index the mask table at <code class="addr">$3D28</code>. Returns with Z set when the bit is clear.</p>
+Tests one bit of the eight-byte mask at `$034A`-`$0351`. A holds the bit index: X = A >> 3 selects the byte from `$034A`, and the low three bits index the mask table at `$3D28`. Returns with Z set when the bit is clear.
 
 ## Listing
 
-*Re-disassembled from the byte map: every instruction shown is one the game really executes from this entry, and gaps are branch targets that follow an early return.*
+*Decoded from the byte map within the curated code ranges for this routine.*
 
-<pre class="rt-listing">
-<span class="rt-addr">3D18</span>  <span class="rt-bytes">8A      </span>  <span class="rt-op">TXA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">3D19</span>  <span class="rt-bytes">29 07   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$07</span>
-<span class="rt-addr">3D1B</span>  <span class="rt-bytes">A8      </span>  <span class="rt-op">TAY</span>  <span class="rt-arg"></span>
-<span class="rt-addr">3D1C</span>  <span class="rt-bytes">8A      </span>  <span class="rt-op">TXA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">3D1D</span>  <span class="rt-bytes">4A      </span>  <span class="rt-op">LSR</span>  <span class="rt-arg">A</span>
-<span class="rt-addr">3D1E</span>  <span class="rt-bytes">4A      </span>  <span class="rt-op">LSR</span>  <span class="rt-arg">A</span>
-<span class="rt-addr">3D1F</span>  <span class="rt-bytes">4A      </span>  <span class="rt-op">LSR</span>  <span class="rt-arg">A</span>
-<span class="rt-addr">3D20</span>  <span class="rt-bytes">AA      </span>  <span class="rt-op">TAX</span>  <span class="rt-arg"></span>
-<span class="rt-addr">3D21</span>  <span class="rt-bytes">BD 4A 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$034A,X</span>   <span class="rt-cmt">; Flag mask</span>
-<span class="rt-addr">3D24</span>  <span class="rt-bytes">39 28 3D</span>  <span class="rt-op">AND</span>  <span class="rt-arg">$3D28,Y</span>
-<span class="rt-addr">3D27</span>  <span class="rt-bytes">60      </span>  <span class="rt-op">RTS</span>  <span class="rt-arg"></span>
-</pre>
+```text
+3D18: 8A       TXA
+3D19: 29 07    AND #$07
+3D1B: A8       TAY
+3D1C: 8A       TXA
+3D1D: 4A       LSR A
+3D1E: 4A       LSR A
+3D1F: 4A       LSR A
+3D20: AA       TAX
+3D21: BD 4A 03 LDA $034A,X   ; Flag mask
+3D24: 39 28 3D AND $3D28,Y
+3D27: 60       RTS
+```
 
 ## Calls
 
@@ -29,24 +29,7 @@
 ## Called by
 
 - `JSR` at `$2BEC` in [`Object distance and the docking test`](docking-test.md)
-- `JSR` at `$3354`
 - `JSR` at `$3414` in [`Laser fire`](laser-fire.md)
-- `JSR` at `$3983`
-- `JSR` at `$399D`
-- `JSR` at `$39BB`
-- `JSR` at `$39D9`
-- `JSR` at `$3A1C`
-- `JSR` at `$3A2E`
-- `JSR` at `$46FC`
-- `JSR` at `$471B`
-- `JSR` at `$5DB0`
-- `JSR` at `$5DC9`
-- `JSR` at `$5DE2`
-- `JSR` at `$5DFB`
-- `JSR` at `$5E17`
-- `JSR` at `$64A7`
-- `JSR` at `$64AE`
-- `JSR` at `$7F01`
 
 ---
 

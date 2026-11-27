@@ -1,45 +1,45 @@
 # Aperture animation
 
-**Address** `$4465-$44A0` &nbsp;·&nbsp; **Group** Records
+**Address** `$4465-$44A0` · **Group** Records
 
-<p class="lede">Dockable buildings only, and only while byte 3 bit 6 says the record is active. A missile lock (bit 4) or a hit (bit 5) shuts the iris two points a frame, except on type 27; otherwise it shuts while the scaled distance byte 13 is 2 or more, and opens two points a frame to <code class="addr">$48</code> while byte 13 is below 2. The door takes 36 frames to travel from shut to fully open.</p>
+Dockable buildings only, and only while byte 3 bit 6 says the record is active. A missile lock (bit 4) or a hit (bit 5) shuts the iris two points a frame, except on type 27; otherwise it shuts while the scaled distance byte 13 is 2 or more, and opens two points a frame to `$48` while byte 13 is below 2. The door takes 36 frames to travel from shut to fully open.
 
 ## Listing
 
-*Re-disassembled from the byte map: every instruction shown is one the game really executes from this entry, and gaps are branch targets that follow an early return.*
+*Decoded from the byte map within the curated code ranges for this routine.*
 
-<pre class="rt-listing">
-<span class="rt-addr">4465</span>  <span class="rt-bytes">A0 03   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$03</span>
-<span class="rt-addr">4467</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">4469</span>  <span class="rt-bytes">29 40   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$40</span>
-<span class="rt-addr">446B</span>  <span class="rt-bytes">F0 19   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$4486</span>
-<span class="rt-addr">446D</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">446F</span>  <span class="rt-bytes">29 30   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$30</span>
-<span class="rt-addr">4471</span>  <span class="rt-bytes">F0 16   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$4489</span>
-<span class="rt-addr">4473</span>  <span class="rt-bytes">A0 00   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">4475</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">4477</span>  <span class="rt-bytes">C9 1B   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$1B</span>
-<span class="rt-addr">4479</span>  <span class="rt-bytes">F0 0E   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$4489</span>
-<span class="rt-addr">447B</span>  <span class="rt-bytes">A0 08   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$08</span>
-<span class="rt-addr">447D</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">447F</span>  <span class="rt-bytes">F0 05   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$4486</span>
-<span class="rt-addr">4481</span>  <span class="rt-bytes">38      </span>  <span class="rt-op">SEC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">4482</span>  <span class="rt-bytes">E9 02   </span>  <span class="rt-op">SBC</span>  <span class="rt-arg">#$02</span>
-<span class="rt-addr">4484</span>  <span class="rt-bytes">91 61   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">4486</span>  <span class="rt-bytes">4C EB 43</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$43EB</span>
-<span class="rt-addr">4489</span>  <span class="rt-bytes">A0 0D   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$0D</span>
-<span class="rt-addr">448B</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">448D</span>  <span class="rt-bytes">C9 02   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$02</span>
-<span class="rt-addr">448F</span>  <span class="rt-bytes">B0 EA   </span>  <span class="rt-op">BCS</span>  <span class="rt-arg">$447B</span>
-<span class="rt-addr">4491</span>  <span class="rt-bytes">A0 08   </span>  <span class="rt-op">LDY</span>  <span class="rt-arg">#$08</span>
-<span class="rt-addr">4493</span>  <span class="rt-bytes">B1 61   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">4495</span>  <span class="rt-bytes">C9 48   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$48</span>
-<span class="rt-addr">4497</span>  <span class="rt-bytes">B0 28   </span>  <span class="rt-op">BCS</span>  <span class="rt-arg">$44C1</span>
-<span class="rt-addr">4499</span>  <span class="rt-bytes">18      </span>  <span class="rt-op">CLC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">449A</span>  <span class="rt-bytes">69 02   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">#$02</span>
-<span class="rt-addr">449C</span>  <span class="rt-bytes">91 61   </span>  <span class="rt-op">STA</span>  <span class="rt-arg">($61),Y</span>
-<span class="rt-addr">449E</span>  <span class="rt-bytes">4C EB 43</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$43EB</span>
-</pre>
+```text
+4465: A0 03    LDY #$03
+4467: B1 61    LDA ($61),Y
+4469: 29 40    AND #$40
+446B: F0 19    BEQ $4486
+446D: B1 61    LDA ($61),Y
+446F: 29 30    AND #$30
+4471: F0 16    BEQ $4489
+4473: A0 00    LDY #$00
+4475: B1 61    LDA ($61),Y
+4477: C9 1B    CMP #$1B
+4479: F0 0E    BEQ $4489
+447B: A0 08    LDY #$08
+447D: B1 61    LDA ($61),Y
+447F: F0 05    BEQ $4486
+4481: 38       SEC
+4482: E9 02    SBC #$02
+4484: 91 61    STA ($61),Y
+4486: 4C EB 43 JMP $43EB
+4489: A0 0D    LDY #$0D
+448B: B1 61    LDA ($61),Y
+448D: C9 02    CMP #$02
+448F: B0 EA    BCS $447B
+4491: A0 08    LDY #$08
+4493: B1 61    LDA ($61),Y
+4495: C9 48    CMP #$48
+4497: B0 28    BCS $44C1
+4499: 18       CLC
+449A: 69 02    ADC #$02
+449C: 91 61    STA ($61),Y
+449E: 4C EB 43 JMP $43EB
+```
 
 ## Calls
 
@@ -47,7 +47,7 @@
 
 ## Called by
 
-*No call site found in the swept listings; this may be reached through a jump table or from undisassembled code.*
+*No direct call or jump found in the curated code ranges.*
 
 ---
 

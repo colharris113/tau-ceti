@@ -1,131 +1,131 @@
 # Frame tick: clock, shield and fuel
 
-**Address** `$25D3-$26CB` &nbsp;·&nbsp; **Group** Flight
+**Address** `$25D3-$26CB` · **Group** Flight
 
-<p class="lede">Runs once a frame. A BCD counter at <code class="addr">$0340</code> counts 50 frames to a second, then the BCD clock at <code class="addr">$0341</code>-<code class="addr">$0343</code> advances. While not docked the shield creeps back one point a second and fuel is burned: (speed &gt;&gt; 3) + 16 while airborne, zero at altitude zero, plus 96 when the tank is ruptured. The burn is subtracted from the 16-bit value at <code class="addr">$0345</code>/<code class="addr">$0346</code>; a high byte of <code class="addr">$20</code> raises the LOW FUEL flag, and an underflow clamps at zero and sets <code class="addr">$03A3</code>. Docking or grounding skips both the burn and the shield regeneration.</p>
+A BCD counter at `$0340` counts 50 frames to a second, then the BCD clock at `$0341`-`$0343` advances. When `$0396` is zero, the shield regenerates and the routine updates the fuel at `$0345`/`$0346`. In the air it subtracts (speed >> 3) + 16, plus 96 for a ruptured tank. At altitude zero it subtracts 96 for a ruptured tank or 256 for an intact tank because the computed zero burn takes the same carry path. A high byte of `$20` raises the LOW FUEL flag. On underflow the routine clears only the high byte and increments `$03A3`.
 
 ## Listing
 
-*Re-disassembled from the byte map: every instruction shown is one the game really executes from this entry, and gaps are branch targets that follow an early return.*
+*Decoded from the byte map within the curated code ranges for this routine.*
 
-<pre class="rt-listing">
-<span class="rt-addr">25D3</span>  <span class="rt-bytes">E6 11   </span>  <span class="rt-op">INC</span>  <span class="rt-arg">$11</span>
-<span class="rt-addr">25D5</span>  <span class="rt-bytes">AD AF 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$03AF</span>
-<span class="rt-addr">25D8</span>  <span class="rt-bytes">F0 01   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$25DB</span>
-<span class="rt-addr">25DA</span>  <span class="rt-bytes">60      </span>  <span class="rt-op">RTS</span>  <span class="rt-arg"></span>
-<span class="rt-addr">25DB</span>  <span class="rt-bytes">F8      </span>  <span class="rt-op">SED</span>  <span class="rt-arg"></span>
-<span class="rt-addr">25DC</span>  <span class="rt-bytes">AD 40 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$0340</span>   <span class="rt-cmt">; Frame counter</span>
-<span class="rt-addr">25DF</span>  <span class="rt-bytes">18      </span>  <span class="rt-op">CLC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">25E0</span>  <span class="rt-bytes">69 01   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">#$01</span>
-<span class="rt-addr">25E2</span>  <span class="rt-bytes">8D 40 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0340</span>   <span class="rt-cmt">; Frame counter</span>
-<span class="rt-addr">25E5</span>  <span class="rt-bytes">48      </span>  <span class="rt-op">PHA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">25E6</span>  <span class="rt-bytes">29 0F   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$0F</span>
-<span class="rt-addr">25E8</span>  <span class="rt-bytes">D0 08   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$25F2</span>
-<span class="rt-addr">25EA</span>  <span class="rt-bytes">AD 56 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$0356</span>
-<span class="rt-addr">25ED</span>  <span class="rt-bytes">F0 03   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$25F2</span>
-<span class="rt-addr">25EF</span>  <span class="rt-bytes">CE 56 03</span>  <span class="rt-op">DEC</span>  <span class="rt-arg">$0356</span>
-<span class="rt-addr">25F2</span>  <span class="rt-bytes">68      </span>  <span class="rt-op">PLA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">25F3</span>  <span class="rt-bytes">C9 50   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$50</span>
-<span class="rt-addr">25F5</span>  <span class="rt-bytes">B0 03   </span>  <span class="rt-op">BCS</span>  <span class="rt-arg">$25FA</span>
-<span class="rt-addr">25F7</span>  <span class="rt-bytes">4C A0 26</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$26A0</span>
-<span class="rt-addr">25FA</span>  <span class="rt-bytes">A9 00   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">25FC</span>  <span class="rt-bytes">8D 40 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0340</span>   <span class="rt-cmt">; Frame counter</span>
-<span class="rt-addr">25FF</span>  <span class="rt-bytes">6D 41 03</span>  <span class="rt-op">ADC</span>  <span class="rt-arg">$0341</span>   <span class="rt-cmt">; Seconds</span>
-<span class="rt-addr">2602</span>  <span class="rt-bytes">8D 41 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0341</span>   <span class="rt-cmt">; Seconds</span>
-<span class="rt-addr">2605</span>  <span class="rt-bytes">EE 76 03</span>  <span class="rt-op">INC</span>  <span class="rt-arg">$0376</span>
-<span class="rt-addr">2608</span>  <span class="rt-bytes">48      </span>  <span class="rt-op">PHA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2609</span>  <span class="rt-bytes">29 01   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$01</span>
-<span class="rt-addr">260B</span>  <span class="rt-bytes">D0 1A   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$2627</span>
-<span class="rt-addr">260D</span>  <span class="rt-bytes">EE 35 03</span>  <span class="rt-op">INC</span>  <span class="rt-arg">$0335</span>
-<span class="rt-addr">2610</span>  <span class="rt-bytes">D0 0B   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$261D</span>
-<span class="rt-addr">2612</span>  <span class="rt-bytes">AD 36 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$0336</span>
-<span class="rt-addr">2615</span>  <span class="rt-bytes">18      </span>  <span class="rt-op">CLC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2616</span>  <span class="rt-bytes">69 01   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">#$01</span>
-<span class="rt-addr">2618</span>  <span class="rt-bytes">29 01   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$01</span>
-<span class="rt-addr">261A</span>  <span class="rt-bytes">8D 36 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0336</span>
-<span class="rt-addr">261D</span>  <span class="rt-bytes">AD 35 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$0335</span>
-<span class="rt-addr">2620</span>  <span class="rt-bytes">29 1F   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$1F</span>
-<span class="rt-addr">2622</span>  <span class="rt-bytes">D0 03   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$2627</span>
-<span class="rt-addr">2624</span>  <span class="rt-bytes">EE 9C 03</span>  <span class="rt-op">INC</span>  <span class="rt-arg">$039C</span>
-<span class="rt-addr">2627</span>  <span class="rt-bytes">AD 96 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$0396</span>   <span class="rt-cmt">; Dock state</span>
-<span class="rt-addr">262A</span>  <span class="rt-bytes">D0 4C   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$2678</span>
-<span class="rt-addr">262C</span>  <span class="rt-bytes">AD 77 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$0377</span>   <span class="rt-cmt">; Shield</span>
-<span class="rt-addr">262F</span>  <span class="rt-bytes">C9 BF   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$BF</span>
-<span class="rt-addr">2631</span>  <span class="rt-bytes">B0 03   </span>  <span class="rt-op">BCS</span>  <span class="rt-arg">$2636</span>
-<span class="rt-addr">2633</span>  <span class="rt-bytes">EE 77 03</span>  <span class="rt-op">INC</span>  <span class="rt-arg">$0377</span>   <span class="rt-cmt">; Shield</span>
-<span class="rt-addr">2636</span>  <span class="rt-bytes">D8      </span>  <span class="rt-op">CLD</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2637</span>  <span class="rt-bytes">AD 44 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$0344</span>   <span class="rt-cmt">; Altitude</span>
-<span class="rt-addr">263A</span>  <span class="rt-bytes">F0 09   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$2645</span>
-<span class="rt-addr">263C</span>  <span class="rt-bytes">AD 53 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$0353</span>   <span class="rt-cmt">; Speed</span>
-<span class="rt-addr">263F</span>  <span class="rt-bytes">4A      </span>  <span class="rt-op">LSR</span>  <span class="rt-arg">A</span>
-<span class="rt-addr">2640</span>  <span class="rt-bytes">4A      </span>  <span class="rt-op">LSR</span>  <span class="rt-arg">A</span>
-<span class="rt-addr">2641</span>  <span class="rt-bytes">4A      </span>  <span class="rt-op">LSR</span>  <span class="rt-arg">A</span>
-<span class="rt-addr">2642</span>  <span class="rt-bytes">18      </span>  <span class="rt-op">CLC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2643</span>  <span class="rt-bytes">69 10   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">#$10</span>
-<span class="rt-addr">2645</span>  <span class="rt-bytes">AE 9E 03</span>  <span class="rt-op">LDX</span>  <span class="rt-arg">$039E</span>   <span class="rt-cmt">; Tank ruptured</span>
-<span class="rt-addr">2648</span>  <span class="rt-bytes">F0 03   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$264D</span>
-<span class="rt-addr">264A</span>  <span class="rt-bytes">18      </span>  <span class="rt-op">CLC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">264B</span>  <span class="rt-bytes">69 60   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">#$60</span>
-<span class="rt-addr">264D</span>  <span class="rt-bytes">49 FF   </span>  <span class="rt-op">EOR</span>  <span class="rt-arg">#$FF</span>
-<span class="rt-addr">264F</span>  <span class="rt-bytes">18      </span>  <span class="rt-op">CLC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2650</span>  <span class="rt-bytes">69 01   </span>  <span class="rt-op">ADC</span>  <span class="rt-arg">#$01</span>
-<span class="rt-addr">2652</span>  <span class="rt-bytes">18      </span>  <span class="rt-op">CLC</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2653</span>  <span class="rt-bytes">6D 45 03</span>  <span class="rt-op">ADC</span>  <span class="rt-arg">$0345</span>   <span class="rt-cmt">; Fuel (low byte)</span>
-<span class="rt-addr">2656</span>  <span class="rt-bytes">8D 45 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0345</span>   <span class="rt-cmt">; Fuel (low byte)</span>
-<span class="rt-addr">2659</span>  <span class="rt-bytes">A9 FF   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$FF</span>
-<span class="rt-addr">265B</span>  <span class="rt-bytes">6D 46 03</span>  <span class="rt-op">ADC</span>  <span class="rt-arg">$0346</span>   <span class="rt-cmt">; Fuel (whole units)</span>
-<span class="rt-addr">265E</span>  <span class="rt-bytes">8D 46 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0346</span>   <span class="rt-cmt">; Fuel (whole units)</span>
-<span class="rt-addr">2661</span>  <span class="rt-bytes">B0 08   </span>  <span class="rt-op">BCS</span>  <span class="rt-arg">$266B</span>
-<span class="rt-addr">2663</span>  <span class="rt-bytes">A9 00   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">2665</span>  <span class="rt-bytes">8D 46 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0346</span>   <span class="rt-cmt">; Fuel (whole units)</span>
-<span class="rt-addr">2668</span>  <span class="rt-bytes">EE A3 03</span>  <span class="rt-op">INC</span>  <span class="rt-arg">$03A3</span>   <span class="rt-cmt">; NO FUEL flag</span>
-<span class="rt-addr">266B</span>  <span class="rt-bytes">C9 20   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$20</span>
-<span class="rt-addr">266D</span>  <span class="rt-bytes">D0 08   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$2677</span>
-<span class="rt-addr">266F</span>  <span class="rt-bytes">AD A2 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$03A2</span>   <span class="rt-cmt">; LOW FUEL flag</span>
-<span class="rt-addr">2672</span>  <span class="rt-bytes">D0 03   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$2677</span>
-<span class="rt-addr">2674</span>  <span class="rt-bytes">EE A2 03</span>  <span class="rt-op">INC</span>  <span class="rt-arg">$03A2</span>   <span class="rt-cmt">; LOW FUEL flag</span>
-<span class="rt-addr">2677</span>  <span class="rt-bytes">F8      </span>  <span class="rt-op">SED</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2678</span>  <span class="rt-bytes">68      </span>  <span class="rt-op">PLA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">2679</span>  <span class="rt-bytes">C9 60   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$60</span>
-<span class="rt-addr">267B</span>  <span class="rt-bytes">90 23   </span>  <span class="rt-op">BCC</span>  <span class="rt-arg">$26A0</span>
-<span class="rt-addr">267D</span>  <span class="rt-bytes">A9 00   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">267F</span>  <span class="rt-bytes">8D 41 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0341</span>   <span class="rt-cmt">; Seconds</span>
-<span class="rt-addr">2682</span>  <span class="rt-bytes">6D 42 03</span>  <span class="rt-op">ADC</span>  <span class="rt-arg">$0342</span>   <span class="rt-cmt">; Minutes</span>
-<span class="rt-addr">2685</span>  <span class="rt-bytes">8D 42 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0342</span>   <span class="rt-cmt">; Minutes</span>
-<span class="rt-addr">2688</span>  <span class="rt-bytes">C9 60   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$60</span>
-<span class="rt-addr">268A</span>  <span class="rt-bytes">90 14   </span>  <span class="rt-op">BCC</span>  <span class="rt-arg">$26A0</span>
-<span class="rt-addr">268C</span>  <span class="rt-bytes">A9 00   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">268E</span>  <span class="rt-bytes">8D 42 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0342</span>   <span class="rt-cmt">; Minutes</span>
-<span class="rt-addr">2691</span>  <span class="rt-bytes">6D 43 03</span>  <span class="rt-op">ADC</span>  <span class="rt-arg">$0343</span>   <span class="rt-cmt">; Hours</span>
-<span class="rt-addr">2694</span>  <span class="rt-bytes">8D 43 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0343</span>   <span class="rt-cmt">; Hours</span>
-<span class="rt-addr">2697</span>  <span class="rt-bytes">C9 24   </span>  <span class="rt-op">CMP</span>  <span class="rt-arg">#$24</span>
-<span class="rt-addr">2699</span>  <span class="rt-bytes">90 05   </span>  <span class="rt-op">BCC</span>  <span class="rt-arg">$26A0</span>
-<span class="rt-addr">269B</span>  <span class="rt-bytes">A9 00   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">#$00</span>
-<span class="rt-addr">269D</span>  <span class="rt-bytes">8D 43 03</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$0343</span>   <span class="rt-cmt">; Hours</span>
-<span class="rt-addr">26A0</span>  <span class="rt-bytes">D8      </span>  <span class="rt-op">CLD</span>  <span class="rt-arg"></span>
-<span class="rt-addr">26A1</span>  <span class="rt-bytes">A5 11   </span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$11</span>
-<span class="rt-addr">26A3</span>  <span class="rt-bytes">AE 74 03</span>  <span class="rt-op">LDX</span>  <span class="rt-arg">$0374</span>
-<span class="rt-addr">26A6</span>  <span class="rt-bytes">D0 01   </span>  <span class="rt-op">BNE</span>  <span class="rt-arg">$26A9</span>
-<span class="rt-addr">26A8</span>  <span class="rt-bytes">4A      </span>  <span class="rt-op">LSR</span>  <span class="rt-arg">A</span>
-<span class="rt-addr">26A9</span>  <span class="rt-bytes">29 04   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$04</span>
-<span class="rt-addr">26AB</span>  <span class="rt-bytes">AA      </span>  <span class="rt-op">TAX</span>  <span class="rt-arg"></span>
-<span class="rt-addr">26AC</span>  <span class="rt-bytes">AD 75 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$0375</span>
-<span class="rt-addr">26AF</span>  <span class="rt-bytes">29 70   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$70</span>
-<span class="rt-addr">26B1</span>  <span class="rt-bytes">F0 07   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$26BA</span>
-<span class="rt-addr">26B3</span>  <span class="rt-bytes">8A      </span>  <span class="rt-op">TXA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">26B4</span>  <span class="rt-bytes">09 02   </span>  <span class="rt-op">ORA</span>  <span class="rt-arg">#$02</span>
-<span class="rt-addr">26B6</span>  <span class="rt-bytes">AA      </span>  <span class="rt-op">TAX</span>  <span class="rt-arg"></span>
-<span class="rt-addr">26B7</span>  <span class="rt-bytes">4C C5 26</span>  <span class="rt-op">JMP</span>  <span class="rt-arg">$26C5</span>
-<span class="rt-addr">26BA</span>  <span class="rt-bytes">AD 75 03</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$0375</span>
-<span class="rt-addr">26BD</span>  <span class="rt-bytes">29 08   </span>  <span class="rt-op">AND</span>  <span class="rt-arg">#$08</span>
-<span class="rt-addr">26BF</span>  <span class="rt-bytes">F0 04   </span>  <span class="rt-op">BEQ</span>  <span class="rt-arg">$26C5</span>
-<span class="rt-addr">26C1</span>  <span class="rt-bytes">8A      </span>  <span class="rt-op">TXA</span>  <span class="rt-arg"></span>
-<span class="rt-addr">26C2</span>  <span class="rt-bytes">09 01   </span>  <span class="rt-op">ORA</span>  <span class="rt-arg">#$01</span>
-<span class="rt-addr">26C4</span>  <span class="rt-bytes">AA      </span>  <span class="rt-op">TAX</span>  <span class="rt-arg"></span>
-<span class="rt-addr">26C5</span>  <span class="rt-bytes">BD 52 64</span>  <span class="rt-op">LDA</span>  <span class="rt-arg">$6452,X</span>
-<span class="rt-addr">26C8</span>  <span class="rt-bytes">8D A6 DA</span>  <span class="rt-op">STA</span>  <span class="rt-arg">$DAA6</span>
-<span class="rt-addr">26CB</span>  <span class="rt-bytes">60      </span>  <span class="rt-op">RTS</span>  <span class="rt-arg"></span>
-</pre>
+```text
+25D3: E6 11    INC $11
+25D5: AD AF 03 LDA $03AF
+25D8: F0 01    BEQ $25DB
+25DA: 60       RTS
+25DB: F8       SED
+25DC: AD 40 03 LDA $0340   ; Frame counter
+25DF: 18       CLC
+25E0: 69 01    ADC #$01
+25E2: 8D 40 03 STA $0340   ; Frame counter
+25E5: 48       PHA
+25E6: 29 0F    AND #$0F
+25E8: D0 08    BNE $25F2
+25EA: AD 56 03 LDA $0356
+25ED: F0 03    BEQ $25F2
+25EF: CE 56 03 DEC $0356
+25F2: 68       PLA
+25F3: C9 50    CMP #$50
+25F5: B0 03    BCS $25FA
+25F7: 4C A0 26 JMP $26A0
+25FA: A9 00    LDA #$00
+25FC: 8D 40 03 STA $0340   ; Frame counter
+25FF: 6D 41 03 ADC $0341   ; Seconds
+2602: 8D 41 03 STA $0341   ; Seconds
+2605: EE 76 03 INC $0376
+2608: 48       PHA
+2609: 29 01    AND #$01
+260B: D0 1A    BNE $2627
+260D: EE 35 03 INC $0335
+2610: D0 0B    BNE $261D
+2612: AD 36 03 LDA $0336
+2615: 18       CLC
+2616: 69 01    ADC #$01
+2618: 29 01    AND #$01
+261A: 8D 36 03 STA $0336
+261D: AD 35 03 LDA $0335
+2620: 29 1F    AND #$1F
+2622: D0 03    BNE $2627
+2624: EE 9C 03 INC $039C
+2627: AD 96 03 LDA $0396   ; Dock state
+262A: D0 4C    BNE $2678
+262C: AD 77 03 LDA $0377   ; Shield
+262F: C9 BF    CMP #$BF
+2631: B0 03    BCS $2636
+2633: EE 77 03 INC $0377   ; Shield
+2636: D8       CLD
+2637: AD 44 03 LDA $0344   ; Altitude
+263A: F0 09    BEQ $2645
+263C: AD 53 03 LDA $0353   ; Speed
+263F: 4A       LSR A
+2640: 4A       LSR A
+2641: 4A       LSR A
+2642: 18       CLC
+2643: 69 10    ADC #$10
+2645: AE 9E 03 LDX $039E   ; Tank ruptured
+2648: F0 03    BEQ $264D
+264A: 18       CLC
+264B: 69 60    ADC #$60
+264D: 49 FF    EOR #$FF
+264F: 18       CLC
+2650: 69 01    ADC #$01
+2652: 18       CLC
+2653: 6D 45 03 ADC $0345   ; Fuel (low byte)
+2656: 8D 45 03 STA $0345   ; Fuel (low byte)
+2659: A9 FF    LDA #$FF
+265B: 6D 46 03 ADC $0346   ; Fuel (whole units)
+265E: 8D 46 03 STA $0346   ; Fuel (whole units)
+2661: B0 08    BCS $266B
+2663: A9 00    LDA #$00
+2665: 8D 46 03 STA $0346   ; Fuel (whole units)
+2668: EE A3 03 INC $03A3   ; NO FUEL flag
+266B: C9 20    CMP #$20
+266D: D0 08    BNE $2677
+266F: AD A2 03 LDA $03A2   ; LOW FUEL flag
+2672: D0 03    BNE $2677
+2674: EE A2 03 INC $03A2   ; LOW FUEL flag
+2677: F8       SED
+2678: 68       PLA
+2679: C9 60    CMP #$60
+267B: 90 23    BCC $26A0
+267D: A9 00    LDA #$00
+267F: 8D 41 03 STA $0341   ; Seconds
+2682: 6D 42 03 ADC $0342   ; Minutes
+2685: 8D 42 03 STA $0342   ; Minutes
+2688: C9 60    CMP #$60
+268A: 90 14    BCC $26A0
+268C: A9 00    LDA #$00
+268E: 8D 42 03 STA $0342   ; Minutes
+2691: 6D 43 03 ADC $0343   ; Hours
+2694: 8D 43 03 STA $0343   ; Hours
+2697: C9 24    CMP #$24
+2699: 90 05    BCC $26A0
+269B: A9 00    LDA #$00
+269D: 8D 43 03 STA $0343   ; Hours
+26A0: D8       CLD
+26A1: A5 11    LDA $11
+26A3: AE 74 03 LDX $0374
+26A6: D0 01    BNE $26A9
+26A8: 4A       LSR A
+26A9: 29 04    AND #$04
+26AB: AA       TAX
+26AC: AD 75 03 LDA $0375
+26AF: 29 70    AND #$70
+26B1: F0 07    BEQ $26BA
+26B3: 8A       TXA
+26B4: 09 02    ORA #$02
+26B6: AA       TAX
+26B7: 4C C5 26 JMP $26C5
+26BA: AD 75 03 LDA $0375
+26BD: 29 08    AND #$08
+26BF: F0 04    BEQ $26C5
+26C1: 8A       TXA
+26C2: 09 01    ORA #$01
+26C4: AA       TAX
+26C5: BD 52 64 LDA $6452,X
+26C8: 8D A6 DA STA $DAA6
+26CB: 60       RTS
+```
 
 ## Calls
 
@@ -135,8 +135,6 @@
 
 - `JSR` at `$4A08`
 - `JSR` at `$4A44`
-- `JSR` at `$4C0E`
-- `JSR` at `$4C1A`
 
 ---
 

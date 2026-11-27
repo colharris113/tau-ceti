@@ -38,17 +38,6 @@ def load_byte_map(paths: list[Path]) -> dict[int, int]:
     return memory
 
 
-def load_line_starts(paths: list[Path]) -> set[int]:
-    """Addresses that the listing itself begins a line at."""
-    starts: set[int] = set()
-    for path in paths:
-        for raw in path.read_text(encoding="utf-8", errors="replace").splitlines():
-            m = re.match(r"^([0-9A-Fa-f]{4}): [0-9A-Fa-f]{2}", raw)
-            if m:
-                starts.add(int(m.group(1), 16))
-    return starts
-
-
 class Disassembler:
     """Thin wrapper over py65 that decodes from our byte map."""
 

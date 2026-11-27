@@ -1,10 +1,10 @@
 # This project
 
-<p class="lede">This is a study of a single Commodore 64 program: the 1986 conversion of Tau Ceti. It exists because the game's design is unusually legible from its code, and because almost nothing is written down about how that code works.</p>
+This is a study of a single Commodore 64 program: the 1986 conversion of Tau Ceti. It exists because the game's design is unusually legible from its code, and because almost nothing is written down about how that code works.
 
 ## What it is
 
-The site has three jobs:
+The guide has three jobs:
 
 1. **Explain the mechanics.** How docking really decides, what the fuel burn is, how a jump pad picks a destination, how the AI's fire counters work.
 2. **Document the code.** A routine-by-routine guide with addresses, instruction streams, shared variables and call sites.
@@ -14,7 +14,7 @@ It is not a walkthrough, a longplay or a replacement for the manual. Spoilers fo
 
 ## Who made it
 
-The guide is written by Colin Harris, with the analysis, tooling and diagrams produced alongside a modern remake of the game. The remake is a separate project; this site is the static, readable record of what the C64 original actually does.
+The guide is written by Colin Harris. The analysis, tooling and diagrams were produced alongside a modern remake of the game. This guide describes the C64 original.
 
 The method is the point: every claim is traced to an address, and every generated table or figure is reproducible from the scripts in the repository. See [Method](method.md).
 
@@ -31,3 +31,5 @@ The C64 original is the authority, and if this guide disagrees with it, the guid
 ## Thanks
 
 See [Acknowledgements](acknowledgements.md).
+
+[Back to the guide](../index.md)
