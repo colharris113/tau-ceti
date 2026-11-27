@@ -37,7 +37,4 @@ contributors can regenerate the derived material after a source change.
 
 The analysis is derived from the retail `TAUCETI.D64` image and the published
 interface, and cross-checked against the DOS and Spectrum versions where they
-differ. *Tau Ceti* is © CRL Group PLC (1986). This repository ships no game
-image and is not affiliated with CRL or the authors. It is an independent,
-non-commercial work of study; the disassembly listings are kept private until
-that question is settled.
+differ. *Tau Ceti* is © CRL Group PLC (1986).  
